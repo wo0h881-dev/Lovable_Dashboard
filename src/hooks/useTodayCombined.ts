@@ -124,6 +124,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
         ? "from-amber-900 to-orange-700"
         : "from-blue-900 to-indigo-700",
     coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
+    thumbnailUrl: row["썸네일"] || undefined,   // ✅ 여기 추가
     todayRank,
     prevRank,
     rankChange,
