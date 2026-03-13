@@ -6,6 +6,7 @@ import { KpiCard } from "@/components/shared/KpiCard";
 import { RankingCard } from "@/components/shared/RankingCard";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { novels, kpiData, platformShareData, genreBarData, heatmapData, type Novel } from "@/data/mockData";
+import { useTodayCombined } from "@/hooks/useTodayCombined"; // ✅ 추가
 
 const fadeInUp = { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } };
 
