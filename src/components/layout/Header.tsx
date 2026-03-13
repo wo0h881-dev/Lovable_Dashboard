@@ -1,0 +1,84 @@
+import { useState } from "react";
+import { Calendar, ChevronDown, Filter } from "lucide-react";
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+
+export type DateRange = "today" | "7d" | "30d";
+export type PlatformFilter = "all" | "naver" | "kakao" | "ridi";
+
+interface Props {
+  dateRange: DateRange;
+  platform: PlatformFilter;
+  onDateRangeChange: (v: DateRange) => void;
+  onPlatformChange: (v: PlatformFilter) => void;
+}
+
+const dateLabels: Record<DateRange, string> = { today: "오늘", "7d": "최근 7일", "30d": "최근 30일" };
+const platformLabels: Record<PlatformFilter, string> = { all: "전체", naver: "네이버", kakao: "카카오", ridi: "리디" };
+const platformColors: Record<PlatformFilter, string> = {
+  all: "text-foreground",
+  naver: "text-naver",
+  kakao: "text-kakao",
+  ridi: "text-ridi",
+};
+
+export function Header({ dateRange, platform, onDateRangeChange, onPlatformChange }: Props) {
+  return (
+    <header className="fixed top-0 left-0 right-0 h-14 z-40 flex items-center justify-between px-4 border-b border-border"
+            style={{ background: "hsl(var(--background))" }}>
+      {/* Logo */}
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+          <span className="text-lg">📚</span>
+        </div>
+        <div className="leading-tight">
+          <div className="text-sm font-black tracking-tight text-foreground">웹소설 PD 대시보드</div>
+          <div className="text-[10px] text-muted-foreground font-mono">WebNovel Analytics</div>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="flex items-center gap-2">
+        {/* Date filter */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors text-foreground">
+              <Calendar size={13} className="text-muted-foreground" />
+              {dateLabels[dateRange]}
+              <ChevronDown size={12} className="text-muted-foreground" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-surface border-border">
+            {(Object.keys(dateLabels) as DateRange[]).map(k => (
+              <DropdownMenuItem key={k} onClick={() => onDateRangeChange(k)}
+                className={cn("text-xs cursor-pointer", dateRange === k && "text-primary font-semibold")}>
+                {dateLabels[k]}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* Platform filter */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors">
+              <Filter size={13} className="text-muted-foreground" />
+              <span className={cn(platformColors[platform])}>{platformLabels[platform]}</span>
+              <ChevronDown size={12} className="text-muted-foreground" />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-surface border-border">
+            {(Object.keys(platformLabels) as PlatformFilter[]).map(k => (
+              <DropdownMenuItem key={k} onClick={() => onPlatformChange(k)}
+                className={cn("text-xs cursor-pointer", platformColors[k], platform === k && "font-semibold")}>
+                {platformLabels[k]}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </header>
+  );
+}
