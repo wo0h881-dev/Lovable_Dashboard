@@ -34,7 +34,7 @@ export default function RankingsPage() {
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-  const filtered = sourceNovels
+   const filtered = sourceNovels
     .filter((n) => platform === "all" || n.platform === platform)
     .filter((n) => genre === "전체" || n.genre === genre)
     .filter((n) => !showNew || n.isNew)
@@ -43,10 +43,25 @@ export default function RankingsPage() {
       (n) => !search || n.title.includes(search) || n.author.includes(search),
     )
     .sort((a, b) => {
-      if (sortKey === "views") return b.todayViews - a.todayViews;
-      if (sortKey === "rating") return b.rating - a.rating;
-      return a.todayRank - b.todayRank;
+      // 통합 기본 룰: 1) rankToScore, 2) todayViews
+      if (sortKey === "rank") {
+        const scoreA = rankToScore(a.todayRank);
+        const scoreB = rankToScore(b.todayRank);
+        if (scoreA !== scoreB) return scoreB - scoreA;
+        return b.todayViews - a.todayViews;
+      }
+
+      if (sortKey === "views") {
+        return b.todayViews - a.todayViews;
+      }
+
+      if (sortKey === "rating") {
+        return b.rating - a.rating;
+      }
+
+      return 0;
     });
+
 
   const topCards = filtered.slice(0, 4);
 
