@@ -51,6 +51,7 @@ export default function RankingsPage() {
           build: 2026-03-13 Rankings.tsx 수정됨
         </p>
       </div>
+);
 
 
       {/* Filters */}
