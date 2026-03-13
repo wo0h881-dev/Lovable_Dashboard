@@ -253,8 +253,22 @@ export default function RankingsPage() {
                 ))}
               </tr>
             </thead>
+                <tbody>
+              {filtered.map((n, i) => (
+                <motion.tr
+                  key={n.id}
+                  className="data-table-row"
+                  onClick={() => setSelectedNovel(n)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: i * 0.02 }}
+                >
+                  <td className="py-2.5 px-3">
+                    <PlatformBadge platform={n.platform} />
+                  </td>
+                  {/* 화면용 순위: 필터/정렬 결과 기준 1,2,3... */}
                   <td className="py-2.5 px-3 font-mono font-bold text-sm">
-                   {i + 1}
+                    {i + 1}
                   </td>
                   <td className="py-2.5 px-3 max-w-[180px]">
                     <div className="flex items-center gap-2">
@@ -295,19 +309,16 @@ export default function RankingsPage() {
                     <Star size={10} className="text-yellow-400" />
                     {n.rating}
                   </td>
-                <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                   {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
+                  <td className="py-2.5 px-3 font-mono text-muted-foreground">
+                    {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
                   </td>
-                <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                   {Number(n.episodeCount ?? 0).toLocaleString("ko-KR")}
+                  <td className="py-2.5 px-3 font-mono text-muted-foreground">
+                    {Number(n.episodeCount ?? 0).toLocaleString("ko-KR")}
                   </td>
-
                 </motion.tr>
               ))}
             </tbody>
-          </table>
-        </div>
-      </div>
+
 
       <NovelDetailDrawer
         novel={selectedNovel}
