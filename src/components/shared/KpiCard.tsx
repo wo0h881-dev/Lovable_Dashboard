@@ -28,7 +28,7 @@ export function KpiCard({ title, value, change, icon: Icon, iconColor, suffix, c
 
       <div className="flex items-end gap-2">
         <span className="font-mono text-3xl font-bold text-foreground">
-          {typeof value === "number" ? value.toLocaleString("ko-KR") : value}
+          {typeof value === "number"? Number(value ?? 0).toLocaleString("ko-KR"): value}
         </span>
         {suffix && <span className="text-sm text-muted-foreground mb-1">{suffix}</span>}
       </div>
