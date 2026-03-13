@@ -11,6 +11,7 @@ export interface Novel {
   coverGradient: string;
   coverEmoji: string;
   todayRank: number;
+  thumbnailUrl?: string;  // ✅ 추가
   prevRank: number | null;
   rankChange: number | null;
   isNew: boolean;
