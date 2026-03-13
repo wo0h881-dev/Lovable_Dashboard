@@ -7,7 +7,8 @@ import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { RankChange } from "@/components/shared/RankChange";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { novels, formatViews, type Novel, type Platform, type Genre } from "@/data/mockData";
+import { formatViews, type Novel, type Platform, type Genre } from "@/data/mockData";
+import { useTodayCombined } from "@/hooks/useTodayCombined";
 
 type PlatformTab = "all" | Platform;
 const platformTabs: { key: PlatformTab; label: string }[] = [
@@ -26,8 +27,12 @@ export default function RankingsPage() {
   const [search, setSearch]           = useState("");
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
   const [sortKey, setSortKey]         = useState<"rank" | "views" | "rating">("rank");
+  const { data: combinedNovels, isLoading, error } = useTodayCombined();
 
-  const filtered = novels
+
+    const sourceNovels: Novel[] = combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
+
+  const filtered = sourceNovels
     .filter(n => platform === "all" || n.platform === platform)
     .filter(n => genre === "전체" || n.genre === genre)
     .filter(n => !showNew || n.isNew)
@@ -39,11 +44,11 @@ export default function RankingsPage() {
       return a.todayRank - b.todayRank;
     });
 
+
   const topCards = filtered.slice(0, 4);
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div>
+         <div>
         <h1 className="text-xl font-black tracking-tight">순위표</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
           플랫폼 · 장르별 상세 랭킹
@@ -51,7 +56,18 @@ export default function RankingsPage() {
         <p className="text-[10px] text-red-500 mt-0.5">
           build: 2026-03-13 Rankings.tsx 수정됨
         </p>
+        {isLoading && (
+          <p className="text-[10px] text-muted-foreground mt-0.5">
+            오늘 통합 랭킹 불러오는 중…
+          </p>
+        )}
+        {error && (
+          <p className="text-[10px] text-red-500 mt-0.5">
+            데이터 로딩 실패: {error}
+          </p>
+        )}
       </div>
+
 
       {/* Filters */}
       <div className="surface-card space-y-4">
