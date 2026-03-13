@@ -22,33 +22,37 @@ const genres: (Genre | "전체")[] = ["전체", "로판", "판타지", "로맨�
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
-  const [showNew, setShowNew]         = useState(false);
+  const [showNew, setShowNew] = useState(false);
   const [showReEntry, setShowReEntry] = useState(false);
-  const [search, setSearch]           = useState("");
+  const [search, setSearch] = useState("");
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
-  const [sortKey, setSortKey]         = useState<"rank" | "views" | "rating">("rank");
+  const [sortKey, setSortKey] =
+    useState<"rank" | "views" | "rating">("rank");
+
   const { data: combinedNovels, isLoading, error } = useTodayCombined();
 
-
-    const sourceNovels: Novel[] = combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
+  const sourceNovels: Novel[] =
+    combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
   const filtered = sourceNovels
-    .filter(n => platform === "all" || n.platform === platform)
-    .filter(n => genre === "전체" || n.genre === genre)
-    .filter(n => !showNew || n.isNew)
-    .filter(n => !showReEntry || n.isReEntry)
-    .filter(n => !search || n.title.includes(search) || n.author.includes(search))
+    .filter((n) => platform === "all" || n.platform === platform)
+    .filter((n) => genre === "전체" || n.genre === genre)
+    .filter((n) => !showNew || n.isNew)
+    .filter((n) => !showReEntry || n.isReEntry)
+    .filter(
+      (n) => !search || n.title.includes(search) || n.author.includes(search),
+    )
     .sort((a, b) => {
-      if (sortKey === "views")  return b.todayViews - a.todayViews;
+      if (sortKey === "views") return b.todayViews - a.todayViews;
       if (sortKey === "rating") return b.rating - a.rating;
       return a.todayRank - b.todayRank;
     });
 
-
   const topCards = filtered.slice(0, 4);
 
   return (
-         <div>
+    <div className="space-y-6 animate-fade-in">
+      <div>
         <h1 className="text-xl font-black tracking-tight">순위표</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
           플랫폼 · 장르별 상세 랭킹
@@ -68,21 +72,23 @@ export default function RankingsPage() {
         )}
       </div>
 
-
       {/* Filters */}
       <div className="surface-card space-y-4">
         {/* Platform tabs */}
         <div className="flex items-center gap-2 flex-wrap">
-          {platformTabs.map(t => (
+          {platformTabs.map((t) => (
             <button
               key={t.key}
               onClick={() => setPlatform(t.key)}
               className={cn(
                 "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors",
                 platform === t.key
-                  ? t.key === "naver" ? "bg-naver text-black"
-                    : t.key === "kakao" ? "bg-kakao text-black"
-                    : t.key === "ridi"  ? "bg-ridi text-white"
+                  ? t.key === "naver"
+                    ? "bg-naver text-black"
+                    : t.key === "kakao"
+                    ? "bg-kakao text-black"
+                    : t.key === "ridi"
+                    ? "bg-ridi text-white"
                     : "bg-primary text-primary-foreground"
                   : "bg-surface-elevated text-muted-foreground hover:text-foreground",
               )}
@@ -91,7 +97,7 @@ export default function RankingsPage() {
             </button>
           ))}
           <div className="h-5 w-px bg-border mx-1" />
-          {genres.map(g => (
+          {genres.map((g) => (
             <button
               key={g}
               onClick={() => setGenre(g)}
@@ -116,7 +122,7 @@ export default function RankingsPage() {
             />
             <input
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="제목 / 작가 검색…"
               className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
@@ -124,8 +130,12 @@ export default function RankingsPage() {
 
           {/* Toggle chips */}
           {[
-            { label: "NEW만 보기", value: showNew,     setter: setShowNew },
-            { label: "재진입만 보기", value: showReEntry, setter: setShowReEntry },
+            { label: "NEW만 보기", value: showNew, setter: setShowNew },
+            {
+              label: "재진입만 보기",
+              value: showReEntry,
+              setter: setShowReEntry,
+            },
           ].map(({ label, value, setter }) => (
             <button
               key={label}
@@ -145,10 +155,10 @@ export default function RankingsPage() {
           <div className="flex items-center gap-1 ml-auto">
             <SlidersHorizontal size={13} className="text-muted-foreground" />
             {[
-              { key: "rank" as const,   label: "순위" },
-              { key: "views" as const,  label: "조회수" },
+              { key: "rank" as const, label: "순위" },
+              { key: "views" as const, label: "조회수" },
               { key: "rating" as const, label: "평점" },
-            ].map(s => (
+            ].map((s) => (
               <button
                 key={s.key}
                 onClick={() => setSortKey(s.key)}
@@ -169,7 +179,9 @@ export default function RankingsPage() {
       {/* Top 4 cards */}
       {topCards.length > 0 && (
         <div>
-          <p className="text-xs text-muted-foreground mb-3 font-medium">주요 작품</p>
+          <p className="text-xs text-muted-foreground mb-3 font-medium">
+            주요 작품
+          </p>
           <div className="space-y-2">
             {topCards.map((n) => (
               <RankingCard
@@ -209,7 +221,7 @@ export default function RankingsPage() {
                   "평점",
                   "댓글",
                   "회차",
-                ].map(h => (
+                ].map((h) => (
                   <th
                     key={h}
                     className="py-3 px-3 text-left text-muted-foreground font-medium whitespace-nowrap"
