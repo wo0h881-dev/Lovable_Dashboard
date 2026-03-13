@@ -301,12 +301,13 @@ export default function RankingsPage() {
                     <Star size={10} className="text-yellow-400" />
                     {n.rating}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {n.commentCount.toLocaleString("ko-KR")}
+                <td className="py-2.5 px-3 font-mono text-muted-foreground">
+                   {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {n.episodeCount}
+                <td className="py-2.5 px-3 font-mono text-muted-foreground">
+                   {Number(n.episodeCount ?? 0).toLocaleString("ko-KR")}
                   </td>
+
                 </motion.tr>
               ))}
             </tbody>
