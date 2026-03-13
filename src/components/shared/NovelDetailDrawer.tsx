@@ -64,7 +64,7 @@ export function NovelDetailDrawer({ novel, onClose }: Props) {
                   { label: "오늘 조회/평가", value: formatViews(novel.platform, novel.todayViews), icon: TrendingUp, color: "text-up" },
                   { label: "최고 순위",      value: `#${novel.peakRank}위`, icon: Trophy, color: "text-yellow-400" },
                   { label: "평점",           value: novel.rating.toString(), icon: Star, color: "text-yellow-400" },
-                  { label: "댓글",           value: {Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}, icon: MessageCircle, color: "text-ridi" },
+                  { label: "댓글",           value: Number(novel.commentCount ?? 0).toLocaleString("ko-KR"), icon: MessageCircle, color: "text-ridi" },
                   { label: "총 회차",        value: `${novel.episodeCount}화`, icon: BookOpen, color: "text-primary" },
                   { label: "연속 진입",      value: `${novel.consecutiveDays}일`, icon: Calendar, color: "text-naver" },
                 ].map(({ label, value, icon: Icon, color }) => (
