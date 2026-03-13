@@ -27,6 +27,12 @@ interface UseTodayCombinedResult {
   error: string | null;
 }
 
+function rankToScore(rank: number | null | undefined): number {
+  const n = typeof rank === "number" ? rank : Number(rank);
+  if (!n || Number.isNaN(n)) return 0;
+  return 21 - n; // 1위=20, 20위=1
+}
+
 function toPlatform(src: string): Platform {
   const s = src.trim();
   if (s === "네이버") return "naver";
