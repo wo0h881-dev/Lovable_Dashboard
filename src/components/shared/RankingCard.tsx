@@ -79,7 +79,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               </span>
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
-                <span className="font-mono">{novel.commentCount.toLocaleString("ko-KR")}</span>
+                <span className="font-mono">{Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}</span>
               </span>
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
