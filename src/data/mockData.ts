@@ -375,12 +375,12 @@ export const notableWorks = novels.filter(n => Math.abs(n.rankChange || 0) >= 4 
 
 export function formatViews(platform: Platform, views: number): string {
   if (platform === "ridi") {
-    return views.toLocaleString("ko-KR") + "개";
+    return Number(views ?? 0).toLocaleString("ko-KR") + "개";
   }
   if (views >= 10000000) return (views / 10000000).toFixed(1) + "천만";
   if (views >= 1000000)  return (views / 10000).toFixed(0) + "만";
   if (views >= 10000)    return (views / 10000).toFixed(1) + "만";
-  return views.toLocaleString("ko-KR");
+  return Number(views ?? 0).toLocaleString("ko-KR");
 }
 
 export function getRankChangeLabel(novel: Novel): { label: string; type: "up" | "down" | "new" | "reentry" | "same" } {
