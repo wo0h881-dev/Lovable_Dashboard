@@ -10,11 +10,10 @@ import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { formatViews, type Novel, type Platform, type Genre } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 
-// ✅ 여기 (import들 바로 아래, 컴포넌트 밖)
 function rankToScore(rank: number | null | undefined): number {
   const n = typeof rank === "number" ? rank : Number(rank);
   if (!n || Number.isNaN(n)) return 0;
-  return 21 - n;
+  return 21 - n; // 1위=20, 20위=1
 }
 
 type PlatformTab = "all" | Platform;
@@ -24,7 +23,17 @@ const platformTabs: { key: PlatformTab; label: string }[] = [
   { key: "kakao", label: "카카오" },
   { key: "ridi",  label: "리디" },
 ];
-const genres: (Genre | "전체")[] = ["전체", "로판", "판타지", "로맨스", "현판", "BL", "무협", "기타"];
+
+const genres: (Genre | "전체")[] = [
+  "전체",
+  "로판",
+  "판타지",
+  "로맨스",
+  "현판",
+  "BL",
+  "무협",
+  "기타",
+];
 
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
@@ -41,13 +50,16 @@ export default function RankingsPage() {
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-   const filtered = sourceNovels
+  const filtered = sourceNovels
     .filter((n) => platform === "all" || n.platform === platform)
     .filter((n) => genre === "전체" || n.genre === genre)
     .filter((n) => !showNew || n.isNew)
     .filter((n) => !showReEntry || n.isReEntry)
     .filter(
-      (n) => !search || n.title.includes(search) || n.author.includes(search),
+      (n) =>
+        !search ||
+        n.title.includes(search) ||
+        n.author.includes(search),
     )
     .sort((a, b) => {
       // 통합 기본 룰: 1) rankToScore, 2) todayViews
@@ -68,7 +80,6 @@ export default function RankingsPage() {
 
       return 0;
     });
-
 
   const topCards = filtered.slice(0, 4);
 
@@ -253,7 +264,7 @@ export default function RankingsPage() {
                 ))}
               </tr>
             </thead>
-                <tbody>
+            <tbody>
               {filtered.map((n, i) => (
                 <motion.tr
                   key={n.id}
@@ -318,7 +329,9 @@ export default function RankingsPage() {
                 </motion.tr>
               ))}
             </tbody>
-
+          </table>
+        </div>
+      </div>
 
       <NovelDetailDrawer
         novel={selectedNovel}
