@@ -10,6 +10,13 @@ import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { formatViews, type Novel, type Platform, type Genre } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 
+// ✅ 여기 (import들 바로 아래, 컴포넌트 밖)
+function rankToScore(rank: number | null | undefined): number {
+  const n = typeof rank === "number" ? rank : Number(rank);
+  if (!n || Number.isNaN(n)) return 0;
+  return 21 - n;
+}
+
 type PlatformTab = "all" | Platform;
 const platformTabs: { key: PlatformTab; label: string }[] = [
   { key: "all",   label: "전체" },
