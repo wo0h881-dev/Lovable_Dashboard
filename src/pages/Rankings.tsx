@@ -42,11 +42,16 @@ export default function RankingsPage() {
   const topCards = filtered.slice(0, 4);
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div>
+         <div>
         <h1 className="text-xl font-black tracking-tight">순위표</h1>
-        <p className="text-xs text-muted-foreground mt-0.5">플랫폼 · 장르별 상세 랭킹</p>
+        <p className="text-xs text-muted-foreground mt-0.5">
+          플랫폼 · 장르별 상세 랭킹
+        </p>
+        <p className="text-[10px] text-red-500 mt-0.5">
+          build: 2026-03-13 Rankings.tsx 수정됨
+        </p>
       </div>
+
 
       {/* Filters */}
       <div className="surface-card space-y-4">
