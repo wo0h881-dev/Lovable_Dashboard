@@ -297,14 +297,24 @@ export default function OverviewPage() {
         </div>
       </motion.div>
 
-      {/* TOP 10 Ranking Cards */}
-      <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-        <div className="flex items-center justify_between mb-4">
-          <h2 className="text-sm font-bold">오늘 TOP 10 랭킹</h2>
-          <span className="text-xs text-muted-foreground font-mono">
-            전체 플랫폼
-          </span>
-        </div>
+{/* TOP 10 Ranking Cards */}
+<motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
+  <div className="flex items-center justify_between mb-4">
+    <h2 className="text-sm font-bold">오늘 TOP 10 랭킹</h2>
+    <span className="text-xs text-muted-foreground font-mono">
+      전체 플랫폼
+    </span>
+  </div>
+
+  <p className="text-xs text-muted-foreground">
+    build: 2026-03-13 useTodayCombined 적용됨
+  </p>
+
+  {isLoading && (
+    <div className="text-xs text-muted-foreground">
+      랭킹 불러오는 중…
+    </div>
+  )}
 
         {isLoading && (
           <div className="text-xs text-muted-foreground">
