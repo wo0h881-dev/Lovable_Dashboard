@@ -253,21 +253,8 @@ export default function RankingsPage() {
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {filtered.map((n, i) => (
-                <motion.tr
-                  key={n.id}
-                  className="data-table-row"
-                  onClick={() => setSelectedNovel(n)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.02 }}
-                >
-                  <td className="py-2.5 px-3">
-                    <PlatformBadge platform={n.platform} />
-                  </td>
                   <td className="py-2.5 px-3 font-mono font-bold text-sm">
-                    {n.todayRank}
+                   {i + 1}
                   </td>
                   <td className="py-2.5 px-3 max-w-[180px]">
                     <div className="flex items-center gap-2">
