@@ -1,6 +1,7 @@
 // src/data/mockData.ts
 
 export type Platform = "naver" | "kakao" | "ridi";
+
 export type Genre =
   | "현판"
   | "로판"
@@ -411,25 +412,25 @@ export const trendData = Array.from({ length: 30 }, (_, i) => {
       1,
       4 +
         Math.round(
-          Math.sin(i / 3) * 3 + (Math.random() - 0.5) * 2
-        )
+          Math.sin(i / 3) * 3 + (Math.random() - 0.5) * 2,
+        ),
     ),
     novel1Views:
       2100000 +
       Math.round(
-        Math.sin(i / 4) * 300000 + (Math.random() - 0.5) * 200000
+        Math.sin(i / 4) * 300000 + (Math.random() - 0.5) * 200000,
       ),
     novel2Rank: Math.max(
       1,
       7 +
         Math.round(
-          Math.cos(i / 3) * 4 + (Math.random() - 0.5) * 3
-        )
+          Math.cos(i / 3) * 4 + (Math.random() - 0.5) * 3,
+        ),
     ),
     novel2Views:
       1600000 +
       Math.round(
-        Math.cos(i / 4) * 250000 + (Math.random() - 0.5) * 150000
+        Math.cos(i / 4) * 250000 + (Math.random() - 0.5) * 150000,
       ),
   };
 });
@@ -460,7 +461,7 @@ export const newWorksData = novels
   .slice(0, 8);
 
 export const notableWorks = novels.filter(
-  (n) => Math.abs(n.rankChange || 0) >= 4 || n.isNew || n.isReEntry
+  (n) => Math.abs(n.rankChange || 0) >= 4 || n.isNew || n.isReEntry,
 );
 
 export function formatViews(platform: Platform, views: number): string {
@@ -477,7 +478,7 @@ export function formatViews(platform: Platform, views: number): string {
 }
 
 export function getRankChangeLabel(
-  novel: Novel
+  novel: Novel,
 ): {
   label: string;
   type: "up" | "down" | "new" | "reentry" | "same";
