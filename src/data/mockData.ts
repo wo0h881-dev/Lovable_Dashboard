@@ -1,3 +1,5 @@
+// src/data/mockData.ts
+
 export type Platform = "naver" | "kakao" | "ridi";
 export type Genre = "로맨스" | "로판" | "BL" | "판타지" | "현판" | "무협" | "기타";
 
@@ -11,12 +13,12 @@ export interface Novel {
   coverGradient: string;
   coverEmoji: string;
   todayRank: number;
-  thumbnailUrl?: string;  // ✅ 추가
+  thumbnailUrl?: string;
   prevRank: number | null;
   rankChange: number | null;
   isNew: boolean;
   isReEntry: boolean;
-  todayViews: number;  // views for naver/kakao, ridi ratings for ridi
+  todayViews: number;        // 네이버/카카오: 조회수, 리디: 평가수
   viewsChange: number;
   viewsChangePct: number;
   rating: number;
@@ -319,27 +321,75 @@ export const novels: Novel[] = [
 ];
 
 export const publishers = [
-  { name: "카카오엔터", workCount: 342, naverCount: 12, kakaoCount: 298, ridiCount: 32, totalViews: 89200000, avgRank: 4.2 },
-  { name: "문피아",     workCount: 287, naverCount: 198, kakaoCount: 54, ridiCount: 35, totalViews: 71500000, avgRank: 5.1 },
-  { name: "디앤씨미디어", workCount: 198, naverCount: 45, kakaoCount: 123, ridiCount: 30, totalViews: 52300000, avgRank: 6.3 },
-  { name: "조아라",    workCount: 165, naverCount: 32, kakaoCount: 41, ridiCount: 92, totalViews: 38900000, avgRank: 8.7 },
-  { name: "로크미디어", workCount: 112, naverCount: 67, kakaoCount: 29, ridiCount: 16, totalViews: 29100000, avgRank: 9.4 },
-  { name: "대원씨아이", workCount: 89, naverCount: 11, kakaoCount: 58, ridiCount: 20, totalViews: 21400000, avgRank: 11.2 },
+  {
+    name: "카카오엔터",
+    workCount: 342,
+    naverCount: 12,
+    kakaoCount: 298,
+    ridiCount: 32,
+    totalViews: 89200000,
+    avgRank: 4.2,
+  },
+  {
+    name: "문피아",
+    workCount: 287,
+    naverCount: 198,
+    kakaoCount: 54,
+    ridiCount: 35,
+    totalViews: 71500000,
+    avgRank: 5.1,
+  },
+  {
+    name: "디앤씨미디어",
+    workCount: 198,
+    naverCount: 45,
+    kakaoCount: 123,
+    ridiCount: 30,
+    totalViews: 52300000,
+    avgRank: 6.3,
+  },
+  {
+    name: "조아라",
+    workCount: 165,
+    naverCount: 32,
+    kakaoCount: 41,
+    ridiCount: 92,
+    totalViews: 38900000,
+    avgRank: 8.7,
+  },
+  {
+    name: "로크미디어",
+    workCount: 112,
+    naverCount: 67,
+    kakaoCount: 29,
+    ridiCount: 16,
+    totalViews: 29100000,
+    avgRank: 9.4,
+  },
+  {
+    name: "대원씨아이",
+    workCount: 89,
+    naverCount: 11,
+    kakaoCount: 58,
+    ridiCount: 20,
+    totalViews: 21400000,
+    avgRank: 11.2,
+  },
 ];
 
 export const platformShareData = [
   { name: "네이버", value: 38, color: "hsl(138, 100%, 39%)" },
   { name: "카카오", value: 35, color: "hsl(50, 100%, 50%)" },
-  { name: "리디",   value: 27, color: "hsl(210, 76%, 51%)" },
+  { name: "리디", value: 27, color: "hsl(210, 76%, 51%)" },
 ];
 
 export const genreBarData = [
-  { genre: "로판",  naver: 28, kakao: 24, ridi: 19 },
+  { genre: "로판", naver: 28, kakao: 24, ridi: 19 },
   { genre: "판타지", naver: 35, kakao: 31, ridi: 14 },
   { genre: "로맨스", naver: 18, kakao: 22, ridi: 31 },
-  { genre: "현판",  naver: 22, kakao: 18, ridi: 8 },
-  { genre: "BL",   naver: 6,  kakao: 8,  ridi: 24 },
-  { genre: "무협",  naver: 12, kakao: 15, ridi: 4 },
+  { genre: "현판", naver: 22, kakao: 18, ridi: 8 },
+  { genre: "BL", naver: 6, kakao: 8, ridi: 24 },
+  { genre: "무협", naver: 12, kakao: 15, ridi: 4 },
 ];
 
 export const trendData = Array.from({ length: 30 }, (_, i) => {
@@ -347,50 +397,86 @@ export const trendData = Array.from({ length: 30 }, (_, i) => {
   date.setDate(date.getDate() + i);
   return {
     date: `${date.getMonth() + 1}/${date.getDate()}`,
-    novel1Rank: Math.max(1, 4 + Math.round(Math.sin(i / 3) * 3 + (Math.random() - 0.5) * 2)),
-    novel1Views: 2100000 + Math.round(Math.sin(i / 4) * 300000 + (Math.random() - 0.5) * 200000),
-    novel2Rank: Math.max(1, 7 + Math.round(Math.cos(i / 3) * 4 + (Math.random() - 0.5) * 3)),
-    novel2Views: 1600000 + Math.round(Math.cos(i / 4) * 250000 + (Math.random() - 0.5) * 150000),
+    novel1Rank: Math.max(
+      1,
+      4 +
+        Math.round(
+          Math.sin(i / 3) * 3 + (Math.random() - 0.5) * 2
+        )
+    ),
+    novel1Views:
+      2100000 +
+      Math.round(
+        Math.sin(i / 4) * 300000 + (Math.random() - 0.5) * 200000
+      ),
+    novel2Rank: Math.max(
+      1,
+      7 +
+        Math.round(
+          Math.cos(i / 3) * 4 + (Math.random() - 0.5) * 3
+        )
+    ),
+    novel2Views:
+      1600000 +
+      Math.round(
+        Math.cos(i / 4) * 250000 + (Math.random() - 0.5) * 150000
+      ),
   };
 });
 
 export const kpiData = {
   totalWorks: { value: 4821, change: 2.3 },
-  newWorks:   { value: 127, change: -8.1 },
-  rankMoved:  { value: 342, change: 12.4 },
-  reEntry:    { value: 23, change: 4.5 },
+  newWorks: { value: 127, change: -8.1 },
+  rankMoved: { value: 342, change: 12.4 },
+  reEntry: { value: 23, change: 4.5 },
 };
 
-export const heatmapData: { genre: Genre; naver: number; kakao: number; ridi: number }[] = [
-  { genre: "로판",   naver: 87, kakao: 72, ridi: 54 },
+export const heatmapData: {
+  genre: Genre;
+  naver: number;
+  kakao: number;
+  ridi: number;
+}[] = [
+  { genre: "로판", naver: 87, kakao: 72, ridi: 54 },
   { genre: "판타지", naver: 93, kakao: 88, ridi: 41 },
   { genre: "로맨스", naver: 61, kakao: 79, ridi: 92 },
-  { genre: "현판",   naver: 75, kakao: 68, ridi: 23 },
-  { genre: "BL",    naver: 28, kakao: 34, ridi: 89 },
-  { genre: "무협",   naver: 49, kakao: 61, ridi: 18 },
+  { genre: "현판", naver: 75, kakao: 68, ridi: 23 },
+  { genre: "BL", naver: 28, kakao: 34, ridi: 89 },
+  { genre: "무협", naver: 49, kakao: 61, ridi: 18 },
 ];
 
-export const newWorksData = novels.filter(n => n.isNew || n.isReEntry || n.consecutiveDays < 30).slice(0, 8);
-export const notableWorks = novels.filter(n => Math.abs(n.rankChange || 0) >= 4 || n.isNew || n.isReEntry);
+export const newWorksData = novels
+  .filter((n) => n.isNew || n.isReEntry || n.consecutiveDays < 30)
+  .slice(0, 8);
+
+export const notableWorks = novels.filter(
+  (n) => Math.abs(n.rankChange || 0) >= 4 || n.isNew || n.isReEntry
+);
 
 export function formatViews(platform: Platform, views: number): string {
-  // ✅ 리디: 평가수 그대로 + "평가"
+  // 리디: 평가수 그대로 + "평가"
   if (platform === "ridi") {
     return Number(views ?? 0).toLocaleString("ko-KR") + " 평가";
   }
 
-  // 네이버/카카오: 기존 조회수 포맷 유지
+  // 네이버/카카오: 조회수 포맷
   if (views >= 10000000) return (views / 10000000).toFixed(1) + "천만";
-  if (views >= 1000000)  return (views / 10000).toFixed(0) + "만";
-  if (views >= 10000)    return (views / 10000).toFixed(1) + "만";
+  if (views >= 1000000) return (views / 10000).toFixed(0) + "만";
+  if (views >= 10000) return (views / 10000).toFixed(1) + "만";
   return Number(views ?? 0).toLocaleString("ko-KR");
 }
 
-
-export function getRankChangeLabel(novel: Novel): { label: string; type: "up" | "down" | "new" | "reentry" | "same" } {
-  if (novel.isNew)     return { label: "NEW",  type: "new" };
+export function getRankChangeLabel(
+  novel: Novel
+): {
+  label: string;
+  type: "up" | "down" | "new" | "reentry" | "same";
+} {
+  if (novel.isNew) return { label: "NEW", type: "new" };
   if (novel.isReEntry) return { label: "재진입", type: "reentry" };
-  if (!novel.rankChange || novel.rankChange === 0) return { label: "–", type: "same" };
-  if (novel.rankChange > 0) return { label: `▲${novel.rankChange}`, type: "up" };
+  if (!novel.rankChange || novel.rankChange === 0)
+    return { label: "–", type: "same" };
+  if (novel.rankChange > 0)
+    return { label: `▲${novel.rankChange}`, type: "up" };
   return { label: `▼${Math.abs(novel.rankChange)}`, type: "down" };
 }
