@@ -43,11 +43,27 @@ function toPlatform(src: string): Platform {
 }
 
 function toGenre(g: string): Genre {
-  const g2 = g.trim() as Genre;
-  const allowed: Genre[] = ["로맨스", "로판", "BL", "판타지", "현판", "무협", "기타"];
-  if (allowed.includes(g2)) return g2;
+  const raw = (g || "").trim();
+
+  // BL
+  if (raw.startsWith("BL")) return "BL";
+
+  // 로맨스: "로맨스 · 현대물", "현대 로맨스" 등
+  if (raw.startsWith("로맨스") || raw.includes("로맨스")) return "로맨스";
+
+  // 로판: "서양풍 로판", "동양풍 로판", "로맨스판타지"
+  if (raw.includes("로판") || raw.includes("로맨스판타지")) return "로판";
+
+  // 판타지 계열(현대 판타지, 퓨전 판타지 등)
+  if (raw.includes("판타지")) return "판타지";
+
+  // 현판/무협은 기존 규칙 유지
+  if (raw.includes("현대물")) return "현판";
+  if (raw.includes("무협")) return "무협";
+
   return "기타";
 }
+
 
 function parseRank(v: string | number): number | null {
   if (v === null || v === undefined || v === "") return null;
