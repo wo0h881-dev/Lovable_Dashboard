@@ -13,7 +13,12 @@ interface Props {
   variant?: "default" | "compact";
 }
 
-export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
+export function RankingCard({
+  novel,
+  rank,
+  onClick,
+  variant = "default",
+}: Props) {
   const viewsUp = novel.viewsChangePct > 0;
 
   return (
@@ -21,7 +26,8 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
       className="ranking-card"
       whileHover={{
         scale: 1.018,
-        boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
+        boxShadow:
+          "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
       }}
       transition={{ duration: 0.18 }}
       onClick={() => onClick?.(novel)}
@@ -57,7 +63,10 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
             <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground flex-1">
               {novel.title}
             </h3>
-            <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
+            <PlatformBadge
+              platform={novel.platform}
+              className="flex-shrink-0 mt-0.5"
+            />
           </div>
           <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
@@ -70,6 +79,8 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
 
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
+
+          {/* 오늘 조회/평가 */}
           <span
             className={cn(
               "font-mono text-xs font-semibold",
@@ -77,18 +88,22 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
             )}
           >
             {formatViews(novel.platform, novel.todayViews)}
-            {/* 리디는 formatViews 안에 이미 "평가" 포함, 네이버/카카오만 "조회" 텍스트 추가 */}
             {novel.platform !== "ridi" && (
-              <span className="text-muted-foreground font-normal ml-1">조회</span>
+              <span className="text-muted-foreground font-normal ml-1">
+                조회
+              </span>
             )}
           </span>
 
           {variant === "default" && (
             <>
+              {/* 평점 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <Star size={10} className="text-yellow-400" />
                 <span className="font-mono">{novel.rating}</span>
               </span>
+
+              {/* 댓글 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
@@ -97,10 +112,14 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                     : Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}
                 </span>
               </span>
+
+              {/* 회차 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
                 <span className="font-mono">
-                  {novel.episodeCount ? `${novel.episodeCount}화` : "-"}
+                  {novel.episodeCount
+                    ? `${novel.episodeCount}화`
+                    : "-"}
                 </span>
               </span>
             </>
@@ -112,9 +131,12 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
       <div className="flex-shrink-0 flex items-center pr-4">
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
-            {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
+            {viewsUp ? "▲" : "▼"}{" "}
+            {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">전일 대비</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">
+            전일 대비
+          </div>
         </div>
       </div>
     </motion.div>
