@@ -123,21 +123,47 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 
   const { rankChange, isNew, isReEntry } = parseRankChange(row["순위변화"]);
 
-  const todayViewsNumber = parseViewsToNumber(row["오늘조회수"]);
-  const prevViewsNumber = parseViewsToNumber(row["전일조회수"]);
+  // ✅ 플랫폼별 조회수/평가수 해석
+  const rawTodayViews = row["오늘조회수"];
+  const rawPrevViews = row["전일조회수"];
+
+  const todayViewsNumber =
+    platform === "ridi"
+      ? (typeof rawTodayViews === "number"
+          ? rawTodayViews
+          : parseViewsToNumber(String(rawTodayViews || "0").replace(/,/g, "")))
+      : parseViewsToNumber(rawTodayViews);
+
+  const prevViewsNumber =
+    platform === "ridi"
+      ? (typeof rawPrevViews === "number"
+          ? rawPrevViews
+          : parseViewsToNumber(String(rawPrevViews || "0").replace(/,/g, "")))
+      : parseViewsToNumber(rawPrevViews);
+
   const viewsChangeNumber = todayViewsNumber - prevViewsNumber;
   const viewsChangePctNumber =
-    prevViewsNumber > 0 ? (viewsChangeNumber / prevViewsNumber) * 100 : parsePercent(row["조회수증감률"]);
+    prevViewsNumber > 0
+      ? (viewsChangeNumber / prevViewsNumber) * 100
+      : parsePercent(row["조회수증감률"]);
 
   // id는 platform+제목으로 임시 구성
   const id = `${platform}-${row["제목"]}-${todayRank}`;
+
+  // ✅ 리디 회차수 파싱 ("총 101화" → 101)
+  let episodeCount = 0;
+  const totalEpisodesRaw = (row as any)["총회차수"];
+  if (platform === "ridi" && typeof totalEpisodesRaw === "string") {
+    const m = totalEpisodesRaw.match(/(\d+)\s*화/);
+    if (m) episodeCount = Number(m[1]) || 0;
+  }
 
   const novel: Novel = {
     id,
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
     genre: toGenre(row["장르"] || "기타"),
-    publisher: "-", // 통합 시트에 출판사가 없다면 일단 "-"
+    publisher: "-", // (필요하면 통합 시트에 출판사 추가 후 여기서 매핑)
     platform,
     coverGradient:
       platform === "naver"
@@ -146,18 +172,18 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
         ? "from-amber-900 to-orange-700"
         : "from-blue-900 to-indigo-700",
     coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
-    thumbnailUrl: row["썸네일"] || undefined,   // ✅ 여기 추가
+    thumbnailUrl: row["썸네일"] || undefined,
     todayRank,
     prevRank,
     rankChange,
     isNew,
     isReEntry,
-    todayViews: todayViewsNumber,
+    todayViews: todayViewsNumber,      // 리디는 평가수 숫자 그대로
     viewsChange: viewsChangeNumber,
     viewsChangePct: viewsChangePctNumber,
-    rating: 0, // 통합 시트에 평점 정보 없으니 0으로
-    commentCount: 0, // 댓글 수도 없으면 0
-    episodeCount: 0, // 회차수 정보 없으면 0
+    rating: 0,                         // 아직 통합 평점 없음
+    commentCount: 0,                   // 댓글수도 아직 없음
+    episodeCount,
     firstAppeared: row["날짜"] || "",
     consecutiveDays: 0,
     peakRank: todayRank,
@@ -165,6 +191,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 
   return novel;
 }
+
 
 export function useTodayCombined(): UseTodayCombinedResult {
   const [data, setData] = useState<Novel[] | null>(null);
