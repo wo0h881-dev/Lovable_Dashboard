@@ -48,14 +48,27 @@ function toPlatform(src: string): Platform {
 function toGenre(g: string): Genre {
   const raw = (g || "").trim();
 
-  if (raw.startsWith("BL")) return "BL";
-  if (raw.startsWith("로맨스") || raw.includes("로맨스")) return "로맨스";
+  // BL
+  if (raw.toUpperCase().includes("BL")) return "BL";
+
+  // 로판 계열
   if (raw.includes("로판") || raw.includes("로맨스판타지")) return "로판";
+
+  // 로맨스 계열
+  if (raw.includes("로맨스")) return "로맨스";
+
+  // 판타지 계열 (현대/퓨전 포함)
   if (raw.includes("판타지")) return "판타지";
-  if (raw.includes("현대물")) return "현판";
+
+  // 현판: "현대물" + 판타지 단어 없는 경우
+  if (raw.includes("현대물") || raw.includes("현대")) return "현판";
+
+  // 무협
   if (raw.includes("무협")) return "무협";
+
   return "기타";
 }
+
 
 function parseRank(v: string | number): number | null {
   if (v === null || v === undefined || v === "") return null;
