@@ -27,15 +27,16 @@ export function RankingCard({
 
   return (
     <motion.div
-      className="ranking-card border-4 border-red-500 bg-black text-white"
-      whileHover={{
-        scale: 1.018,
-        boxShadow:
-          "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
-      }}
-      transition={{ duration: 0.18 }}
-      onClick={() => onClick?.(novel)}
-    >
+  className="ranking-card"
+  whileHover={{
+    scale: 1.018,
+    boxShadow:
+      "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
+  }}
+  transition={{ duration: 0.18 }}
+  onClick={() => onClick?.(novel)}
+>
+
       {/* Rank number */}
       <div
         className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4"
