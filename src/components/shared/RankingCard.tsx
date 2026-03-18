@@ -1,3 +1,5 @@
+// src/components/shared/RankingCard.tsx
+
 import { motion } from "framer-motion";
 import { MessageCircle, Star, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -25,7 +27,7 @@ export function RankingCard({
 
   return (
     <motion.div
-      className="ranking-card"
+      className="ranking-card border-4 border-red-500 bg-black text-white"
       whileHover={{
         scale: 1.018,
         boxShadow:
