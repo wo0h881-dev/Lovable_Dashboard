@@ -1,3 +1,5 @@
+// src/pages/Overview.tsx
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, RefreshCw, TrendingUp, Zap } from "lucide-react";
@@ -18,12 +20,13 @@ import { KpiCard } from "@/components/shared/KpiCard";
 import { RankingCard } from "@/components/shared/RankingCard";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import {
-  // novels,  // ✅ 더 이상 사용 안 함
   kpiData,
   platformShareData,
   genreBarData,
   heatmapData,
   type Novel,
+  type Genre,
+  type Platform,
 } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 
@@ -38,25 +41,69 @@ export default function OverviewPage() {
   const { data: todayCombined, isLoading, error } = useTodayCombined();
   const top10 = todayCombined ? todayCombined.slice(0, 10) : [];
 
-  // 통합 JSON → 기존 Novel 타입으로 단순 매핑
+  // 통합 JSON → Novel 타입으로 매핑
   const mapToNovel = (item: any, rank: number): Novel => {
+    const totalEpisodesRaw = item.총회차수 ?? item["총회차수"];
+    const episodeCount =
+      typeof totalEpisodesRaw === "number"
+        ? totalEpisodesRaw
+        : typeof totalEpisodesRaw === "string"
+        ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
+        : 0;
+
+    const todayViews = (() => {
+      const v = item.오늘조회수;
+      if (!v) return 0;
+      if (typeof v === "number") return v;
+      const n = Number(String(v).replace(/[^0-9.]/g, ""));
+      return Number.isNaN(n) ? 0 : n * (String(v).includes("만") ? 10000 : 1);
+    })();
+
+    const viewsChangePct = (() => {
+      const v = item.조회수증감률;
+      if (!v) return 0;
+      if (typeof v === "number") return v;
+      const n = Number(String(v).replace(/[^0-9.-]/g, ""));
+      return Number.isNaN(n) ? 0 : n;
+    })();
+
+    // 출처 문자열을 Platform으로 대충 매핑 (네이밍 맞게 필요하면 조정)
+    const rawSource: string = item.출처 || "";
+    let platform: Platform = "kakao";
+    if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
+      platform = "naver";
+    } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
+      platform = "ridi";
+    }
+
     return {
-      id: `${item.출처 || ""}-${item.제목 || ""}-${rank}`,
+      id: `${rawSource}-${item.제목 || ""}-${rank}`,
       title: item.제목 || "제목 없음",
       author: item.작가 || "-",
-      platform: item.출처 || "-",
-      genre: item.장르 || "웹소설",
+      genre: (item.장르 as Genre) || "기타",
       publisher: item.출판사 || "-",
-      thumbnail: item.썸네일 || "",
-      views: item.오늘조회수 || "-",
-      rating: item.평점 || "-",
-      comments: item.댓글수 || "-",
-      totalEpisodes: item.총회차수 || "-",
-      currentRank: item.오늘순위 || rank,
-      prevRank: item.전일순위 || "",
-      rankChange: item.순위변화 || "",
-      viewDiff: item.조회수증감 || "",
-      viewDiffRate: item.조회수증감률 || "",
+      platform,
+      coverGradient: "from-slate-800 to-slate-700",
+      coverEmoji: "📚",
+
+      todayRank: Number(item.오늘순위) || rank,
+      prevRank: item.전일순위 ? Number(item.전일순위) : null,
+      rankChange: null,
+
+      isNew: false,
+      isReEntry: false,
+
+      todayViews,
+      viewsChange: 0,
+      viewsChangePct,
+
+      rating: Number(item.평점) || 0,
+      commentCount: item.댓글수 ? Number(item.댓글수) : 0,
+      episodeCount,
+
+      firstAppeared: item.날짜 || "",
+      consecutiveDays: 1,
+      peakRank: Number(item.오늘순위) || rank,
     };
   };
 
@@ -77,14 +124,14 @@ export default function OverviewPage() {
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-xl font-black tracking-tight">전체 개요</h1>
-        <p className="text-xs text-muted-foreground mt-0.5 font-mono">
+        <p className="mt-0.5 text-xs font-mono text-muted-foreground">
           {formattedDate} · 실시간 업데이트
         </p>
       </div>
 
-      {/* KPI Cards (일단 mock 유지, 나중에 todayCombined 기반으로 계산 가능) */}
+      {/* KPI Cards */}
       <motion.div
-        className="grid grid-cols-2 xl:grid-cols-4 gap-4"
+        className="grid grid-cols-2 gap-4 xl:grid-cols-4"
         {...fadeInUp}
         transition={{ delay: 0.05 }}
       >
@@ -118,15 +165,15 @@ export default function OverviewPage() {
         />
       </motion.div>
 
-      {/* Charts row (플랫폼/장르/히트맵은 일단 mock 유지) */}
+      {/* Charts row */}
       <motion.div
-        className="grid grid-cols-1 xl:grid-cols-3 gap-4"
+        className="grid grid-cols-1 gap-4 xl:grid-cols-3"
         {...fadeInUp}
         transition={{ delay: 0.1 }}
       >
         {/* Donut chart */}
         <div className="surface-card">
-          <h2 className="text-sm font-bold mb-4">플랫폼별 점유율</h2>
+          <h2 className="mb-4 text-sm font-bold">플랫폼별 점유율</h2>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
@@ -153,14 +200,16 @@ export default function OverviewPage() {
               />
             </PieChart>
           </ResponsiveContainer>
-          <div className="flex items-center justify-center gap-4 mt-2">
+          <div className="mt-2 flex items-center justify-center gap-4">
             {platformShareData.map((d) => (
               <div key={d.name} className="flex items-center gap-1.5">
                 <div
-                  className="w-2.5 h-2.5 rounded-full"
+                  className="h-2.5 w-2.5 rounded-full"
                   style={{ background: d.color }}
                 />
-                <span className="text-xs text-muted-foreground">{d.name}</span>
+                <span className="text-xs text-muted-foreground">
+                  {d.name}
+                </span>
                 <span
                   className="font-mono text-xs font-bold"
                   style={{ color: d.color }}
@@ -174,7 +223,7 @@ export default function OverviewPage() {
 
         {/* Bar chart - Genre */}
         <div className="surface-card xl:col-span-2">
-          <h2 className="text-sm font-bold mb-4">장르별 TOP 작품 수</h2>
+          <h2 className="mb-4 text-sm font-bold">장르별 TOP 작품 수</h2>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart
               data={genreBarData}
@@ -236,20 +285,20 @@ export default function OverviewPage() {
         {...fadeInUp}
         transition={{ delay: 0.15 }}
       >
-        <h2 className="text-sm font-bold mb-4">
+        <h2 className="mb-4 text-sm font-bold">
           플랫폼 × 장르 히트맵 (점유율 지수)
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
               <tr>
-                <th className="text-left py-2 pr-4 text-muted-foreground font-medium w-20">
+                <th className="w-20 py-2 pr-4 text-left font-medium text-muted-foreground">
                   장르
                 </th>
                 {["네이버", "카카오", "리디"].map((p) => (
                   <th
                     key={p}
-                    className="py-2 px-3 text-center text-muted-foreground font-medium"
+                    className="py-2 px-3 text-center font-medium text-muted-foreground"
                   >
                     {p}
                   </th>
@@ -272,7 +321,7 @@ export default function OverviewPage() {
                     return (
                       <td key={ci} className="py-2 px-3 text-center">
                         <div
-                          className="mx-auto w-14 h-7 rounded flex items-center justify-center font-mono font-bold"
+                          className="flex h-7 w-14 items-center justify-center rounded font-mono font-bold"
                           style={{
                             background: `${colors[ci]}${Math.round(
                               alpha * 45 + 10
@@ -297,24 +346,18 @@ export default function OverviewPage() {
         </div>
       </motion.div>
 
-{/* TOP 10 Ranking Cards */}
-<motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-  <div className="flex items-center justify_between mb-4">
-    <h2 className="text-sm font-bold">오늘 TOP 10 랭킹</h2>
-    <span className="text-xs text-muted-foreground font-mono">
-      전체 플랫폼
-    </span>
-  </div>
+      {/* TOP 10 Ranking Cards */}
+      <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-sm font-bold">오늘 TOP 10 랭킹</h2>
+          <span className="font-mono text-xs text-muted-foreground">
+            전체 플랫폼
+          </span>
+        </div>
 
-  <p className="text-xs text-muted-foreground">
-    build: 2026-03-13 useTodayCombined 적용됨
-  </p>
-
-  {isLoading && (
-    <div className="text-xs text-muted-foreground">
-      랭킹 불러오는 중…
-    </div>
-  )}
+        <p className="text-xs text-muted-foreground">
+          build: 2026-03-13 useTodayCombined 적용됨
+        </p>
 
         {isLoading && (
           <div className="text-xs text-muted-foreground">
@@ -340,7 +383,7 @@ export default function OverviewPage() {
                 >
                   <RankingCard
                     novel={novel}
-                    rank={novel.currentRank}
+                    rank={novel.todayRank}
                     onClick={setSelectedNovel}
                   />
                 </motion.div>
