@@ -43,6 +43,7 @@ export default function OverviewPage() {
 
   // 통합 JSON → Novel 타입으로 매핑
   const mapToNovel = (item: any, rank: number): Novel => {
+  console.log("raw item ▶", item); // 원본 키 확인용
     const totalEpisodesRaw = item.총회차수 ?? item["총회차수"];
     const episodeCount =
       typeof totalEpisodesRaw === "number"
