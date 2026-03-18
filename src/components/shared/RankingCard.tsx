@@ -19,8 +19,8 @@ export function RankingCard({
   onClick,
   variant = "default",
 }: Props) {
-    console.log("RankingCard novel ▶", { rank, novel });  // ✅ 디버그
-  
+  console.log("RankingCard novel ▶", { rank, novel }); // ✅ 디버그
+
   const viewsUp = novel.viewsChangePct > 0;
 
   return (
@@ -119,9 +119,7 @@ export function RankingCard({
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
                 <span className="font-mono">
-                  {novel.episodeCount
-                    ? `${novel.episodeCount}화`
-                    : "-"}
+                  {novel.episodeCount ? `${novel.episodeCount}화` : "-"}
                 </span>
               </span>
             </>
@@ -133,8 +131,7 @@ export function RankingCard({
       <div className="flex-shrink-0 flex items-center pr-4">
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
-            {viewsUp ? "▲" : "▼"}{" "}
-            {Math.abs(novel.viewsChangePct).toFixed(1)}%
+            {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
           <div className="text-[10px] text-muted-foreground mt-0.5">
             전일 대비
