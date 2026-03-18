@@ -18,6 +18,10 @@ interface TodayCombinedRow {
   조회수증감: string;
   조회수증감률: string;
   썸네일?: string;
+  출판사?: string;
+  평점?: string | number;
+  댓글수?: string | number;
+  총회차수?: string | number;
   [key: string]: any;
 }
 
@@ -38,32 +42,20 @@ function toPlatform(src: string): Platform {
   if (s === "네이버") return "naver";
   if (s === "카카오") return "kakao";
   if (s === "리디")   return "ridi";
-  // 기본값은 카카오로
   return "kakao";
 }
 
 function toGenre(g: string): Genre {
   const raw = (g || "").trim();
 
-  // BL
   if (raw.startsWith("BL")) return "BL";
-
-  // 로맨스: "로맨스 · 현대물", "현대 로맨스" 등
   if (raw.startsWith("로맨스") || raw.includes("로맨스")) return "로맨스";
-
-  // 로판: "서양풍 로판", "동양풍 로판", "로맨스판타지"
   if (raw.includes("로판") || raw.includes("로맨스판타지")) return "로판";
-
-  // 판타지 계열(현대 판타지, 퓨전 판타지 등)
   if (raw.includes("판타지")) return "판타지";
-
-  // 현판/무협은 기존 규칙 유지
   if (raw.includes("현대물")) return "현판";
   if (raw.includes("무협")) return "무협";
-
   return "기타";
 }
-
 
 function parseRank(v: string | number): number | null {
   if (v === null || v === undefined || v === "") return null;
@@ -77,8 +69,6 @@ function parseViewsToNumber(v: string | number): number {
   if (v === null || v === undefined) return 0;
   let s = String(v).trim();
   if (!s) return 0;
-
-  // 3.5억, 571.4만, 0 같은 형식 처리
   if (s.endsWith("억")) {
     const n = parseFloat(s.replace("억", "").replace(/,/g, ""));
     return Number.isNaN(n) ? 0 : n * 100000000;
@@ -98,7 +88,11 @@ function parsePercent(v: string): number {
   return Number.isNaN(n) ? 0 : n;
 }
 
-function parseRankChange(label: string): { rankChange: number | null; isNew: boolean; isReEntry: boolean } {
+function parseRankChange(label: string): {
+  rankChange: number | null;
+  isNew: boolean;
+  isReEntry: boolean;
+} {
   const s = (label || "").trim();
   if (!s) return { rankChange: null, isNew: false, isReEntry: false };
   if (s === "NEW") return { rankChange: null, isNew: true, isReEntry: false };
@@ -119,13 +113,13 @@ function parseRankChange(label: string): { rankChange: number | null; isNew: boo
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
   const todayRank = parseRank(row["오늘순위"]) ?? (index + 1);
-  const prevRank = parseRank(row["전일순위"]);
+  const prevRank  = parseRank(row["전일순위"]);
 
   const { rankChange, isNew, isReEntry } = parseRankChange(row["순위변화"]);
 
-  // ✅ 플랫폼별 조회수/평가수 해석
+  // 플랫폼별 조회수/평가수 해석
   const rawTodayViews = row["오늘조회수"];
-  const rawPrevViews = row["전일조회수"];
+  const rawPrevViews  = row["전일조회수"];
 
   const todayViewsNumber =
     platform === "ridi"
@@ -147,15 +141,32 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
       ? (viewsChangeNumber / prevViewsNumber) * 100
       : parsePercent(row["조회수증감률"]);
 
-  // id는 platform+제목으로 임시 구성
   const id = `${platform}-${row["제목"]}-${todayRank}`;
 
-  // ✅ 리디 회차수 파싱 ("총 101화" → 101)
+  // 출판사
+  const publisher = (row["출판사"] as string) || "-";
+
+  // 평점
+  let rating = 0;
+  if (row["평점"] !== undefined && row["평점"] !== null && row["평점"] !== "-") {
+    const r = parseFloat(String(row["평점"]));
+    rating = Number.isNaN(r) ? 0 : r;
+  }
+
+  // 댓글수
+  let commentCount = 0;
+  if (row["댓글수"] !== undefined && row["댓글수"] !== null && row["댓글수"] !== "-") {
+    commentCount = parseInt(String(row["댓글수"]).replace(/,/g, ""), 10) || 0;
+  }
+
+  // 회차수 ("총 101화" → 101)
   let episodeCount = 0;
-  const totalEpisodesRaw = (row as any)["총회차수"];
-  if (platform === "ridi" && typeof totalEpisodesRaw === "string") {
-    const m = totalEpisodesRaw.match(/(\d+)\s*화/);
+  const totalEpRaw = row["총회차수"];
+  if (typeof totalEpRaw === "string") {
+    const m = totalEpRaw.match(/(\d+)\s*화/);
     if (m) episodeCount = Number(m[1]) || 0;
+  } else if (typeof totalEpRaw === "number") {
+    episodeCount = totalEpRaw;
   }
 
   const novel: Novel = {
@@ -163,7 +174,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
     genre: toGenre(row["장르"] || "기타"),
-    publisher: "-", // (필요하면 통합 시트에 출판사 추가 후 여기서 매핑)
+    publisher,
     platform,
     coverGradient:
       platform === "naver"
@@ -178,11 +189,11 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     rankChange,
     isNew,
     isReEntry,
-    todayViews: todayViewsNumber,      // 리디는 평가수 숫자 그대로
+    todayViews: todayViewsNumber,
     viewsChange: viewsChangeNumber,
     viewsChangePct: viewsChangePctNumber,
-    rating: 0,                         // 아직 통합 평점 없음
-    commentCount: 0,                   // 댓글수도 아직 없음
+    rating,
+    commentCount,
     episodeCount,
     firstAppeared: row["날짜"] || "",
     consecutiveDays: 0,
@@ -191,7 +202,6 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 
   return novel;
 }
-
 
 export function useTodayCombined(): UseTodayCombinedResult {
   const [data, setData] = useState<Novel[] | null>(null);
@@ -212,7 +222,6 @@ export function useTodayCombined(): UseTodayCombinedResult {
         }
 
         const rows = (await res.json()) as TodayCombinedRow[];
-
         const novels = rows.map((row, idx) => mapRowToNovel(row, idx));
 
         setData(novels);
