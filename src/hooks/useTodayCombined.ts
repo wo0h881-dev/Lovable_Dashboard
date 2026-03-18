@@ -175,12 +175,13 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   // 회차수 ("총 101화" → 101)
   let episodeCount = 0;
   const totalEpRaw = row["총회차수"];
-  if (typeof totalEpRaw === "string") {
-    const m = totalEpRaw.match(/(\d+)\s*화/);
-    if (m) episodeCount = Number(m[1]) || 0;
-  } else if (typeof totalEpRaw === "number") {
-    episodeCount = totalEpRaw;
-  }
+  // 수정: "94", "94화", "총 94화" 모두 대응
+if (typeof totalEpRaw === "string") {
+  const m = totalEpRaw.match(/(\d+)/);
+  if (m) episodeCount = Number(m[1]) || 0;
+} else if (typeof totalEpRaw === "number") {
+  episodeCount = totalEpRaw;
+}
 
   const novel: Novel = {
     id,
