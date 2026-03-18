@@ -19,6 +19,8 @@ export function RankingCard({
   onClick,
   variant = "default",
 }: Props) {
+    console.log("RankingCard novel ▶", { rank, novel });  // ✅ 디버그
+  
   const viewsUp = novel.viewsChangePct > 0;
 
   return (
