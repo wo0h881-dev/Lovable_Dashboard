@@ -62,14 +62,28 @@ export default function OverviewPage() {
       ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
       : 0;
 
-  // 2) 오늘 조회수
-  const todayViews = (() => {
-    const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
-    if (!v) return 0;
-    if (typeof v === "number") return v;
-    const n = Number(String(v).replace(/[^0-9.]/g, ""));
-    return Number.isNaN(n) ? 0 : n * (String(v).includes("만") ? 10000 : 1);
-  })();
+ // 2) 오늘 조회수: "1,071만", "3.5억", "60.1만" 등 처리
+const todayViews = (() => {
+  const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
+  if (!v) return 0;
+  if (typeof v === "number") return v;
+
+  const s = String(v);
+  const num = Number(s.replace(/[^0-9.]/g, ""));
+  if (Number.isNaN(num)) return 0;
+
+  if (s.includes("억")) {
+    // 3.5억 → 3.5 * 100,000,000
+    return num * 100_000_000;
+  }
+  if (s.includes("만")) {
+    // 1,071만 / 60.1만 → 1071 * 10,000 / 60.1 * 10,000
+    return num * 10_000;
+  }
+  // 단위 없으면 그냥 숫자
+  return num;
+})();
+
 
   // 3) 조회수 증감률
   const viewsChangePct = (() => {
@@ -89,38 +103,58 @@ export default function OverviewPage() {
     platform = "ridi";
   }
 
-  // 5) 장르 / 출판사 / 평점 / 댓글
-  const rawGenre =
-    item.장르 ??
-    item.genre ??
-    item.카테고리 ??
-    item.분류 ??
-    "";
-  const rawPublisher =
-    item.출판사 ??
-    item.publisher ??
-    item.제공사 ??
-    "-";
-  const rawRating =
-    item.평점 ??
-    item.rating ??
-    item.별점 ??
-    0;
-  const rawComments =
-    item.댓글수 ??
-    item.댓글 ??
-    item.commentCount ??
-    0;
+ // 5) 장르 / 출판사 / 평점 / 댓글
+const rawGenre =
+  item.장르 ??
+  item.genre ??
+  item.카테고리 ??
+  item.분류 ??
+  "";
 
-  return {
-    id: `${rawSource}-${item.제목 || ""}-${rank}`,
-    title: item.제목 || item.title || "제목 없음",
-    author: item.작가 || item.author || "-",
-    genre: (rawGenre as Genre) || "기타",
-    publisher: rawPublisher || "-",
-    platform,
-    coverGradient: "from-slate-800 to-slate-700",
-    coverEmoji: "📚",
+const rawPublisher =
+  item.출판사 ??
+  item.publisher ??
+  item.제공사 ??
+  "-";
+
+const rawRating =
+  item.평점 ??
+  item.rating ??
+  item.별점 ??
+  0;
+
+// "1.2만", "60.1만", "185" → 숫자
+const parseCount = (v: unknown): number => {
+  if (!v) return 0;
+  if (typeof v === "number") return v;
+  const s = String(v);
+  const num = Number(s.replace(/[^0-9.]/g, ""));
+  if (Number.isNaN(num)) return 0;
+  if (s.includes("만")) return num * 10_000;
+  return num;
+};
+
+const rawComments =
+  item.댓글수 ??
+  item.댓글 ??
+  item.commentCount ??
+  0;
+
+
+ return {
+  id: `${rawSource}-${item.제목 || ""}-${rank}`,
+  title: item.제목 || item.title || "제목 없음",
+  author: item.작가 || item.author || "-",
+  genre: (rawGenre as Genre) || "기타",
+  publisher: rawPublisher || "-",
+  rating: Number(rawRating) || 0,
+  commentCount: parseCount(rawComments), // ← "1.2만", "60.1만" 처리
+  platform,
+  coverGradient: "from-slate-800 to-slate-700",
+  coverEmoji: "📚",
+  // 아래에 todayRank, todayViews, episodeCount 등 나머지 필드 계속…
+};
+
 
     todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
     prevRank: item.전일순위
