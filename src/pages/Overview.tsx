@@ -35,7 +35,6 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
 };
 
-// 장르 요약용
 const normalizeGenre = (raw: unknown): Genre => {
   const g = String(raw ?? "").trim();
   if (!g) return "기타";
@@ -44,7 +43,7 @@ const normalizeGenre = (raw: unknown): Genre => {
   if (g.startsWith("BL")) return "BL";
 
   // 리디 복합 장르
-  if (g.includes("로맨스")) return "로맨스"; // 로맨스 · 현대물 등
+  if (g.includes("로맨스")) return "로맨스"; // 로맨스 · 현대물
   if (g.includes("서양풍 로판") || g.includes("가상 세계 로판") || g.includes("로판"))
     return "로판";
 
@@ -66,6 +65,7 @@ const normalizeGenre = (raw: unknown): Genre => {
 
   return "기타";
 };
+
 
 // "1.2만", "60.1만", "185" → 숫자
 const parseCount = (v: unknown): number => {
