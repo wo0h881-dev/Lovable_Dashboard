@@ -320,11 +320,16 @@ export default function RankingsPage() {
                     <Star size={10} className="text-yellow-400" />
                     {n.rating}
                   </td>
+                  {/* ✅ 리디 댓글은 아직 없으니 "-"로, 회차는 0이면 "-" */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
+                    {n.platform === "ridi"
+                      ? "-"
+                      : Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
                   </td>
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {Number(n.episodeCount ?? 0).toLocaleString("ko-KR")}
+                    {n.episodeCount
+                      ? Number(n.episodeCount).toLocaleString("ko-KR")
+                      : "-"}
                   </td>
                 </motion.tr>
               ))}
