@@ -374,14 +374,18 @@ export const newWorksData = novels.filter(n => n.isNew || n.isReEntry || n.conse
 export const notableWorks = novels.filter(n => Math.abs(n.rankChange || 0) >= 4 || n.isNew || n.isReEntry);
 
 export function formatViews(platform: Platform, views: number): string {
+  // ✅ 리디: 평가수 그대로 + "평가"
   if (platform === "ridi") {
-    return Number(views ?? 0).toLocaleString("ko-KR") + "개";
+    return Number(views ?? 0).toLocaleString("ko-KR") + " 평가";
   }
+
+  // 네이버/카카오: 기존 조회수 포맷 유지
   if (views >= 10000000) return (views / 10000000).toFixed(1) + "천만";
   if (views >= 1000000)  return (views / 10000).toFixed(0) + "만";
   if (views >= 10000)    return (views / 10000).toFixed(1) + "만";
   return Number(views ?? 0).toLocaleString("ko-KR");
 }
+
 
 export function getRankChangeLabel(novel: Novel): { label: string; type: "up" | "down" | "new" | "reentry" | "same" } {
   if (novel.isNew)     return { label: "NEW",  type: "new" };
