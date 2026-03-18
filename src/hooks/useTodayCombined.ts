@@ -41,34 +41,66 @@ function toPlatform(src: string): Platform {
   const s = src.trim();
   if (s === "네이버") return "naver";
   if (s === "카카오") return "kakao";
-  if (s === "리디")   return "ridi";
+  if (s === "리디") return "ridi";
   return "kakao";
 }
 
-function toGenre(g: string): Genre {
-  const raw = (g || "").trim();
+/**
+ * 플랫폼별 장르 매핑
+ * - 네이버/카카오는 들어오는 값 그대로 사용
+ * - 리디만 매핑 규칙 적용
+ */
+function toGenreByPlatform(platform: Platform, rawGenre: string): Genre {
+  const raw = (rawGenre || "").trim();
 
-  // BL
-  if (raw.toUpperCase().includes("BL")) return "BL";
+  // 1) 네이버/카카오는 그대로 사용
+  if (platform === "naver" || platform === "kakao") {
+    if (
+      raw === "현판" ||
+      raw === "로판" ||
+      raw === "로맨스" ||
+      raw === "판타지" ||
+      raw === "무협" ||
+      raw === "BL" ||
+      raw === "현대물" ||
+      raw === "역사/시대물" ||
+      raw === "기타"
+    ) {
+      return raw as Genre;
+    }
+    return "기타";
+  }
 
-  // 로판 계열
-  if (raw.includes("로판") || raw.includes("로맨스판타지")) return "로판";
+  // 2) 리디: 문자열 패턴에 따라 매핑
+  const upper = raw.toUpperCase();
 
-  // 로맨스 계열
-  if (raw.includes("로맨스")) return "로맨스";
+  // BL 계열: "BL · 현대물", "BL · 판타지물", "BL · 역사/시대물" 등 → BL
+  if (upper.startsWith("BL")) return "BL";
 
-  // 판타지 계열 (현대/퓨전 포함)
-  if (raw.includes("판타지")) return "판타지";
+  // 로맨스 · 현대물 → 로맨스
+  if (raw.includes("로맨스") && raw.includes("현대물")) return "로맨스";
 
-  // 현판: "현대물" + 판타지 단어 없는 경우
-  if (raw.includes("현대물") || raw.includes("현대")) return "현판";
+  // 서양풍 로판 → 로판
+  if (raw.includes("서양풍") && raw.includes("로판")) return "로판";
 
-  // 무협
+  // 현대 판타지 → 현판
+  if (raw.includes("현대 판타지")) return "현판";
+
+  // 퓨전 판타지 → 판타지
+  if (raw.includes("퓨전 판타지")) return "판타지";
+
+  // 무협 소설 → 무협
   if (raw.includes("무협")) return "무협";
 
+  // 그 밖의 로맨스 계열
+  if (raw.includes("로맨스")) return "로맨스";
+
+  // 그 밖의 판타지 계열
+  if (raw.includes("판타지")) return "판타지";
+
+  // 나머지
   return "기타";
 }
-
 
 function parseRank(v: string | number): number | null {
   if (v === null || v === undefined || v === "") return null;
@@ -125,27 +157,27 @@ function parseRankChange(label: string): {
 
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
-  const todayRank = parseRank(row["오늘순위"]) ?? (index + 1);
-  const prevRank  = parseRank(row["전일순위"]);
+  const todayRank = parseRank(row["오늘순위"]) ?? index + 1;
+  const prevRank = parseRank(row["전일순위"]);
 
   const { rankChange, isNew, isReEntry } = parseRankChange(row["순위변화"]);
 
   // 플랫폼별 조회수/평가수 해석
   const rawTodayViews = row["오늘조회수"];
-  const rawPrevViews  = row["전일조회수"];
+  const rawPrevViews = row["전일조회수"];
 
   const todayViewsNumber =
     platform === "ridi"
-      ? (typeof rawTodayViews === "number"
-          ? rawTodayViews
-          : parseViewsToNumber(String(rawTodayViews || "0").replace(/,/g, "")))
+      ? typeof rawTodayViews === "number"
+        ? rawTodayViews
+        : parseViewsToNumber(String(rawTodayViews || "0").replace(/,/g, ""))
       : parseViewsToNumber(rawTodayViews);
 
   const prevViewsNumber =
     platform === "ridi"
-      ? (typeof rawPrevViews === "number"
-          ? rawPrevViews
-          : parseViewsToNumber(String(rawPrevViews || "0").replace(/,/g, "")))
+      ? typeof rawPrevViews === "number"
+        ? rawPrevViews
+        : parseViewsToNumber(String(rawPrevViews || "0").replace(/,/g, ""))
       : parseViewsToNumber(rawPrevViews);
 
   const viewsChangeNumber = todayViewsNumber - prevViewsNumber;
@@ -172,22 +204,21 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     commentCount = parseInt(String(row["댓글수"]).replace(/,/g, ""), 10) || 0;
   }
 
-  // 회차수 ("총 101화" → 101)
+  // 회차수 ("총 101화", "101화", "101" 모두 대응)
   let episodeCount = 0;
   const totalEpRaw = row["총회차수"];
-  // 수정: "94", "94화", "총 94화" 모두 대응
-if (typeof totalEpRaw === "string") {
-  const m = totalEpRaw.match(/(\d+)/);
-  if (m) episodeCount = Number(m[1]) || 0;
-} else if (typeof totalEpRaw === "number") {
-  episodeCount = totalEpRaw;
-}
+  if (typeof totalEpRaw === "string") {
+    const m = totalEpRaw.match(/(\d+)/);
+    if (m) episodeCount = Number(m[1]) || 0;
+  } else if (typeof totalEpRaw === "number") {
+    episodeCount = totalEpRaw;
+  }
 
   const novel: Novel = {
     id,
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
-    genre: toGenre(row["장르"] || "기타"),
+    genre: toGenreByPlatform(platform, row["장르"] || "기타"),
     publisher,
     platform,
     coverGradient:
