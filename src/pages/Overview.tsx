@@ -441,7 +441,7 @@ export default function OverviewPage() {
       {/* TOP 10 Ranking Cards */}
       <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-bold">오늘 TOP 10 랭킹(디버그 빌드)</h2>
+          <h2 className="text-sm font-bold">오늘 TOP 10 랭킹(디버그 빌드2)</h2>
           <span className="font-mono text-xs text-muted-foreground">
             전체 플랫폼
           </span>
