@@ -1,3 +1,5 @@
+// src/pages/Rankings.tsx
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, SlidersHorizontal, Star } from "lucide-react";
@@ -7,7 +9,7 @@ import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { RankChange } from "@/components/shared/RankChange";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { formatViews, type Novel, type Platform, type Genre } from "@/data/mockData";
+import { type Novel, type Platform, type Genre } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 
 function rankToScore(rank: number | null | undefined): number {
@@ -18,10 +20,10 @@ function rankToScore(rank: number | null | undefined): number {
 
 type PlatformTab = "all" | Platform;
 const platformTabs: { key: PlatformTab; label: string }[] = [
-  { key: "all",   label: "전체" },
+  { key: "all", label: "전체" },
   { key: "naver", label: "네이버" },
   { key: "kakao", label: "카카오" },
-  { key: "ridi",  label: "리디" },
+  { key: "ridi", label: "리디" },
 ];
 
 const genres: (Genre | "전체")[] = [
@@ -295,9 +297,12 @@ export default function RankingsPage() {
                   <td className="py-2.5 px-3 text-primary/80 whitespace-nowrap">
                     {n.genre}
                   </td>
+
+                  {/* 조회수: 축약 없이 풀 숫자 */}
                   <td className="py-2.5 px-3 font-mono font-semibold whitespace-nowrap">
-                    {formatViews(n.platform, n.todayViews)}
+                    {n.todayViews.toLocaleString("ko-KR")}
                   </td>
+
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
                     {n.prevRank ?? "—"}
                   </td>
@@ -320,12 +325,12 @@ export default function RankingsPage() {
                     <Star size={10} className="text-yellow-400" />
                     {n.rating}
                   </td>
-                  {/* ✅ 리디 댓글은 아직 없으니 "-"로, 회차는 0이면 "-" */}
+
+                  {/* 댓글: 플랫폼 관계 없이 숫자 그대로 */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {n.platform === "ridi"
-                      ? "-"
-                      : Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
+                    {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
                   </td>
+
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
                     {n.episodeCount
                       ? Number(n.episodeCount).toLocaleString("ko-KR")
