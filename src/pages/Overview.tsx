@@ -35,93 +35,37 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0 },
 };
 
-export default function OverviewPage() {
-  const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
+// 장르 요약용
+const normalizeGenre = (raw: unknown): Genre => {
+  const g = String(raw ?? "").trim();
+  if (!g) return "기타";
 
-  const { data: todayCombined, isLoading, error } = useTodayCombined();
-  const top10 = todayCombined ? todayCombined.slice(0, 10) : [];
+  // BL 우선
+  if (g.startsWith("BL")) return "BL";
 
-  // 통합 JSON → Novel 타입으로 매핑
-  const mapToNovel = (item: any, rank: number): Novel => {
-  console.error("MAP_TO_NOVEL CALLED", rank);
-  console.log("raw item ▶", item);
+  // 리디 복합 장르
+  if (g.includes("로맨스")) return "로맨스"; // 로맨스 · 현대물 등
+  if (g.includes("서양풍 로판") || g.includes("가상 세계 로판") || g.includes("로판"))
+    return "로판";
 
-  // 1) 회차 수: 다양한 키 이름 대비
-  const totalEpisodesRaw =
-    item.총회차수 ??
-    item.총회차 ??
-    item.회차수 ??
-    item.회차 ??
-    item.episodes ??
-    item.episodeCount;
+  // 현대/역사 계열
+  if (g.includes("현대물")) return "현대물";
+  if (g.includes("역사/시대물")) return "역사/시대물";
 
-  const episodeCount =
-    typeof totalEpisodesRaw === "number"
-      ? totalEpisodesRaw
-      : typeof totalEpisodesRaw === "string"
-      ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
-      : 0;
+  // 판타지 계열
+  if (g.includes("현대 판타지") || g.includes("퓨전 판타지")) return "현판";
+  if (g.includes("판타지물") || g === "판타지" || g === "웹소설")
+    return "판타지";
 
- // 2) 오늘 조회수: "1,071만", "3.5억", "60.1만" 등 처리
-const todayViews = (() => {
-  const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
-  if (!v) return 0;
-  if (typeof v === "number") return v;
+  // 무협 계열
+  if (g.includes("무협")) return "무협";
 
-  const s = String(v);
-  const num = Number(s.replace(/[^0-9.]/g, ""));
-  if (Number.isNaN(num)) return 0;
+  // 단일 태그들
+  if (g === "현판") return "현판";
+  if (g === "로판") return "로판";
 
-  if (s.includes("억")) {
-    // 3.5억 → 3.5 * 100,000,000
-    return num * 100_000_000;
-  }
-  if (s.includes("만")) {
-    // 1,071만 / 60.1만 → 1071 * 10,000 / 60.1 * 10,000
-    return num * 10_000;
-  }
-  // 단위 없으면 그냥 숫자
-  return num;
-})();
-
-
-  // 3) 조회수 증감률
-  const viewsChangePct = (() => {
-    const v = item.조회수증감률 ?? item.viewsChangePct ?? item.증감률;
-    if (!v) return 0;
-    if (typeof v === "number") return v;
-    const n = Number(String(v).replace(/[^0-9.-]/g, ""));
-    return Number.isNaN(n) ? 0 : n;
-  })();
-
-  // 4) 플랫폼 매핑
-  const rawSource: string = item.출처 || item.source || "";
-  let platform: Platform = "kakao";
-  if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
-    platform = "naver";
-  } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
-    platform = "ridi";
-  }
-
- // 5) 장르 / 출판사 / 평점 / 댓글
-const rawGenre =
-  item.장르 ??
-  item.genre ??
-  item.카테고리 ??
-  item.분류 ??
-  "";
-
-const rawPublisher =
-  item.출판사 ??
-  item.publisher ??
-  item.제공사 ??
-  "-";
-
-const rawRating =
-  item.평점 ??
-  item.rating ??
-  item.별점 ??
-  0;
+  return "기타";
+};
 
 // "1.2만", "60.1만", "185" → 숫자
 const parseCount = (v: unknown): number => {
@@ -134,53 +78,126 @@ const parseCount = (v: unknown): number => {
   return num;
 };
 
-const rawComments =
-  item.댓글수 ??
-  item.댓글 ??
-  item.commentCount ??
-  0;
+export default function OverviewPage() {
+  const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
+  const { data: todayCombined, isLoading, error } = useTodayCombined();
+  const top10 = todayCombined ? todayCombined.slice(0, 10) : [];
 
- return {
-  id: `${rawSource}-${item.제목 || ""}-${rank}`,
-  title: item.제목 || item.title || "제목 없음",
-  author: item.작가 || item.author || "-",
-  genre: (rawGenre as Genre) || "기타",
-  publisher: rawPublisher || "-",
-  rating: Number(rawRating) || 0,
-  commentCount: parseCount(rawComments), // ← "1.2만", "60.1만" 처리
-  platform,
-  coverGradient: "from-slate-800 to-slate-700",
-  coverEmoji: "📚",
-  // 아래에 todayRank, todayViews, episodeCount 등 나머지 필드 계속…
-};
+  // 통합 JSON → Novel 타입으로 매핑
+  const mapToNovel = (item: any, rank: number): Novel => {
+    console.error("MAP_TO_NOVEL CALLED", rank);
+    console.log("raw item ▶", item);
 
+    // 1) 회차 수
+    const totalEpisodesRaw =
+      item.총회차수 ??
+      item.총회차 ??
+      item.회차수 ??
+      item.회차 ??
+      item.episodes ??
+      item.episodeCount;
 
-    todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
-    prevRank: item.전일순위
-      ? Number(item.전일순위)
-      : item.prevRank
-      ? Number(item.prevRank)
-      : null,
-    rankChange: null,
+    const episodeCount =
+      typeof totalEpisodesRaw === "number"
+        ? totalEpisodesRaw
+        : typeof totalEpisodesRaw === "string"
+        ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
+        : 0;
 
-    isNew: false,
-    isReEntry: false,
+    // 2) 오늘 조회수: "1,071만", "3.5억" 등 처리
+    const todayViews = (() => {
+      const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
+      if (!v) return 0;
+      if (typeof v === "number") return v;
+      const s = String(v);
+      const num = Number(s.replace(/[^0-9.]/g, ""));
+      if (Number.isNaN(num)) return 0;
+      if (s.includes("억")) return num * 100_000_000;
+      if (s.includes("만")) return num * 10_000;
+      return num;
+    })();
 
-    todayViews,
-    viewsChange: 0,
-    viewsChangePct,
+    // 3) 조회수 증감률
+    const viewsChangePct = (() => {
+      const v = item.조회수증감률 ?? item.viewsChangePct ?? item.증감률;
+      if (!v) return 0;
+      if (typeof v === "number") return v;
+      const n = Number(String(v).replace(/[^0-9.-]/g, ""));
+      return Number.isNaN(n) ? 0 : n;
+    })();
 
-    rating: Number(rawRating) || 0,
-    commentCount: Number(rawComments) || 0,
-    episodeCount,
+    // 4) 플랫폼 매핑
+    const rawSource: string = item.출처 || item.source || "";
+    let platform: Platform = "kakao";
+    if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
+      platform = "naver";
+    } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
+      platform = "ridi";
+    }
 
-    firstAppeared: item.날짜 || item.date || "",
-    consecutiveDays: 1,
-    peakRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
+    // 5) 장르 / 출판사 / 평점 / 댓글
+    const rawGenre =
+      item.장르 ??
+      item.genre ??
+      item.카테고리 ??
+      item.분류 ??
+      "";
+
+    const rawPublisher =
+      item.출판사 ??
+      item.publisher ??
+      item.제공사 ??
+      "-";
+
+    const rawRating =
+      item.평점 ??
+      item.rating ??
+      item.별점 ??
+      0;
+
+    const rawComments =
+      item.댓글수 ??
+      item.댓글 ??
+      item.commentCount ??
+      0;
+
+    return {
+      id: `${rawSource}-${item.제목 || ""}-${rank}`,
+      title: item.제목 || item.title || "제목 없음",
+      author: item.작가 || item.author || "-",
+
+      rawGenre: String(rawGenre),         // 세부 카테고리 전체
+      genre: normalizeGenre(rawGenre),    // 카드/차트용 요약 장르
+      publisher: rawPublisher || "-",
+      platform,
+      coverGradient: "from-slate-800 to-slate-700",
+      coverEmoji: "📚",
+
+      todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
+      prevRank: item.전일순위
+        ? Number(item.전일순위)
+        : item.prevRank
+        ? Number(item.prevRank)
+        : null,
+      rankChange: null,
+
+      isNew: false,
+      isReEntry: false,
+
+      todayViews,
+      viewsChange: 0,
+      viewsChangePct,
+
+      rating: Number(rawRating) || 0,
+      commentCount: parseCount(rawComments),
+      episodeCount,
+
+      firstAppeared: item.날짜 || item.date || "",
+      consecutiveDays: 1,
+      peakRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
+    };
   };
-};
-
 
   const formattedDate =
     todayCombined && todayCombined.length > 0
