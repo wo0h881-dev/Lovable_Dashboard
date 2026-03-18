@@ -43,70 +43,109 @@ export default function OverviewPage() {
 
   // 통합 JSON → Novel 타입으로 매핑
   const mapToNovel = (item: any, rank: number): Novel => {
-  console.log("raw item ▶", item); // 원본 키 확인용
-    const totalEpisodesRaw = item.총회차수 ?? item["총회차수"];
-    const episodeCount =
-      typeof totalEpisodesRaw === "number"
-        ? totalEpisodesRaw
-        : typeof totalEpisodesRaw === "string"
-        ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
-        : 0;
+  console.log("raw item ▶", item); // 원본 그대로 한 번 더 확인용
 
-    const todayViews = (() => {
-      const v = item.오늘조회수;
-      if (!v) return 0;
-      if (typeof v === "number") return v;
-      const n = Number(String(v).replace(/[^0-9.]/g, ""));
-      return Number.isNaN(n) ? 0 : n * (String(v).includes("만") ? 10000 : 1);
-    })();
+  // 1) 회차 수: 다양한 키 이름 대비
+  const totalEpisodesRaw =
+    item.총회차수 ??
+    item.총회차 ??
+    item.회차수 ??
+    item.회차 ??
+    item.episodes ??
+    item.episodeCount;
 
-    const viewsChangePct = (() => {
-      const v = item.조회수증감률;
-      if (!v) return 0;
-      if (typeof v === "number") return v;
-      const n = Number(String(v).replace(/[^0-9.-]/g, ""));
-      return Number.isNaN(n) ? 0 : n;
-    })();
+  const episodeCount =
+    typeof totalEpisodesRaw === "number"
+      ? totalEpisodesRaw
+      : typeof totalEpisodesRaw === "string"
+      ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
+      : 0;
 
-    // 출처 문자열을 Platform으로 대충 매핑 (네이밍 맞게 필요하면 조정)
-    const rawSource: string = item.출처 || "";
-    let platform: Platform = "kakao";
-    if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
-      platform = "naver";
-    } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
-      platform = "ridi";
-    }
+  // 2) 오늘 조회수
+  const todayViews = (() => {
+    const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
+    if (!v) return 0;
+    if (typeof v === "number") return v;
+    const n = Number(String(v).replace(/[^0-9.]/g, ""));
+    return Number.isNaN(n) ? 0 : n * (String(v).includes("만") ? 10000 : 1);
+  })();
 
-    return {
-      id: `${rawSource}-${item.제목 || ""}-${rank}`,
-      title: item.제목 || "제목 없음",
-      author: item.작가 || "-",
-      genre: (item.장르 as Genre) || "기타",
-      publisher: item.출판사 || "-",
-      platform,
-      coverGradient: "from-slate-800 to-slate-700",
-      coverEmoji: "📚",
+  // 3) 조회수 증감률
+  const viewsChangePct = (() => {
+    const v = item.조회수증감률 ?? item.viewsChangePct ?? item.증감률;
+    if (!v) return 0;
+    if (typeof v === "number") return v;
+    const n = Number(String(v).replace(/[^0-9.-]/g, ""));
+    return Number.isNaN(n) ? 0 : n;
+  })();
 
-      todayRank: Number(item.오늘순위) || rank,
-      prevRank: item.전일순위 ? Number(item.전일순위) : null,
-      rankChange: null,
+  // 4) 플랫폼 매핑
+  const rawSource: string = item.출처 || item.source || "";
+  let platform: Platform = "kakao";
+  if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
+    platform = "naver";
+  } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
+    platform = "ridi";
+  }
 
-      isNew: false,
-      isReEntry: false,
+  // 5) 장르 / 출판사 / 평점 / 댓글
+  const rawGenre =
+    item.장르 ??
+    item.genre ??
+    item.카테고리 ??
+    item.분류 ??
+    "";
+  const rawPublisher =
+    item.출판사 ??
+    item.publisher ??
+    item.제공사 ??
+    "-";
+  const rawRating =
+    item.평점 ??
+    item.rating ??
+    item.별점 ??
+    0;
+  const rawComments =
+    item.댓글수 ??
+    item.댓글 ??
+    item.commentCount ??
+    0;
 
-      todayViews,
-      viewsChange: 0,
-      viewsChangePct,
+  return {
+    id: `${rawSource}-${item.제목 || ""}-${rank}`,
+    title: item.제목 || item.title || "제목 없음",
+    author: item.작가 || item.author || "-",
+    genre: (rawGenre as Genre) || "기타",
+    publisher: rawPublisher || "-",
+    platform,
+    coverGradient: "from-slate-800 to-slate-700",
+    coverEmoji: "📚",
 
-      rating: Number(item.평점) || 0,
-      commentCount: item.댓글수 ? Number(item.댓글수) : 0,
-      episodeCount,
+    todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
+    prevRank: item.전일순위
+      ? Number(item.전일순위)
+      : item.prevRank
+      ? Number(item.prevRank)
+      : null,
+    rankChange: null,
 
-      firstAppeared: item.날짜 || "",
-      consecutiveDays: 1,
-      peakRank: Number(item.오늘순위) || rank,
-    };
+    isNew: false,
+    isReEntry: false,
+
+    todayViews,
+    viewsChange: 0,
+    viewsChangePct,
+
+    rating: Number(rawRating) || 0,
+    commentCount: Number(rawComments) || 0,
+    episodeCount,
+
+    firstAppeared: item.날짜 || item.date || "",
+    consecutiveDays: 1,
+    peakRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
   };
+};
+
 
   const formattedDate =
     todayCombined && todayCombined.length > 0
