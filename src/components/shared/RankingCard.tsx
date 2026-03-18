@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
 import { NovelCover } from "./NovelCover";
-import { formatViews, type Novel } from "@/data/mockData";
+import { type Novel } from "@/data/mockData";
 
 interface Props {
   novel: Novel;
@@ -21,22 +21,21 @@ export function RankingCard({
   onClick,
   variant = "default",
 }: Props) {
-  console.log("RankingCard novel ▶", { rank, novel }); // ✅ 디버그
+  console.log("RankingCard novel ▶", { rank, novel });
 
   const viewsUp = novel.viewsChangePct > 0;
 
   return (
     <motion.div
-  className="ranking-card"
-  whileHover={{
-    scale: 1.018,
-    boxShadow:
-      "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
-  }}
-  transition={{ duration: 0.18 }}
-  onClick={() => onClick?.(novel)}
->
-
+      className="ranking-card"
+      whileHover={{
+        scale: 1.018,
+        boxShadow:
+          "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))",
+      }}
+      transition={{ duration: 0.18 }}
+      onClick={() => onClick?.(novel)}
+    >
       {/* Rank number */}
       <div
         className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4"
@@ -85,14 +84,14 @@ export function RankingCard({
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
 
-          {/* 오늘 조회/평가 */}
+          {/* 오늘 조회/평가: 축약 없이 풀 숫자 */}
           <span
             className={cn(
               "font-mono text-xs font-semibold",
               viewsUp ? "text-up" : "text-down",
             )}
           >
-            {formatViews(novel.platform, novel.todayViews)}
+            {novel.todayViews.toLocaleString("ko-KR")}
             {novel.platform !== "ridi" && (
               <span className="text-muted-foreground font-normal ml-1">
                 조회
@@ -108,13 +107,11 @@ export function RankingCard({
                 <span className="font-mono">{novel.rating}</span>
               </span>
 
-              {/* 댓글 */}
+              {/* 댓글: 플랫폼 구분 없이 숫자 그대로 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
-                  {novel.platform === "ridi"
-                    ? "-" // 리디는 댓글 데이터 없음
-                    : Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}
+                  {Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}
                 </span>
               </span>
 
