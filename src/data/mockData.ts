@@ -1,13 +1,23 @@
 // src/data/mockData.ts
 
 export type Platform = "naver" | "kakao" | "ridi";
-export type Genre = "로맨스" | "로판" | "BL" | "판타지" | "현판" | "무협" | "기타";
+export type Genre =
+  | "현판"
+  | "로판"
+  | "로맨스"
+  | "판타지"
+  | "무협"
+  | "BL"
+  | "현대물"
+  | "역사/시대물"
+  | "기타";
 
 export interface Novel {
   id: string;
   title: string;
   author: string;
-  genre: Genre;
+  genre: Genre;        // 카드/차트에 보일 요약 장르
+  rawGenre?: string;   // 원본 세부 카테고리 (리디 등)
   publisher: string;
   platform: Platform;
   coverGradient: string;
