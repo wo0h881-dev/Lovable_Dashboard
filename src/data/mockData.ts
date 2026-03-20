@@ -493,3 +493,28 @@ export function getRankChangeLabel(
     return { label: `▲${novel.rankChange}`, type: "up" };
   return { label: `▼${Math.abs(novel.rankChange)}`, type: "down" };
 }
+
+export function parseKoreanCount(value: string | number | null | undefined): number {
+  if (value == null) return 0;
+
+  if (typeof value === "number") return value;
+
+  const s = String(value).trim();
+  if (!s) return 0;
+
+  // "1,440" 같은 건 콤마만 제거
+  if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+    return Number(s.replace(/,/g, "")) || 0;
+  }
+
+  // "1.2만", "1만" 처리
+  if (s.endsWith("만")) {
+    const base = s.replace("만", "");
+    const n = Number(base.replace(/,/g, ""));
+    return Number.isFinite(n) ? Math.round(n * 10_000) : 0;
+  }
+
+  // 그냥 숫자형 문자열
+  const n = Number(s.replace(/,/g, ""));
+  return Number.isFinite(n) ? n : 0;
+}
