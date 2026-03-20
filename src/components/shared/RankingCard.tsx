@@ -15,7 +15,31 @@ interface Props {
   variant?: "default" | "compact";
 }
 
-// Rankings.tsx와 동일 규칙: 네이버/카카오는 만 단위, 리디는 평가수 그대로
+// 숫자를 한국식 "억 / 만" 단위 문자열로 변환
+// 35,000만 -> "3.5억", 1,114만 -> "1,114만", 9,999 -> "9,999"
+function toKoreanUnit(n: number): string {
+  if (!Number.isFinite(n) || n <= 0) return "-";
+
+  const eok = 100_000_000;
+  const man = 10_000;
+
+  if (n >= eok) {
+    const val = n / eok;
+    const s = val.toFixed(1).replace(/\.0$/, "");
+    return `${s}억`;
+  }
+
+  if (n >= man) {
+    const val = n / man;
+    // 1,114만처럼 "1,114만"으로 표시
+    const intVal = Math.round(val);
+    return `${intVal.toLocaleString("ko-KR")}만`;
+  }
+
+  return n.toLocaleString("ko-KR");
+}
+
+// 조회수 포맷: 네이버/카카오는 억/만 단위, 리디는 평가수 그대로
 function formatViews(platform: Platform, views: number): string {
   const v = Number(views ?? 0);
   if (!Number.isFinite(v) || v <= 0) return "-";
@@ -24,14 +48,10 @@ function formatViews(platform: Platform, views: number): string {
     return v.toLocaleString("ko-KR") + " 평가";
   }
 
-  const man = v / 10_000; // 1만 = 1
-  const s = man.toFixed(1).replace(/\.0$/, "");
-  return `${s}만`;
+  return toKoreanUnit(v);
 }
 
-// Rankings.tsx 규칙과 맞춘 댓글 포맷
-// - 리디는 outside에서 '-' 처리
-// - 네이버/카카오는 숫자 → 1.2만 형식
+// 댓글 포맷: 숫자 기준으로 억/만 단위
 function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
 
@@ -46,10 +66,14 @@ function formatComments(value: string | number | null | undefined): string {
     // "1,440" 같은 형식
     if (/^\d{1,3}(,\d{3})*$/.test(s)) {
       n = Number(s.replace(/,/g, ""));
+    } else if (s.endsWith("억")) {
+      const base = s.replace("억", "");
+      const v = Number(base.replace(/,/g, ""));
+      n = Number.isFinite(v) ? v * 100_000_000 : 0;
     } else if (s.endsWith("만")) {
       const base = s.replace("만", "");
       const v = Number(base.replace(/,/g, ""));
-      n = Number.isFinite(v) ? Math.round(v * 10_000) : 0;
+      n = Number.isFinite(v) ? v * 10_000 : 0;
     } else {
       n = Number(s.replace(/,/g, ""));
     }
@@ -57,15 +81,7 @@ function formatComments(value: string | number | null | undefined): string {
 
   if (!Number.isFinite(n) || n <= 0) return "-";
 
-  // 1만 미만이면 그냥 숫자
-  if (n < 10_000) {
-    return n.toLocaleString("ko-KR");
-  }
-
-  // 1만 이상이면 "1.2만"
-  const man = n / 10_000;
-  const s = man.toFixed(1).replace(/\.0$/, "");
-  return `${s}만`;
+  return toKoreanUnit(n);
 }
 
 export function RankingCard({
@@ -135,7 +151,7 @@ export function RankingCard({
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
 
-          {/* 오늘 조회/평가: Rankings.tsx와 동일 포맷 */}
+          {/* 오늘 조회/평가: 억/만 단위 포맷 */}
           <span
             className={cn(
               "font-mono text-xs font-semibold",
@@ -153,7 +169,7 @@ export function RankingCard({
                 <span className="font-mono">{novel.rating}</span>
               </span>
 
-              {/* 댓글: 리디는 '-', 나머지는 1.2만 포맷 */}
+              {/* 댓글: 리디는 '-', 나머지는 억/만 포맷 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
