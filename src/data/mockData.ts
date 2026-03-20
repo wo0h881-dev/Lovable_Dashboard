@@ -23,7 +23,7 @@ export interface Novel {
   platform: Platform;
   coverGradient: string;
   coverEmoji: string;
-  todayRank: number;
+  todayRank: number | null;
   thumbnailUrl?: string;
   prevRank: number | null;
   rankChange: number | null;
@@ -38,6 +38,9 @@ export interface Novel {
   firstAppeared: string;
   consecutiveDays: number;
   peakRank: number;
+  // 🔹 새로 추가 (선택적)
+  rankHistory?: { date: string; rank: number | null }[];   // 오래된 → 최신
+  viewsHistory?: { date: string; views: number }[];        // 오래된 → 최신
 }
 
 export const novels: Novel[] = [
