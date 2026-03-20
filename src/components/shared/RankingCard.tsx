@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
 import { NovelCover } from "./NovelCover";
-import { type Novel } from "@/data/mockData";
+import { type Novel, type Platform } from "@/data/mockData";
 
 interface Props {
   novel: Novel;
@@ -15,14 +15,65 @@ interface Props {
   variant?: "default" | "compact";
 }
 
+// Rankings.tsx와 동일 규칙: 네이버/카카오는 만 단위, 리디는 평가수 그대로
+function formatViews(platform: Platform, views: number): string {
+  const v = Number(views ?? 0);
+  if (!Number.isFinite(v) || v <= 0) return "-";
+
+  if (platform === "ridi") {
+    return v.toLocaleString("ko-KR") + " 평가";
+  }
+
+  const man = v / 10_000; // 1만 = 1
+  const s = man.toFixed(1).replace(/\.0$/, "");
+  return `${s}만`;
+}
+
+// Rankings.tsx 규칙과 맞춘 댓글 포맷
+// - 리디는 outside에서 '-' 처리
+// - 네이버/카카오는 숫자 → 1.2만 형식
+function formatComments(value: string | number | null | undefined): string {
+  if (value == null) return "-";
+
+  let n: number;
+
+  if (typeof value === "number") {
+    n = value;
+  } else {
+    const s = String(value).trim();
+    if (!s) return "-";
+
+    // "1,440" 같은 형식
+    if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+      n = Number(s.replace(/,/g, ""));
+    } else if (s.endsWith("만")) {
+      const base = s.replace("만", "");
+      const v = Number(base.replace(/,/g, ""));
+      n = Number.isFinite(v) ? Math.round(v * 10_000) : 0;
+    } else {
+      n = Number(s.replace(/,/g, ""));
+    }
+  }
+
+  if (!Number.isFinite(n) || n <= 0) return "-";
+
+  // 1만 미만이면 그냥 숫자
+  if (n < 10_000) {
+    return n.toLocaleString("ko-KR");
+  }
+
+  // 1만 이상이면 "1.2만"
+  const man = n / 10_000;
+  const s = man.toFixed(1).replace(/\.0$/, "");
+  return `${s}만`;
+}
+
 export function RankingCard({
   novel,
   rank,
   onClick,
   variant = "default",
 }: Props) {
-  console.log("RankingCard novel ▶", { rank, novel });
-
   const viewsUp = novel.viewsChangePct > 0;
 
   return (
@@ -84,19 +135,14 @@ export function RankingCard({
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
 
-          {/* 오늘 조회/평가: 축약 없이 풀 숫자 */}
+          {/* 오늘 조회/평가: Rankings.tsx와 동일 포맷 */}
           <span
             className={cn(
               "font-mono text-xs font-semibold",
               viewsUp ? "text-up" : "text-down",
             )}
           >
-            {novel.todayViews.toLocaleString("ko-KR")}
-            {novel.platform !== "ridi" && (
-              <span className="text-muted-foreground font-normal ml-1">
-                조회
-              </span>
-            )}
+            {formatViews(novel.platform, novel.todayViews)}
           </span>
 
           {variant === "default" && (
@@ -107,11 +153,13 @@ export function RankingCard({
                 <span className="font-mono">{novel.rating}</span>
               </span>
 
-              {/* 댓글: 플랫폼 구분 없이 숫자 그대로 */}
+              {/* 댓글: 리디는 '-', 나머지는 1.2만 포맷 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
-                  {Number(novel.commentCount ?? 0).toLocaleString("ko-KR")}
+                  {novel.platform === "ridi"
+                    ? "-"
+                    : formatComments(novel.commentCount)}
                 </span>
               </span>
 
@@ -119,7 +167,9 @@ export function RankingCard({
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
                 <span className="font-mono">
-                  {novel.episodeCount ? `${novel.episodeCount}화` : "-"}
+                  {novel.episodeCount
+                    ? `${novel.episodeCount}화`
+                    : "-"}
                 </span>
               </span>
             </>
