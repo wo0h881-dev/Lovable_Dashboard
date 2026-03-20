@@ -37,6 +37,50 @@ const genres: (Genre | "전체")[] = [
   "기타",
 ];
 
+// 조회수 포맷: 네이버/카카오는 무조건 "만" 단위, 리디는 평가수 그대로
+function formatViews(platform: Platform, views: number): string {
+  const v = Number(views ?? 0);
+  if (!Number.isFinite(v) || v <= 0) return "-";
+
+  if (platform === "ridi") {
+    return v.toLocaleString("ko-KR") + " 평가";
+  }
+
+  const man = v / 10_000; // 1만 = 1
+  const s = man.toFixed(1).replace(/\.0$/, "");
+  return `${s}만`;
+}
+
+// "1.2만", "1,440" 같은 댓글 수를 숫자로 변환 후 문자열로
+function formatComments(value: string | number | null | undefined): string {
+  if (value == null) return "0";
+
+  if (typeof value === "number") {
+    return value.toLocaleString("ko-KR");
+  }
+
+  const s = String(value).trim();
+  if (!s) return "0";
+
+  // "1,440" 같은 형식
+  if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+    const n = Number(s.replace(/,/g, ""));
+    return Number.isFinite(n) ? n.toLocaleString("ko-KR") : "0";
+  }
+
+  // "1.2만", "1만" 처리
+  if (s.endsWith("만")) {
+    const base = s.replace("만", "");
+    const n = Number(base.replace(/,/g, ""));
+    if (!Number.isFinite(n)) return "0";
+    const num = Math.round(n * 10_000);
+    return num.toLocaleString("ko-KR");
+  }
+
+  const n = Number(s.replace(/,/g, ""));
+  return Number.isFinite(n) ? n.toLocaleString("ko-KR") : "0";
+}
+
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
@@ -298,9 +342,9 @@ export default function RankingsPage() {
                     {n.genre}
                   </td>
 
-                  {/* 조회수: 축약 없이 풀 숫자 */}
+                  {/* 조회수/평가수: 축약 포맷 */}
                   <td className="py-2.5 px-3 font-mono font-semibold whitespace-nowrap">
-                    {n.todayViews.toLocaleString("ko-KR")}
+                    {formatViews(n.platform, n.todayViews)}
                   </td>
 
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
@@ -326,9 +370,9 @@ export default function RankingsPage() {
                     {n.rating}
                   </td>
 
-                  {/* 댓글: 플랫폼 관계 없이 숫자 그대로 */}
+                  {/* 댓글: "1.2만" 포함 문자열도 숫자로 환산 */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {Number(n.commentCount ?? 0).toLocaleString("ko-KR")}
+                    {formatComments(n.commentCount)}
                   </td>
 
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
