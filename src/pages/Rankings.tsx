@@ -37,7 +37,29 @@ const genres: (Genre | "전체")[] = [
   "기타",
 ];
 
-// 조회수 포맷: 네이버/카카오는 무조건 "만" 단위, 리디는 평가수 그대로
+// 공통 숫자 포맷터: 35,000만 -> 3.5억, 1,114만 -> 1,114만
+function toKoreanUnit(n: number): string {
+  if (!Number.isFinite(n) || n <= 0) return "-";
+
+  const eok = 100_000_000;
+  const man = 10_000;
+
+  if (n >= eok) {
+    const val = n / eok;
+    const s = val.toFixed(1).replace(/\.0$/, "");
+    return `${s}억`;
+  }
+
+  if (n >= man) {
+    const val = n / man;
+    const intVal = Math.round(val);
+    return `${intVal.toLocaleString("ko-KR")}만`;
+  }
+
+  return n.toLocaleString("ko-KR");
+}
+
+// 조회수 포맷: 네이버/카카오는 억/만 단위, 리디는 평가수 그대로
 function formatViews(platform: Platform, views: number): string {
   const v = Number(views ?? 0);
   if (!Number.isFinite(v) || v <= 0) return "-";
@@ -46,16 +68,13 @@ function formatViews(platform: Platform, views: number): string {
     return v.toLocaleString("ko-KR") + " 평가";
   }
 
-  const man = v / 10_000; // 1만 = 1
-  const s = man.toFixed(1).replace(/\.0$/, "");
-  return `${s}만`;
+  return toKoreanUnit(v);
 }
 
-// "1.2만", "1만", "1,440" 같은 댓글 수를 숫자로 변환 + 만 단위 축약
+// 댓글 포맷: 숫자 기준으로 억/만 단위
 function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
 
-  // 숫자/문자 모두 숫자로 먼저 변환
   let n: number;
   if (typeof value === "number") {
     n = value;
@@ -66,10 +85,14 @@ function formatComments(value: string | number | null | undefined): string {
     // "1,440" 같은 형식
     if (/^\d{1,3}(,\d{3})*$/.test(s)) {
       n = Number(s.replace(/,/g, "")) || 0;
+    } else if (s.endsWith("억")) {
+      const base = s.replace("억", "");
+      const v = Number(base.replace(/,/g, ""));
+      n = Number.isFinite(v) ? v * 100_000_000 : 0;
     } else if (s.endsWith("만")) {
       const base = s.replace("만", "");
       const v = Number(base.replace(/,/g, ""));
-      n = Number.isFinite(v) ? Math.round(v * 10_000) : 0;
+      n = Number.isFinite(v) ? v * 10_000 : 0;
     } else {
       n = Number(s.replace(/,/g, "")) || 0;
     }
@@ -77,16 +100,9 @@ function formatComments(value: string | number | null | undefined): string {
 
   if (!Number.isFinite(n) || n <= 0) return "-";
 
-  // 1만 미만이면 그냥 숫자
-  if (n < 10_000) {
-    return n.toLocaleString("ko-KR");
-  }
-
-  // 1만 이상이면 "1.2만" 형식
-  const man = n / 10_000;
-  const s = man.toFixed(1).replace(/\.0$/, "");
-  return `${s}만`;
+  return toKoreanUnit(n);
 }
+
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
@@ -345,7 +361,7 @@ export default function RankingsPage() {
                     {n.genre}
                   </td>
 
-                  {/* 조회수/평가수: 축약 포맷 */}
+                  {/* 조회수/평가수: 억/만 포맷 */}
                   <td className="py-2.5 px-3 font-mono font-semibold whitespace-nowrap">
                     {formatViews(n.platform, n.todayViews)}
                   </td>
@@ -373,9 +389,11 @@ export default function RankingsPage() {
                     {n.rating}
                   </td>
 
-                  {/* 댓글: "1.2만" 포함 문자열도 숫자로 환산 */}
+                  {/* 댓글: 리디는 '-', 나머지는 억/만 포맷 */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                   {n.platform === "ridi" ? "-" : formatComments(n.commentCount)}
+                    {n.platform === "ridi"
+                      ? "-"
+                      : formatComments(n.commentCount)}
                   </td>
 
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
