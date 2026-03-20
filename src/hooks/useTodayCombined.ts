@@ -265,7 +265,9 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     firstAppeared: row["날짜"] || "",
     consecutiveDays: 0,
     peakRank: todayRank,
-  };
+    rankHistory: row["rankHistory"] ?? [],
+    viewsHistory: row["viewsHistory"] ?? [],
+};
 
   return novel;
 }
