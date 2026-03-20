@@ -11,12 +11,11 @@ import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { type Novel, type Platform, type Genre } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
-
-function rankToScore(rank: number | null | undefined): number {
-  const n = typeof rank === "number" ? rank : Number(rank);
-  if (!n || Number.isNaN(n)) return 0;
-  return 21 - n; // 1위=20, 20위=1
-}
+import {
+  computeUnifiedScore,
+  getPlatformMaxStats,
+  type UnifiedNovel,
+} from "@/lib/rankingScore";
 
 type PlatformTab = "all" | Platform;
 const platformTabs: { key: PlatformTab; label: string }[] = [
@@ -130,36 +129,57 @@ export default function RankingsPage() {
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-  const filtered = sourceNovels
-    .filter((n) => platform === "all" || n.platform === platform)
-    .filter((n) => genre === "전체" || n.genre === genre)
-    .filter((n) => !showNew || n.isNew)
-    .filter((n) => !showReEntry || n.isReEntry)
-    .filter(
-      (n) =>
-        !search ||
-        n.title.includes(search) ||
-        n.author.includes(search),
-    )
-    .sort((a, b) => {
-      // 통합 기본 룰: 1) rankToScore, 2) todayViews
-      if (sortKey === "rank") {
-        const scoreA = rankToScore(a.todayRank);
-        const scoreB = rankToScore(b.todayRank);
-        if (scoreA !== scoreB) return scoreB - scoreA;
-        return b.todayViews - a.todayViews;
-      }
+const sourceNovels: Novel[] =
+  combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-      if (sortKey === "views") {
-        return b.todayViews - a.todayViews;
-      }
+// 플랫폼별 max 값 계산 (전체 기준)
+const {
+  maxViewsByPlatform,
+  maxCommentsByPlatform,
+  maxDeltaByPlatform,
+} = getPlatformMaxStats(sourceNovels as UnifiedNovel[]);
 
-      if (sortKey === "rating") {
-        return b.rating - a.rating;
-      }
+const filtered = sourceNovels
+  .filter((n) => platform === "all" || n.platform === platform)
+  .filter((n) => genre === "전체" || n.genre === genre)
+  .filter((n) => !showNew || n.isNew)
+  .filter((n) => !showReEntry || n.isReEntry)
+  .filter(
+    (n) =>
+      !search ||
+      n.title.includes(search) ||
+      n.author.includes(search),
+  )
+  .sort((a, b) => {
+    if (sortKey === "rank") {
+      const scoreA = computeUnifiedScore(
+        a as UnifiedNovel,
+        maxViewsByPlatform,
+        maxCommentsByPlatform,
+        maxDeltaByPlatform,
+      );
+      const scoreB = computeUnifiedScore(
+        b as UnifiedNovel,
+        maxViewsByPlatform,
+        maxCommentsByPlatform,
+        maxDeltaByPlatform,
+      );
 
-      return 0;
-    });
+      if (scoreA !== scoreB) return scoreB - scoreA;
+      // 동점이면 오늘조회수 많은 순
+      return b.todayViews - a.todayViews;
+    }
+
+    if (sortKey === "views") {
+      return b.todayViews - a.todayViews;
+    }
+
+    if (sortKey === "rating") {
+      return b.rating - a.rating;
+    }
+
+    return 0;
+  });
 
   const topCards = filtered.slice(0, 4);
 
