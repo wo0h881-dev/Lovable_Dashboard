@@ -15,8 +15,7 @@ interface Props {
   variant?: "default" | "compact";
 }
 
-// 숫자를 한국식 "억 / 만" 단위 문자열로 변환
-// 35,000만 -> "3.5억", 1,114만 -> "1,114만", 9,999 -> "9,999"
+// 공통 숫자 포맷터
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
 
@@ -30,9 +29,14 @@ function toKoreanUnit(n: number): string {
   }
 
   if (n >= man) {
-    const val = n / man;
-    // 1,114만처럼 "1,114만"으로 표시
-    const intVal = Math.round(val);
+    const manVal = n / man;
+
+    if (manVal < 100) {
+      const s = manVal.toFixed(1).replace(/\.0$/, "");
+      return `${s}만`;
+    }
+
+    const intVal = Math.round(manVal);
     return `${intVal.toLocaleString("ko-KR")}만`;
   }
 
@@ -63,7 +67,6 @@ function formatComments(value: string | number | null | undefined): string {
     const s = String(value).trim();
     if (!s) return "-";
 
-    // "1,440" 같은 형식
     if (/^\d{1,3}(,\d{3})*$/.test(s)) {
       n = Number(s.replace(/,/g, ""));
     } else if (s.endsWith("억")) {
