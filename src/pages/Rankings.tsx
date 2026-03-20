@@ -127,9 +127,6 @@ export default function RankingsPage() {
   const { data: combinedNovels, isLoading, error } = useTodayCombined();
 
   const sourceNovels: Novel[] =
-    combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
-
-const sourceNovels: Novel[] =
   combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
 // 플랫폼별 max 값 계산 (전체 기준)
