@@ -470,11 +470,13 @@ export function formatViews(platform: Platform, views: number): string {
     return Number(views ?? 0).toLocaleString("ko-KR") + " 평가";
   }
 
-  // 네이버/카카오: 조회수 포맷
-  if (views >= 10000000) return (views / 10000000).toFixed(1) + "천만";
-  if (views >= 1000000) return (views / 10000).toFixed(0) + "만";
-  if (views >= 10000) return (views / 10000).toFixed(1) + "만";
-  return Number(views ?? 0).toLocaleString("ko-KR");
+  // 네이버/카카오: 조회수 포맷 (항상 '만' 기준)
+  const v = Number(views ?? 0);
+  if (!Number.isFinite(v) || v <= 0) return "-";
+
+  const man = v / 10_000; // 1만 = 1
+  const s = man.toFixed(1).replace(/\.0$/, ""); // 1114.0 -> 1114
+  return `${s}만`;
 }
 
 export function getRankChangeLabel(
