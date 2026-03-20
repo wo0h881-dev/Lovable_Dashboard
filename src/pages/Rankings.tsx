@@ -44,18 +44,29 @@ function toKoreanUnit(n: number): string {
   const eok = 100_000_000;
   const man = 10_000;
 
+  // 1) 억 이상: 항상 소수점 1자리 (3.5억, 12.3억)
   if (n >= eok) {
     const val = n / eok;
     const s = val.toFixed(1).replace(/\.0$/, "");
     return `${s}억`;
   }
 
+  // 2) 만 이상 억 미만
   if (n >= man) {
-    const val = n / man;
-    const intVal = Math.round(val);
+    const manVal = n / man; // 1만 단위 값
+
+    if (manVal < 100) {
+      // 100만 미만: 소수점 1자리 (1.2만, 9.5만, 35.5만)
+      const s = manVal.toFixed(1).replace(/\.0$/, "");
+      return `${s}만`;
+    }
+
+    // 100만 이상: 정수 + 콤마 (1,114만, 350만)
+    const intVal = Math.round(manVal);
     return `${intVal.toLocaleString("ko-KR")}만`;
   }
 
+  // 3) 1만 미만: 그냥 숫자
   return n.toLocaleString("ko-KR");
 }
 
@@ -76,15 +87,15 @@ function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
 
   let n: number;
+
   if (typeof value === "number") {
     n = value;
   } else {
     const s = String(value).trim();
     if (!s) return "-";
 
-    // "1,440" 같은 형식
     if (/^\d{1,3}(,\d{3})*$/.test(s)) {
-      n = Number(s.replace(/,/g, "")) || 0;
+      n = Number(s.replace(/,/g, ""));
     } else if (s.endsWith("억")) {
       const base = s.replace("억", "");
       const v = Number(base.replace(/,/g, ""));
@@ -94,7 +105,7 @@ function formatComments(value: string | number | null | undefined): string {
       const v = Number(base.replace(/,/g, ""));
       n = Number.isFinite(v) ? v * 10_000 : 0;
     } else {
-      n = Number(s.replace(/,/g, "")) || 0;
+      n = Number(s.replace(/,/g, ""));
     }
   }
 
@@ -102,6 +113,7 @@ function formatComments(value: string | number | null | undefined): string {
 
   return toKoreanUnit(n);
 }
+
 
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
