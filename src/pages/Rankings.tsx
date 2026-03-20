@@ -51,36 +51,42 @@ function formatViews(platform: Platform, views: number): string {
   return `${s}만`;
 }
 
-// "1.2만", "1,440" 같은 댓글 수를 숫자로 변환 후 문자열로
+// "1.2만", "1만", "1,440" 같은 댓글 수를 숫자로 변환 + 만 단위 축약
 function formatComments(value: string | number | null | undefined): string {
-  if (value == null) return "0";
+  if (value == null) return "-";
 
+  // 숫자/문자 모두 숫자로 먼저 변환
+  let n: number;
   if (typeof value === "number") {
-    return value.toLocaleString("ko-KR");
+    n = value;
+  } else {
+    const s = String(value).trim();
+    if (!s) return "-";
+
+    // "1,440" 같은 형식
+    if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+      n = Number(s.replace(/,/g, "")) || 0;
+    } else if (s.endsWith("만")) {
+      const base = s.replace("만", "");
+      const v = Number(base.replace(/,/g, ""));
+      n = Number.isFinite(v) ? Math.round(v * 10_000) : 0;
+    } else {
+      n = Number(s.replace(/,/g, "")) || 0;
+    }
   }
 
-  const s = String(value).trim();
-  if (!s) return "0";
+  if (!Number.isFinite(n) || n <= 0) return "-";
 
-  // "1,440" 같은 형식
-  if (/^\d{1,3}(,\d{3})*$/.test(s)) {
-    const n = Number(s.replace(/,/g, ""));
-    return Number.isFinite(n) ? n.toLocaleString("ko-KR") : "0";
+  // 1만 미만이면 그냥 숫자
+  if (n < 10_000) {
+    return n.toLocaleString("ko-KR");
   }
 
-  // "1.2만", "1만" 처리
-  if (s.endsWith("만")) {
-    const base = s.replace("만", "");
-    const n = Number(base.replace(/,/g, ""));
-    if (!Number.isFinite(n)) return "0";
-    const num = Math.round(n * 10_000);
-    return num.toLocaleString("ko-KR");
-  }
-
-  const n = Number(s.replace(/,/g, ""));
-  return Number.isFinite(n) ? n.toLocaleString("ko-KR") : "0";
+  // 1만 이상이면 "1.2만" 형식
+  const man = n / 10_000;
+  const s = man.toFixed(1).replace(/\.0$/, "");
+  return `${s}만`;
 }
-
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
@@ -135,9 +141,6 @@ export default function RankingsPage() {
         <h1 className="text-xl font-black tracking-tight">순위표</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
           플랫폼 · 장르별 상세 랭킹
-        </p>
-        <p className="text-[10px] text-red-500 mt-0.5">
-          build: 2026-03-13 Rankings.tsx 수정됨
         </p>
         {isLoading && (
           <p className="text-[10px] text-muted-foreground mt-0.5">
@@ -372,7 +375,7 @@ export default function RankingsPage() {
 
                   {/* 댓글: "1.2만" 포함 문자열도 숫자로 환산 */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                    {formatComments(n.commentCount)}
+                   {n.platform === "ridi" ? "-" : formatComments(n.commentCount)}
                   </td>
 
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
