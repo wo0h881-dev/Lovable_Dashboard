@@ -1,15 +1,8 @@
 // src/lib/rankingScore.ts
+import type { Novel } from "@/data/mockData";
 
 export type Platform = "kakao" | "naver" | "ridi" | "etc";
-
-export interface UnifiedNovel {
-  platform: Platform;
-  todayRank: number | null;
-  todayViews: number;       // 오늘 조회수 (리디는 평가수)
-  commentCount: number;     // 댓글 수 (리디는 평가수 재사용)
-  viewsChangePct: number;   // 조회수 증감률 (예: 25.49, -1.45)
-  // 그 외 title, author 등은 Rankings.tsx에서 기존 타입 그대로 써도 됨
-}
+export type UnifiedNovel = Novel;
 
 // 순위 점수: 1위=20, 20위=1, 그 외 0
 export function rankToScore(rank: number | null | undefined): number {
@@ -48,7 +41,8 @@ export function getPlatformMaxStats(novels: UnifiedNovel[]) {
   };
 
   for (const n of novels) {
-    const p = n.platform;
+    const p = n.platform as Platform;
+
     if (n.todayViews > maxViewsByPlatform[p]) {
       maxViewsByPlatform[p] = n.todayViews;
     }
@@ -70,7 +64,7 @@ export function computeUnifiedScore(
   maxCommentsByPlatform: Record<Platform, number>,
   maxDeltaByPlatform: Record<Platform, number>
 ): number {
-  const p = n.platform;
+  const p = n.platform as Platform;
   const rs = rankToScore(n.todayRank);
 
   const maxV = maxViewsByPlatform[p] || 0;
