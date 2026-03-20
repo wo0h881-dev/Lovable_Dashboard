@@ -155,6 +155,31 @@ function parseRankChange(label: string): {
   return { rankChange: null, isNew: false, isReEntry: false };
 }
 
+// 🔹 "1.2만", "1만", "1,440" 같은 댓글 수를 숫자로 변환
+function parseCommentCount(raw: string | number | undefined): number {
+  if (raw === undefined || raw === null || raw === "-") return 0;
+
+  const s = String(raw).trim();
+  if (!s) return 0;
+
+  // "1,440" 같은 형식
+  if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+    const n = Number(s.replace(/,/g, ""));
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  // "1.2만", "1만"
+  if (s.endsWith("만")) {
+    const base = s.replace("만", "");
+    const n = Number(base.replace(/,/g, ""));
+    if (!Number.isFinite(n)) return 0;
+    return Math.round(n * 10_000);
+  }
+
+  const n = Number(s.replace(/,/g, ""));
+  return Number.isFinite(n) ? n : 0;
+}
+
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
   const todayRank = parseRank(row["오늘순위"]) ?? index + 1;
@@ -198,11 +223,8 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     rating = Number.isNaN(r) ? 0 : r;
   }
 
-  // 댓글수
-  let commentCount = 0;
-  if (row["댓글수"] !== undefined && row["댓글수"] !== null && row["댓글수"] !== "-") {
-    commentCount = parseInt(String(row["댓글수"]).replace(/,/g, ""), 10) || 0;
-  }
+  // 🔹 댓글수: "1.2만", "1,440" 모두 숫자로 변환
+  const commentCount = parseCommentCount(row["댓글수"]);
 
   // 회차수 ("총 101화", "101화", "101" 모두 대응)
   let episodeCount = 0;
