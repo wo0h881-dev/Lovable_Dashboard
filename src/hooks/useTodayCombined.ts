@@ -4,11 +4,13 @@ import type { Novel, Platform, Genre } from "@/data/mockData";
 import { 
   getPlatformMaxStats, 
   computeUnifiedScore, 
+  computeTrendScore,
   type UnifiedNovel 
 } from "@/lib/rankingScore";
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
 
+// 앱스스크립트에서 넘어오는 로우 데이터 타입
 interface TodayCombinedRow {
   출처: string;
   오늘순위: number | string;
@@ -28,6 +30,12 @@ interface TodayCombinedRow {
   댓글수?: string | number;
   총회차수?: string | number;
   [key: string]: any;
+}
+
+// Novel 타입을 확장하여 점수 필드 추가
+export interface ScoredNovel extends Novel {
+  overallScore: number;
+  trendScore: number;
 }
 
 // --- 보조 파서 함수들 ---
@@ -117,7 +125,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 // --- Hook ---
 
 export function useTodayCombined() {
-  const [data, setData] = useState<Novel[] | null>(null);
+  const [data, setData] = useState<ScoredNovel[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [latestDate, setLatestDate] = useState<string>("");
@@ -141,21 +149,32 @@ export function useTodayCombined() {
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        // 2. 객체 변환
+        // 2. 기본 Novel 객체로 매핑
         const novels = rows
           .filter(r => r.날짜 === mostRecentDate)
           .map((row, idx) => mapRowToNovel(row, idx));
 
-        // 3. 🔥 Rankings와 동일한 종합 점수순으로 정렬 (플랫폼 섞기)
+        // 3. 점수 계산을 위한 통계값 추출
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         
-        novels.sort((a, b) => {
-          const scoreA = computeUnifiedScore(a as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform);
-          const scoreB = computeUnifiedScore(b as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform);
-          return scoreB - scoreA;
-        });
+        // 4. 모든 작품에 종합/트렌드 점수 부여
+        const scoredNovels: ScoredNovel[] = novels.map(n => ({
+          ...n,
+          overallScore: computeUnifiedScore(
+            n as unknown as UnifiedNovel, 
+            stats.maxViewsByPlatform, 
+            stats.maxCommentsByPlatform, 
+            stats.maxDeltaByPlatform
+          ),
+          trendScore: computeTrendScore(
+            n as unknown as UnifiedNovel, 
+            stats.maxViewsByPlatform, 
+            stats.maxCommentsByPlatform, 
+            stats.maxDeltaByPlatform
+          )
+        }));
 
-        setData(novels);
+        setData(scoredNovels);
         setError(null);
       } catch (err: any) {
         console.error("useTodayCombined error:", err);
