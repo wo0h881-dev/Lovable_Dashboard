@@ -38,36 +38,21 @@ const fadeInUp = {
 const normalizeGenre = (raw: unknown): Genre => {
   const g = String(raw ?? "").trim();
   if (!g) return "기타";
-
-  // BL 우선
   if (g.startsWith("BL")) return "BL";
-
-  // 리디 복합 장르
-  if (g.includes("로맨스")) return "로맨스"; // 로맨스 · 현대물
+  if (g.includes("로맨스")) return "로맨스";
   if (g.includes("서양풍 로판") || g.includes("가상 세계 로판") || g.includes("로판"))
     return "로판";
-
-  // 현대/역사 계열
   if (g.includes("현대물")) return "현대물";
   if (g.includes("역사/시대물")) return "역사/시대물";
-
-  // 판타지 계열
   if (g.includes("현대 판타지") || g.includes("퓨전 판타지")) return "현판";
   if (g.includes("판타지물") || g === "판타지" || g === "웹소설")
     return "판타지";
-
-  // 무협 계열
   if (g.includes("무협")) return "무협";
-
-  // 단일 태그들
   if (g === "현판") return "현판";
   if (g === "로판") return "로판";
-
   return "기타";
 };
 
-
-// "1.2만", "60.1만", "185" → 숫자
 const parseCount = (v: unknown): number => {
   if (!v) return 0;
   if (typeof v === "number") return v;
@@ -75,6 +60,7 @@ const parseCount = (v: unknown): number => {
   const num = Number(s.replace(/[^0-9.]/g, ""));
   if (Number.isNaN(num)) return 0;
   if (s.includes("만")) return num * 10_000;
+  if (s.includes("억")) return num * 100_000_000;
   return num;
 };
 
@@ -86,18 +72,21 @@ export default function OverviewPage() {
 
   // 통합 JSON → Novel 타입으로 매핑
   const mapToNovel = (item: any, rank: number): Novel => {
-    console.error("MAP_TO_NOVEL CALLED", rank);
-    console.log("raw item ▶", item);
+    // 1) 플랫폼 매핑 (출처에 따라 naver, ridi, kakao 분류)
+    const sourceStr = String(item.출처 || item.source || "").toLowerCase();
+    let platform: Platform = "kakao"; 
 
-    // 1) 회차 수
+    if (sourceStr.includes("naver") || sourceStr.includes("네이버")) {
+      platform = "naver";
+    } else if (sourceStr.includes("ridi") || sourceStr.includes("리디")) {
+      platform = "ridi";
+    } else if (sourceStr.includes("kakao") || sourceStr.includes("카카오")) {
+      platform = "kakao";
+    }
+
+    // 2) 회차 수
     const totalEpisodesRaw =
-      item.총회차수 ??
-      item.총회차 ??
-      item.회차수 ??
-      item.회차 ??
-      item.episodes ??
-      item.episodeCount;
-
+      item.총회차수 ?? item.총회차 ?? item.회차수 ?? item.회차 ?? item.episodes ?? item.episodeCount;
     const episodeCount =
       typeof totalEpisodesRaw === "number"
         ? totalEpisodesRaw
@@ -105,7 +94,7 @@ export default function OverviewPage() {
         ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
         : 0;
 
-    // 2) 오늘 조회수: "1,071만", "3.5억" 등 처리
+    // 3) 오늘 조회수
     const todayViews = (() => {
       const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
       if (!v) return 0;
@@ -118,7 +107,7 @@ export default function OverviewPage() {
       return num;
     })();
 
-    // 3) 조회수 증감률
+    // 4) 조회수 증감률
     const viewsChangePct = (() => {
       const v = item.조회수증감률 ?? item.viewsChangePct ?? item.증감률;
       if (!v) return 0;
@@ -127,64 +116,27 @@ export default function OverviewPage() {
       return Number.isNaN(n) ? 0 : n;
     })();
 
-    // 4) 플랫폼 매핑
-    const sourceStr = String(item.출처 || "").toLowerCase();
-    let platform: Platform = "kakao"; // 기본값
-
-    if (sourceStr.includes("naver") || sourceStr.includes("네이버")) {
-      platform = "naver";
-    } else if (sourceStr.includes("ridi") || sourceStr.includes("리디")) {
-      platform = "ridi";
-    } else if (sourceStr.includes("kakao") || sourceStr.includes("카카오")) {
-      platform = "kakao";
-    }
-
     // 5) 장르 / 출판사 / 평점 / 댓글
-    const rawGenre =
-      item.장르 ??
-      item.genre ??
-      item.카테고리 ??
-      item.분류 ??
-      "";
-
-    const rawPublisher =
-      item.출판사 ??
-      item.publisher ??
-      item.제공사 ??
-      "-";
-
-    const rawRating =
-      item.평점 ??
-      item.rating ??
-      item.별점 ??
-      0;
-
-    const rawComments =
-      item.댓글수 ??
-      item.댓글 ??
-      item.commentCount ??
-      0;
+    const rawGenre = item.장르 ?? item.genre ?? item.카테고리 ?? item.분류 ?? "";
+    const rawPublisher = item.출판사 ?? item.publisher ?? item.제공사 ?? "-";
+    const rawRating = item.평점 ?? item.rating ?? item.별점 ?? 0;
+    const rawComments = item.댓글수 ?? item.댓글 ?? item.commentCount ?? 0;
 
     return {
-      id: `${rawSource}-${item.제목 || ""}-${rank}`,
+      id: `${sourceStr}-${item.제목 || ""}-${rank}`,
       title: item.제목 || item.title || "제목 없음",
       author: item.작가 || item.author || "-",
+      // [수정] 썸네일 이미지 매핑 추가
       coverImage: item.이미지 || item.썸네일 || item.thumbnail || item.image,
       genre: normalizeGenre(rawGenre),
-
-      rawGenre: String(rawGenre),         // 세부 카테고리 전체
-      genre: normalizeGenre(rawGenre),    // 카드/차트용 요약 장르
+      rawGenre: String(rawGenre),
       publisher: rawPublisher || "-",
       platform,
       coverGradient: "from-slate-800 to-slate-700",
       coverEmoji: "📚",
 
       todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
-      prevRank: item.전일순위
-        ? Number(item.전일순위)
-        : item.prevRank
-        ? Number(item.prevRank)
-        : null,
+      prevRank: item.전일순위 ? Number(item.전일순위) : (item.prevRank ? Number(item.prevRank) : null),
       rankChange: null,
 
       isNew: false,
@@ -233,10 +185,10 @@ export default function OverviewPage() {
         transition={{ delay: 0.05 }}
       >
         <KpiCard
-         title="전체 분석 작품"
-         value={todayCombined?.length || 0} // 실제 데이터 개수
-         icon={BookOpen}
-         suffix="편"
+          title="전체 분석 작품"
+          value={todayCombined?.length || 0}
+          icon={BookOpen}
+          suffix="편"
         />
         <KpiCard
           title="신작 (이번 달)"
@@ -267,19 +219,14 @@ export default function OverviewPage() {
         {...fadeInUp}
         transition={{ delay: 0.1 }}
       >
-        {/* Donut chart */}
         <div className="surface-card">
           <h2 className="mb-4 text-sm font-bold">플랫폼별 점유율</h2>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
                 data={platformShareData}
-                cx="50%"
-                cy="50%"
-                innerRadius={55}
-                outerRadius={80}
-                dataKey="value"
-                paddingAngle={3}
+                cx="50%" cy="50%" innerRadius={55} outerRadius={80}
+                dataKey="value" paddingAngle={3}
               >
                 {platformShareData.map((entry, i) => (
                   <Cell key={i} fill={entry.color} />
@@ -299,50 +246,21 @@ export default function OverviewPage() {
           <div className="mt-2 flex items-center justify-center gap-4">
             {platformShareData.map((d) => (
               <div key={d.name} className="flex items-center gap-1.5">
-                <div
-                  className="h-2.5 w-2.5 rounded-full"
-                  style={{ background: d.color }}
-                />
-                <span className="text-xs text-muted-foreground">
-                  {d.name}
-                </span>
-                <span
-                  className="font-mono text-xs font-bold"
-                  style={{ color: d.color }}
-                >
-                  {d.value}%
-                </span>
+                <div className="h-2.5 w-2.5 rounded-full" style={{ background: d.color }} />
+                <span className="text-xs text-muted-foreground">{d.name}</span>
+                <span className="font-mono text-xs font-bold" style={{ color: d.color }}>{d.value}%</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bar chart - Genre */}
         <div className="surface-card xl:col-span-2">
           <h2 className="mb-4 text-sm font-bold">장르별 TOP 작품 수</h2>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart
-              data={genreBarData}
-              margin={{ top: 4, right: 8, bottom: 4, left: -20 }}
-            >
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="hsl(var(--border))"
-              />
-              <XAxis
-                dataKey="genre"
-                tick={{
-                  fontSize: 11,
-                  fill: "hsl(var(--muted-foreground))",
-                }}
-              />
-              <YAxis
-                tick={{
-                  fontSize: 10,
-                  fill: "hsl(var(--muted-foreground))",
-                  fontFamily: "Roboto Mono",
-                }}
-              />
+            <BarChart data={genreBarData} margin={{ top: 4, right: 8, bottom: 4, left: -20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="genre" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+              <YAxis tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }} />
               <Tooltip
                 contentStyle={{
                   background: "hsl(var(--surface))",
@@ -352,82 +270,41 @@ export default function OverviewPage() {
                 }}
               />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar
-                dataKey="naver"
-                name="네이버"
-                fill="hsl(var(--naver))"
-                radius={[2, 2, 0, 0]}
-              />
-              <Bar
-                dataKey="kakao"
-                name="카카오"
-                fill="hsl(var(--kakao))"
-                radius={[2, 2, 0, 0]}
-              />
-              <Bar
-                dataKey="ridi"
-                name="리디"
-                fill="hsl(var(--ridi))"
-                radius={[2, 2, 0, 0]}
-              />
+              <Bar dataKey="naver" name="네이버" fill="hsl(var(--naver))" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="kakao" name="카카오" fill="hsl(var(--kakao))" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="ridi" name="리디" fill="hsl(var(--ridi))" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </motion.div>
 
-      {/* Heatmap */}
-      <motion.div
-        className="surface-card"
-        {...fadeInUp}
-        transition={{ delay: 0.15 }}
-      >
-        <h2 className="mb-4 text-sm font-bold">
-          플랫폼 × 장르 히트맵 (점유율 지수)
-        </h2>
+      {/* Heatmap 섹션 생략 가능하지만 구조 유지를 위해 포함 */}
+      <motion.div className="surface-card" {...fadeInUp} transition={{ delay: 0.15 }}>
+        <h2 className="mb-4 text-sm font-bold">플랫폼 × 장르 히트맵 (점유율 지수)</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
               <tr>
-                <th className="w-20 py-2 pr-4 text-left font-medium text-muted-foreground">
-                  장르
-                </th>
+                <th className="w-20 py-2 pr-4 text-left font-medium text-muted-foreground">장르</th>
                 {["네이버", "카카오", "리디"].map((p) => (
-                  <th
-                    key={p}
-                    className="py-2 px-3 text-center font-medium text-muted-foreground"
-                  >
-                    {p}
-                  </th>
+                  <th key={p} className="py-2 px-3 text-center font-medium text-muted-foreground">{p}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {heatmapData.map((row) => (
                 <tr key={row.genre} className="border-t border-border">
-                  <td className="py-2 pr-4 font-medium text-foreground">
-                    {row.genre}
-                  </td>
+                  <td className="py-2 pr-4 font-medium text-foreground">{row.genre}</td>
                   {[row.naver, row.kakao, row.ridi].map((val, ci) => {
                     const alpha = val / 100;
-                    const colors = [
-                      "hsl(138,100%,39%)",
-                      "hsl(50,100%,50%)",
-                      "hsl(210,76%,51%)",
-                    ];
+                    const colors = ["hsl(138,100%,39%)", "hsl(50,100%,50%)", "hsl(210,76%,51%)"];
                     return (
                       <td key={ci} className="py-2 px-3 text-center">
                         <div
                           className="flex h-7 w-14 items-center justify-center rounded font-mono font-bold"
                           style={{
-                            background: `${colors[ci]}${Math.round(
-                              alpha * 45 + 10
-                            )
-                              .toString(16)
-                              .padStart(2, "0")}`,
-                            color:
-                              val > 50
-                                ? "#fff"
-                                : "hsl(var(--muted-foreground))",
+                            background: `${colors[ci]}${Math.round(alpha * 45 + 10).toString(16).padStart(2, "0")}`,
+                            color: val > 50 ? "#fff" : "hsl(var(--muted-foreground))",
                           }}
                         >
                           {val}
@@ -445,26 +322,12 @@ export default function OverviewPage() {
       {/* TOP 10 Ranking Cards */}
       <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-bold">오늘 TOP 10 랭킹(디버그 빌드2)</h2>
-          <span className="font-mono text-xs text-muted-foreground">
-            전체 플랫폼
-          </span>
+          <h2 className="text-sm font-bold">오늘 통합 TOP 10</h2>
+          <span className="font-mono text-xs text-muted-foreground">전체 플랫폼</span>
         </div>
 
-        <p className="text-xs text-muted-foreground">
-          build: 2026-03-13 useTodayCombined 적용됨
-        </p>
-
-        {isLoading && (
-          <div className="text-xs text-muted-foreground">
-            랭킹 불러오는 중…
-          </div>
-        )}
-        {error && (
-          <div className="text-xs text-red-500">
-            데이터를 불러오지 못했습니다.
-          </div>
-        )}
+        {isLoading && <div className="text-xs text-muted-foreground">랭킹 불러오는 중…</div>}
+        {error && <div className="text-xs text-red-500">데이터를 불러오지 못했습니다.</div>}
 
         {!isLoading && !error && (
           <div className="space-y-2">
