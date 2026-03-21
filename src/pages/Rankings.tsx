@@ -16,6 +16,7 @@ import {
   computeTrendScore,
   getPlatformMaxStats,
   type UnifiedNovel,
+  attachRidiInnerRank, // 🔹 추가
 } from "@/lib/rankingScore";
 
 type PlatformTab = "all" | Platform;
@@ -128,14 +129,22 @@ export default function RankingsPage() {
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-  // 플랫폼별 max 값 계산 (전체 기준)
+  // 🔹 1단계: 플랫폼별 max 값 계산 (리디 내부 점수용도 같이 씀)
   const {
     maxViewsByPlatform,
     maxCommentsByPlatform,
     maxDeltaByPlatform,
   } = getPlatformMaxStats(sourceNovels as UnifiedNovel[]);
 
-  const filtered = sourceNovels
+  // 🔹 2단계: 리디 내부 종합순위를 먼저 계산해서 ridiInnerRank 필드로 붙이기
+  const novelsWithRidiInner = attachRidiInnerRank(
+    sourceNovels as UnifiedNovel[],
+    maxCommentsByPlatform,
+    maxDeltaByPlatform,
+  );
+
+
+   const filtered = novelsWithRidiInner
     .filter((n) => platform === "all" || n.platform === platform)
     .filter((n) => genre === "전체" || n.genre === genre)
     .filter((n) => !showNew || n.isNew)
@@ -152,20 +161,19 @@ export default function RankingsPage() {
           mode === "overall" ? computeUnifiedScore : computeTrendScore;
 
         const scoreA = scorer(
-          a as UnifiedNovel,
+          a as UnifiedNovel & { ridiInnerRank?: number },
           maxViewsByPlatform,
           maxCommentsByPlatform,
           maxDeltaByPlatform,
         );
         const scoreB = scorer(
-          b as UnifiedNovel,
+          b as UnifiedNovel & { ridiInnerRank?: number },
           maxViewsByPlatform,
           maxCommentsByPlatform,
           maxDeltaByPlatform,
         );
 
         if (scoreA !== scoreB) return scoreB - scoreA;
-        // 동점이면 오늘조회수 많은 순
         return b.todayViews - a.todayViews;
       }
 
@@ -179,6 +187,7 @@ export default function RankingsPage() {
 
       return 0;
     });
+
 
   const topCards = filtered.slice(0, 4);
 
