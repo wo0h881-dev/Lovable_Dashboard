@@ -303,40 +303,49 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   return novel;
 }
 
-export function useTodayCombined(): UseTodayCombinedResult {
+export function useTodayCombined() {
   const [data, setData] = useState<Novel[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [latestDate, setLatestDate] = useState<string>(""); // 최신 날짜 상태 추가
 
   useEffect(() => {
     async function load() {
       try {
-        if (!APPS_SCRIPT_URL) {
-          throw new Error("VITE_APPS_SCRIPT_URL이 설정되지 않았습니다.");
-        }
+        if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
 
         const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         const rows = (await res.json()) as TodayCombinedRow[];
-        const novels = rows.map((row, idx) => mapRowToNovel(row, idx));
+        if (!rows || rows.length === 0) {
+          setData([]);
+          return;
+        }
+
+        // 1. 데이터에 포함된 모든 날짜 중 가장 최신 날짜 찾기
+        const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
+        const mostRecentDate = dates[0]; // 가장 최신 날짜 (예: "2024-05-20")
+        setLatestDate(mostRecentDate);
+
+        // 2. 가장 최신 날짜에 해당하는 데이터만 필터링
+        const latestRows = rows.filter(r => r.날짜 === mostRecentDate);
+        
+        // 3. 필터링된 데이터를 Novel 객체로 변환
+        const novels = latestRows.map((row, idx) => mapRowToNovel(row, idx));
 
         setData(novels);
         setError(null);
       } catch (err: any) {
         console.error("useTodayCombined error:", err);
         setError(err?.message ?? String(err));
-        setData(null);
       } finally {
         setIsLoading(false);
       }
     }
-
     load();
   }, []);
 
-  return { data, isLoading, error };
+  // 최신 날짜(latestDate)를 함께 반환합니다.
+  return { data, isLoading, error, latestDate };
 }
