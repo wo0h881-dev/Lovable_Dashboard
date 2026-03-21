@@ -13,6 +13,7 @@ import { type Novel, type Platform, type Genre } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import {
   computeUnifiedScore,
+  computeTrendScore,
   getPlatformMaxStats,
   type UnifiedNovel,
 } from "@/lib/rankingScore";
@@ -43,7 +44,7 @@ function toKoreanUnit(n: number): string {
   const eok = 100_000_000;
   const man = 10_000;
 
-  // 1) 억 이상: 항상 소수점 1자리 (3.5억, 12.3억)
+  // 1) 억 이상
   if (n >= eok) {
     const val = n / eok;
     const s = val.toFixed(1).replace(/\.0$/, "");
@@ -52,20 +53,18 @@ function toKoreanUnit(n: number): string {
 
   // 2) 만 이상 억 미만
   if (n >= man) {
-    const manVal = n / man; // 1만 단위 값
+    const manVal = n / man;
 
     if (manVal < 100) {
-      // 100만 미만: 소수점 1자리 (1.2만, 9.5만, 35.5만)
       const s = manVal.toFixed(1).replace(/\.0$/, "");
       return `${s}만`;
     }
 
-    // 100만 이상: 정수 + 콤마 (1,114만, 350만)
     const intVal = Math.round(manVal);
     return `${intVal.toLocaleString("ko-KR")}만`;
   }
 
-  // 3) 1만 미만: 그냥 숫자
+  // 3) 1만 미만
   return n.toLocaleString("ko-KR");
 }
 
@@ -113,7 +112,6 @@ function formatComments(value: string | number | null | undefined): string {
   return toKoreanUnit(n);
 }
 
-
 export default function RankingsPage() {
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
@@ -123,60 +121,64 @@ export default function RankingsPage() {
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
   const [sortKey, setSortKey] =
     useState<"rank" | "views" | "rating">("rank");
+  const [mode, setMode] = useState<"overall" | "trend">("overall");
 
   const { data: combinedNovels, isLoading, error } = useTodayCombined();
 
   const sourceNovels: Novel[] =
-  combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
+    combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
-// 플랫폼별 max 값 계산 (전체 기준)
-const {
-  maxViewsByPlatform,
-  maxCommentsByPlatform,
-  maxDeltaByPlatform,
-} = getPlatformMaxStats(sourceNovels as UnifiedNovel[]);
+  // 플랫폼별 max 값 계산 (전체 기준)
+  const {
+    maxViewsByPlatform,
+    maxCommentsByPlatform,
+    maxDeltaByPlatform,
+  } = getPlatformMaxStats(sourceNovels as UnifiedNovel[]);
 
-const filtered = sourceNovels
-  .filter((n) => platform === "all" || n.platform === platform)
-  .filter((n) => genre === "전체" || n.genre === genre)
-  .filter((n) => !showNew || n.isNew)
-  .filter((n) => !showReEntry || n.isReEntry)
-  .filter(
-    (n) =>
-      !search ||
-      n.title.includes(search) ||
-      n.author.includes(search),
-  )
-  .sort((a, b) => {
-    if (sortKey === "rank") {
-      const scoreA = computeUnifiedScore(
-        a as UnifiedNovel,
-        maxViewsByPlatform,
-        maxCommentsByPlatform,
-        maxDeltaByPlatform,
-      );
-      const scoreB = computeUnifiedScore(
-        b as UnifiedNovel,
-        maxViewsByPlatform,
-        maxCommentsByPlatform,
-        maxDeltaByPlatform,
-      );
+  const filtered = sourceNovels
+    .filter((n) => platform === "all" || n.platform === platform)
+    .filter((n) => genre === "전체" || n.genre === genre)
+    .filter((n) => !showNew || n.isNew)
+    .filter((n) => !showReEntry || n.isReEntry)
+    .filter(
+      (n) =>
+        !search ||
+        n.title.includes(search) ||
+        n.author.includes(search),
+    )
+    .sort((a, b) => {
+      if (sortKey === "rank") {
+        const scorer =
+          mode === "overall" ? computeUnifiedScore : computeTrendScore;
 
-      if (scoreA !== scoreB) return scoreB - scoreA;
-      // 동점이면 오늘조회수 많은 순
-      return b.todayViews - a.todayViews;
-    }
+        const scoreA = scorer(
+          a as UnifiedNovel,
+          maxViewsByPlatform,
+          maxCommentsByPlatform,
+          maxDeltaByPlatform,
+        );
+        const scoreB = scorer(
+          b as UnifiedNovel,
+          maxViewsByPlatform,
+          maxCommentsByPlatform,
+          maxDeltaByPlatform,
+        );
 
-    if (sortKey === "views") {
-      return b.todayViews - a.todayViews;
-    }
+        if (scoreA !== scoreB) return scoreB - scoreA;
+        // 동점이면 오늘조회수 많은 순
+        return b.todayViews - a.todayViews;
+      }
 
-    if (sortKey === "rating") {
-      return b.rating - a.rating;
-    }
+      if (sortKey === "views") {
+        return b.todayViews - a.todayViews;
+      }
 
-    return 0;
-  });
+      if (sortKey === "rating") {
+        return b.rating - a.rating;
+      }
+
+      return 0;
+    });
 
   const topCards = filtered.slice(0, 4);
 
@@ -201,7 +203,7 @@ const filtered = sourceNovels
 
       {/* Filters */}
       <div className="surface-card space-y-4">
-        {/* Platform tabs */}
+        {/* Platform tabs + Genre */}
         <div className="flex items-center gap-2 flex-wrap">
           {platformTabs.map((t) => (
             <button
@@ -255,7 +257,7 @@ const filtered = sourceNovels
             />
           </div>
 
-          {/* Toggle chips */}
+          {/* NEW / 재진입 토글 */}
           {[
             { label: "NEW만 보기", value: showNew, setter: setShowNew },
             {
@@ -278,8 +280,29 @@ const filtered = sourceNovels
             </button>
           ))}
 
-          {/* Sort */}
+          {/* 모드 토글: 종합 / 트렌드 */}
           <div className="flex items-center gap-1 ml-auto">
+            {([
+              { key: "overall" as const, label: "종합" },
+              { key: "trend" as const, label: "트렌드" },
+            ]).map((m) => (
+              <button
+                key={m.key}
+                onClick={() => setMode(m.key)}
+                className={cn(
+                  "px-2.5 py-1 rounded text-xs",
+                  mode === m.key
+                    ? "bg-primary/15 text-primary font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Sort */}
+          <div className="flex items-center gap-1">
             <SlidersHorizontal size={13} className="text-muted-foreground" />
             {[
               { key: "rank" as const, label: "순위" },
@@ -292,7 +315,7 @@ const filtered = sourceNovels
                 className={cn(
                   "px-2.5 py-1 rounded text-xs",
                   sortKey === s.key
-                    ? "bg-primary/15 text-primary font-semibold"
+                    ? "bg-surface-elevated text-foreground font-semibold"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -307,14 +330,14 @@ const filtered = sourceNovels
       {topCards.length > 0 && (
         <div>
           <p className="text-xs text-muted-foreground mb-3 font-medium">
-            주요 작품
+            주요 작품 ({mode === "overall" ? "종합" : "트렌드"} TOP 4)
           </p>
           <div className="space-y-2">
-            {topCards.map((n) => (
+            {topCards.map((n, idx) => (
               <RankingCard
                 key={n.id}
                 novel={n}
-                rank={n.todayRank}
+                rank={idx + 1}
                 onClick={setSelectedNovel}
               />
             ))}
@@ -325,7 +348,9 @@ const filtered = sourceNovels
       {/* Full Table */}
       <div className="surface-card overflow-hidden p-0">
         <div className="px-5 py-4 border-b border-border flex items-center justify-between">
-          <h2 className="text-sm font-bold">전체 순위표</h2>
+          <h2 className="text-sm font-bold">
+            전체 순위표 ({mode === "overall" ? "종합" : "트렌드"})
+          </h2>
           <span className="font-mono text-xs text-muted-foreground">
             {filtered.length}개 작품
           </span>
@@ -390,7 +415,7 @@ const filtered = sourceNovels
                     {n.genre}
                   </td>
 
-                  {/* 조회수/평가수: 억/만 포맷 */}
+                  {/* 조회수/평가수 */}
                   <td className="py-2.5 px-3 font-mono font-semibold whitespace-nowrap">
                     {formatViews(n.platform, n.todayViews)}
                   </td>
@@ -418,7 +443,7 @@ const filtered = sourceNovels
                     {n.rating}
                   </td>
 
-                  {/* 댓글: 리디는 '-', 나머지는 억/만 포맷 */}
+                  {/* 댓글 */}
                   <td className="py-2.5 px-3 font-mono text-muted-foreground">
                     {n.platform === "ridi"
                       ? "-"
