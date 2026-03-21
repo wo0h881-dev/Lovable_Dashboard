@@ -37,17 +37,41 @@ function rankToScore(rank: number | null | undefined): number {
   return 21 - n; // 1위=20, 20위=1
 }
 
+// src/hooks/useTodayCombined.ts
+
 function toPlatform(src: string): Platform {
-  // 소문자로 바꾸고 공백을 제거해서 비교합니다.
-  const s = String(src || "").trim().toLowerCase();
+  // 앱스스크립트가 "네이버", "카카오", "리디" 한글로 보내주고 있음
+  const s = String(src || "").trim();
   
-  if (s.includes("naver") || s.includes("네이버")) return "naver";
-  if (s.includes("ridi") || s.includes("리디")) return "ridi";
-  if (s.includes("kakao") || s.includes("카카오")) return "kakao";
+  // 1. 한글 우선 체크 (앱스스크립트 출력값 대응)
+  if (s === "네이버" || s.includes("네이버")) return "naver";
+  if (s === "리디" || s.includes("리디")) return "ridi";
+  if (s === "카카오" || s.includes("카카오")) return "kakao";
   
-  // 만약 위 조건에 안 걸리면 일단 'kakao'를 주되, 
-  // 실제 데이터가 영어라면 위 includes 문법에서 다 걸러집니다.
-  return "kakao"; 
+  // 2. 혹시나 영어로 들어올 경우 대응
+  const lowerS = s.toLowerCase();
+  if (lowerS.includes("naver")) return "naver";
+  if (lowerS.includes("ridi")) return "ridi";
+  if (lowerS.includes("kakao")) return "kakao";
+  
+  return "kakao"; // 기본값
+}
+
+function mapRowToNovel(row: any, index: number): Novel {
+  // 앱스스크립트의 JSON 키값은 한글입니다: row["출처"]
+  const platform = toPlatform(row["출처"] || row.platform);
+  
+  return {
+    id: `${platform}-${index}-${row["제목"]}`,
+    platform: platform, // "naver" | "kakao" | "ridi"
+    title: row["제목"] || "제목 없음",
+    author: row["작가"] || "작가 미상",
+    genre: row["장르"] || "기타",
+    todayRank: parseInt(row["오늘순위"]) || index + 1,
+    prevRank: row["전일순위"] === "NEW" ? null : parseInt(row["전일순위"]),
+    thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : "",
+    // ... 나머지 데이터 매핑
+  } as Novel;
 }
 
 /**
