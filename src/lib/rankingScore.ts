@@ -12,61 +12,33 @@ export function rankToScore(rank: number | null | undefined): number {
 }
 
 // 시장 점유율 기반 플랫폼 가중치 (종합 랭킹에만 사용)
+// 리디의 비중을 0.08 -> 0.12로 살짝 보정하여 리디 1위가 전체 랭킹에서 소외되지 않게 했습니다.
 export function platformWeight(p: Platform): number {
-  if (p === "naver") return 0.58;
-  if (p === "kakao") return 0.27;
-  if (p === "ridi") return 0.08;
-  return 0.07; // 기타
+  if (p === "naver") return 0.55; 
+  if (p === "kakao") return 0.25;
+  if (p === "ridi") return 0.12; 
+  return 0.08; // 기타
 }
 
-// 플랫폼별 최대값 계산
+// 플랫폼별 최대값 계산 (정규화용)
 export function getPlatformMaxStats(novels: UnifiedNovel[]) {
-  const maxViewsByPlatform: Record<Platform, number> = {
-    naver: 0,
-    kakao: 0,
-    ridi: 0,
-    etc: 0,
-  };
-  const maxCommentsByPlatform: Record<Platform, number> = {
-    naver: 0,
-    kakao: 0,
-    ridi: 0,
-    etc: 0,
-  };
-  const maxDeltaByPlatform: Record<Platform, number> = {
-    naver: 0,
-    kakao: 0,
-    ridi: 0,
-    etc: 0,
-  };
+  const maxViewsByPlatform: Record<Platform, number> = { naver: 0, kakao: 0, ridi: 0, etc: 0 };
+  const maxCommentsByPlatform: Record<Platform, number> = { naver: 0, kakao: 0, ridi: 0, etc: 0 };
+  const maxDeltaByPlatform: Record<Platform, number> = { naver: 0, kakao: 0, ridi: 0, etc: 0 };
 
   for (const n of novels) {
     const p = n.platform as Platform;
-
-    if (n.todayViews > maxViewsByPlatform[p]) {
-      maxViewsByPlatform[p] = n.todayViews;
-    }
-    if (n.commentCount > maxCommentsByPlatform[p]) {
-      maxCommentsByPlatform[p] = n.commentCount;
-    }
+    if (n.todayViews > (maxViewsByPlatform[p] || 0)) maxViewsByPlatform[p] = n.todayViews;
+    if (n.commentCount > (maxCommentsByPlatform[p] || 0)) maxCommentsByPlatform[p] = n.commentCount;
     const delta = Math.max(0, n.viewsChangePct || 0);
-    if (delta > maxDeltaByPlatform[p]) {
-      maxDeltaByPlatform[p] = delta;
-    }
+    if (delta > (maxDeltaByPlatform[p] || 0)) maxDeltaByPlatform[p] = delta;
   }
-
   return { maxViewsByPlatform, maxCommentsByPlatform, maxDeltaByPlatform };
 }
 
 /**
- * 0) 리디 내부 종합 점수 계산용
- * - 카테고리(장르)와 무관하게 "리디 전체"에서 순위만 보정하기 위한 점수
- * - 여기서는 플랫폼 가중치 pw는 쓰지 않고, 리디 안에서 상대적인 순서만 만든다.
- *
- * 예시 비중:
- *  - 순위: 0.5
- *  - 증감률: 0.3
- *  - 평가수(commentRatio): 0.2
+ * 0) 리디 내부 종합 점수 계산용 (선행 순위 산출용)
+ * - 리디 안에서의 상대적 순서를 정하기 위한 내부 로직
  */
 export function computeRidiInnerScore(
   n: UnifiedNovel,
@@ -87,27 +59,15 @@ export function computeRidiInnerScore(
 }
 
 /**
- * 리디 내부 종합순위를 구해서,
- * - 각 Novel에 "리디내 종합순위"를 붙여서 반환하는 헬퍼
- *  → RankingsPage에서 이 결과를 쓰면, 리디 todayRank 대신 이 순위를 쓸 수 있음.
- *
- * 사용처:
- * 1) 전체 novel 배열에서 리디 작품만 뽑는다.
- * 2) computeRidiInnerScore로 점수를 계산해서 정렬한다.
- * 3) 점수 순서대로 리디내순위 = 1,2,3...을 매긴 후,
- *    Novel에 임시 필드로 주입해서 반환한다.
+ * 리디 선행 순위 주입 헬퍼
+ * - RankingsPage 및 Overview에서 이 결과를 사용하여 리디의 todayRank를 보정함
  */
 export function attachRidiInnerRank(
   novels: UnifiedNovel[],
   maxCommentsByPlatform: Record<Platform, number>,
   maxDeltaByPlatform: Record<Platform, number>,
 ): (UnifiedNovel & { ridiInnerRank?: number })[] {
-  // 원본 훼손 방지용 shallow copy
-  const cloned = novels.map((n) => ({ ...n })) as (UnifiedNovel & {
-    ridiInnerRank?: number;
-  })[];
-
-  // 1) 리디 작품만 뽑아서 점수 계산
+  const cloned = novels.map((n) => ({ ...n })) as (UnifiedNovel & { ridiInnerRank?: number })[];
   const ridiOnly = cloned.filter((n) => n.platform === "ridi");
 
   const scoredRidi = ridiOnly
@@ -117,7 +77,6 @@ export function attachRidiInnerRank(
     }))
     .sort((a, b) => b.score - a.score);
 
-  // 2) 점수 순서대로 리디내 종합순위 1,2,3...
   scoredRidi.forEach((item, idx) => {
     item.novel.ridiInnerRank = idx + 1;
   });
@@ -126,11 +85,9 @@ export function attachRidiInnerRank(
 }
 
 /**
- * 1) 종합 랭킹용 점수 (최종)
- * - 플랫폼 가중치 포함
- * - 네이버/카카오: 순위 0.4, 증감률 0.25, 조회수 0.15, 댓글 0.1, 플랫폼 0.1
- * - 리디: "리디내 종합순위(ridiInnerRank)"를 순위로 사용
- *         → 순위 0.3, 증감률 0.1, 댓글 0.05, 플랫폼 0.3
+ * 1) 종합 랭킹용 점수 (사용자 제안 수치 반영)
+ * - 네이버/카카오: 순위 0.4 + 조회 0.25 + 증감 0.15 + 댓글 0.1 + 플랫폼 0.1
+ * - 리디: 순위 0.3 + 증감 0.1 + 댓글 0.05 + 플랫폼 0.3
  */
 export function computeUnifiedScore(
   n: UnifiedNovel & { ridiInnerRank?: number },
@@ -140,8 +97,7 @@ export function computeUnifiedScore(
 ): number {
   const p = n.platform as Platform;
 
-  // 🔹 네이버/카카오: 원래 todayRank 사용
-  // 🔹 리디: todayRank 대신 ridiInnerRank 사용
+  // 리디는 ridiInnerRank, 네이버/카카오는 todayRank 사용
   const effectiveRank =
     p === "ridi" && n.ridiInnerRank ? n.ridiInnerRank : n.todayRank;
   const rs = rankToScore(effectiveRank);
@@ -150,21 +106,21 @@ export function computeUnifiedScore(
   const maxC = maxCommentsByPlatform[p] || 0;
   const maxD = maxDeltaByPlatform[p] || 0;
 
-  // 네이버/카카오만 조회수 사용
-  const viewRatio =
-    p === "ridi" || maxV <= 0 ? 0 : n.todayViews / maxV;
+  // 조회수 비율 (네이버/카카오 전용)
+  const viewRatio = p === "ridi" || maxV <= 0 ? 0 : n.todayViews / maxV;
 
-  // 조회수 증감률: 음수는 0으로 자르고, 플랫폼 내 최대를 1로 정규화
+  // 증감률 비율
   const deltaRaw = Math.max(0, n.viewsChangePct || 0);
   const deltaRatio = maxD > 0 ? deltaRaw / maxD : 0;
 
-  // 댓글(또는 평가) 비율
+  // 댓글/평가 비율
   const commentRatio = maxC > 0 ? n.commentCount / maxC : 0;
 
+  // 플랫폼 가중치
   const pw = platformWeight(p);
 
   if (p === "ridi") {
-    // 리디: 순위(=리디내 종합순위) 0.3, delta 0.1, 댓글 0.05, 플랫폼 0.3
+    // 리디: 순위 0.3 + 증감 0.1 + 댓글 0.05 + 플랫폼 0.3
     return (
       rs * 0.3 +
       deltaRatio * 0.1 +
@@ -173,11 +129,11 @@ export function computeUnifiedScore(
     );
   }
 
-  // 네이버/카카오: 순위 0.4, delta 0.25, 조회 0.15, 댓글 0.1, 플랫폼 0.1
+  // 네이버/카카오: 순위 0.4 + 조회 0.25 + 증감 0.15 + 댓글 0.1 + 플랫폼 0.1
   return (
     rs * 0.4 +
-    deltaRatio * 0.25 +
-    viewRatio * 0.15 +
+    viewRatio * 0.25 +
+    deltaRatio * 0.15 +
     commentRatio * 0.1 +
     pw * 0.1
   );
