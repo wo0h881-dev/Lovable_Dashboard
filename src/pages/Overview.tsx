@@ -1,361 +1,190 @@
 // src/pages/Overview.tsx
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, RefreshCw, TrendingUp, Zap } from "lucide-react";
 import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Legend,
+  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend,
 } from "recharts";
 import { KpiCard } from "@/components/shared/KpiCard";
 import { RankingCard } from "@/components/shared/RankingCard";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import {
-  kpiData,
-  platformShareData,
-  genreBarData,
-  heatmapData,
   type Novel,
   type Genre,
   type Platform,
 } from "@/data/mockData";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-};
-
+// 장르 정규화 함수
 const normalizeGenre = (raw: unknown): Genre => {
   const g = String(raw ?? "").trim();
   if (!g) return "기타";
-  if (g.startsWith("BL")) return "BL";
   if (g.includes("로맨스")) return "로맨스";
-  if (g.includes("서양풍 로판") || g.includes("가상 세계 로판") || g.includes("로판"))
-    return "로판";
-  if (g.includes("현대물")) return "현대물";
-  if (g.includes("역사/시대물")) return "역사/시대물";
-  if (g.includes("현대 판타지") || g.includes("퓨전 판타지")) return "현판";
-  if (g.includes("판타지물") || g === "판타지" || g === "웹소설")
-    return "판타지";
+  if (g.includes("로판")) return "로판";
+  if (g.includes("판타지") || g.includes("현판")) return "판타지";
   if (g.includes("무협")) return "무협";
-  if (g === "현판") return "현판";
-  if (g === "로판") return "로판";
+  if (g.includes("BL")) return "BL";
   return "기타";
 };
 
+// 숫자 변환 함수 ("1.2만" 등 처리)
 const parseCount = (v: unknown): number => {
   if (!v) return 0;
   if (typeof v === "number") return v;
   const s = String(v);
   const num = Number(s.replace(/[^0-9.]/g, ""));
   if (Number.isNaN(num)) return 0;
-  if (s.includes("만")) return num * 10_000;
   if (s.includes("억")) return num * 100_000_000;
+  if (s.includes("만")) return num * 10_000;
   return num;
 };
 
 export default function OverviewPage() {
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
-
   const { data: todayCombined, isLoading, error } = useTodayCombined();
-  const top10 = todayCombined ? todayCombined.slice(0, 10) : [];
 
-  // 통합 JSON → Novel 타입으로 매핑
-  const mapToNovel = (item: any, rank: number): Novel => {
-    // 1) 플랫폼 매핑 (출처에 따라 naver, ridi, kakao 분류)
-    const sourceStr = String(item.출처 || item.source || "").toLowerCase();
-    let platform: Platform = "kakao"; 
+  // [통계 계산 로직] 통합시트 컬럼명 기준
+  const stats = useMemo(() => {
+    if (!todayCombined || todayCombined.length === 0) return null;
 
-    if (sourceStr.includes("naver") || sourceStr.includes("네이버")) {
-      platform = "naver";
-    } else if (sourceStr.includes("ridi") || sourceStr.includes("리디")) {
-      platform = "ridi";
-    } else if (sourceStr.includes("kakao") || sourceStr.includes("카카오")) {
-      platform = "kakao";
-    }
+    let newWorksCount = 0;
+    let rankMovedCount = 0;
+    let reEntryCount = 0;
+    const platformCounts = { naver: 0, kakao: 0, ridi: 0 };
+    const genreDataMap: Record<string, any> = {};
 
-    // 2) 회차 수
-    const totalEpisodesRaw =
-      item.총회차수 ?? item.총회차 ?? item.회차수 ?? item.회차 ?? item.episodes ?? item.episodeCount;
-    const episodeCount =
-      typeof totalEpisodesRaw === "number"
-        ? totalEpisodesRaw
-        : typeof totalEpisodesRaw === "string"
-        ? Number(totalEpisodesRaw.replace(/[^0-9]/g, "")) || 0
-        : 0;
+    const mappedList = todayCombined.map((item: any, i: number) => {
+      // 1. 플랫폼 판별 (출처 컬럼 기준)
+      const sourceStr = String(item.출처 || "").toLowerCase();
+      let platform: Platform = "kakao";
+      if (sourceStr.includes("naver") || sourceStr.includes("네이버")) platform = "naver";
+      else if (sourceStr.includes("ridi") || sourceStr.includes("리디")) platform = "ridi";
+      
+      platformCounts[platform]++;
 
-    // 3) 오늘 조회수
-    const todayViews = (() => {
-      const v = item.오늘조회수 ?? item.todayViews ?? item.조회수;
-      if (!v) return 0;
-      if (typeof v === "number") return v;
-      const s = String(v);
-      const num = Number(s.replace(/[^0-9.]/g, ""));
-      if (Number.isNaN(num)) return 0;
-      if (s.includes("억")) return num * 100_000_000;
-      if (s.includes("만")) return num * 10_000;
-      return num;
-    })();
+      // 2. 신작/변동 계산 (통합시트 컬럼명 기준)
+      const todayRank = Number(item.오늘순위 || i + 1);
+      const prevRank = item.전일순위 ? Number(item.전일순위) : null;
+      
+      // 순위변화가 "NEW"거나 전일순위가 없으면 신작으로 간주
+      if (item.순위변화 === "NEW" || !prevRank) newWorksCount++;
+      // 전일순위와 오늘순위가 다르면 변동으로 간주
+      if (prevRank && prevRank !== todayRank) rankMovedCount++;
+      // 순위변화가 "RE"거나 특정 조건일 때 재진입 (필요시 수정)
+      if (item.순위변화 === "RE") reEntryCount++;
 
-    // 4) 조회수 증감률
-    const viewsChangePct = (() => {
-      const v = item.조회수증감률 ?? item.viewsChangePct ?? item.증감률;
-      if (!v) return 0;
-      if (typeof v === "number") return v;
-      const n = Number(String(v).replace(/[^0-9.-]/g, ""));
-      return Number.isNaN(n) ? 0 : n;
-    })();
+      // 3. 장르 데이터 집계
+      const genre = normalizeGenre(item.장르);
+      if (!genreDataMap[genre]) {
+        genreDataMap[genre] = { genre, naver: 0, kakao: 0, ridi: 0 };
+      }
+      genreDataMap[genre][platform]++;
 
-    // 5) 장르 / 출판사 / 평점 / 댓글
-    const rawGenre = item.장르 ?? item.genre ?? item.카테고리 ?? item.분류 ?? "";
-    const rawPublisher = item.출판사 ?? item.publisher ?? item.제공사 ?? "-";
-    const rawRating = item.평점 ?? item.rating ?? item.별점 ?? 0;
-    const rawComments = item.댓글수 ?? item.댓글 ?? item.commentCount ?? 0;
+      // 4. Novel 객체 매핑 (썸네일 컬럼 적용)
+      return {
+        id: `${platform}-${item.제목}-${i}`,
+        title: item.제목 || "제목 없음",
+        author: item.작가 || "-",
+        coverImage: item.썸네일, // 제공해주신 '썸네일' 컬럼명 적용
+        genre,
+        rawGenre: String(item.장르 || ""),
+        platform,
+        todayRank,
+        prevRank,
+        todayViews: parseCount(item.오늘조회수),
+        viewsChangePct: parseFloat(String(item.조회수증감률 || "0")),
+        rating: Number(item.평점 || 0),
+        publisher: item.출판사 || "-",
+      } as Novel;
+    });
 
-    return {
-      id: `${sourceStr}-${item.제목 || ""}-${rank}`,
-      title: item.제목 || item.title || "제목 없음",
-      author: item.작가 || item.author || "-",
-      // [수정] 썸네일 이미지 매핑 추가
-      coverImage: item.이미지 || item.썸네일 || item.thumbnail || item.image,
-      genre: normalizeGenre(rawGenre),
-      rawGenre: String(rawGenre),
-      publisher: rawPublisher || "-",
-      platform,
-      coverGradient: "from-slate-800 to-slate-700",
-      coverEmoji: "📚",
+    // 차트용 점유율 데이터
+    const total = mappedList.length;
+    const shareData = [
+      { name: "네이버", value: Math.round((platformCounts.naver / total) * 100), color: "hsl(var(--naver))" },
+      { name: "카카오", value: Math.round((platformCounts.kakao / total) * 100), color: "hsl(var(--kakao))" },
+      { name: "리디", value: Math.round((platformCounts.ridi / total) * 100), color: "hsl(var(--ridi))" },
+    ].filter(d => d.value > 0);
 
-      todayRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
-      prevRank: item.전일순위 ? Number(item.전일순위) : (item.prevRank ? Number(item.prevRank) : null),
-      rankChange: null,
-
-      isNew: false,
-      isReEntry: false,
-
-      todayViews,
-      viewsChange: 0,
-      viewsChangePct,
-
-      rating: Number(rawRating) || 0,
-      commentCount: parseCount(rawComments),
-      episodeCount,
-
-      firstAppeared: item.날짜 || item.date || "",
-      consecutiveDays: 1,
-      peakRank: Number(item.오늘순위 ?? item.rank ?? rank) || rank,
+    return { 
+      mappedList, 
+      newWorksCount, 
+      rankMovedCount, 
+      reEntryCount, 
+      shareData,
+      genreBarData: Object.values(genreDataMap)
     };
-  };
+  }, [todayCombined]);
 
-  const formattedDate =
-    todayCombined && todayCombined.length > 0
-      ? (() => {
-          const v = todayCombined[0].날짜;
-          const d = v instanceof Date ? v : new Date(v);
-          if (Number.isNaN(d.getTime())) return "오늘 기준";
-          const y = d.getFullYear();
-          const m = String(d.getMonth() + 1).padStart(2, "0");
-          const day = String(d.getDate()).padStart(2, "0");
-          return `${y}.${m}.${day} 기준`;
-        })()
-      : "오늘 기준";
+  const top10 = stats?.mappedList.slice(0, 10) || [];
+
+  const fadeInUp = {
+    initial: { opacity: 0, y: 16 },
+    animate: { opacity: 1, y: 0 },
+  };
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
         <h1 className="text-xl font-black tracking-tight">전체 개요</h1>
-        <p className="mt-0.5 text-xs font-mono text-muted-foreground">
-          {formattedDate} · 실시간 업데이트
-        </p>
+        <p className="mt-0.5 text-xs font-mono text-muted-foreground">실시간 통합 데이터 분석</p>
       </div>
 
-      {/* KPI Cards */}
-      <motion.div
-        className="grid grid-cols-2 gap-4 xl:grid-cols-4"
-        {...fadeInUp}
-        transition={{ delay: 0.05 }}
-      >
-        <KpiCard
-          title="전체 분석 작품"
-          value={todayCombined?.length || 0}
-          icon={BookOpen}
-          suffix="편"
-        />
-        <KpiCard
-          title="신작 (이번 달)"
-          value={kpiData.newWorks.value}
-          change={kpiData.newWorks.change}
-          icon={Zap}
-          suffix="편"
-        />
-        <KpiCard
-          title="순위 변동 작품"
-          value={kpiData.rankMoved.value}
-          change={kpiData.rankMoved.change}
-          icon={TrendingUp}
-          suffix="편"
-        />
-        <KpiCard
-          title="재진입 작품"
-          value={kpiData.reEntry.value}
-          change={kpiData.reEntry.change}
-          icon={RefreshCw}
-          suffix="편"
-        />
+      {/* KPI Cards: 실제 계산된 수치 연동 */}
+      <motion.div className="grid grid-cols-2 gap-4 xl:grid-cols-4" {...fadeInUp}>
+        <KpiCard title="전체 분석 작품" value={todayCombined?.length || 0} icon={BookOpen} suffix="편" />
+        <KpiCard title="신작 (오늘)" value={stats?.newWorksCount || 0} icon={Zap} suffix="편" />
+        <KpiCard title="순위 변동" value={stats?.rankMovedCount || 0} icon={TrendingUp} suffix="편" />
+        <KpiCard title="재진입" value={stats?.reEntryCount || 0} icon={RefreshCw} suffix="편" />
       </motion.div>
 
-      {/* Charts row */}
-      <motion.div
-        className="grid grid-cols-1 gap-4 xl:grid-cols-3"
-        {...fadeInUp}
-        transition={{ delay: 0.1 }}
-      >
+      {/* Charts: 실제 데이터 기반 */}
+      <motion.div className="grid grid-cols-1 gap-4 xl:grid-cols-3" {...fadeInUp} transition={{ delay: 0.1 }}>
         <div className="surface-card">
           <h2 className="mb-4 text-sm font-bold">플랫폼별 점유율</h2>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
-              <Pie
-                data={platformShareData}
-                cx="50%" cy="50%" innerRadius={55} outerRadius={80}
-                dataKey="value" paddingAngle={3}
-              >
-                {platformShareData.map((entry, i) => (
+              <Pie data={stats?.shareData || []} dataKey="value" cx="50%" cy="50%" innerRadius={55} outerRadius={80}>
+                {stats?.shareData.map((entry: any, i: number) => (
                   <Cell key={i} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip
-                contentStyle={{
-                  background: "hsl(var(--surface))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: 8,
-                  fontSize: 11,
-                }}
-                formatter={(v: number) => [`${v}%`, ""]}
-              />
+              <Tooltip />
             </PieChart>
           </ResponsiveContainer>
-          <div className="mt-2 flex items-center justify-center gap-4">
-            {platformShareData.map((d) => (
-              <div key={d.name} className="flex items-center gap-1.5">
-                <div className="h-2.5 w-2.5 rounded-full" style={{ background: d.color }} />
-                <span className="text-xs text-muted-foreground">{d.name}</span>
-                <span className="font-mono text-xs font-bold" style={{ color: d.color }}>{d.value}%</span>
-              </div>
-            ))}
-          </div>
         </div>
 
         <div className="surface-card xl:col-span-2">
-          <h2 className="mb-4 text-sm font-bold">장르별 TOP 작품 수</h2>
+          <h2 className="mb-4 text-sm font-bold">장르별 분포</h2>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={genreBarData} margin={{ top: 4, right: 8, bottom: 4, left: -20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-              <XAxis dataKey="genre" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-              <YAxis tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }} />
-              <Tooltip
-                contentStyle={{
-                  background: "hsl(var(--surface))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: 8,
-                  fontSize: 11,
-                }}
-              />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="naver" name="네이버" fill="hsl(var(--naver))" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="kakao" name="카카오" fill="hsl(var(--kakao))" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="ridi" name="리디" fill="hsl(var(--ridi))" radius={[2, 2, 0, 0]} />
+            <BarChart data={stats?.genreBarData || []}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+              <XAxis dataKey="genre" tick={{ fontSize: 11 }} />
+              <YAxis tick={{ fontSize: 11 }} />
+              <Tooltip />
+              <Legend iconType="circle" wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="naver" name="네이버" fill="hsl(var(--naver))" stackId="a" />
+              <Bar dataKey="kakao" name="카카오" fill="hsl(var(--kakao))" stackId="a" />
+              <Bar dataKey="ridi" name="리디" fill="hsl(var(--ridi))" stackId="a" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </motion.div>
 
-      {/* Heatmap 섹션 생략 가능하지만 구조 유지를 위해 포함 */}
-      <motion.div className="surface-card" {...fadeInUp} transition={{ delay: 0.15 }}>
-        <h2 className="mb-4 text-sm font-bold">플랫폼 × 장르 히트맵 (점유율 지수)</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr>
-                <th className="w-20 py-2 pr-4 text-left font-medium text-muted-foreground">장르</th>
-                {["네이버", "카카오", "리디"].map((p) => (
-                  <th key={p} className="py-2 px-3 text-center font-medium text-muted-foreground">{p}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {heatmapData.map((row) => (
-                <tr key={row.genre} className="border-t border-border">
-                  <td className="py-2 pr-4 font-medium text-foreground">{row.genre}</td>
-                  {[row.naver, row.kakao, row.ridi].map((val, ci) => {
-                    const alpha = val / 100;
-                    const colors = ["hsl(138,100%,39%)", "hsl(50,100%,50%)", "hsl(210,76%,51%)"];
-                    return (
-                      <td key={ci} className="py-2 px-3 text-center">
-                        <div
-                          className="flex h-7 w-14 items-center justify-center rounded font-mono font-bold"
-                          style={{
-                            background: `${colors[ci]}${Math.round(alpha * 45 + 10).toString(16).padStart(2, "0")}`,
-                            color: val > 50 ? "#fff" : "hsl(var(--muted-foreground))",
-                          }}
-                        >
-                          {val}
-                        </div>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-
-      {/* TOP 10 Ranking Cards */}
+      {/* Ranking List */}
       <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-bold">오늘 통합 TOP 10</h2>
-          <span className="font-mono text-xs text-muted-foreground">전체 플랫폼</span>
+        <h2 className="mb-4 text-sm font-bold">오늘 통합 TOP 10</h2>
+        {isLoading && <p className="text-xs text-muted-foreground">데이터 로딩 중...</p>}
+        <div className="space-y-2">
+          {top10.map((novel) => (
+            <RankingCard key={novel.id} novel={novel} rank={novel.todayRank} onClick={setSelectedNovel} />
+          ))}
         </div>
-
-        {isLoading && <div className="text-xs text-muted-foreground">랭킹 불러오는 중…</div>}
-        {error && <div className="text-xs text-red-500">데이터를 불러오지 못했습니다.</div>}
-
-        {!isLoading && !error && (
-          <div className="space-y-2">
-            {top10.map((item, i) => {
-              const novel = mapToNovel(item, i + 1);
-              return (
-                <motion.div
-                  key={novel.id}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.25 + i * 0.04 }}
-                >
-                  <RankingCard
-                    novel={novel}
-                    rank={novel.todayRank}
-                    onClick={setSelectedNovel}
-                  />
-                </motion.div>
-              );
-            })}
-          </div>
-        )}
       </motion.div>
 
-      <NovelDetailDrawer
-        novel={selectedNovel}
-        onClose={() => setSelectedNovel(null)}
-      />
+      <NovelDetailDrawer novel={selectedNovel} onClose={() => setSelectedNovel(null)} />
     </div>
   );
 }
