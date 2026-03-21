@@ -1,4 +1,3 @@
-// src/hooks/useTodayCombined.ts
 import { useEffect, useState } from "react";
 import type { Novel, Platform, Genre } from "@/data/mockData";
 
@@ -25,116 +24,38 @@ interface TodayCombinedRow {
   [key: string]: any;
 }
 
-interface UseTodayCombinedResult {
-  data: Novel[] | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
-function rankToScore(rank: number | null | undefined): number {
-  const n = typeof rank === "number" ? rank : Number(rank);
-  if (!n || Number.isNaN(n)) return 0;
-  return 21 - n; // 1위=20, 20위=1
-}
-
-// src/hooks/useTodayCombined.ts
+// --- 보조 함수들 ---
 
 function toPlatform(src: string): Platform {
-  // 앱스스크립트가 "네이버", "카카오", "리디" 한글로 보내주고 있음
   const s = String(src || "").trim();
-  
-  // 1. 한글 우선 체크 (앱스스크립트 출력값 대응)
-  if (s === "네이버" || s.includes("네이버")) return "naver";
-  if (s === "리디" || s.includes("리디")) return "ridi";
-  if (s === "카카오" || s.includes("카카오")) return "kakao";
-  
-  // 2. 혹시나 영어로 들어올 경우 대응
-  const lowerS = s.toLowerCase();
-  if (lowerS.includes("naver")) return "naver";
-  if (lowerS.includes("ridi")) return "ridi";
-  if (lowerS.includes("kakao")) return "kakao";
-  
-  return "kakao"; // 기본값
+  if (s === "네이버" || s.includes("네이버") || s.toLowerCase().includes("naver")) return "naver";
+  if (s === "리디" || s.includes("리디") || s.toLowerCase().includes("ridi")) return "ridi";
+  if (s === "카카오" || s.includes("카카오") || s.toLowerCase().includes("kakao")) return "kakao";
+  return "kakao";
 }
 
-function mapRowToNovel(row: any, index: number): Novel {
-  // 앱스스크립트의 JSON 키값은 한글입니다: row["출처"]
-  const platform = toPlatform(row["출처"] || row.platform);
-  
-  return {
-    id: `${platform}-${index}-${row["제목"]}`,
-    platform: platform, // "naver" | "kakao" | "ridi"
-    title: row["제목"] || "제목 없음",
-    author: row["작가"] || "작가 미상",
-    genre: row["장르"] || "기타",
-    todayRank: parseInt(row["오늘순위"]) || index + 1,
-    prevRank: row["전일순위"] === "NEW" ? null : parseInt(row["전일순위"]),
-    thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : "",
-    // ... 나머지 데이터 매핑
-  } as Novel;
-}
-
-/**
- * 플랫폼별 장르 매핑
- * - 네이버/카카오는 들어오는 값 그대로 사용
- * - 리디만 매핑 규칙 적용
- */
 function toGenreByPlatform(platform: Platform, rawGenre: string): Genre {
   const raw = (rawGenre || "").trim();
-
-  // 1) 네이버/카카오는 그대로 사용
   if (platform === "naver" || platform === "kakao") {
-    if (
-      raw === "현판" ||
-      raw === "로판" ||
-      raw === "로맨스" ||
-      raw === "판타지" ||
-      raw === "무협" ||
-      raw === "BL" ||
-      raw === "현대물" ||
-      raw === "역사/시대물" ||
-      raw === "기타"
-    ) {
-      return raw as Genre;
-    }
-    return "기타";
+    const validGenres = ["현판", "로판", "로맨스", "판타지", "무협", "BL", "현대물", "역사/시대물"];
+    return validGenres.includes(raw) ? (raw as Genre) : "기타";
   }
-
-  // 2) 리디: 문자열 패턴에 따라 매핑
   const upper = raw.toUpperCase();
-
-  // BL 계열: "BL · 현대물", "BL · 판타지물", "BL · 역사/시대물" 등 → BL
   if (upper.startsWith("BL")) return "BL";
-
-  // 로맨스 · 현대물 → 로맨스
   if (raw.includes("로맨스") && raw.includes("현대물")) return "로맨스";
-
-  // 서양풍 로판 → 로판
   if (raw.includes("서양풍") && raw.includes("로판")) return "로판";
-
-  // 현대 판타지 → 현판
   if (raw.includes("현대 판타지")) return "현판";
-
-  // 퓨전 판타지 → 판타지
   if (raw.includes("퓨전 판타지")) return "판타지";
-
-  // 무협 소설 → 무협
   if (raw.includes("무협")) return "무협";
-
-  // 그 밖의 로맨스 계열
   if (raw.includes("로맨스")) return "로맨스";
-
-  // 그 밖의 판타지 계열
   if (raw.includes("판타지")) return "판타지";
-
-  // 나머지
   return "기타";
 }
 
 function parseRank(v: string | number): number | null {
-  if (v === null || v === undefined || v === "") return null;
+  if (!v) return null;
   const s = String(v).trim();
-  if (s === "NEW" || s === "재진입" || s === "유지") return null;
+  if (["NEW", "재진입", "유지"].includes(s)) return null;
   const n = parseInt(s.replace(/[^\d]/g, ""), 10);
   return Number.isNaN(n) ? null : n;
 }
@@ -143,168 +64,57 @@ function parseViewsToNumber(v: string | number): number {
   if (v === null || v === undefined) return 0;
   let s = String(v).trim();
   if (!s) return 0;
-
-  // 🔹 "2억 5,738만" 같이 억/만 섞인 케이스 처리
-  // 패턴: ([숫자]억)? + ([숫자]만)?
   const regex = /([\d.,]+)\s*억|([\d.,]+)\s*만/g;
   let total = 0;
-  let m: RegExpExecArray | null;
-
+  let m;
   while ((m = regex.exec(s)) !== null) {
-    if (m[1]) {
-      // 억 부분 → 1억 = 100,000,000
-      const n = parseFloat(m[1].replace(/,/g, ""));
-      if (!Number.isNaN(n)) total += n * 100_000_000;
-    }
-    if (m[2]) {
-      // 만 부분 → 1만 = 10,000
-      const n = parseFloat(m[2].replace(/,/g, ""));
-      if (!Number.isNaN(n)) total += n * 10_000;
-    }
+    if (m[1]) total += parseFloat(m[1].replace(/,/g, "")) * 100_000_000;
+    if (m[2]) total += parseFloat(m[2].replace(/,/g, "")) * 10_000;
   }
-
   if (total > 0) return total;
-
-  // 순수 "억" 또는 "만" 한 종류만 있는 경우
-  if (s.endsWith("억")) {
-    const n = parseFloat(s.replace("억", "").replace(/,/g, ""));
-    return Number.isNaN(n) ? 0 : n * 100_000_000;
-  }
-  if (s.endsWith("만")) {
-    const n = parseFloat(s.replace("만", "").replace(/,/g, ""));
-    return Number.isNaN(n) ? 0 : n * 10_000;
-  }
-
-  // 그냥 숫자/콤마만 있는 경우
-  const n = parseFloat(s.replace(/,/g, ""));
-  return Number.isNaN(n) ? 0 : n;
+  if (s.endsWith("억")) return (parseFloat(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
+  if (s.endsWith("만")) return (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
+  return parseFloat(s.replace(/,/g, "")) || 0;
 }
 
-
-function parsePercent(v: string): number {
-  if (!v) return 0;
-  const s = v.replace("%", "").trim();
-  const n = parseFloat(s);
-  return Number.isNaN(n) ? 0 : n;
-}
-
-function parseRankChange(label: string): {
-  rankChange: number | null;
-  isNew: boolean;
-  isReEntry: boolean;
-} {
+function parseRankChange(label: string) {
   const s = (label || "").trim();
-  if (!s) return { rankChange: null, isNew: false, isReEntry: false };
   if (s === "NEW") return { rankChange: null, isNew: true, isReEntry: false };
   if (s === "재진입") return { rankChange: null, isNew: false, isReEntry: true };
   if (s === "유지") return { rankChange: 0, isNew: false, isReEntry: false };
-
-  if (s.startsWith("▲")) {
-    const n = parseInt(s.replace("▲", "").trim(), 10);
-    return { rankChange: Number.isNaN(n) ? null : n, isNew: false, isReEntry: false };
-  }
-  if (s.startsWith("▼")) {
-    const n = parseInt(s.replace("▼", "").trim(), 10);
-    return { rankChange: Number.isNaN(n) ? null : -n, isNew: false, isReEntry: false };
-  }
+  if (s.startsWith("▲")) return { rankChange: parseInt(s.replace("▲", ""), 10) || null, isNew: false, isReEntry: false };
+  if (s.startsWith("▼")) return { rankChange: -(parseInt(s.replace("▼", ""), 10) || 0), isNew: false, isReEntry: false };
   return { rankChange: null, isNew: false, isReEntry: false };
 }
 
-// 🔹 "1.2만", "1만", "1,440" 같은 댓글 수를 숫자로 변환
-function parseCommentCount(raw: string | number | undefined): number {
-  if (raw === undefined || raw === null || raw === "-") return 0;
-
-  const s = String(raw).trim();
-  if (!s) return 0;
-
-  // "1,440" 같은 형식
-  if (/^\d{1,3}(,\d{3})*$/.test(s)) {
-    const n = Number(s.replace(/,/g, ""));
-    return Number.isFinite(n) ? n : 0;
-  }
-
-  // "1.2만", "1만"
-  if (s.endsWith("만")) {
-    const base = s.replace("만", "");
-    const n = Number(base.replace(/,/g, ""));
-    if (!Number.isFinite(n)) return 0;
-    return Math.round(n * 10_000);
-  }
-
-  const n = Number(s.replace(/,/g, ""));
-  return Number.isFinite(n) ? n : 0;
+function parseCommentCount(raw: any): number {
+  const s = String(raw || "").trim();
+  if (s.endsWith("만")) return Math.round((parseFloat(s.replace("만", "")) || 0) * 10_000);
+  return parseInt(s.replace(/,/g, ""), 10) || 0;
 }
+
+// --- 메인 매핑 함수 (하나만 존재해야 함) ---
 
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
   const todayRank = parseRank(row["오늘순위"]) ?? index + 1;
   const prevRank = parseRank(row["전일순위"]);
-
   const { rankChange, isNew, isReEntry } = parseRankChange(row["순위변화"]);
 
-  // 플랫폼별 조회수/평가수 해석
-  const rawTodayViews = row["오늘조회수"];
-  const rawPrevViews = row["전일조회수"];
+  const todayViewsNumber = platform === "ridi" 
+    ? parseViewsToNumber(String(row["오늘조회수"]).replace(/,/g, "")) 
+    : parseViewsToNumber(row["오늘조회수"]);
+  const prevViewsNumber = platform === "ridi" 
+    ? parseViewsToNumber(String(row["전일조회수"]).replace(/,/g, "")) 
+    : parseViewsToNumber(row["전일조회수"]);
 
-  const todayViewsNumber =
-    platform === "ridi"
-      ? typeof rawTodayViews === "number"
-        ? rawTodayViews
-        : parseViewsToNumber(String(rawTodayViews || "0").replace(/,/g, ""))
-      : parseViewsToNumber(rawTodayViews);
-
-  const prevViewsNumber =
-    platform === "ridi"
-      ? typeof rawPrevViews === "number"
-        ? rawPrevViews
-        : parseViewsToNumber(String(rawPrevViews || "0").replace(/,/g, ""))
-      : parseViewsToNumber(rawPrevViews);
-
-  const viewsChangeNumber = todayViewsNumber - prevViewsNumber;
-  const viewsChangePctNumber =
-    prevViewsNumber > 0
-      ? (viewsChangeNumber / prevViewsNumber) * 100
-      : parsePercent(row["조회수증감률"]);
-
-  const id = `${platform}-${row["제목"]}-${todayRank}`;
-
-  // 출판사
-  const publisher = (row["출판사"] as string) || "-";
-
-  // 평점
-  let rating = 0;
-  if (row["평점"] !== undefined && row["평점"] !== null && row["평점"] !== "-") {
-    const r = parseFloat(String(row["평점"]));
-    rating = Number.isNaN(r) ? 0 : r;
-  }
-
-  // 🔹 댓글수: "1.2만", "1,440" 모두 숫자로 변환
-  const commentCount = parseCommentCount(row["댓글수"]);
-
-  // 회차수 ("총 101화", "101화", "101" 모두 대응)
-  let episodeCount = 0;
-  const totalEpRaw = row["총회차수"];
-  if (typeof totalEpRaw === "string") {
-    const m = totalEpRaw.match(/(\d+)/);
-    if (m) episodeCount = Number(m[1]) || 0;
-  } else if (typeof totalEpRaw === "number") {
-    episodeCount = totalEpRaw;
-  }
-
-  const novel: Novel = {
-    id,
+  return {
+    id: `${platform}-${row["제목"]}-${todayRank}`,
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
     genre: toGenreByPlatform(platform, row["장르"] || "기타"),
-    publisher,
+    publisher: row["출판사"] || "-",
     platform,
-    coverGradient:
-      platform === "naver"
-        ? "from-emerald-900 to-green-700"
-        : platform === "kakao"
-        ? "from-amber-900 to-orange-700"
-        : "from-blue-900 to-indigo-700",
-    coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
     thumbnailUrl: row["썸네일"] || undefined,
     todayRank,
     prevRank,
@@ -312,57 +122,45 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     isNew,
     isReEntry,
     todayViews: todayViewsNumber,
-    viewsChange: viewsChangeNumber,
-    viewsChangePct: viewsChangePctNumber,
-    rating,
-    commentCount,
-    episodeCount,
+    viewsChange: todayViewsNumber - prevViewsNumber,
+    viewsChangePct: prevViewsNumber > 0 ? ((todayViewsNumber - prevViewsNumber) / prevViewsNumber) * 100 : 0,
+    rating: parseFloat(String(row["평점"])) || 0,
+    commentCount: parseCommentCount(row["댓글수"]),
+    episodeCount: parseInt(String(row["총회차수"]).match(/\d+/)?.[0] || "0", 10),
     firstAppeared: row["날짜"] || "",
     consecutiveDays: 0,
     peakRank: todayRank,
     rankHistory: row["rankHistory"] ?? [],
     viewsHistory: row["viewsHistory"] ?? [],
-};
-
-  return novel;
+    coverGradient: platform === "naver" ? "from-emerald-900 to-green-700" : platform === "kakao" ? "from-amber-900 to-orange-700" : "from-blue-900 to-indigo-700",
+    coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
+  };
 }
+
+// --- Hook ---
 
 export function useTodayCombined() {
   const [data, setData] = useState<Novel[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [latestDate, setLatestDate] = useState<string>(""); // 최신 날짜 상태 추가
+  const [latestDate, setLatestDate] = useState<string>("");
 
   useEffect(() => {
     async function load() {
       try {
         if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
-
         const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
         const rows = (await res.json()) as TodayCombinedRow[];
-        if (!rows || rows.length === 0) {
-          setData([]);
-          return;
-        }
+        if (!rows || rows.length === 0) { setData([]); return; }
 
-        // 1. 데이터에 포함된 모든 날짜 중 가장 최신 날짜 찾기
         const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
-        const mostRecentDate = dates[0]; // 가장 최신 날짜 (예: "2024-05-20")
+        const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        // 2. 가장 최신 날짜에 해당하는 데이터만 필터링
-        const latestRows = rows.filter(r => r.날짜 === mostRecentDate);
-        
-        // 3. 필터링된 데이터를 Novel 객체로 변환
-        const novels = latestRows.map((row, idx) => mapRowToNovel(row, idx));
-
+        const novels = rows.filter(r => r.날짜 === mostRecentDate).map((row, idx) => mapRowToNovel(row, idx));
         setData(novels);
-        setError(null);
       } catch (err: any) {
-        console.error("useTodayCombined error:", err);
-        setError(err?.message ?? String(err));
+        setError(err.message);
       } finally {
         setIsLoading(false);
       }
@@ -370,6 +168,5 @@ export function useTodayCombined() {
     load();
   }, []);
 
-  // 최신 날짜(latestDate)를 함께 반환합니다.
   return { data, isLoading, error, latestDate };
 }
