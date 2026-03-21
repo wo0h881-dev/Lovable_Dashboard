@@ -10,7 +10,6 @@ import {
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
 
-// 앱스스크립트에서 넘어오는 로우 데이터 타입
 interface TodayCombinedRow {
   출처: string;
   오늘순위: number | string;
@@ -32,14 +31,36 @@ interface TodayCombinedRow {
   [key: string]: any;
 }
 
-// Novel 타입을 확장하여 점수 필드 추가
 export interface ScoredNovel extends Novel {
   overallScore: number;
   trendScore: number;
 }
 
-// --- 보조 파서 함수들 ---
+// --- 장르 통합 함수 (이게 빠져서 이상해졌던 거예요!) ---
+function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
+  const raw = (rawGenre || "").trim();
+  
+  // 1. 네이버/카카오는 이미 정제되어 있음
+  if (platform === "naver" || platform === "kakao") {
+    const validGenres = ["현판", "로판", "로맨스", "판타지", "무협", "BL", "기타"];
+    return validGenres.includes(raw) ? (raw as Genre) : "기타";
+  }
 
+  // 2. 리디북스의 상세 장르를 통합 장르로 매핑
+  const upper = raw.toUpperCase();
+  if (upper.includes("BL")) return "BL";
+  if (raw.includes("로맨스") && raw.includes("현대물")) return "로맨스";
+  if (raw.includes("서양풍") && raw.includes("로판")) return "로판";
+  if (raw.includes("로판")) return "로판";
+  if (raw.includes("로맨스")) return "로맨스";
+  if (raw.includes("현대 판타지") || raw.includes("현판")) return "현판";
+  if (raw.includes("퓨전 판타지") || raw.includes("판타지")) return "판타지";
+  if (raw.includes("무협")) return "무협";
+  
+  return "기타";
+}
+
+// --- 보조 파서 함수들 ---
 function toPlatform(src: string): Platform {
   const s = String(src || "").trim();
   if (s.includes("네이버") || s.toLowerCase().includes("naver")) return "naver";
@@ -84,7 +105,6 @@ function parseRankChange(label: string) {
 }
 
 // --- 메인 매핑 함수 ---
-
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
   const todayRank = parseInt(String(row["오늘순위"])) || index + 1;
@@ -97,7 +117,8 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     id: `${platform}-${row["제목"]}-${todayRank}`,
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
-    genre: (row["장르"] || "기타") as Genre,
+    // 🔥 아래 줄에서 장르 통합 함수를 사용합니다!
+    genre: toUnifiedGenre(platform, row["장르"] || "기타"),
     publisher: row["출판사"] || "-",
     platform,
     thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : undefined,
@@ -123,7 +144,6 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 }
 
 // --- Hook ---
-
 export function useTodayCombined() {
   const [data, setData] = useState<ScoredNovel[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -134,50 +154,27 @@ export function useTodayCombined() {
     async function load() {
       try {
         if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
-        
         const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-        if (!res.ok) throw new Error(`HTTP 에러: ${res.status}`);
-        
         const rows = (await res.json()) as TodayCombinedRow[];
-        if (!rows || rows.length === 0) {
-          setData([]);
-          return;
-        }
+        if (!rows || rows.length === 0) { setData([]); return; }
 
-        // 1. 최신 날짜 찾기
         const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        // 2. 기본 Novel 객체로 매핑
         const novels = rows
           .filter(r => r.날짜 === mostRecentDate)
           .map((row, idx) => mapRowToNovel(row, idx));
 
-        // 3. 점수 계산을 위한 통계값 추출
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
-        
-        // 4. 모든 작품에 종합/트렌드 점수 부여
         const scoredNovels: ScoredNovel[] = novels.map(n => ({
           ...n,
-          overallScore: computeUnifiedScore(
-            n as unknown as UnifiedNovel, 
-            stats.maxViewsByPlatform, 
-            stats.maxCommentsByPlatform, 
-            stats.maxDeltaByPlatform
-          ),
-          trendScore: computeTrendScore(
-            n as unknown as UnifiedNovel, 
-            stats.maxViewsByPlatform, 
-            stats.maxCommentsByPlatform, 
-            stats.maxDeltaByPlatform
-          )
+          overallScore: computeUnifiedScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform),
+          trendScore: computeTrendScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform)
         }));
 
         setData(scoredNovels);
-        setError(null);
       } catch (err: any) {
-        console.error("useTodayCombined error:", err);
         setError(err.message);
       } finally {
         setIsLoading(false);
