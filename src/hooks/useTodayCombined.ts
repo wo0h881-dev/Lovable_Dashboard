@@ -114,17 +114,43 @@ function parseViewsToNumber(v: string | number): number {
   if (v === null || v === undefined) return 0;
   let s = String(v).trim();
   if (!s) return 0;
+
+  // 🔹 "2억 5,738만" 같이 억/만 섞인 케이스 처리
+  // 패턴: ([숫자]억)? + ([숫자]만)?
+  const regex = /([\d.,]+)\s*억|([\d.,]+)\s*만/g;
+  let total = 0;
+  let m: RegExpExecArray | null;
+
+  while ((m = regex.exec(s)) !== null) {
+    if (m[1]) {
+      // 억 부분 → 1억 = 100,000,000
+      const n = parseFloat(m[1].replace(/,/g, ""));
+      if (!Number.isNaN(n)) total += n * 100_000_000;
+    }
+    if (m[2]) {
+      // 만 부분 → 1만 = 10,000
+      const n = parseFloat(m[2].replace(/,/g, ""));
+      if (!Number.isNaN(n)) total += n * 10_000;
+    }
+  }
+
+  if (total > 0) return total;
+
+  // 순수 "억" 또는 "만" 한 종류만 있는 경우
   if (s.endsWith("억")) {
     const n = parseFloat(s.replace("억", "").replace(/,/g, ""));
-    return Number.isNaN(n) ? 0 : n * 100000000;
+    return Number.isNaN(n) ? 0 : n * 100_000_000;
   }
   if (s.endsWith("만")) {
     const n = parseFloat(s.replace("만", "").replace(/,/g, ""));
-    return Number.isNaN(n) ? 0 : n * 10000;
+    return Number.isNaN(n) ? 0 : n * 10_000;
   }
+
+  // 그냥 숫자/콤마만 있는 경우
   const n = parseFloat(s.replace(/,/g, ""));
   return Number.isNaN(n) ? 0 : n;
 }
+
 
 function parsePercent(v: string): number {
   if (!v) return 0;
