@@ -38,14 +38,16 @@ function rankToScore(rank: number | null | undefined): number {
 }
 
 function toPlatform(src: string): Platform {
-  // 소문자로 변환해서 비교하면 더 정확합니다.
-  const s = src.trim().toLowerCase();
+  // 소문자로 바꾸고 공백을 제거해서 비교합니다.
+  const s = String(src || "").trim().toLowerCase();
   
   if (s.includes("naver") || s.includes("네이버")) return "naver";
   if (s.includes("ridi") || s.includes("리디")) return "ridi";
   if (s.includes("kakao") || s.includes("카카오")) return "kakao";
   
-  return "kakao"; // 기본값
+  // 만약 위 조건에 안 걸리면 일단 'kakao'를 주되, 
+  // 실제 데이터가 영어라면 위 includes 문법에서 다 걸러집니다.
+  return "kakao"; 
 }
 
 /**
