@@ -151,6 +151,12 @@ export function useTodayCombined() {
         if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
         const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
         const rows = (await res.json()) as TodayCombinedRow[];
+
+        // 👇 여기에 이 코드를 넣으세요!
+        console.log("1. 전체 데이터 개수:", rows?.length);
+        console.log("2. 첫 번째 데이터 샘플:", rows?.[0]);
+        console.log("3. 데이터에 포함된 모든 날짜들:", [...new Set(rows?.map(r => r.날짜))]);
+        
         if (!rows || rows.length === 0) { setData([]); return; }
 
         const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
