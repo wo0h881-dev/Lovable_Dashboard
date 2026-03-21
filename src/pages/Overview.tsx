@@ -128,12 +128,15 @@ export default function OverviewPage() {
     })();
 
     // 4) 플랫폼 매핑
-    const rawSource: string = item.출처 || item.source || "";
-    let platform: Platform = "kakao";
-    if (rawSource.includes("네이버") || rawSource.toLowerCase().includes("naver")) {
+    const sourceStr = String(item.출처 || "").toLowerCase();
+    let platform: Platform = "kakao"; // 기본값
+
+    if (sourceStr.includes("naver") || sourceStr.includes("네이버")) {
       platform = "naver";
-    } else if (rawSource.includes("리디") || rawSource.toLowerCase().includes("ridi")) {
+    } else if (sourceStr.includes("ridi") || sourceStr.includes("리디")) {
       platform = "ridi";
+    } else if (sourceStr.includes("kakao") || sourceStr.includes("카카오")) {
+      platform = "kakao";
     }
 
     // 5) 장르 / 출판사 / 평점 / 댓글
@@ -166,6 +169,8 @@ export default function OverviewPage() {
       id: `${rawSource}-${item.제목 || ""}-${rank}`,
       title: item.제목 || item.title || "제목 없음",
       author: item.작가 || item.author || "-",
+      coverImage: item.이미지 || item.썸네일 || item.thumbnail || item.image,
+      genre: normalizeGenre(rawGenre),
 
       rawGenre: String(rawGenre),         // 세부 카테고리 전체
       genre: normalizeGenre(rawGenre),    // 카드/차트용 요약 장르
@@ -228,11 +233,10 @@ export default function OverviewPage() {
         transition={{ delay: 0.05 }}
       >
         <KpiCard
-          title="전체 작품 수"
-          value={kpiData.totalWorks.value}
-          change={kpiData.totalWorks.change}
-          icon={BookOpen}
-          suffix="편"
+         title="전체 분석 작품"
+         value={todayCombined?.length || 0} // 실제 데이터 개수
+         icon={BookOpen}
+         suffix="편"
         />
         <KpiCard
           title="신작 (이번 달)"
