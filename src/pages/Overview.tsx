@@ -1,133 +1,174 @@
-// src/pages/Overview.tsx 전체 코드
-
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
-import { BookOpen, RefreshCw, TrendingUp, Zap, Calendar } from "lucide-react"; // Calendar 아이콘 추가
-import {
-  PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend,
-} from "recharts";
-import { KpiCard } from "@/components/shared/KpiCard";
-import { RankingCard } from "@/components/shared/RankingCard";
-import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-};
+// src/pages/Overview.tsx
+import { useMemo } from "react";
+import { Trophy, TrendingUp, Star, MessageSquare, BookOpen, Users } from "lucide-react";
+import { useTodayCombined, type ScoredNovel } from "@/hooks/useTodayCombined";
+import { PlatformBadge } from "@/components/shared/PlatformBadge";
+import { NovelCover } from "@/components/shared/NovelCover";
+import { cn } from "@/lib/utils";
 
 export default function OverviewPage() {
-  const [selectedNovel, setSelectedNovel] = useState<any>(null);
-  
-  // 훅에서 데이터와 함께 최신 날짜(latestDate)를 가져옵니다.
-  const { data: novels, isLoading, error, latestDate } = useTodayCombined();
+  const { data, isLoading, error, latestDate } = useTodayCombined();
 
-  const stats = useMemo(() => {
-    if (!novels || novels.length === 0) return null;
-    let newWorksCount = 0;
-    let rankMovedCount = 0;
-    let reEntryCount = 0;
-    const platformCounts = { naver: 0, kakao: 0, ridi: 0 };
-    const genreDataMap: Record<string, any> = {};
+  // 1. 데이터 분석 및 정렬
+  const { overallTop5, trendTop5, stats } = useMemo(() => {
+    if (!data || data.length === 0) {
+      return { overallTop5: [], trendTop5: [], stats: { total: 0, avgRating: 0 } };
+    }
 
-    novels.forEach((n) => {
-      if (n.isNew) newWorksCount++;
-      if (n.isReEntry) reEntryCount++;
-      if (n.prevRank && n.prevRank !== n.todayRank) rankMovedCount++;
-      platformCounts[n.platform]++;
-      const g = n.genre || "기타";
-      if (!genreDataMap[g]) genreDataMap[g] = { genre: g, naver: 0, kakao: 0, ridi: 0 };
-      genreDataMap[g][n.platform]++;
-    });
+    const overall = [...data]
+      .sort((a, b) => b.overallScore - a.overallScore)
+      .slice(0, 5);
 
-    const total = novels.length;
-    return {
-      newWorksCount, rankMovedCount, reEntryCount,
-      shareData: [
-        { name: "네이버", value: Math.round((platformCounts.naver / total) * 100), color: "hsl(var(--naver))" },
-        { name: "카카오", value: Math.round((platformCounts.kakao / total) * 100), color: "hsl(var(--kakao))" },
-        { name: "리디", value: Math.round((platformCounts.ridi / total) * 100), color: "hsl(var(--ridi))" },
-      ].filter(d => d.value > 0),
-      genreBarData: Object.values(genreDataMap)
-    };
-  }, [novels]);
+    const trend = [...data]
+      .sort((a, b) => b.trendScore - a.trendScore)
+      .slice(0, 5);
 
-  if (error) return <div className="p-10 text-red-500">에러: {error}</div>;
+    const total = data.length;
+    const avgRating = data.reduce((acc, curr) => acc + curr.rating, 0) / total;
+
+    return { overallTop5: overall, trendTop5: trend, stats: { total, avgRating } };
+  }, [data]);
+
+  if (isLoading) return <div className="p-8 text-center text-sm text-muted-foreground animate-pulse">데이터를 분석하고 있습니다...</div>;
+  if (error) return <div className="p-8 text-center text-sm text-red-500 font-medium">데이터 로드 실패: {error}</div>;
 
   return (
-    <div className="space-y-8 animate-fade-in">
-      <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
-          <h1 className="text-xl font-black tracking-tight">전체 개요</h1>
-          {/* 날짜 표시 부분: 최신 데이터 날짜를 보여줌 */}
-          <div className="mt-1 flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
-            <Calendar size={12} className="text-primary" />
-            <span>{latestDate ? `${latestDate.replace(/-/g, '.')} 데이터` : "데이터 확인 중..."}</span>
-            <span className="opacity-50">·</span>
-            <span className="text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded">LATEST</span>
-          </div>
-        </div>
-      </header>
-
-      {/* KPI 카드 */}
-      <motion.div className="grid grid-cols-2 gap-4 xl:grid-cols-4" {...fadeInUp}>
-        <KpiCard title="분석 작품" value={novels?.length || 0} icon={BookOpen} suffix="편" />
-        <KpiCard title="신작" value={stats?.newWorksCount || 0} icon={Zap} />
-        <KpiCard title="순위 변동" value={stats?.rankMovedCount || 0} icon={TrendingUp} />
-        <KpiCard title="재진입" value={stats?.reEntryCount || 0} icon={RefreshCw} />
-      </motion.div>
-
-      {/* 차트 섹션 */}
-      <motion.div className="grid grid-cols-1 gap-4 xl:grid-cols-3" {...fadeInUp} transition={{ delay: 0.1 }}>
-        <div className="surface-card">
-          <h2 className="mb-4 text-sm font-bold">플랫폼 점유율</h2>
-          <div className="h-[200px]">
-            <ResponsiveContainer>
-              <PieChart>
-                <Pie data={stats?.shareData || []} dataKey="value" innerRadius={55} outerRadius={80}>
-                  {stats?.shareData.map((entry: any, i: number) => <Cell key={i} fill={entry.color} />)}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-        <div className="surface-card xl:col-span-2">
-          <h2 className="mb-4 text-sm font-bold">장르별 분포</h2>
-          <div className="h-[200px]">
-            <ResponsiveContainer>
-              <BarChart data={stats?.genreBarData || []}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                <XAxis dataKey="genre" tick={{ fontSize: 11 }} />
-                <YAxis tick={{ fontSize: 11 }} />
-                <Tooltip />
-                <Bar dataKey="naver" fill="hsl(var(--naver))" stackId="a" />
-                <Bar dataKey="kakao" fill="hsl(var(--kakao))" stackId="a" />
-                <Bar dataKey="ridi" fill="hsl(var(--ridi))" stackId="a" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* 리스트 */}
+    <div className="space-y-8 animate-fade-in pb-10">
+      {/* 헤더 섹션 */}
       <section>
-        <h2 className="mb-4 text-sm font-bold">통합 TOP 10</h2>
-        {isLoading ? (
-          <div className="space-y-2">
-            {[...Array(5)].map((_, i) => <div key={i} className="h-20 w-full animate-pulse rounded-xl bg-surface-elevated" />)}
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {novels?.slice(0, 10).map((novel) => (
-              <RankingCard key={novel.id} novel={novel} rank={novel.todayRank} onClick={setSelectedNovel} />
-            ))}
-          </div>
-        )}
+        <h1 className="text-2xl font-black tracking-tight text-foreground">오늘의 대시보드</h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          {latestDate} 기준 · 플랫폼 통합 랭킹 및 트렌드 분석
+        </p>
       </section>
 
-      <NovelDetailDrawer novel={selectedNovel} onClose={() => setSelectedNovel(null)} />
+      {/* 요약 통계 카드 */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard icon={<BookOpen size={16} />} label="분석 작품 수" value={`${stats.total}개`} color="text-blue-500" />
+        <StatCard icon={<Star size={16} />} label="평균 평점" value={stats.avgRating.toFixed(2)} color="text-amber-500" />
+        <StatCard icon={<Users size={16} />} label="수집 플랫폼" value="3개" color="text-emerald-500" />
+        <StatCard icon={<TrendingUp size={16} />} label="업데이트" value="실시간" color="text-purple-500" />
+      </div>
+
+      {/* 2열 랭킹 리스트 섹션 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        {/* 왼쪽: 종합 랭킹 (Overall) */}
+        <div className="surface-card shadow-sm border border-border/50">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-amber-500/10 rounded-lg">
+                <Trophy size={20} className="text-amber-500" />
+              </div>
+              <h2 className="font-bold text-lg tracking-tight">종합 랭킹 TOP 5</h2>
+            </div>
+            <span className="text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full uppercase tracking-widest">Overall</span>
+          </div>
+          
+          <div className="divide-y divide-border/40">
+            {overallTop5.map((novel, idx) => (
+              <RankingItem key={`overall-${novel.id}`} novel={novel} rank={idx + 1} scoreType="overall" />
+            ))}
+          </div>
+        </div>
+
+        {/* 오른쪽: 급상승 트렌드 (Trend) */}
+        <div className="surface-card shadow-sm border border-border/50">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-blue-500/10 rounded-lg">
+                <TrendingUp size={20} className="text-blue-500" />
+              </div>
+              <h2 className="font-bold text-lg tracking-tight">급상승 트렌드 TOP 5</h2>
+            </div>
+            <span className="text-[10px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded-full uppercase tracking-widest">Trending</span>
+          </div>
+          
+          <div className="divide-y divide-border/40">
+            {trendTop5.map((novel, idx) => (
+              <RankingItem key={`trend-${novel.id}`} novel={novel} rank={idx + 1} scoreType="trend" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** 1. 상단 통계 카드 컴포넌트 */
+function StatCard({ icon, label, value, color }: { icon: React.ReactNode; label: string; value: string; color: string }) {
+  return (
+    <div className="surface-card p-4 flex flex-col items-center text-center gap-1 border border-border/40">
+      <div className={cn("p-1.5 rounded-full bg-surface-elevated mb-1", color)}>
+        {icon}
+      </div>
+      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-tighter">{label}</p>
+      <p className="text-lg font-black">{value}</p>
+    </div>
+  );
+}
+
+/** 2. 랭킹 리스트 아이템 컴포넌트 */
+function RankingItem({ novel, rank, scoreType }: { novel: ScoredNovel; rank: number; scoreType: 'overall' | 'trend' }) {
+  return (
+    <div className="flex items-center gap-4 py-3.5 first:pt-0 last:pb-0 group cursor-default">
+      {/* 순위 숫자 */}
+      <div className="w-6 text-center">
+        <span className={cn(
+          "font-mono font-black text-lg",
+          rank === 1 ? "text-primary" : "text-muted-foreground/40"
+        )}>
+          {rank}
+        </span>
+      </div>
+      
+      {/* 커버 이미지 */}
+      <div className="relative shrink-0">
+        <NovelCover novel={novel} size="sm" className="shadow-md rounded-md overflow-hidden" />
+        <div className="absolute -top-1 -left-1">
+          <PlatformBadge platform={novel.platform} size="sm" className="scale-75 shadow-sm" />
+        </div>
+      </div>
+      
+      {/* 제목 및 작가 정보 */}
+      <div className="flex-1 min-w-0">
+        <h3 className="text-sm font-bold truncate text-foreground group-hover:text-primary transition-colors duration-200">
+          {novel.title}
+        </h3>
+        <div className="flex items-center gap-2 mt-1">
+          <span className="text-[11px] text-muted-foreground truncate">{novel.author}</span>
+          <span className="w-px h-2 bg-border shrink-0" />
+          <span className="text-[11px] text-primary/70 font-medium">{novel.genre}</span>
+        </div>
+      </div>
+
+      {/* 우측 지표 (종합 vs 트렌드에 따라 다름) */}
+      <div className="text-right shrink-0">
+        {scoreType === 'overall' ? (
+          <div className="flex flex-col items-end gap-0.5">
+            <div className="flex items-center gap-0.5 text-amber-500 font-mono text-xs font-black">
+              <Star size={10} fill="currentColor" />
+              {novel.rating.toFixed(1)}
+            </div>
+            <div className="text-[10px] font-mono text-muted-foreground">
+              Score: {Math.round(novel.overallScore).toLocaleString()}
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-end gap-0.5">
+            <div className={cn(
+              "text-xs font-mono font-black",
+              novel.viewsChangePct >= 0 ? "text-up" : "text-down"
+            )}>
+              {novel.viewsChangePct >= 0 ? '▲' : '▼'}{Math.abs(novel.viewsChangePct).toFixed(1)}%
+            </div>
+            <div className="text-[10px] font-mono text-muted-foreground flex items-center gap-0.5 leading-none">
+              <MessageSquare size={9} />
+              {novel.commentCount > 10000 ? `${(novel.commentCount / 10000).toFixed(1)}만` : novel.commentCount.toLocaleString()}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
