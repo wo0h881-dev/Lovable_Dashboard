@@ -6,10 +6,12 @@
       "title": "악녀는 백만장자 해결사",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "외전까지 달려야 완결",
-          "subtitle": "외전 달리면 캐시가 가득!"
-        },
+        "eventBanners": [
+          {
+            "title": "외전까지 달려야 완결",
+            "subtitle": "외전 달리면 캐시가 가득!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -48,10 +50,16 @@
       "title": "군의관이 계약직 대공비를 너무 잘함",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "랭킹 1위 화제의 로판",
-          "subtitle": "묘묘희 작가 신작"
-        },
+        "eventBanners": [
+          {
+            "title": "랭킹 1위 화제의 로판",
+            "subtitle": "묘묘희 작가 신작"
+          },
+          {
+            "title": "군의관이 계약직 대공…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -85,10 +93,12 @@
       "title": "미쳐버린 로제타",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "미쳐버린 로제타",
-          "subtitle": "열람하면 최대 3천 캐시!"
-        },
+        "eventBanners": [
+          {
+            "title": "미쳐버린 로제타",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -102,10 +112,12 @@
       "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "카카오페이지 초신작",
-          "subtitle": "판/현/무 모아보기"
-        },
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -149,7 +161,7 @@
       "title": "마법명가 차남으로 살아남는 법",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": null,
+        "eventBanners": [],
         "notices": [
           {
             "label": "안내",
@@ -198,10 +210,20 @@
       "title": "오른손이 너무 강함",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "스페셜 오픈런",
-          "subtitle": "최대 6천캐시 선물!"
-        },
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 6천캐시 선물!"
+          },
+          {
+            "title": "오른손이 너무 강함",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -215,7 +237,7 @@
       "title": "힘숨찐 어린이가 아빠를 찾습니다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": null,
+        "eventBanners": [],
         "notices": [
           {
             "label": "안내",
@@ -274,10 +296,16 @@
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "마법학교 마법사로 살…",
-          "subtitle": "3억 뷰 기념 캐시 이벤트"
-        },
+        "eventBanners": [
+          {
+            "title": "마법학교 마법사로 살…",
+            "subtitle": "3억 뷰 기념 캐시 이벤트"
+          },
+          {
+            "title": "3월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -296,7 +324,7 @@
       "title": "나만 탑이 두 개다",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": null,
+        "eventBanners": [],
         "notices": [
           {
             "label": "안내",
@@ -330,10 +358,12 @@
       "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "은해상단 막내아들",
-          "subtitle": "1억 뷰 기념 캐시 이벤트"
-        },
+        "eventBanners": [
+          {
+            "title": "은해상단 막내아들",
+            "subtitle": "1억 뷰 기념 캐시 이벤트"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -367,10 +397,12 @@
       "title": "천마의 후궁으로 살아남기",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "천마의 후궁으로 살아…",
-          "subtitle": "열람하면 최대 3천 캐시!"
-        },
+        "eventBanners": [
+          {
+            "title": "천마의 후궁으로 살아…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -384,10 +416,16 @@
       "title": "검은머리 미군 대원수",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "대원수의 보급상자",
-          "subtitle": "열람하면 캐시!"
-        },
+        "eventBanners": [
+          {
+            "title": "대원수의 보급상자",
+            "subtitle": "열람하면 캐시!"
+          },
+          {
+            "title": "#대체역사 모음zip",
+            "subtitle": "카카페 대역 지금 정주행"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -401,10 +439,16 @@
       "title": "변경백 서자는 황제였다",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "변경백 서자는 황제였다",
-          "subtitle": "노블코믹 정주행 이벤트!"
-        },
+        "eventBanners": [
+          {
+            "title": "변경백 서자는 황제였다",
+            "subtitle": "노블코믹 정주행 이벤트!"
+          },
+          {
+            "title": "3월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -448,10 +492,12 @@
       "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "3월의 스탬프 투어!",
-          "subtitle": "명작 감상하고 캐시 받자!"
-        },
+        "eventBanners": [
+          {
+            "title": "3월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -590,10 +636,12 @@
       "title": "어느 날 엄마를 주웠다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "어느 날 엄마를 주웠다",
-          "subtitle": "열람하면 최대 3천 캐시!"
-        },
+        "eventBanners": [
+          {
+            "title": "어느 날 엄마를 주웠다",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -607,10 +655,12 @@
       "title": "EX급 전능의 시스템을 얻었다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "여의주 좀 주워주세용",
-          "subtitle": "인기작 보면 캐시 드려용!"
-        },
+        "eventBanners": [
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -629,10 +679,16 @@
       "title": "천마등선",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "초신작",
-          "subtitle": "정주행 캐시 선물"
-        },
+        "eventBanners": [
+          {
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -646,10 +702,16 @@
       "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": {
-          "title": "초신작",
-          "subtitle": "정주행 캐시 선물"
-        },
+        "eventBanners": [
+          {
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
@@ -728,7 +790,7 @@
       "title": "환생한 암살자는 검술 천재",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanner": null,
+        "eventBanners": [],
         "notices": [
           {
             "label": "안내",
@@ -757,10 +819,12 @@
       "title": "흑백무제",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanner": {
-          "title": "3월의 스탬프 투어!",
-          "subtitle": "명작 감상하고 캐시 받자!"
-        },
+        "eventBanners": [
+          {
+            "title": "3월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": [
           {
             "label": "안내",
