@@ -38,9 +38,11 @@ export interface PromotionInfo {
 export interface PromotionInfo {
   timeFreeType?: "none" | "waitFree" | "threeHour";
 
-  // 소식 탭 상단 배너
-  eventTitle?: string;    // "외전까지 달려야 완결"
-  eventSubtitle?: string; // "외전 달리면 캐시가 가득!"
+  // 여러 배너
+  eventBanners?: {
+    title: string;
+    subtitle: string;
+  }[];
 
   // 공지 리스트
   notices?: PromotionNotice[];
