@@ -13,41 +13,24 @@ export type Genre =
   | "역사/시대물"
   | "기타";
 
-export interface PromotionNotice {
-  title: string;
-  body: string;
-  date?: string;
-}
 
 export interface PromotionNotice {
-  title: string; // "안내"
-  body: string;  // "외전 오픈 안내(3/22)" 같은 본문/제목
+  title: string;  // "안내"
+  body: string;   // "외전 오픈 안내(3/22)" 같은 본문
   date?: string;
 }
 
 export interface PromotionInfo {
   timeFreeType?: "none" | "waitFree" | "threeHour";
-  eventTitle?: string;
-  eventSubtitle?: string;
-  notices?: PromotionNotice[];
-}
 
-
-// 소식 탭 공지를 여기로도 재사용하고,
-// 이벤트 배너만 필드 추가
-export interface PromotionInfo {
-  timeFreeType?: "none" | "waitFree" | "threeHour";
-
-  // 여러 배너
+  // JSON의 eventBanners 그대로
   eventBanners?: {
-    title: string;
-    subtitle: string;
+    title: string;    // "외전까지 달려야 완결"
+    subtitle: string; // "외전 달리면 캐시가 가득!"
   }[];
 
-  // 공지 리스트
   notices?: PromotionNotice[];
 }
-
 
 export interface Novel {
   id: string;
