@@ -28,6 +28,7 @@ interface TodayCombinedRow {
   평점?: string | number;
   댓글수?: string | number;
   총회차수?: string | number;
+  promotion?: PromotionInfo;
   [key: string]: any;
 }
 
@@ -140,8 +141,10 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     viewsHistory: row["viewsHistory"] ?? [],
     consecutiveDays: 0,
     peakRank: todayRank,
+    promotion: row.promotion,   // 🔹 백엔드에서 내려준 걸 그대로
   };
 }
+
 
 // --- Hook ---
 export function useTodayCombined() {
