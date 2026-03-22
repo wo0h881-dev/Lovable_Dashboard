@@ -9,6 +9,31 @@ import {
 } from "@/lib/rankingScore";
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
+const PROMO_API_KAKAO = "https://lovable-dashboardview.pages.dev/api/promotions/kakao-today";
+
+type PromotionInfo = {
+  timeFreeType: "none" | "waitFree" | "threeHour";
+  notices: { title: string; body: string; date?: string | null }[];
+};
+
+type KakaoPromotionPayload = {
+  date: string;
+  platform: "kakao";
+  items: { title: string; promotion: PromotionInfo }[];
+};
+
+async function fetchKakaoPromotionMap() {
+  const res = await fetch(PROMO_API_KAKAO);
+  const json = (await res.json()) as KakaoPromotionPayload;
+
+  const map = new Map<string, PromotionInfo>();
+  for (const item of json.items) {
+    const key = `kakao::${item.title.trim()}`;
+    map.set(key, item.promotion);
+  }
+  return map;
+}
+
 
 interface TodayCombinedRow {
   출처: string;
@@ -158,16 +183,33 @@ export function useTodayCombined() {
       try {
         if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
         const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-        const rows = (await res.json()) as TodayCombinedRow[];
+              const rows = (await res.json()) as TodayCombinedRow[];
         if (!rows || rows.length === 0) { setData([]); return; }
 
         const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
+        // 🔹 Kakao 프로모션 맵 가져오기
+        const promoMap = await fetchKakaoPromotionMap();
+
+        // 🔹 Novel로 변환하면서 Kakao에만 promotion 주입
         const novels = rows
           .filter(r => r.날짜 === mostRecentDate)
-          .map((row, idx) => mapRowToNovel(row, idx));
+          .map((row, idx) => {
+            const n = mapRowToNovel(row, idx);
+
+            if (n.platform === "kakao") {
+              const key = `kakao::${n.title.trim()}`;
+              const promo = promoMap.get(key);
+              if (promo) {
+                n.promotion = promo;
+              }
+            }
+
+            return n;
+          });
+
 
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map(n => ({
