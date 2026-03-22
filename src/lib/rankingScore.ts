@@ -39,19 +39,52 @@ export function getPlatformMaxStats(novels: UnifiedNovel[]) {
 /**
  * 4. 리디 내부 순위 주입
  */
-export function computeRidiInnerScore(
-  n: UnifiedNovel,
+export function computeUnifiedScore(
+  n: UnifiedNovel & { ridiInnerRank?: number },
+  maxViewsByPlatform: Record<Platform, number>,
   maxCommentsByPlatform: Record<Platform, number>,
   maxDeltaByPlatform: Record<Platform, number>,
 ): number {
-  if (n.platform !== "ridi") return 0;
-  const rs = rankToScore(n.todayRank);
-  const maxC = maxCommentsByPlatform["ridi"] || 0;
-  const maxD = maxDeltaByPlatform["ridi"] || 0;
+  const p = n.platform as Platform;
+  const effectiveRank = p === "ridi" && n.ridiInnerRank ? n.ridiInnerRank : n.todayRank;
+  const rs = rankToScore(effectiveRank);
+
+  const maxV = maxViewsByPlatform[p] || 0;
+  const maxC = maxCommentsByPlatform[p] || 0;
+  const maxD = maxDeltaByPlatform[p] || 0;
+
+  const viewRatio = p === "ridi" || maxV <= 0 ? 0 : n.todayViews / maxV;
+  const deltaRatio = maxD > 0 ? Math.max(0, n.viewsChangePct || 0) / maxD : 0;
   const commentRatio = maxC > 0 ? n.commentCount / maxC : 0;
-  const deltaRaw = Math.max(0, n.viewsChangePct || 0);
-  const deltaRatio = maxD > 0 ? deltaRaw / maxD : 0;
-  return rs * 0.5 + deltaRatio * 0.3 + commentRatio * 0.2;
+  const pw = platformWeight(p);
+
+  const normalizedRating = p === "ridi" ? n.rating * 2 : n.rating;
+  const ratingBonus = (normalizedRating / 10) * 0.1;
+
+  if (p === "ridi") {
+    /**
+     * [종합 인기 - 리디] 
+     * 누적 평가수(0.6)를 메인으로, 오늘 순위(0.15)는 참고만 합니다.
+     */
+    return (
+      rs * 0.15 +           // 오늘 순위 비중 축소
+      commentRatio * 0.6 +  // 🚀 누적 평가수(체급) 비중 극대화
+      deltaRatio * 0.05 +   // 오늘 기세는 거의 무시
+      (pw * 0.1 + ratingBonus * 1.0) 
+    );
+  }
+
+  /**
+   * [종합 인기 - 네이버/카카오]
+   * 누적 조회수(0.5) + 평가수(0.1) = 총 60%를 체급에 할당
+   */
+  return (
+    rs * 0.15 +          // 오늘 순위 비중 축소
+    viewRatio * 0.5 +    // 🚀 누적 조회수(체급) 비중 극대화
+    commentRatio * 0.1 + // 누적 반응
+    deltaRatio * 0.05 +  // 오늘 기세는 트렌드 페이지에 양보
+    pw * 0.2             // 플랫폼 기본 체급 반영
+  );
 }
 
 export function attachRidiInnerRank(
