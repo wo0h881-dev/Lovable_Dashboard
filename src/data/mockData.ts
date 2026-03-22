@@ -19,16 +19,19 @@ export interface PromotionNotice {
   date?: string;
 }
 
+export interface PromotionNotice {
+  title: string; // "안내"
+  body: string;  // "외전 오픈 안내(3/22)" 같은 본문/제목
+  date?: string;
+}
+
 export interface PromotionInfo {
   timeFreeType?: "none" | "waitFree" | "threeHour";
+  eventTitle?: string;
+  eventSubtitle?: string;
   notices?: PromotionNotice[];
 }
 
-export interface PromotionNotice {
-  title: string;   // 예: "안내"
-  body: string;    // 예: "외전 오픈 안내(3/22)"
-  date?: string;   // 예: "26.03.21"
-}
 
 // 소식 탭 공지를 여기로도 재사용하고,
 // 이벤트 배너만 필드 추가
