@@ -24,6 +24,26 @@ export interface PromotionInfo {
   notices?: PromotionNotice[];
 }
 
+export interface PromotionNotice {
+  title: string;   // 예: "안내"
+  body: string;    // 예: "외전 오픈 안내(3/22)"
+  date?: string;   // 예: "26.03.21"
+}
+
+// 소식 탭 공지를 여기로도 재사용하고,
+// 이벤트 배너만 필드 추가
+export interface PromotionInfo {
+  timeFreeType?: "none" | "waitFree" | "threeHour";
+
+  // 소식 탭 상단 배너
+  eventTitle?: string;    // "외전까지 달려야 완결"
+  eventSubtitle?: string; // "외전 달리면 캐시가 가득!"
+
+  // 공지 리스트
+  notices?: PromotionNotice[];
+}
+
+
 export interface Novel {
   id: string;
   title: string;
