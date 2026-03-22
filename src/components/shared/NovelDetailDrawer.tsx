@@ -1,8 +1,7 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, TrendingUp, Star, MessageCircle, BookOpen, Calendar, Trophy, Zap } from "lucide-react";
+import { X, TrendingUp, Star, MessageCircle, BookOpen, Calendar, Trophy, Zap, ArrowRightLeft } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { cn } from "@/lib/utils";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { RankChange } from "@/components/shared/RankChange";
@@ -15,187 +14,150 @@ interface Props {
 }
 
 export function NovelDetailDrawer({ novel, onClose }: Props) {
-  // 최고/최저 순위 및 차트 데이터 가공
-  const { chartData, bestRank, worstRank } = useMemo(() => {
-    if (!novel?.rankHistory) return { chartData: [], bestRank: "-", worstRank: "-" };
+  const stats = useMemo(() => (novel ? computeNovelStats(novel) : null), [novel]);
 
-    // 날짜 오름차순 정렬 (차트는 과거 -> 현재 순서)
-    const sortedHistory = [...novel.rankHistory].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
-
-    const ranks = sortedHistory.map(h => h.rank).filter((r): r is number => r !== null && r > 0);
+  // 차트 데이터 및 히스토리 가공
+  const { rankData, viewsData } = useMemo(() => {
+    if (!novel) return { rankData: [], viewsData: [] };
     
-    return {
-      chartData: sortedHistory,
-      bestRank: ranks.length > 0 ? Math.min(...ranks) : "-",
-      worstRank: ranks.length > 0 ? Math.max(...ranks) : "-",
-    };
+    // 날짜순 정렬 (과거 -> 현재)
+    const sortedRanks = [...(novel.rankHistory || [])].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sortedViews = [...(novel.viewsHistory || [])].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    return { rankData: sortedRanks, viewsData: sortedViews };
   }, [novel]);
 
   return (
     <AnimatePresence>
-      {novel && (
+      {novel && stats && (
         <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50"
-            onClick={onClose}
-          />
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50" onClick={onClose} />
+          
+          <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 overflow-y-auto border-l border-border shadow-2xl"
-            style={{ background: "hsl(var(--surface))" }}
+            className="fixed right-0 top-0 bottom-0 w-full max-w-md z-50 overflow-y-auto border-l border-border shadow-2xl bg-[#121214] text-slate-200"
           >
             {/* Header */}
-            <div
-              className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-border"
-              style={{ background: "hsl(var(--surface))" }}
-            >
+            <div className="sticky top-0 z-10 flex items-center justify-between p-4 border-b border-white/5 bg-[#121214]/80 backdrop-blur-md">
               <div className="flex items-center gap-2">
                 <PlatformBadge platform={novel.platform} size="md" />
-                <span className="text-sm font-semibold">작품 분석 데이터</span>
+                <span className="text-sm font-bold opacity-80">작품 분석 리포트</span>
               </div>
-              <button
-                onClick={onClose}
-                className="p-1.5 rounded-lg hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground"
-              >
+              <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/10 transition-colors text-slate-400">
                 <X size={18} />
               </button>
             </div>
 
-            <div className="p-4 space-y-6">
-              {/* Cover + info */}
+            <div className="p-5 space-y-6">
+              {/* Cover & Title */}
               <div className="flex gap-4">
-                <NovelCover novel={novel} size="lg" className="shadow-lg shrink-0" />
+                <NovelCover novel={novel} size="lg" className="shadow-2xl shrink-0 ring-1 ring-white/10" />
                 <div className="flex-1 min-w-0">
-                  {/* 프로모션 배지 추가 */}
                   {novel.isPromotion && (
-                    <div className="flex items-center gap-1 mb-1.5">
-                      <span className="bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded flex items-center gap-0.5 animate-pulse">
-                        <Zap size={10} fill="currentColor" /> PROMOTION
-                      </span>
-                    </div>
-                  )}
-                  
-                  <h2 className="font-bold text-lg leading-tight line-clamp-2 mb-1">
-                    {novel.title}
-                  </h2>
-                  <div className="text-xs text-muted-foreground space-y-0.5">
-                    <p>{novel.author} · <span className="text-primary font-medium">{novel.genre}</span></p>
-                    <p>{novel.publisher}</p>
-                  </div>
-                  <div className="flex items-center gap-2 mt-3 flex-wrap">
-                    <RankChange novel={novel} />
-                    <span className="font-mono text-sm font-black text-foreground bg-surface-elevated px-2 py-0.5 rounded">
-                      현재 {novel.todayRank}위
+                    <span className="bg-red-500/20 text-red-400 text-[10px] font-black px-1.5 py-0.5 rounded border border-red-500/30 mb-2 inline-block">
+                      🔥 PROMOTION
                     </span>
+                  )}
+                  <h2 className="font-bold text-lg leading-tight line-clamp-2 mb-1 text-white">{novel.title}</h2>
+                  <p className="text-xs text-slate-400">{novel.author} · <span className="text-primary">{novel.genre}</span></p>
+                  <div className="flex items-center gap-2 mt-3">
+                    <RankChange novel={novel} />
+                    <span className="font-mono text-sm font-black text-white bg-white/5 px-2 py-0.5 rounded">#{novel.todayRank}위</span>
                   </div>
                 </div>
               </div>
 
-              {/* Stats grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="surface-elevated rounded-xl p-3 flex items-center gap-3 border border-border/50">
-                  <div className="w-8 h-8 rounded-full bg-yellow-400/10 flex items-center justify-center text-yellow-500">
-                    <Trophy size={16} />
+              {/* 6개 핵심 지표 그리드 (복구 및 강화) */}
+              <div className="grid grid-cols-2 gap-2.5">
+                {[
+                  { label: "오늘 조회/평가", value: formatViews(novel.platform, novel.todayViews), icon: TrendingUp, color: "text-emerald-400" },
+                  { label: "최고 순위", value: `#${stats.bestRank || novel.peakRank}위`, icon: Trophy, color: "text-amber-400" },
+                  { label: "평점", value: novel.rating.toFixed(1), icon: Star, color: "text-yellow-400" },
+                  { label: "댓글 수", value: Number(novel.commentCount || 0).toLocaleString(), icon: MessageCircle, color: "text-sky-400" },
+                  { label: "총 회차", value: `${novel.episodeCount}화`, icon: BookOpen, color: "text-primary" },
+                  { label: "연속 진입", value: `${stats.currentStreakDays}일`, icon: Calendar, color: "text-orange-400" },
+                ].map((item) => (
+                  <div key={item.label} className="bg-white/5 rounded-xl p-3 border border-white/5">
+                    <div className="flex items-center gap-2 mb-1">
+                      <item.icon size={12} className={item.color} />
+                      <span className="text-[10px] text-slate-500 font-medium">{item.label}</span>
+                    </div>
+                    <div className="font-mono text-sm font-bold text-slate-200">{item.value}</div>
                   </div>
-                  <div>
-                    <div className="text-[10px] text-muted-foreground">최고 순위</div>
-                    <div className="font-mono text-base font-black text-yellow-600">#{bestRank}위</div>
-                  </div>
-                </div>
-                <div className="surface-elevated rounded-xl p-3 flex items-center gap-3 border border-border/50">
-                  <div className="w-8 h-8 rounded-full bg-slate-400/10 flex items-center justify-center text-slate-500">
-                    <TrendingUp size={16} className="rotate-180" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-muted-foreground">최저 순위</div>
-                    <div className="font-mono text-base font-black text-slate-500">#{worstRank}위</div>
-                  </div>
-                </div>
-                
-                {/* 기존 정보들도 시각적으로 보강 */}
-                <div className="surface-elevated rounded-xl p-3 flex items-center gap-3 border border-border/50">
-                   <Star size={16} className="text-amber-400" fill="currentColor" />
-                   <div>
-                     <div className="text-[10px] text-muted-foreground">평점</div>
-                     <div className="font-mono text-sm font-bold">{novel.rating.toFixed(1)}</div>
-                   </div>
-                </div>
-                <div className="surface-elevated rounded-xl p-3 flex items-center gap-3 border border-border/50">
-                   <MessageCircle size={16} className="text-blue-400" />
-                   <div>
-                     <div className="text-[10px] text-muted-foreground">댓글/평가</div>
-                     <div className="font-mono text-sm font-bold">{Number(novel.commentCount || 0).toLocaleString()}</div>
-                   </div>
+                ))}
+              </div>
+
+              {/* 차트 섹션 (순위 추이) */}
+              <div className="space-y-3">
+                <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                  <TrendingUp size={14} /> 순위 변동 추이
+                </h3>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/5 h-[180px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={rankData}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff10" />
+                      <XAxis dataKey="date" hide />
+                      <YAxis reversed domain={[1, 'auto']} tick={{fontSize: 10, fill: '#64748b'}} width={20} axisLine={false} tickLine={false} />
+                      <Tooltip contentStyle={{ background: '#1e1e22', border: 'none', borderRadius: '8px', fontSize: '12px', color: '#fff' }} />
+                      <Line type="monotone" dataKey="rank" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={{ r: 3, fill: 'hsl(var(--primary))' }} activeDot={{ r: 5 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
 
-              {/* Rank chart - 실제 데이터 반영 */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <TrendingUp size={14} className="text-primary" /> 순위 히스토리
-                  </h3>
-                  <span className="text-[10px] text-muted-foreground">최근 30일 데이터</span>
+              {/* 차트 섹션 (조회수 추이) */}
+              <div className="space-y-3">
+                <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                  <MessageCircle size={14} /> {novel.platform === 'ridi' ? '평가수' : '조회수'} 추이
+                </h3>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/5 h-[140px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={viewsData}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff10" />
+                      <XAxis dataKey="date" hide />
+                      <YAxis tick={{fontSize: 10, fill: '#64748b'}} width={35} axisLine={false} tickLine={false} tickFormatter={(v) => v >= 10000 ? `${(v/10000).toFixed(1)}만` : v} />
+                      <Tooltip contentStyle={{ background: '#1e1e22', border: 'none', borderRadius: '8px', fontSize: '12px' }} />
+                      <Line type="monotone" dataKey="views" stroke="#10b981" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
-                <div className="surface-elevated rounded-xl p-4 border border-border/50">
-                  <div className="h-[180px] w-full">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={chartData}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border)/0.5)" />
-                        <XAxis 
-                          dataKey="date" 
-                          hide 
-                        />
-                        <YAxis 
-                          reversed 
-                          domain={[1, 'auto']} 
-                          tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-                          width={20}
-                          tickLine={false}
-                          axisLine={false}
-                        />
-                        <Tooltip 
-                          contentStyle={{ 
-                            background: "hsl(var(--surface))", 
-                            border: "1px solid hsl(var(--border))",
-                            borderRadius: "12px",
-                            fontSize: "12px"
-                          }}
-                          labelFormatter={(label) => `날짜: ${label}`}
-                          formatter={(v: any) => [`${v}위`, "순위"]}
-                        />
-                        <Line 
-                          type="stepAfter" 
-                          dataKey="rank" 
-                          stroke="hsl(var(--primary))" 
-                          strokeWidth={3} 
-                          dot={{ r: 2, fill: "hsl(var(--primary))" }}
-                          activeDot={{ r: 5 }}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
+              </div>
+
+              {/* 차트아웃 & 재진입 이력 */}
+              <div className="space-y-3">
+                <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                  <ArrowRightLeft size={14} /> 차트인/아웃 기록
+                </h3>
+                <div className="bg-white/5 rounded-xl p-4 border border-white/5 space-y-3 text-xs">
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">첫 진입일</span>
+                    <span className="text-slate-200 font-mono">{stats.firstAppearDate || '기록 없음'}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-slate-500">총 차트인 횟수</span>
+                    <span className="text-primary font-bold">{stats.chartInCount}회</span>
+                  </div>
+                  <div className="pt-2 border-t border-white/5 space-y-2">
+                    <p className="text-[10px] text-slate-500">최근 주요 변동</p>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                      <span className="text-slate-400">마지막 차트아웃:</span>
+                      <span className="text-slate-200 ml-auto font-mono">{stats.lastChartOutDate || '-'}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      <span className="text-slate-400">역대 최저 순위:</span>
+                      <span className="text-slate-200 ml-auto font-mono">#{stats.worstRank || '-'}위</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Footer Meta */}
-              <div className="bg-surface-elevated/50 rounded-xl p-4 text-[11px] text-muted-foreground space-y-2 border border-dashed border-border">
-                <div className="flex justify-between">
-                  <span>처음 데이터 수집일</span>
-                  <span className="text-foreground font-mono">{novel.rankHistory?.[0]?.date || "-"}</span>
-                </div>
-                <div className="flex justify-between">
-                   <span>데이터 업데이트</span>
-                   <span className="text-foreground font-mono">{novel.date}</span>
-                </div>
+              <div className="bg-white/5 rounded-lg p-3 text-[10px] text-slate-500 flex justify-between">
+                <span>데이터 수집: Google Apps Script</span>
+                <span>마지막 업데이트: {novel.date}</span>
               </div>
             </div>
           </motion.div>
