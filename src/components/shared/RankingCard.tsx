@@ -1,7 +1,5 @@
-// src/components/shared/RankingCard.tsx
-
 import { motion } from "framer-motion";
-import { MessageCircle, Star, BookOpen } from "lucide-react";
+import { MessageCircle, Star, BookOpen, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
@@ -15,7 +13,6 @@ interface Props {
   variant?: "default" | "compact";
 }
 
-// 공통 숫자 포맷터
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
 
@@ -43,7 +40,6 @@ function toKoreanUnit(n: number): string {
   return n.toLocaleString("ko-KR");
 }
 
-// 조회수 포맷: 네이버/카카오는 억/만 단위, 리디는 평가수 그대로
 function formatViews(platform: Platform, views: number): string {
   const v = Number(views ?? 0);
   if (!Number.isFinite(v) || v <= 0) return "-";
@@ -55,8 +51,9 @@ function formatViews(platform: Platform, views: number): string {
   return toKoreanUnit(v);
 }
 
-// 댓글 포맷: 숫자 기준으로 억/만 단위
-function formatComments(value: string | number | null | undefined): string {
+function formatComments(
+  value: string | number | null | undefined,
+): string {
   if (value == null) return "-";
 
   let n: number;
@@ -126,8 +123,17 @@ export function RankingCard({
       </div>
 
       {/* Cover */}
-      <div className="flex-shrink-0 py-3 pl-3">
+      <div className="flex-shrink-0 py-3 pl-3 relative">
         <NovelCover novel={novel} size="md" />
+        {novel.promotion?.timeFreeType &&
+          novel.promotion.timeFreeType !== "none" && (
+            <span className="absolute left-1 top-1 inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-400 text-black shadow">
+              <Zap size={10} className="mr-0.5" />
+              {novel.promotion.timeFreeType === "threeHour"
+                ? "3다무"
+                : "기다무"}
+            </span>
+          )}
       </div>
 
       {/* Content */}
@@ -154,7 +160,6 @@ export function RankingCard({
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
 
-          {/* 오늘 조회/평가: 억/만 단위 포맷 */}
           <span
             className={cn(
               "font-mono text-xs font-semibold",
@@ -166,13 +171,11 @@ export function RankingCard({
 
           {variant === "default" && (
             <>
-              {/* 평점 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <Star size={10} className="text-yellow-400" />
                 <span className="font-mono">{novel.rating}</span>
               </span>
 
-              {/* 댓글: 리디는 '-', 나머지는 억/만 포맷 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
@@ -182,7 +185,6 @@ export function RankingCard({
                 </span>
               </span>
 
-              {/* 회차 */}
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
                 <span className="font-mono">
@@ -196,11 +198,17 @@ export function RankingCard({
         </div>
       </div>
 
-      {/* Views change indicator on right */}
+      {/* Views change indicator */}
       <div className="flex-shrink-0 flex items-center pr-4">
-        <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
+        <div
+          className={cn(
+            "text-right",
+            viewsUp ? "text-up" : "text-down",
+          )}
+        >
           <div className="font-mono text-xs font-bold">
-            {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
+            {viewsUp ? "▲" : "▼"}{" "}
+            {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
           <div className="text-[10px] text-muted-foreground mt-0.5">
             전일 대비
