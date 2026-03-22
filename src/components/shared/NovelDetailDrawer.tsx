@@ -280,37 +280,35 @@ export function NovelDetailDrawer({ novel, onClose }: Props) {
                 </div>
               </div>
 
-             {/* 프로모션/소식 섹션 */}
+   {/* 프로모션/소식 섹션 */}
 {novel.promotion &&
-  ((novel.promotion.eventBanners &&
-    novel.promotion.eventBanners.length > 0) ||
-    (novel.promotion.notices &&
-      novel.promotion.notices.length > 0)) && (
+  (novel.promotion.eventBanners?.length ||
+    novel.promotion.notices?.length) && (
     <div className="space-y-2">
       <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
         <Zap size={14} /> 프로모션 / 소식
       </h3>
       <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-xs max-h-40 overflow-y-auto space-y-2">
-        {/* 🔹 여러 배너 */}
+        {/* 🔹 배너를 맨 위 한 줄 노란 강조 문구처럼 */}
         {novel.promotion.eventBanners &&
           novel.promotion.eventBanners.length > 0 && (
-            <div className="mb-2 pb-2 border-b border-white/10 space-y-1">
+            <div className="border-b border-white/10 pb-2 mb-2">
               {novel.promotion.eventBanners.map((b, i) => (
                 <div key={i} className="text-[11px]">
-                  <div className="font-bold text-amber-300">
+                  <span className="font-bold text-amber-300">
                     {b.title}
-                  </div>
+                  </span>
                   {b.subtitle && (
-                    <div className="text-slate-300">
-                      {b.subtitle}
-                    </div>
+                    <span className="text-slate-300 ml-1">
+                      · {b.subtitle}
+                    </span>
                   )}
                 </div>
               ))}
             </div>
           )}
 
-        {/* 🔹 공지 리스트 */}
+        {/* 🔹 안내 공지들 */}
         {novel.promotion.notices?.map((notice, idx) => (
           <div
             key={idx}
