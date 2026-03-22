@@ -13,6 +13,17 @@ export type Genre =
   | "역사/시대물"
   | "기타";
 
+export interface PromotionNotice {
+  title: string;
+  body: string;
+  date?: string;
+}
+
+export interface PromotionInfo {
+  timeFreeType?: "none" | "waitFree" | "threeHour";
+  notices?: PromotionNotice[];
+}
+
 export interface Novel {
   id: string;
   title: string;
@@ -41,7 +52,9 @@ export interface Novel {
   // 🔹 새로 추가 (선택적)
   rankHistory?: { date: string; rank: number | null }[];   // 오래된 → 최신
   viewsHistory?: { date: string; views: number }[];        // 오래된 → 최신
+  promotion?: PromotionInfo;   // 🔹 추가
 }
+
 
 export const novels: Novel[] = [
   {
