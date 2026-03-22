@@ -280,50 +280,59 @@ export function NovelDetailDrawer({ novel, onClose }: Props) {
                 </div>
               </div>
 
-              {/* 프로모션/소식 섹션 */}
-              {novel.promotion &&
-                (novel.promotion.eventTitle ||
-                  (novel.promotion.notices &&
-                    novel.promotion.notices.length > 0)) && (
-                  <div className="space-y-2">
-                    <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                      <Zap size={14} /> 프로모션 / 소식
-                    </h3>
-                    <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-xs max-h-40 overflow-y-auto space-y-2">
-                      {novel.promotion.eventTitle && (
-                        <div className="mb-2 pb-2 border-b border-white/10">
-                          <div className="text-[11px] font-bold text-amber-300">
-                            {novel.promotion.eventTitle}
-                          </div>
-                          {novel.promotion.eventSubtitle && (
-                            <div className="text-[11px] text-slate-300 mt-0.5">
-                              {novel.promotion.eventSubtitle}
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {novel.promotion.notices?.map((notice, idx) => (
-                        <div
-                          key={idx}
-                          className="border-b border-white/10 last:border-0 pb-2 last:pb-0"
-                        >
-                          {notice.date && (
-                            <div className="text-[10px] text-slate-500 mb-0.5">
-                              {notice.date}
-                            </div>
-                          )}
-                          <div className="font-semibold text-slate-100">
-                            {notice.title}
-                          </div>
-                          <div className="text-slate-400 text-[11px] line-clamp-2">
-                            {notice.body}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+             {/* 프로모션/소식 섹션 */}
+{novel.promotion &&
+  ((novel.promotion.eventBanners &&
+    novel.promotion.eventBanners.length > 0) ||
+    (novel.promotion.notices &&
+      novel.promotion.notices.length > 0)) && (
+    <div className="space-y-2">
+      <h3 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+        <Zap size={14} /> 프로모션 / 소식
+      </h3>
+      <div className="bg-white/5 rounded-xl p-3 border border-white/5 text-xs max-h-40 overflow-y-auto space-y-2">
+        {/* 🔹 여러 배너 */}
+        {novel.promotion.eventBanners &&
+          novel.promotion.eventBanners.length > 0 && (
+            <div className="mb-2 pb-2 border-b border-white/10 space-y-1">
+              {novel.promotion.eventBanners.map((b, i) => (
+                <div key={i} className="text-[11px]">
+                  <div className="font-bold text-amber-300">
+                    {b.title}
                   </div>
-                )}
+                  {b.subtitle && (
+                    <div className="text-slate-300">
+                      {b.subtitle}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+        {/* 🔹 공지 리스트 */}
+        {novel.promotion.notices?.map((notice, idx) => (
+          <div
+            key={idx}
+            className="border-b border-white/10 last:border-0 pb-2 last:pb-0"
+          >
+            {notice.date && (
+              <div className="text-[10px] text-slate-500 mb-0.5">
+                {notice.date}
+              </div>
+            )}
+            <div className="font-semibold text-slate-100">
+              {notice.title}
+            </div>
+            <div className="text-slate-400 text-[11px] line-clamp-2">
+              {notice.body}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
 
               {/* 차트인/아웃 기록 */}
               <div className="space-y-3">
