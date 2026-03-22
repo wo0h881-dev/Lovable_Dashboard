@@ -9,7 +9,7 @@ import {
 } from "@/lib/rankingScore";
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
-const PROMO_API_KAKAO = "https://lovable-dashboardview.pages.dev/api/promotions/kakao-today";
+const PROMO_API_KAKAO = "/api/promotions/kakao-today";
 
 type PromotionInfo = {
   timeFreeType: "none" | "waitFree" | "threeHour";
