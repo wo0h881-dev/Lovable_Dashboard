@@ -1,10 +1,11 @@
+// src/pages/Overview.tsx
 import { useMemo, useState } from "react";
 import { Trophy, TrendingUp, Star, BookOpen, Zap, RefreshCw, LogIn, ChevronRight } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelCover } from "@/components/shared/NovelCover";
-import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer"; // 🔹 Drawer 임포트
+import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { 
   getPlatformMaxStats, 
   attachRidiInnerRank, 
@@ -23,8 +24,6 @@ const PLATFORM_COLORS: Record<string, string> = {
 
 export default function OverviewPage() {
   const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
-  
-  // 🔹 상세 정보 선택 상태
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
   const { overallTop10, trendTop10, stats, platformData, genreStackedData } = useMemo(() => {
@@ -39,7 +38,6 @@ export default function OverviewPage() {
       maxStats.maxDeltaByPlatform
     );
 
-    // 🔹 5위에서 10위로 변경
     const overall = [...enrichedData]
       .sort((a, b) => {
         const scoreA = computeUnifiedScore(a, maxStats.maxViewsByPlatform, maxStats.maxCommentsByPlatform, maxStats.maxDeltaByPlatform);
@@ -81,6 +79,9 @@ export default function OverviewPage() {
       genreStackedData: gData
     };
   }, [sourceData]);
+
+  // sourceNovels: 경쟁작 비교용 전체 목록
+  const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
 
   if (isLoading) return <div className="p-8 text-center animate-pulse text-muted-foreground">데이터 분석 중...</div>;
   if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
@@ -139,7 +140,7 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* 🔹 랭킹 섹션 (10위까지 + 클릭 이벤트 적용) */}
+      {/* 랭킹 섹션 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <RankingBox 
           title="종합 인기 TOP 10" 
@@ -159,16 +160,17 @@ export default function OverviewPage() {
         />
       </div>
 
-      {/* 🔹 상세 정보 Drawer */}
-      <NovelDetailDrawer 
-        novel={selectedNovel} 
-        onClose={() => setSelectedNovel(null)} 
+      {/* 상세 정보 Drawer — allNovels, latestDate, onSelectNovel 전달 */}
+      <NovelDetailDrawer
+        novel={selectedNovel}
+        onClose={() => setSelectedNovel(null)}
+        latestDate={latestDate}
+        allNovels={sourceNovels}
+        onSelectNovel={setSelectedNovel}
       />
     </div>
   );
 }
-
-// --- 내부 컴포넌트 ---
 
 function StatCard({ icon, label, value, color }: { icon: React.ReactNode, label: string, value: string, color: string }) {
   return (
