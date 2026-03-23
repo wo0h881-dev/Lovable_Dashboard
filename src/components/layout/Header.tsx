@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Calendar, ChevronDown, Filter } from "lucide-react";
+// src/components/layout/Header.tsx
+import { Calendar, ChevronDown, Filter, Sun, Moon } from "lucide-react";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
@@ -13,6 +13,8 @@ interface Props {
   platform: PlatformFilter;
   onDateRangeChange: (v: DateRange) => void;
   onPlatformChange: (v: PlatformFilter) => void;
+  isDark?: boolean;
+  onToggleTheme?: () => void;
 }
 
 const dateLabels: Record<DateRange, string> = { today: "오늘", "7d": "최근 7일", "30d": "최근 30일" };
@@ -24,10 +26,12 @@ const platformColors: Record<PlatformFilter, string> = {
   ridi: "text-ridi",
 };
 
-export function Header({ dateRange, platform, onDateRangeChange, onPlatformChange }: Props) {
+export function Header({ dateRange, platform, onDateRangeChange, onPlatformChange, isDark, onToggleTheme }: Props) {
   return (
-    <header className="fixed top-0 left-0 right-0 h-14 z-40 flex items-center justify-between px-4 border-b border-border"
-            style={{ background: "hsl(var(--background))" }}>
+    <header
+      className="fixed top-0 left-0 right-0 h-14 z-40 flex items-center justify-between px-4 border-b border-border"
+      style={{ background: "hsl(var(--background))" }}
+    >
       {/* Logo */}
       <div className="flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -39,7 +43,7 @@ export function Header({ dateRange, platform, onDateRangeChange, onPlatformChang
         </div>
       </div>
 
-      {/* Filters */}
+      {/* 우측: 필터 + 테마 토글 */}
       <div className="flex items-center gap-2">
         {/* Date filter */}
         <DropdownMenu>
@@ -52,8 +56,11 @@ export function Header({ dateRange, platform, onDateRangeChange, onPlatformChang
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-surface border-border">
             {(Object.keys(dateLabels) as DateRange[]).map(k => (
-              <DropdownMenuItem key={k} onClick={() => onDateRangeChange(k)}
-                className={cn("text-xs cursor-pointer", dateRange === k && "text-primary font-semibold")}>
+              <DropdownMenuItem
+                key={k}
+                onClick={() => onDateRangeChange(k)}
+                className={cn("text-xs cursor-pointer", dateRange === k && "text-primary font-semibold")}
+              >
                 {dateLabels[k]}
               </DropdownMenuItem>
             ))}
@@ -71,13 +78,27 @@ export function Header({ dateRange, platform, onDateRangeChange, onPlatformChang
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-surface border-border">
             {(Object.keys(platformLabels) as PlatformFilter[]).map(k => (
-              <DropdownMenuItem key={k} onClick={() => onPlatformChange(k)}
-                className={cn("text-xs cursor-pointer", platformColors[k], platform === k && "font-semibold")}>
+              <DropdownMenuItem
+                key={k}
+                onClick={() => onPlatformChange(k)}
+                className={cn("text-xs cursor-pointer", platformColors[k], platform === k && "font-semibold")}
+              >
                 {platformLabels[k]}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+
+        {/* 다크/라이트 토글 버튼 */}
+        {onToggleTheme && (
+          <button
+            onClick={onToggleTheme}
+            className="p-1.5 rounded-lg border border-border bg-surface hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground"
+            title={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
+          >
+            {isDark ? <Sun size={15} /> : <Moon size={15} />}
+          </button>
+        )}
       </div>
     </header>
   );
