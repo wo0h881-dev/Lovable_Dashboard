@@ -112,6 +112,12 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
             <span className="text-primary/80">{novel.genre}</span>
             <span>·</span>
             <span>{novel.publisher}</span>
+            {novel.todayRank && (
+              <>
+                <span>·</span>
+                <span className="font-mono font-bold text-foreground">#{novel.todayRank}위</span>
+              </>
+            )}
           </div>
         </div>
 
@@ -139,13 +145,23 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </div>
       </div>
 
-      {/* 증감률 */}
-      <div className="flex-shrink-0 flex items-center pr-4">
+       {/* 증감률 + 순위변화 */}
+      <div className="flex-shrink-0 flex items-center pr-4 gap-3">
+        {/* 순위변화 */}
+        <div className="text-right">
+          <RankChange novel={novel} />
+          <div className="text-[10px] text-muted-foreground mt-0.5 text-right">
+            순위변화
+          </div>
+        </div>
+        {/* 증감률 */}
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">전일 대비</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">
+            전일 대비
+          </div>
         </div>
       </div>
     </motion.div>
