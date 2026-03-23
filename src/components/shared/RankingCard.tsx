@@ -77,15 +77,9 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </span>
       </div>
 
-      {/* 커버 + 기다무 뱃지 (기존 위치 유지) */}
-      <div className="flex-shrink-0 py-3 pl-3 relative">
+       {/* 커버 */}
+      <div className="flex-shrink-0 py-3 pl-3">
         <NovelCover novel={novel} size="md" />
-        {timeFreeLabel && (
-          <span className="absolute left-1 top-1 inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-400 text-black shadow">
-            <Zap size={10} className="mr-0.5" />
-            {timeFreeLabel}
-          </span>
-        )}
       </div>
 
       {/* 내용 */}
@@ -97,15 +91,21 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
-              {/* 오늘 순위 뱃지 — 제목 바로 아래 */}
-              {novel.todayRank != null && (
-                <div className="mt-1">
+              {/* 오늘 순위 + 기다무 뱃지 — 제목 바로 아래 */}
+              <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
                     <span className="text-[9px] opacity-70">TODAY</span>
                     #{novel.todayRank}위
                   </span>
-                </div>
-              )}
+                )}
+                {timeFreeLabel && (
+                  <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-600 border border-amber-400/40">
+                    <Zap size={9} />
+                    {timeFreeLabel}
+                  </span>
+                )}
+              </div>
             </div>
             <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
           </div>
