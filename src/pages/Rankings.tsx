@@ -124,8 +124,8 @@ export default function RankingsPage() {
     useState<"rank" | "views" | "rating">("rank");
   const [mode, setMode] = useState<"overall" | "trend">("overall");
 
-  const { data: combinedNovels, isLoading, error } = useTodayCombined();
-
+  const { data: combinedNovels, isLoading, error, latestDate } = useTodayCombined();
+  
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
 
@@ -472,9 +472,11 @@ export default function RankingsPage() {
       </div>
 
       <NovelDetailDrawer
-        novel={selectedNovel}
-        onClose={() => setSelectedNovel(null)}
-      />
+  novel={selectedNovel}
+  onClose={() => setSelectedNovel(null)}
+  latestDate={latestDate}
+  allNovels={sourceNovels}
+/>
     </div>
   );
 }
