@@ -50,20 +50,20 @@ export default function GenrePage() {
 
   // ── 급상승 / 하락 작품 ──────────────────────────────
   const rising = useMemo(() =>
-    [...novels]
-      .filter((n) => (n.rankChange ?? 0) > 0)
-      .sort((a, b) => (b.rankChange ?? 0) - (a.rankChange ?? 0))
-      .slice(0, 5),
-    [novels]
-  );
+  [...novels]
+    .filter((n) => !n.isNew && !n.isReEntry && (n.rankChange ?? 0) > 0)
+    .sort((a, b) => (b.rankChange ?? 0) - (a.rankChange ?? 0))
+    .slice(0, 5),
+  [novels]
+);
 
-  const falling = useMemo(() =>
-    [...novels]
-      .filter((n) => (n.rankChange ?? 0) < 0)
-      .sort((a, b) => (a.rankChange ?? 0) - (b.rankChange ?? 0))
-      .slice(0, 5),
-    [novels]
-  );
+const falling = useMemo(() =>
+  [...novels]
+    .filter((n) => !n.isNew && !n.isReEntry && (n.rankChange ?? 0) < 0)
+    .sort((a, b) => (a.rankChange ?? 0) - (b.rankChange ?? 0))
+    .slice(0, 5),
+  [novels]
+);
 
   // ── 장르별 작품 수 요약 (탭 옆 숫자) ────────────────
   const genreCount = useMemo(() => {
