@@ -6,20 +6,19 @@
 
 @layer base {
   :root {
-    /* ── Core backgrounds ── */
-    --background:        16 16% 7%;      /* #121212 */
-    --surface:          0 0% 12%;        /* #1E1E1E */
-    --surface-elevated: 0 0% 16%;        /* #282828 */
-    --foreground:       0 0% 100%;       /* #FFFFFF */
-    --foreground-muted: 0 0% 63%;        /* #A0A0A0 */
-    --border:           0 0% 20%;        /* #333 */
+    /* ── 다크모드 기본값 ── */
+    --background:        16 16% 7%;
+    --surface:          0 0% 12%;
+    --surface-elevated: 0 0% 16%;
+    --foreground:       0 0% 100%;
+    --foreground-muted: 0 0% 63%;
+    --border:           0 0% 20%;
 
-    /* ── Shadcn compat ── */
     --card:             0 0% 12%;
     --card-foreground:  0 0% 100%;
     --popover:          0 0% 14%;
     --popover-foreground: 0 0% 100%;
-    --primary:          138 100% 39%;    /* Naver green */
+    --primary:          138 100% 39%;
     --primary-foreground: 0 0% 100%;
     --secondary:        0 0% 16%;
     --secondary-foreground: 0 0% 100%;
@@ -33,16 +32,12 @@
     --ring:             138 100% 39%;
     --radius:           0.5rem;
 
-    /* ── Platform accents ── */
-    --naver:    138 100% 39%;  /* #00C73C */
-    --kakao:    50 100% 50%;   /* #FFCD00 */
-    --ridi:     210 76% 51%;   /* #1F8CE6 */
+    --naver:    138 100% 39%;
+    --kakao:    50 100% 50%;
+    --ridi:     210 76% 51%;
+    --up:       350 100% 60%;
+    --down:     211 100% 50%;
 
-    /* ── Korean stock colors ── */
-    --up:       350 100% 60%;  /* Red for increase */
-    --down:     211 100% 50%;  /* Blue for decrease */
-
-    /* ── Sidebar ── */
     --sidebar-background: 0 0% 9%;
     --sidebar-foreground: 0 0% 80%;
     --sidebar-primary: 138 100% 39%;
@@ -52,17 +47,54 @@
     --sidebar-border: 0 0% 16%;
     --sidebar-ring: 138 100% 39%;
 
-    /* ── Gradients ── */
     --gradient-naver: linear-gradient(135deg, hsl(138 100% 39% / 0.15), hsl(138 100% 39% / 0.03));
     --gradient-kakao: linear-gradient(135deg, hsl(50 100% 50% / 0.15), hsl(50 100% 50% / 0.03));
     --gradient-ridi:  linear-gradient(135deg, hsl(210 76% 51% / 0.15), hsl(210 76% 51% / 0.03));
 
-    /* ── Shadows ── */
     --shadow-card: 0 2px 8px rgba(0,0,0,0.4);
     --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border));
     --shadow-glow-naver: 0 8px 32px hsl(138 100% 39% / 0.25);
     --shadow-glow-kakao: 0 8px 32px hsl(50 100% 50% / 0.25);
     --shadow-glow-ridi:  0 8px 32px hsl(210 76% 51% / 0.25);
+  }
+
+  /* ── 라이트모드 ── */
+  .light {
+    --background:        0 0% 97%;
+    --surface:          0 0% 100%;
+    --surface-elevated: 0 0% 94%;
+    --foreground:       0 0% 9%;
+    --foreground-muted: 0 0% 45%;
+    --border:           0 0% 88%;
+
+    --card:             0 0% 100%;
+    --card-foreground:  0 0% 9%;
+    --popover:          0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary:          138 100% 32%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:        0 0% 94%;
+    --secondary-foreground: 0 0% 9%;
+    --muted:            0 0% 94%;
+    --muted-foreground: 0 0% 45%;
+    --accent:           0 0% 90%;
+    --accent-foreground: 0 0% 9%;
+    --destructive:      350 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --input:            0 0% 88%;
+    --ring:             138 100% 32%;
+
+    --sidebar-background: 0 0% 95%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 138 100% 32%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent-foreground: 0 0% 9%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 138 100% 32%;
+
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-card-hover: 0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px hsl(var(--border));
   }
 }
 
@@ -78,7 +110,6 @@
 }
 
 @layer components {
-  /* KPI Card */
   .kpi-card {
     @apply rounded-xl border border-border p-5 transition-all duration-200;
     background: hsl(var(--surface));
@@ -88,7 +119,6 @@
     box-shadow: var(--shadow-card-hover);
   }
 
-  /* Ranking Card */
   .ranking-card {
     @apply rounded-xl border border-border flex items-stretch overflow-hidden cursor-pointer;
     background: hsl(var(--surface));
@@ -100,18 +130,15 @@
     box-shadow: var(--shadow-card-hover);
   }
 
-  /* Platform badge */
   .badge-naver  { background: hsl(var(--naver)); color: #000; }
   .badge-kakao  { background: hsl(var(--kakao)); color: #000; }
   .badge-ridi   { background: hsl(var(--ridi));  color: #fff; }
 
-  /* Trend colors */
   .text-up   { color: hsl(var(--up)); }
   .text-down { color: hsl(var(--down)); }
   .bg-up   { background-color: hsl(var(--up) / 0.15); }
   .bg-down { background-color: hsl(var(--down) / 0.15); }
 
-  /* Surface card */
   .surface-card {
     @apply rounded-xl border border-border p-5;
     background: hsl(var(--surface));
@@ -121,7 +148,6 @@
     background: hsl(var(--surface-elevated));
   }
 
-  /* Data table row */
   .data-table-row {
     @apply border-b border-border transition-colors duration-100 cursor-pointer;
   }
@@ -129,7 +155,6 @@
     background: hsl(var(--surface-elevated));
   }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: hsl(var(--background)); }
   ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
