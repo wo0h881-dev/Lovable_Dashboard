@@ -541,47 +541,7 @@ export function NovelDetailDrawer({
                     ))}
                   </div>
 
-                  {/* 순위 비교 막대 차트 */}
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wide">순위 비교 (낮을수록 상위)</p>
-                    <div className="bg-white/[0.03] rounded-xl p-3 border border-white/5 h-[140px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={competitorBarData} layout="vertical" margin={{ left: 4, right: 28 }}>
-                          <XAxis type="number" reversed domain={[0, "auto"]} hide />
-                          <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} width={72} />
-                          <Tooltip contentStyle={{ background: "#1a1a1f", border: "none", borderRadius: "8px", fontSize: "12px" }}
-                            formatter={(v: number, _: string, props: any) => [`#${v}위 — ${props?.payload?.fullTitle || ""}`, "순위"]} />
-                          <Bar dataKey="rank" radius={[0, 3, 3, 0]}>
-                            {competitorBarData.map((entry, index) => (
-                              <Cell key={index} fill={entry.isCurrent ? "#38bdf8" : "#334155"} fillOpacity={entry.isCurrent ? 1 : 0.6} />
-                            ))}
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-
-                  {/* 연속 차트인 비교 */}
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] text-slate-600 font-semibold uppercase tracking-wide">연속 차트인 일수 비교</p>
-                    <div className="bg-white/[0.03] rounded-xl p-3 border border-white/5 h-[140px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={competitorBarData} layout="vertical" margin={{ left: 4, right: 28 }}>
-                          <XAxis type="number" hide />
-                          <YAxis type="category" dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} width={72} />
-                          <Tooltip contentStyle={{ background: "#1a1a1f", border: "none", borderRadius: "8px", fontSize: "12px" }} formatter={(v: number) => [`${v}일`, "연속 차트인"]} />
-                          <Bar dataKey="streak" radius={[0, 3, 3, 0]}>
-                            {competitorBarData.map((entry, index) => (
-                              <Cell key={index} fill={entry.isCurrent ? "#10b981" : "#334155"} fillOpacity={entry.isCurrent ? 1 : 0.6} />
-                            ))}
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
-                    </div>
-                  </div>
-                </div>
-              )}
-
+    
               {/* ── 푸터 ──────────────────────────────── */}
               <div className="bg-white/[0.03] rounded-lg px-3 py-2.5 text-[10px] text-slate-600 flex justify-between border border-white/5">
                 <span>데이터 수집: Google Apps Script</span>
