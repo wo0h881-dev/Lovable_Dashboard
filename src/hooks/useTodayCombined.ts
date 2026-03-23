@@ -167,7 +167,19 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   date: v.date,
   views: parseViewsToNumber(String(v.views)),
 })),
-    consecutiveDays: 0,
+    consecutiveDays: (() => {
+  const hist = (row["rankHistory"] ?? []) as { date: string; rank: number | null }[];
+  if (!hist.length) return 0;
+  const sorted = [...hist].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  let count = 0;
+  for (const h of sorted) {
+    if (h.rank !== null) count++;
+    else break;
+  }
+  return count;
+})(),
+peakRank: todayRank,
+promotion: row.promotion,
     peakRank: todayRank,
     promotion: row.promotion,   // 🔹 백엔드에서 내려준 걸 그대로
   };
