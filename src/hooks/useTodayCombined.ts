@@ -163,7 +163,10 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     coverGradient: platform === "naver" ? "from-emerald-900 to-green-700" : platform === "kakao" ? "from-amber-900 to-orange-700" : "from-blue-900 to-indigo-700",
     coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
     rankHistory: row["rankHistory"] ?? [],
-    viewsHistory: row["viewsHistory"] ?? [],
+    viewsHistory: (row["viewsHistory"] ?? []).map((v: { date: string; views: string | number }) => ({
+  date: v.date,
+  views: parseViewsToNumber(String(v.views)),
+})),
     consecutiveDays: 0,
     peakRank: todayRank,
     promotion: row.promotion,   // 🔹 백엔드에서 내려준 걸 그대로
