@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 const App = () => {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("theme");
-    return saved ? saved === "dark" : true; // 기본값: 다크모드
+    return saved ? saved === "dark" : false; // 기본값: 라이트모드
   });
 
   useEffect(() => {
