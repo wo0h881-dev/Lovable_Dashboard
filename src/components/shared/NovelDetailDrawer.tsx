@@ -16,9 +16,8 @@ import {
   Clock,
 } from "lucide-react";
 import {
-  LineChart,
+  ComposedChart,
   Line,
-  BarChart,
   Bar,
   XAxis,
   YAxis,
@@ -62,31 +61,19 @@ function TruncatedTitle({ title, maxLen, className = "" }: { title: string; maxL
   );
 }
 
-function RankTooltip({ active, payload, label }: any) {
+function CombinedTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-[#1a1a1f] border border-white/10 rounded-lg px-3 py-2 text-xs shadow-xl">
+    <div className="bg-[#1a1a1f] border border-white/10 rounded-lg px-3 py-2.5 text-xs shadow-xl space-y-1">
       <p className="text-slate-400 font-mono mb-1">{label}</p>
-      <p className="text-sky-400 font-mono font-semibold">순위 #{payload[0]?.value}위</p>
-    </div>
-  );
-}
-
-function ViewsTooltip({ active, payload, label, platform }: any) {
-  if (!active || !payload?.length) return null;
-  const val = payload[0]?.value;
-  return (
-    <div className="bg-[#1a1a1f] border border-white/10 rounded-lg px-3 py-2 text-xs shadow-xl">
-      <p className="text-slate-400 font-mono mb-1">{label}</p>
-      <p className="text-emerald-400 font-mono font-semibold">
-        {platform === "ridi"
-          ? `${Number(val).toLocaleString()} 평가`
-          : val >= 100_000_000
-          ? `${(val / 100_000_000).toFixed(1)}억`
-          : val >= 10_000
-          ? `${(val / 10_000).toFixed(1)}만`
-          : Number(val).toLocaleString()}
-      </p>
+      {payload.map((p: any) => (
+        <div key={p.name} className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full shrink-0" style={{ background: p.color }} />
+          <span style={{ color: p.color }} className="font-mono font-semibold">
+            {p.name === "rank" ? `순위 #${p.value}위` : `조회 ${Number(p.value).toLocaleString()}`}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }
@@ -127,37 +114,28 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
   }, [novel]);
 
-  // ── 순위 차트 데이터 ─────────────────────────────────
-  const rankChartData = useMemo(() => {
-    return dedupedRankHistory
-      .filter((r) => r.rank !== null && r.rank > 0)
-      .map((r) => ({ date: r.date.slice(5), rank: r.rank }));
-  }, [dedupedRankHistory]);
-
-  // ── 조회수 차트 데이터 ───────────────────────────────
-  const viewsChartData = useMemo(() => {
-    if (!novel?.viewsHistory) return [];
-    const seen = new Map<string, number | null>();
-    for (const v of novel.viewsHistory) {
-      if (!seen.has(v.date)) {
-        seen.set(v.date, parseViewStr(v.views as string | number | null));
-      }
-    }
-    return Array.from(seen.entries())
-      .map(([date, views]) => ({ date: date.slice(5), views }))
-      .filter((d) => d.views !== null && d.views > 0)
-      .sort((a, b) => a.date.localeCompare(b.date));
-  }, [novel]);
+  // ── 통합 차트 데이터 (순위 + 조회수 한 차트) ─────────
+  const combinedChartData = useMemo(() => {
+    if (!novel) return [];
+    const rankMap = new Map(dedupedRankHistory.map((r) => [r.date, r.rank]));
+    const viewsMap = new Map((novel.viewsHistory || []).map((v) => [v.date, v.views]));
+    const allDates = Array.from(new Set([...rankMap.keys(), ...viewsMap.keys()])).sort();
+    return allDates.map((date) => ({
+      date: date.slice(5),
+      rank: rankMap.get(date) ?? null,
+      views: parseViewStr(viewsMap.get(date) as string | number | null),
+    }));
+  }, [novel, dedupedRankHistory]);
 
   // ── 조회수 Y축 도메인 ────────────────────────────────
   const viewsDomain = useMemo(() => {
-  const vals = viewsChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
-  if (vals.length === 0) return ["auto", "auto"] as const;
-  const min = Math.min(...vals);
-  const max = Math.max(...vals);
-  const padding = (max - min) * 0.05 || max * 0.02;
-  return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
-}, [viewsChartData]);
+    const vals = combinedChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
+    if (vals.length === 0) return ["auto", "auto"] as const;
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const padding = (max - min) * 0.05 || max * 0.02;
+    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
+  }, [combinedChartData]);
 
   // ── 순위 Y축 width ───────────────────────────────────
   const rankAxisWidth = useMemo(() => {
@@ -332,16 +310,34 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 ))}
               </div>
 
-              {/* ── 순위 추이 차트 (LineChart 단독) ── */}
-              {rankChartData.length > 0 && (
-                <div className="space-y-2">
-                  <SectionHeader icon={TrendingUp} label="순위 추이" />
-                  <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5 h-[170px]">
+              {/* ── 통합 차트: 순위(Line) + 조회수(Bar) ── */}
+              {combinedChartData.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <SectionHeader icon={TrendingUp} label="순위 & 조회 추이" />
+                    <div className="flex items-center gap-3 text-[10px]">
+                      <span className="flex items-center gap-1.5 text-sky-400">
+                        <span className="w-4 h-0.5 bg-sky-400 inline-block rounded" />순위
+                      </span>
+                      <span className="flex items-center gap-1.5 text-emerald-400">
+                        <span className="w-3 h-2.5 bg-emerald-400/40 inline-block rounded-sm border border-emerald-400/50" />조회수
+                      </span>
+                    </div>
+                  </div>
+                  <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5 h-[210px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={rankChartData} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
+                      <ComposedChart data={combinedChartData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff08" />
-                        <XAxis dataKey="date" tick={{ fontSize: 9, fill: "#475569" }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+                        <XAxis
+                          dataKey="date"
+                          tick={{ fontSize: 9, fill: "#475569" }}
+                          axisLine={false}
+                          tickLine={false}
+                          interval="preserveStartEnd"
+                        />
+                        {/* 순위 Y축 (왼쪽, 스카이블루) */}
                         <YAxis
+                          yAxisId="rank"
                           reversed
                           domain={[1, "auto"]}
                           tick={{ fontSize: 9, fill: "#38bdf8" }}
@@ -350,35 +346,10 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                           tickLine={false}
                           tickFormatter={(v) => `${v}위`}
                         />
-                        <Tooltip content={<RankTooltip />} />
-                        <Line
-                          type="monotone"
-                          dataKey="rank"
-                          stroke="#38bdf8"
-                          strokeWidth={2.5}
-                          dot={{ r: 3, fill: "#38bdf8", stroke: "#0f0f12", strokeWidth: 2 }}
-                          activeDot={{ r: 5, fill: "#38bdf8", stroke: "#0f0f12", strokeWidth: 2 }}
-                          connectNulls
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              )}
-
-              {/* ── 조회수/평가수 추이 차트 (BarChart 단독) ── */}
-              {viewsChartData.length > 0 && (
-                <div className="space-y-2">
-                  <SectionHeader
-                    icon={TrendingUp}
-                    label={novel.platform === "ridi" ? "평가수 추이" : "조회수 추이"}
-                  />
-                  <div className="bg-white/[0.03] rounded-xl p-4 border border-white/5 h-[150px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={viewsChartData} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff08" />
-                        <XAxis dataKey="date" tick={{ fontSize: 9, fill: "#475569" }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
+                        {/* 조회수 Y축 (오른쪽, 에메랄드) */}
                         <YAxis
+                          yAxisId="views"
+                          orientation="right"
                           tick={{ fontSize: 9, fill: "#34d399" }}
                           width={42}
                           axisLine={false}
@@ -389,17 +360,32 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                             v >= 10_000 ? `${(v / 10_000).toFixed(0)}만` : String(v)
                           }
                         />
-                        <Tooltip content={<ViewsTooltip platform={novel.platform} />} />
+                        <Tooltip content={<CombinedTooltip />} />
+                        {/* 조회수: 에메랄드 막대 */}
                         <Bar
+                          yAxisId="views"
                           dataKey="views"
                           fill="#10b981"
-                          fillOpacity={0.5}
+                          fillOpacity={0.35}
                           stroke="#10b981"
-                          strokeOpacity={0.7}
+                          strokeOpacity={0.5}
                           strokeWidth={1}
                           radius={[3, 3, 0, 0]}
+                          name="views"
                         />
-                      </BarChart>
+                        {/* 순위: 스카이블루 꺾은선 */}
+                        <Line
+                          yAxisId="rank"
+                          type="monotone"
+                          dataKey="rank"
+                          stroke="#38bdf8"
+                          strokeWidth={2.5}
+                          dot={{ r: 3, fill: "#38bdf8", stroke: "#0f0f12", strokeWidth: 2 }}
+                          activeDot={{ r: 5, fill: "#38bdf8", stroke: "#0f0f12", strokeWidth: 2 }}
+                          name="rank"
+                          connectNulls
+                        />
+                      </ComposedChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
