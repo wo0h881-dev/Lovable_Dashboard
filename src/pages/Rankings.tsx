@@ -476,6 +476,7 @@ export default function RankingsPage() {
   onClose={() => setSelectedNovel(null)}
   latestDate={latestDate}
   allNovels={sourceNovels}
+  onSelectNovel={setSelectedNovel}
 />
     </div>
   );
