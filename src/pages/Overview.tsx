@@ -15,6 +15,7 @@ import {
 } from "@/lib/rankingScore";
 import { cn } from "@/lib/utils";
 import { type Novel } from "@/data/mockData";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
 
 const PLATFORM_COLORS: Record<string, string> = {
   naver: "#10b981",
@@ -83,7 +84,7 @@ export default function OverviewPage() {
   // sourceNovels: 경쟁작 비교용 전체 목록
   const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
 
-  if (isLoading) return <div className="p-8 text-center animate-pulse text-muted-foreground">데이터 분석 중...</div>;
+  if (isLoading) return <LoadingScreen />;
   if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
 
   return (
