@@ -77,48 +77,46 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </span>
       </div>
 
-      {/* 커버 */}
-      <div className="flex-shrink-0 py-3 pl-3">
+      {/* 커버 + 오늘 순위 뱃지 (썸네일 상단) */}
+      <div className="flex-shrink-0 py-3 pl-3 relative">
         <NovelCover novel={novel} size="md" />
+        {/* 오늘 순위 — 썸네일 상단 중앙 */}
+        {novel.todayRank != null && (
+          <span className="absolute top-1.5 left-3 right-0 flex justify-center pointer-events-none">
+            <span className="font-mono font-black text-[10px] px-1.5 py-0.5 rounded-md bg-black/70 text-white leading-none shadow">
+              #{novel.todayRank}
+            </span>
+          </span>
+        )}
+        {/* 기다무/3다무 — 썸네일 하단 */}
+        {timeFreeLabel && (
+          <span className="absolute bottom-1.5 left-3 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black shadow">
+            <Zap size={8} />{timeFreeLabel}
+          </span>
+        )}
       </div>
 
       {/* 내용 */}
       <div className="flex-1 min-w-0 px-4 py-3 flex flex-col justify-between">
         <div>
           <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0">
-              {/* 제목 + 기다무/3다무 */}
-              <div className="flex items-start gap-1.5 flex-wrap">
-                <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
-                  {novel.title}
-                </h3>
-                {timeFreeLabel && (
-                  <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-black shrink-0 mt-0.5">
-                    <Zap size={9} />{timeFreeLabel}
-                  </span>
-                )}
-              </div>
-            </div>
+            <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground flex-1">
+              {novel.title}
+            </h3>
             <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
           </div>
-
-          {/* 작가·장르·출판사 + 오늘 순위 뱃지 */}
-          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
+          <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
             <span className="opacity-40">·</span>
             <span className="text-primary/80">{novel.genre}</span>
             <span className="opacity-40">·</span>
             <span>{novel.publisher}</span>
-            {novel.todayRank != null && (
-              <span className="ml-1 inline-flex items-center font-mono font-black text-[11px] px-1.5 py-0.5 rounded-md bg-surface-elevated border border-border text-foreground">
-                #{novel.todayRank}위
-              </span>
-            )}
           </div>
         </div>
 
-        {/* 하단 지표 */}
+        {/* 하단 지표: 순위변화 + 조회수 + 기타 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
+          <RankChange novel={novel} />
           <span className={cn("font-mono text-xs font-semibold", viewsUp ? "text-up" : "text-down")}>
             {formatViews(novel.platform, novel.todayViews)}
           </span>
@@ -141,16 +139,13 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </div>
       </div>
 
-      {/* 우측: 순위변화 + 증감률 */}
-      <div className="flex-shrink-0 flex flex-col items-end justify-center gap-2 pr-4">
-        {/* 순위변화 박스 */}
-        <RankChange novel={novel} />
-        {/* 증감률 */}
+      {/* 우측: 증감률 */}
+      <div className="flex-shrink-0 flex items-center pr-4">
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground">전일 대비</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">전일 대비</div>
         </div>
       </div>
     </motion.div>
