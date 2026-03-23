@@ -33,6 +33,7 @@ import { computeNovelStats } from "@/lib/novelStats";
 interface Props {
   novel: Novel | null;
   onClose: () => void;
+  latestDate?: string;   // ← 추가
 }
 
 // ── 섹션 헤더 공통 컴포넌트 ──────────────────────────────
@@ -66,7 +67,7 @@ function CombinedTooltip({ active, payload, label }: any) {
   );
 }
 
-export function NovelDetailDrawer({ novel, onClose }: Props) {
+export function NovelDetailDrawer({ novel, onClose, latestDate }: Props) {
   const stats = useMemo(
     () => (novel ? computeNovelStats(novel) : null),
     [novel],
@@ -619,7 +620,7 @@ export function NovelDetailDrawer({ novel, onClose }: Props) {
               {/* ── 푸터 ──────────────────────────────── */}
               <div className="bg-white/[0.03] rounded-lg px-3 py-2.5 text-[10px] text-slate-600 flex justify-between border border-white/5">
                 <span>데이터 수집: Google Apps Script</span>
-                <span>업데이트: {novel.date ?? "-"}</span>
+                <span>업데이트: {latestDate || "-"}</span>
               </div>
             </div>
           </motion.div>
