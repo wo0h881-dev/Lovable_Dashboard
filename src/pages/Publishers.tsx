@@ -1,122 +1,290 @@
-import { useState } from "react";
+// src/pages/Publishers.tsx
+import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RankingCard } from "@/components/shared/RankingCard";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { publishers, novels, formatViews, type Novel } from "@/data/mockData";
+import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
+import { type Novel } from "@/data/mockData";
+
+function toKoreanUnit(n: number): string {
+  if (!Number.isFinite(n) || n <= 0) return "-";
+  if (n >= 100_000_000) return `${(n / 100_000_000).toFixed(1).replace(/\.0$/, "")}억`;
+  if (n >= 10_000) {
+    const manVal = n / 10_000;
+    if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
+    return `${Math.round(manVal).toLocaleString("ko-KR")}만`;
+  }
+  return n.toLocaleString("ko-KR");
+}
 
 export default function PublishersPage() {
-  const [selectedPub, setSelectedPub] = useState(publishers[0].name);
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
   const [search, setSearch] = useState("");
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
-  const pub = publishers.find(p => p.name === selectedPub) ?? publishers[0];
-  const pubNovels = novels.filter(n => n.publisher === selectedPub);
-  const filteredPubs = publishers.filter(p => p.name.includes(search));
+  const novels: Novel[] = sourceData ?? [];
+
+  // ── 출판사별 통계 계산 ────────────────────────────────
+  const publisherStats = useMemo(() => {
+    const map = new Map<string, {
+      name: string;
+      novels: Novel[];
+      naverCount: number;
+      kakaoCount: number;
+      ridiCount: number;
+      totalViews: number;
+      avgRank: number;
+    }>();
+
+    for (const n of novels) {
+      const pub = n.publisher || "-";
+      if (!map.has(pub)) {
+        map.set(pub, { name: pub, novels: [], naverCount: 0, kakaoCount: 0, ridiCount: 0, totalViews: 0, avgRank: 0 });
+      }
+      const entry = map.get(pub)!;
+      entry.novels.push(n);
+      if (n.platform === "naver") entry.naverCount++;
+      if (n.platform === "kakao") entry.kakaoCount++;
+      if (n.platform === "ridi") entry.ridiCount++;
+      entry.totalViews += n.todayViews || 0;
+    }
+
+    // 평균 순위 계산
+    for (const entry of map.values()) {
+      const ranks = entry.novels.map(n => n.todayRank).filter((r): r is number => r != null && r > 0);
+      entry.avgRank = ranks.length > 0 ? ranks.reduce((a, b) => a + b, 0) / ranks.length : 0;
+    }
+
+    // 작품 수 내림차순 정렬
+    return Array.from(map.values()).sort((a, b) => b.novels.length - a.novels.length);
+  }, [novels]);
+
+  const [selectedPub, setSelectedPub] = useState<string>("");
+
+  // 첫 로드 시 첫 번째 출판사 선택
+  const activePub = selectedPub || publisherStats[0]?.name || "";
+  const pubData = publisherStats.find(p => p.name === activePub);
+  const pubNovels = (pubData?.novels ?? []).sort((a, b) => (a.todayRank ?? 999) - (b.todayRank ?? 999));
+
+  const filteredPubs = publisherStats.filter(p =>
+    !search || p.name.includes(search)
+  );
+
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
 
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
         <h1 className="text-xl font-black tracking-tight">출판사</h1>
-        <p className="text-xs text-muted-foreground mt-0.5">출판사별 성과 및 대표작 분석</p>
+        <p className="text-xs text-muted-foreground mt-0.5">
+          {latestDate} 기준 · 총 {publisherStats.length}개 출판사
+        </p>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-        {/* Publisher list */}
+        {/* 출판사 목록 */}
         <div className="surface-card space-y-3">
           <div className="relative">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="출판사 검색…"
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary" />
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="출판사 검색…"
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            />
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 max-h-[600px] overflow-y-auto">
             {filteredPubs.map(p => (
-              <button key={p.name} onClick={() => setSelectedPub(p.name)}
-                className={cn("w-full text-left px-3 py-2.5 rounded-lg transition-colors",
-                  selectedPub === p.name ? "bg-primary/10 text-primary" : "hover:bg-surface-elevated text-muted-foreground hover:text-foreground"
-                )}>
+              <button
+                key={p.name}
+                onClick={() => setSelectedPub(p.name)}
+                className={cn(
+                  "w-full text-left px-3 py-2.5 rounded-lg transition-colors",
+                  activePub === p.name
+                    ? "bg-primary/10 text-primary"
+                    : "hover:bg-surface-elevated text-muted-foreground hover:text-foreground"
+                )}
+              >
                 <div className="text-sm font-semibold">{p.name}</div>
-                <div className="font-mono text-xs text-muted-foreground mt-0.5">{p.workCount}편</div>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className="font-mono text-xs text-muted-foreground">{p.novels.length}편</span>
+                  {/* 플랫폼 미니 뱃지 */}
+                  <div className="flex items-center gap-1">
+                    {p.naverCount > 0 && <span className="text-[9px] font-bold text-naver">N{p.naverCount}</span>}
+                    {p.kakaoCount > 0 && <span className="text-[9px] font-bold text-kakao">K{p.kakaoCount}</span>}
+                    {p.ridiCount > 0 && <span className="text-[9px] font-bold text-ridi">R{p.ridiCount}</span>}
+                  </div>
+                </div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Publisher details */}
+        {/* 출판사 상세 */}
         <div className="xl:col-span-3 space-y-5">
-          {/* KPI row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { label: "전체 작품 수", value: pub.workCount + "편" },
-              { label: "네이버",        value: pub.naverCount + "편", color: "text-naver" },
-              { label: "카카오",        value: pub.kakaoCount + "편", color: "text-kakao" },
-              { label: "리디",          value: pub.ridiCount + "편", color: "text-ridi" },
-            ].map(({ label, value, color }) => (
-              <div key={label} className="kpi-card">
-                <div className="text-xs text-muted-foreground mb-1">{label}</div>
-                <div className={cn("font-mono text-2xl font-bold", color ?? "text-foreground")}>{value}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Platform × metric matrix */}
-          <div className="surface-card overflow-hidden p-0">
-            <div className="px-5 py-4 border-b border-border">
-              <h2 className="text-sm font-bold">{pub.name} 플랫폼 × 지표 매트릭스</h2>
-            </div>
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="py-3 px-5 text-left text-muted-foreground font-medium">플랫폼</th>
-                  <th className="py-3 px-5 text-left text-muted-foreground font-medium">작품 수</th>
-                  <th className="py-3 px-5 text-left text-muted-foreground font-medium">점유율</th>
-                  <th className="py-3 px-5 text-left text-muted-foreground font-medium">평균 순위</th>
-                </tr>
-              </thead>
-              <tbody>
+          {pubData ? (
+            <>
+              {/* KPI 카드 */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {[
-                  { name: "네이버", count: pub.naverCount, color: "text-naver" },
-                  { name: "카카오", count: pub.kakaoCount, color: "text-kakao" },
-                  { name: "리디",   count: pub.ridiCount,  color: "text-ridi" },
-                ].map(row => (
-                  <tr key={row.name} className="border-b border-border hover:bg-surface-elevated">
-                    <td className={cn("py-3 px-5 font-semibold", row.color)}>{row.name}</td>
-                    <td className="py-3 px-5 font-mono font-bold">{row.count}</td>
-                    <td className="py-3 px-5">
-                      <div className="flex items-center gap-2">
-                        <div className="flex-1 h-1.5 bg-surface-elevated rounded-full max-w-24">
-                          <div className="h-full rounded-full bg-primary"
-                               style={{ width: `${Math.round(row.count / pub.workCount * 100)}%` }} />
-                        </div>
-                        <span className="font-mono text-xs">{Math.round(row.count / pub.workCount * 100)}%</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-5 font-mono text-muted-foreground">{pub.avgRank.toFixed(1)}위</td>
-                  </tr>
+                  { label: "전체 작품 수", value: `${pubData.novels.length}편`, color: "" },
+                  { label: "네이버", value: `${pubData.naverCount}편`, color: "text-naver" },
+                  { label: "카카오", value: `${pubData.kakaoCount}편`, color: "text-kakao" },
+                  { label: "리디", value: `${pubData.ridiCount}편`, color: "text-ridi" },
+                ].map(({ label, value, color }) => (
+                  <div key={label} className="kpi-card">
+                    <div className="text-xs text-muted-foreground mb-1">{label}</div>
+                    <div className={cn("font-mono text-2xl font-bold", color || "text-foreground")}>{value}</div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
 
-          {/* Top works */}
-          <div>
-            <h2 className="text-sm font-bold mb-3">{pub.name} 인기작</h2>
-            {pubNovels.length > 0 ? (
-              <div className="space-y-2">
-                {pubNovels.map((n, i) => (
-                  <RankingCard key={n.id} novel={n} rank={n.todayRank} onClick={setSelectedNovel} />
+              {/* 추가 지표 */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                  {
+                    label: "총 조회수/평가수",
+                    value: toKoreanUnit(pubData.totalViews),
+                    color: "text-emerald-500",
+                  },
+                  {
+                    label: "평균 순위",
+                    value: pubData.avgRank > 0 ? `#${pubData.avgRank.toFixed(1)}위` : "-",
+                    color: "text-amber-500",
+                  },
+                  {
+                    label: "신작 수",
+                    value: `${pubData.novels.filter(n => n.isNew).length}편`,
+                    color: "text-primary",
+                  },
+                ].map(({ label, value, color }) => (
+                  <div key={label} className="kpi-card">
+                    <div className="text-xs text-muted-foreground mb-1">{label}</div>
+                    <div className={cn("font-mono text-xl font-bold", color)}>{value}</div>
+                  </div>
                 ))}
               </div>
-            ) : (
-              <div className="surface-card text-center py-10 text-muted-foreground text-sm">
-                현재 랭킹 내 {pub.name} 작품이 없습니다
+
+              {/* 플랫폼 × 지표 매트릭스 */}
+              <div className="surface-card overflow-hidden p-0">
+                <div className="px-5 py-4 border-b border-border">
+                  <h2 className="text-sm font-bold">{pubData.name} 플랫폼 분포</h2>
+                </div>
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-border">
+                      {["플랫폼", "작품 수", "점유율", "평균 순위", "총 조회수/평가수"].map(h => (
+                        <th key={h} className="py-3 px-5 text-left text-muted-foreground font-medium">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: "네이버", count: pubData.naverCount, color: "text-naver", platform: "naver" as const },
+                      { name: "카카오", count: pubData.kakaoCount, color: "text-kakao", platform: "kakao" as const },
+                      { name: "리디",   count: pubData.ridiCount,  color: "text-ridi",  platform: "ridi" as const },
+                    ].map(row => {
+                      const platformNovels = pubData.novels.filter(n => n.platform === row.platform);
+                      const platformViews = platformNovels.reduce((s, n) => s + (n.todayViews || 0), 0);
+                      const platformRanks = platformNovels.map(n => n.todayRank).filter((r): r is number => r != null && r > 0);
+                      const platformAvgRank = platformRanks.length > 0
+                        ? (platformRanks.reduce((a, b) => a + b, 0) / platformRanks.length).toFixed(1)
+                        : "-";
+
+                      return (
+                        <tr key={row.name} className="border-b border-border hover:bg-surface-elevated">
+                          <td className={cn("py-3 px-5 font-semibold", row.color)}>{row.name}</td>
+                          <td className="py-3 px-5 font-mono font-bold">{row.count}</td>
+                          <td className="py-3 px-5">
+                            <div className="flex items-center gap-2">
+                              <div className="flex-1 h-1.5 bg-surface-elevated rounded-full max-w-24">
+                                <div
+                                  className="h-full rounded-full bg-primary"
+                                  style={{ width: `${pubData.novels.length > 0 ? Math.round(row.count / pubData.novels.length * 100) : 0}%` }}
+                                />
+                              </div>
+                              <span className="font-mono text-xs">
+                                {pubData.novels.length > 0 ? Math.round(row.count / pubData.novels.length * 100) : 0}%
+                              </span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-5 font-mono text-muted-foreground">
+                            {platformAvgRank !== "-" ? `#${platformAvgRank}위` : "-"}
+                          </td>
+                          <td className="py-3 px-5 font-mono text-emerald-500">
+                            {platformViews > 0 ? toKoreanUnit(platformViews) : "-"}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
-            )}
-          </div>
+
+              {/* 장르 분포 */}
+              {pubData.novels.length > 0 && (
+                <div className="surface-card">
+                  <h2 className="text-sm font-bold mb-3">장르 분포</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {Object.entries(
+                      pubData.novels.reduce<Record<string, number>>((acc, n) => {
+                        acc[n.genre] = (acc[n.genre] || 0) + 1;
+                        return acc;
+                      }, {})
+                    )
+                      .sort((a, b) => b[1] - a[1])
+                      .map(([genre, count]) => (
+                        <span key={genre} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-elevated border border-border">
+                          <span className="text-primary">{genre}</span>
+                          <span className="font-mono text-muted-foreground">{count}</span>
+                        </span>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 인기작 목록 */}
+              <div>
+                <h2 className="text-sm font-bold mb-3">
+                  {pubData.name} 차트인 작품
+                  <span className="font-mono text-xs text-muted-foreground ml-2">{pubNovels.length}편</span>
+                </h2>
+                {pubNovels.length > 0 ? (
+                  <div className="space-y-2">
+                    {pubNovels.map((n, i) => (
+                      <RankingCard
+                        key={n.id}
+                        novel={n}
+                        rank={i + 1}
+                        onClick={setSelectedNovel}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="surface-card text-center py-10 text-muted-foreground text-sm">
+                    현재 랭킹 내 {pubData.name} 작품이 없습니다
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="surface-card text-center py-10 text-muted-foreground text-sm">
+              출판사를 선택해주세요
+            </div>
+          )}
         </div>
       </div>
 
-      <NovelDetailDrawer novel={selectedNovel} onClose={() => setSelectedNovel(null)} />
+      <NovelDetailDrawer
+        novel={selectedNovel}
+        onClose={() => setSelectedNovel(null)}
+        latestDate={latestDate}
+        allNovels={novels}
+        onSelectNovel={setSelectedNovel}
+      />
     </div>
   );
 }
