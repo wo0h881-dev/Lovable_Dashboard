@@ -129,14 +129,29 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
   }, [novel, dedupedRankHistory]);
 
   // ── 조회수 Y축 도메인: 변화폭이 잘 보이도록 min/max 근처로 좁힘 ──
-  const viewsDomain = useMemo(() => {
-    const vals = combinedChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
-    if (vals.length === 0) return ["auto", "auto"] as const;
-    const min = Math.min(...vals);
-    const max = Math.max(...vals);
-    const padding = (max - min) * 0.05 || max * 0.02;
-    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
-  }, [combinedChartData]);
+  // 바꿀 코드
+ const viewsDomain = useMemo(() => {
+   const vals = combinedChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
+   if (vals.length === 0) return ["auto", "auto"] as const;
+   const min = Math.min(...vals);
+   const max = Math.max(...vals);
+   const range = max - min;
+   const changeRatio = range / max; // 변화폭이 전체의 몇 %인지
+
+  let padding: number;
+  if (changeRatio < 0.05) {
+    // 변화폭이 5% 미만 (9394~9661 같은 경우): 범위를 좁게
+    padding = range * 0.3;
+  } else if (changeRatio < 0.2) {
+    // 변화폭이 5~20%: 중간
+    padding = range * 0.15;
+  } else {
+    // 변화폭이 20% 이상: 여유있게
+    padding = range * 0.1;
+  }
+
+  return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
+}, [combinedChartData]);
 
   // ── 경쟁작 ───────────────────────────────────────────
   const competitors = useMemo(() => {
