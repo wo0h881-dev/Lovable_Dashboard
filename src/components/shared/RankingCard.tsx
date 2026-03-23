@@ -77,21 +77,13 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </span>
       </div>
 
-      {/* 커버 + 오늘 순위 뱃지 (썸네일 상단) */}
+      {/* 커버 + 기다무 뱃지 (기존 위치 유지) */}
       <div className="flex-shrink-0 py-3 pl-3 relative">
         <NovelCover novel={novel} size="md" />
-        {/* 오늘 순위 — 썸네일 상단 중앙 */}
-        {novel.todayRank != null && (
-          <span className="absolute top-1.5 left-3 right-0 flex justify-center pointer-events-none">
-            <span className="font-mono font-black text-[10px] px-1.5 py-0.5 rounded-md bg-black/70 text-white leading-none shadow">
-              #{novel.todayRank}
-            </span>
-          </span>
-        )}
-        {/* 기다무/3다무 — 썸네일 하단 */}
         {timeFreeLabel && (
-          <span className="absolute bottom-1.5 left-3 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black shadow">
-            <Zap size={8} />{timeFreeLabel}
+          <span className="absolute left-1 top-1 inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-amber-400 text-black shadow">
+            <Zap size={10} className="mr-0.5" />
+            {timeFreeLabel}
           </span>
         )}
       </div>
@@ -100,12 +92,24 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
       <div className="flex-1 min-w-0 px-4 py-3 flex flex-col justify-between">
         <div>
           <div className="flex items-start justify-between gap-2">
-            <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground flex-1">
-              {novel.title}
-            </h3>
+            <div className="flex-1 min-w-0">
+              {/* 제목 */}
+              <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
+                {novel.title}
+              </h3>
+              {/* 오늘 순위 뱃지 — 제목 바로 아래 */}
+              {novel.todayRank != null && (
+                <div className="mt-1">
+                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
+                    <span className="text-[9px] opacity-70">TODAY</span>
+                    #{novel.todayRank}위
+                  </span>
+                </div>
+              )}
+            </div>
             <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
           </div>
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground flex-wrap">
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
             <span className="opacity-40">·</span>
             <span className="text-primary/80">{novel.genre}</span>
@@ -114,7 +118,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
           </div>
         </div>
 
-        {/* 하단 지표: 순위변화 + 조회수 + 기타 */}
+        {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
           <span className={cn("font-mono text-xs font-semibold", viewsUp ? "text-up" : "text-down")}>
