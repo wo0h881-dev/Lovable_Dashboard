@@ -151,22 +151,13 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
 
   // ── 조회수 Y축 도메인 ────────────────────────────────
   const viewsDomain = useMemo(() => {
-    const vals = viewsChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
-    if (vals.length === 0) return ["auto", "auto"] as const;
-    const min = Math.min(...vals);
-    const max = Math.max(...vals);
-    const range = max - min;
-    const changeRatio = range / max;
-    let padding: number;
-    if (changeRatio < 0.05) {
-      padding = range * 0.3;
-    } else if (changeRatio < 0.2) {
-      padding = range * 0.15;
-    } else {
-      padding = range * 0.1;
-    }
-    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
-  }, [viewsChartData]);
+  const vals = viewsChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
+  if (vals.length === 0) return ["auto", "auto"] as const;
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const padding = (max - min) * 0.05 || max * 0.02;
+  return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
+}, [viewsChartData]);
 
   // ── 순위 Y축 width ───────────────────────────────────
   const rankAxisWidth = useMemo(() => {
