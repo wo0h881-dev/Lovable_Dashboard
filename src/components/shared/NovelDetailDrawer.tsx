@@ -345,7 +345,8 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                           width={rankAxisWidth}
                           axisLine={false}
                           tickLine={false}
-                          tickFormatter={(v) => v > 0 ? `${v}위` : ""}
+                          tickFormatter={(v) => `${v}위`}
+
                         />
                         {/* 조회수 Y축: 실제 변화폭이 보이도록 min/max 근처 domain */}
                         <YAxis
