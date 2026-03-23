@@ -100,9 +100,25 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
   const [isExpanded, setIsExpanded] = useState(false);
   const stats = useMemo(() => (novel ? computeNovelStats(novel) : null), [novel]);
 
+  // ── 날짜 중복 제거된 rankHistory ─────────────────────
+  const dedupedRankHistory = useMemo(() => {
+    if (!novel?.rankHistory) return [];
+    const seen = new Map<string, number | null>();
+    for (const r of novel.rankHistory) {
+      // 같은 날짜면 null이 아닌 값 우선
+      if (!seen.has(r.date) || (seen.get(r.date) === null && r.rank !== null)) {
+        seen.set(r.date, r.rank);
+      }
+    }
+    return Array.from(seen.entries())
+      .map(([date, rank]) => ({ date, rank }))
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [novel]);
+
+  // ── 통합 차트 데이터 ─────────────────────────────────
   const combinedChartData = useMemo(() => {
     if (!novel) return [];
-    const rankMap = new Map((novel.rankHistory || []).map((r) => [r.date, r.rank]));
+    const rankMap = new Map(dedupedRankHistory.map((r) => [r.date, r.rank]));
     const viewsMap = new Map((novel.viewsHistory || []).map((v) => [v.date, v.views]));
     const allDates = Array.from(new Set([...rankMap.keys(), ...viewsMap.keys()])).sort();
     return allDates.map((date) => ({
@@ -110,8 +126,19 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
       rank: rankMap.get(date) ?? null,
       views: parseViewStr(viewsMap.get(date) as string | number | null),
     }));
-  }, [novel]);
+  }, [novel, dedupedRankHistory]);
 
+  // ── 조회수 Y축 도메인: 변화폭이 잘 보이도록 min/max 근처로 좁힘 ──
+  const viewsDomain = useMemo(() => {
+    const vals = combinedChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
+    if (vals.length === 0) return ["auto", "auto"] as const;
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const padding = (max - min) * 0.2 || max * 0.05;
+    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
+  }, [combinedChartData]);
+
+  // ── 경쟁작 ───────────────────────────────────────────
   const competitors = useMemo(() => {
     if (!novel) return [];
     return allNovels
@@ -120,24 +147,22 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
       .slice(0, 4);
   }, [novel, allNovels]);
 
+  // ── 타임라인: 중복 제거된 history 사용 ───────────────
   const timelineEvents = useMemo(() => {
     if (!novel) return [];
     const events: { date: string; type: "in" | "out" | "peak"; label: string }[] = [];
-    const sorted = [...(novel.rankHistory || [])].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
 
     let prevRank: number | null | undefined = undefined;
     let isFirstEntry = true;
 
-    for (const entry of sorted) {
+    for (const entry of dedupedRankHistory) {
       const curr = entry.rank;
       if (prevRank === undefined) {
         if (curr !== null) {
           events.push({ date: entry.date, type: "in", label: "첫 차트 진입" });
           isFirstEntry = false;
         }
-      } else if (prevRank === null && curr !== null) {
+      } else if ((prevRank === null) && curr !== null) {
         events.push({ date: entry.date, type: "in", label: isFirstEntry ? "첫 차트 진입" : "차트 재진입" });
         isFirstEntry = false;
       } else if (prevRank !== null && curr === null) {
@@ -146,25 +171,33 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
       prevRank = curr;
     }
 
+    // 최고 순위 달성 이벤트
     if (stats?.bestRank) {
-      const peakEntry = sorted.find((r) => r.rank === stats.bestRank);
+      const peakEntry = dedupedRankHistory.find((r) => r.rank === stats.bestRank);
       if (peakEntry) {
         events.push({ date: peakEntry.date, type: "peak", label: `최고 순위 #${stats.bestRank}위 달성` });
       }
     }
+
     if (events.length === 0 && novel.firstAppeared) {
       events.push({ date: novel.firstAppeared, type: "in", label: "첫 차트 진입" });
     }
-    return events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-  }, [novel, stats]);
 
+    return events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }, [novel, dedupedRankHistory, stats]);
+
+  // ── 현재 차트인 여부: latestDate 기준으로 판단 ────────
   const isCurrentlyCharted = useMemo(() => {
     if (!novel?.rankHistory?.length) return true;
-    const sorted = [...novel.rankHistory].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-    );
-    return sorted[0].rank !== null;
-  }, [novel]);
+    // latestDate가 있으면 그 날짜 기준으로 확인
+    if (latestDate) {
+      const entry = dedupedRankHistory.find((r) => r.date === latestDate);
+      if (entry) return entry.rank !== null;
+    }
+    // 없으면 가장 최신 날짜 기준
+    const last = dedupedRankHistory[dedupedRankHistory.length - 1];
+    return last ? last.rank !== null : true;
+  }, [novel, dedupedRankHistory, latestDate]);
 
   const hasPromotion =
     !!novel?.promotion &&
@@ -176,6 +209,14 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
     novel?.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
+
+  // 순위 Y축 width: 최대 순위 자릿수에 따라 조정
+  const rankAxisWidth = useMemo(() => {
+    const maxRank = Math.max(...dedupedRankHistory.map((r) => r.rank ?? 0).filter((r) => r > 0));
+    if (maxRank >= 100) return 36;
+    if (maxRank >= 10) return 30;
+    return 24;
+  }, [dedupedRankHistory]);
 
   return (
     <AnimatePresence>
@@ -295,17 +336,29 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                       <ComposedChart data={combinedChartData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#ffffff08" />
                         <XAxis dataKey="date" tick={{ fontSize: 9, fill: "#475569" }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                        <YAxis yAxisId="rank" reversed domain={[1, "auto"]} tick={{ fontSize: 9, fill: "#38bdf8" }} width={22} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}위`} />
+                        {/* 순위 Y축: 자릿수에 맞게 width 자동 조정 */}
+                        <YAxis
+                          yAxisId="rank"
+                          reversed
+                          domain={[1, "auto"]}
+                          tick={{ fontSize: 9, fill: "#38bdf8" }}
+                          width={rankAxisWidth}
+                          axisLine={false}
+                          tickLine={false}
+                          tickFormatter={(v) => `${v}위`}
+                        />
+                        {/* 조회수 Y축: 실제 변화폭이 보이도록 min/max 근처 domain */}
                         <YAxis
                           yAxisId="views"
                           orientation="right"
                           tick={{ fontSize: 9, fill: "#34d399" }}
-                          width={38}
+                          width={42}
                           axisLine={false}
                           tickLine={false}
+                          domain={viewsDomain}
                           tickFormatter={(v) =>
-                            v >= 100000000 ? `${(v / 100000000).toFixed(1)}억` :
-                            v >= 10000 ? `${(v / 10000).toFixed(0)}만` : String(v)
+                            v >= 100_000_000 ? `${(v / 100_000_000).toFixed(1)}억` :
+                            v >= 10_000 ? `${(v / 10_000).toFixed(0)}만` : String(v)
                           }
                         />
                         <Tooltip content={<CombinedTooltip />} />
@@ -415,6 +468,7 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                             </div>
                           );
                         })}
+                        {/* 현재 상태 */}
                         {isCurrentlyCharted ? (
                           <div className="flex items-start gap-3 relative">
                             <div className="absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full bg-primary flex items-center justify-center ring-2 ring-[#0f0f12] animate-pulse">
@@ -453,7 +507,6 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                       <span className="text-right">조회/평가</span>
                       <span className="text-right">연속</span>
                     </div>
-                    {/* 현재 작품 */}
                     <div className="grid grid-cols-[1fr_44px_60px_44px] px-3 py-2.5 bg-primary/8 border-b border-white/5 items-center">
                       <span className="font-bold text-white truncate pr-2 flex items-center gap-1.5">
                         <span className="w-1 h-4 bg-primary rounded-full shrink-0" />
@@ -463,7 +516,6 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                       <span className="text-right font-mono text-slate-200 text-[11px]">{formatViews(novel.platform, novel.todayViews)}</span>
                       <span className="text-right font-mono text-emerald-400 font-bold">{novel.consecutiveDays}일</span>
                     </div>
-                    {/* 경쟁작 */}
                     {competitors.map((c, idx) => (
                       <div
                         key={c.id}
