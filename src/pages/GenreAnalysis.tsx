@@ -87,6 +87,34 @@ const falling = useMemo(() =>
         </p>
       </div>
 
+
+      {/* 장르 탭 */}
+      <div className="flex items-center gap-2 flex-wrap">
+        {genres.map((g) => (
+          <button
+            key={g}
+            onClick={() => setSelectedGenre(g)}
+            className={cn(
+              "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5",
+              selectedGenre === g
+                ? "bg-primary text-primary-foreground"
+                : "bg-surface border border-border text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {g}
+            {g !== "전체" && genreCount[g] ? (
+              <span className={cn(
+                "text-[10px] font-mono px-1 rounded",
+                selectedGenre === g ? "bg-white/20" : "bg-surface-elevated text-muted-foreground"
+              )}>
+                {genreCount[g]}
+              </span>
+            ) : null}
+          </button>
+        ))}
+      </div>
+
+
       {/* 장르별 평균 지표 요약 */}
       <div className="surface-card">
         <h2 className="text-sm font-bold mb-4">장르별 평균 지표 요약</h2>
@@ -153,33 +181,6 @@ const falling = useMemo(() =>
         </div>
       </div>
 
-      {/* 장르 탭 */}
-      <div className="flex items-center gap-2 flex-wrap">
-        {genres.map((g) => (
-          <button
-            key={g}
-            onClick={() => setSelectedGenre(g)}
-            className={cn(
-              "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5",
-              selectedGenre === g
-                ? "bg-primary text-primary-foreground"
-                : "bg-surface border border-border text-muted-foreground hover:text-foreground"
-            )}
-          >
-            {g}
-            {g !== "전체" && genreCount[g] ? (
-              <span className={cn(
-                "text-[10px] font-mono px-1 rounded",
-                selectedGenre === g ? "bg-white/20" : "bg-surface-elevated text-muted-foreground"
-              )}>
-                {genreCount[g]}
-              </span>
-            ) : null}
-          </button>
-        ))}
-      </div>
-
-      
 
       {/* TOP 작품 + 바 차트 */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
