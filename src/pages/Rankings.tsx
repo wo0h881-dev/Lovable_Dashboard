@@ -240,7 +240,7 @@ export default function RankingsPage() {
                         <div className="relative shrink-0">
                           <NovelCover novel={n} size="sm" />
                          {timeFreeLabel && (
-                            <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
+                            <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
                               <Zap size={8} />
                               {timeFreeLabel}
                             </span>
