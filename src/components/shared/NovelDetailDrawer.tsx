@@ -141,10 +141,11 @@ export function NovelDetailDrawer({ novel, onClose, latestDate }: Props) {
   }, [novel, stats]);
 
   const hasPromotion =
-    !!novel?.promotion &&
-    ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
-      (novel.promotion.notices && novel.promotion.notices.length > 0) ||
-      (novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0));
+  !!novel?.promotion &&
+  ((novel.promotion.timeFreeType &&
+    novel.promotion.timeFreeType !== "none") ||
+    (novel.promotion.eventBanners &&
+      novel.promotion.eventBanners.length > 0));
 
   return (
     <AnimatePresence>
