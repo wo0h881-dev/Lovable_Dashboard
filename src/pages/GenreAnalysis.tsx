@@ -113,6 +113,72 @@ const falling = useMemo(() =>
         ))}
       </div>
 
+      {/* 장르별 평균 지표 요약 */}
+      <div className="surface-card">
+        <h2 className="text-sm font-bold mb-4">장르별 평균 지표 요약</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-border">
+                {["장르", "작품 수", "평균 순위", "평균 조회수", "평균 별점", "신작 수", "재진입 수"].map((h) => (
+                  <th key={h} className="py-2 px-3 text-left text-muted-foreground font-medium whitespace-nowrap">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(
+                novels.reduce<Record<string, Novel[]>>((acc, n) => {
+                  if (!acc[n.genre]) acc[n.genre] = [];
+                  acc[n.genre].push(n);
+                  return acc;
+                }, {})
+              )
+                .sort((a, b) => b[1].length - a[1].length)
+                .map(([genre, list]) => {
+                  const avgRank = list.reduce((s, n) => s + (n.todayRank ?? 0), 0) / list.length;
+                  const avgViews = list.reduce((s, n) => s + n.todayViews, 0) / list.length;
+                  const avgRating = list.reduce((s, n) => s + n.rating, 0) / list.length;
+                  const newCount = list.filter((n) => n.isNew).length;
+                  const reEntryCount = list.filter((n) => n.isReEntry).length;
+                  const color = genreColors[genre] || "#94a3b8";
+                  return (
+                    <tr
+                      key={genre}
+                      className="border-b border-border hover:bg-surface-elevated cursor-pointer transition-colors"
+                      onClick={() => setSelectedGenre(genre as Genre)}
+                    >
+                      <td className="py-2.5 px-3">
+                        <span className="flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full shrink-0" style={{ background: color }} />
+                          <span className="font-semibold">{genre}</span>
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 font-mono font-bold">{list.length}</td>
+                      <td className="py-2.5 px-3 font-mono text-muted-foreground">
+                        #{avgRank.toFixed(1)}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-emerald-500">
+                        {avgViews >= 100_000_000
+                          ? `${(avgViews / 100_000_000).toFixed(1)}억`
+                          : avgViews >= 10_000
+                          ? `${(avgViews / 10_000).toFixed(0)}만`
+                          : avgViews.toFixed(0)}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-yellow-400">
+                        ★ {avgRating.toFixed(1)}
+                      </td>
+                      <td className="py-2.5 px-3 font-mono text-primary">{newCount}</td>
+                      <td className="py-2.5 px-3 font-mono text-violet-400">{reEntryCount}</td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* TOP 작품 + 바 차트 */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* 장르 TOP 작품 목록 */}
@@ -224,71 +290,7 @@ const falling = useMemo(() =>
         </div>
       </div>
 
-      {/* 장르별 평균 지표 요약 */}
-      <div className="surface-card">
-        <h2 className="text-sm font-bold mb-4">장르별 평균 지표 요약</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="border-b border-border">
-                {["장르", "작품 수", "평균 순위", "평균 조회수", "평균 별점", "신작 수", "재진입 수"].map((h) => (
-                  <th key={h} className="py-2 px-3 text-left text-muted-foreground font-medium whitespace-nowrap">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(
-                novels.reduce<Record<string, Novel[]>>((acc, n) => {
-                  if (!acc[n.genre]) acc[n.genre] = [];
-                  acc[n.genre].push(n);
-                  return acc;
-                }, {})
-              )
-                .sort((a, b) => b[1].length - a[1].length)
-                .map(([genre, list]) => {
-                  const avgRank = list.reduce((s, n) => s + (n.todayRank ?? 0), 0) / list.length;
-                  const avgViews = list.reduce((s, n) => s + n.todayViews, 0) / list.length;
-                  const avgRating = list.reduce((s, n) => s + n.rating, 0) / list.length;
-                  const newCount = list.filter((n) => n.isNew).length;
-                  const reEntryCount = list.filter((n) => n.isReEntry).length;
-                  const color = genreColors[genre] || "#94a3b8";
-                  return (
-                    <tr
-                      key={genre}
-                      className="border-b border-border hover:bg-surface-elevated cursor-pointer transition-colors"
-                      onClick={() => setSelectedGenre(genre as Genre)}
-                    >
-                      <td className="py-2.5 px-3">
-                        <span className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full shrink-0" style={{ background: color }} />
-                          <span className="font-semibold">{genre}</span>
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 font-mono font-bold">{list.length}</td>
-                      <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                        #{avgRank.toFixed(1)}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-emerald-500">
-                        {avgViews >= 100_000_000
-                          ? `${(avgViews / 100_000_000).toFixed(1)}억`
-                          : avgViews >= 10_000
-                          ? `${(avgViews / 10_000).toFixed(0)}만`
-                          : avgViews.toFixed(0)}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-yellow-400">
-                        ★ {avgRating.toFixed(1)}
-                      </td>
-                      <td className="py-2.5 px-3 font-mono text-primary">{newCount}</td>
-                      <td className="py-2.5 px-3 font-mono text-violet-400">{reEntryCount}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      
 
       <NovelDetailDrawer
         novel={selectedNovel}
