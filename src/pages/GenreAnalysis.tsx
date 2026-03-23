@@ -10,6 +10,7 @@ import { RankChange } from "@/components/shared/RankChange";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { formatViews, type Novel, type Genre } from "@/data/mockData";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
 
 const genres: (Genre | "전체")[] = ["전체", "로판", "판타지", "로맨스", "현판", "BL", "무협", "기타"];
 
@@ -74,7 +75,7 @@ const falling = useMemo(() =>
     return map;
   }, [novels]);
 
-  if (isLoading) return <div className="p-8 text-center animate-pulse text-muted-foreground">데이터 분석 중...</div>;
+  if (isLoading) return <LoadingScreen />;
   if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
 
   return (
