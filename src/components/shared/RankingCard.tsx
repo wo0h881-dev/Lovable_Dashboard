@@ -18,10 +18,7 @@ function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
   const eok = 100_000_000;
   const man = 10_000;
-  if (n >= eok) {
-    const val = n / eok;
-    return `${val.toFixed(1).replace(/\.0$/, "")}억`;
-  }
+  if (n >= eok) return `${(n / eok).toFixed(1).replace(/\.0$/, "")}억`;
   if (n >= man) {
     const manVal = n / man;
     if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
@@ -40,14 +37,13 @@ function formatViews(platform: Platform, views: number): string {
 function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
   let n: number;
-  if (typeof value === "number") {
-    n = value;
-  } else {
+  if (typeof value === "number") { n = value; }
+  else {
     const s = String(value).trim();
     if (!s) return "-";
     if (/^\d{1,3}(,\d{3})*$/.test(s)) n = Number(s.replace(/,/g, ""));
-    else if (s.endsWith("억")) n = (Number(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
-    else if (s.endsWith("만")) n = (Number(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
+    else if (s.endsWith("억")) n = (Number(s.replace("억","").replace(/,/g,""))||0)*100_000_000;
+    else if (s.endsWith("만")) n = (Number(s.replace("만","").replace(/,/g,""))||0)*10_000;
     else n = Number(s.replace(/,/g, ""));
   }
   if (!Number.isFinite(n) || n <= 0) return "-";
@@ -63,7 +59,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
   return (
     <motion.div
       className="ranking-card"
-      whileHover={{ scale: 1.018, boxShadow: "0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px hsl(var(--border))" }}
+      whileHover={{ scale: 1.018, boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))" }}
       transition={{ duration: 0.18 }}
       onClick={() => onClick?.(novel)}
     >
@@ -73,7 +69,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
           "font-mono font-black leading-none",
           rank <= 3 ? "text-4xl" : rank <= 9 ? "text-3xl" : "text-2xl",
           rank === 1 && "text-yellow-400",
-          rank === 2 && "text-slate-300",
+          rank === 2 && "text-slate-400",
           rank === 3 && "text-amber-600",
           rank > 3 && "text-muted-foreground",
         )}>
@@ -81,7 +77,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </span>
       </div>
 
-      {/* 커버 (기다무 뱃지 제거 — 제목 옆으로 이동) */}
+      {/* 커버 */}
       <div className="flex-shrink-0 py-3 pl-3">
         <NovelCover novel={novel} size="md" />
       </div>
@@ -91,38 +87,38 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         <div>
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              {/* 제목 + 기다무/3다무 뱃지 */}
+              {/* 제목 + 기다무/3다무 */}
               <div className="flex items-start gap-1.5 flex-wrap">
                 <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                   {novel.title}
                 </h3>
                 {timeFreeLabel && (
                   <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-black shrink-0 mt-0.5">
-                    <Zap size={9} />
-                    {timeFreeLabel}
+                    <Zap size={9} />{timeFreeLabel}
                   </span>
                 )}
               </div>
             </div>
             <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
           </div>
-          <div className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground flex-wrap">
+
+          {/* 작가·장르·출판사 + 오늘 순위 뱃지 */}
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
-            <span>·</span>
+            <span className="opacity-40">·</span>
             <span className="text-primary/80">{novel.genre}</span>
-            <span>·</span>
+            <span className="opacity-40">·</span>
             <span>{novel.publisher}</span>
-            {novel.todayRank && (
-              <>
-                <span>·</span>
-                <span className="font-mono font-bold text-foreground">#{novel.todayRank}위</span>
-              </>
+            {novel.todayRank != null && (
+              <span className="ml-1 inline-flex items-center font-mono font-black text-[11px] px-1.5 py-0.5 rounded-md bg-surface-elevated border border-border text-foreground">
+                #{novel.todayRank}위
+              </span>
             )}
           </div>
         </div>
 
+        {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
-          <RankChange novel={novel} />
           <span className={cn("font-mono text-xs font-semibold", viewsUp ? "text-up" : "text-down")}>
             {formatViews(novel.platform, novel.todayViews)}
           </span>
@@ -145,23 +141,16 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </div>
       </div>
 
-       {/* 증감률 + 순위변화 */}
-      <div className="flex-shrink-0 flex items-center pr-4 gap-3">
-        {/* 순위변화 */}
-        <div className="text-right">
-          <RankChange novel={novel} />
-          <div className="text-[10px] text-muted-foreground mt-0.5 text-right">
-            순위변화
-          </div>
-        </div>
+      {/* 우측: 순위변화 + 증감률 */}
+      <div className="flex-shrink-0 flex flex-col items-end justify-center gap-2 pr-4">
+        {/* 순위변화 박스 */}
+        <RankChange novel={novel} />
         {/* 증감률 */}
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">
-            전일 대비
-          </div>
+          <div className="text-[10px] text-muted-foreground">전일 대비</div>
         </div>
       </div>
     </motion.div>
