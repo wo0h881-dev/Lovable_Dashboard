@@ -93,17 +93,22 @@ export default function RankingsPage() {
     .filter((n) => !showReEntry || n.isReEntry)
     .filter((n) => !search || n.title.includes(search) || n.author.includes(search))
     .sort((a, b) => {
-      if (sortKey === "rank") {
-        const scorer = mode === "overall" ? computeUnifiedScore : computeTrendScore;
-        const scoreA = scorer(a as UnifiedNovel & { ridiInnerRank?: number }, maxViewsByPlatform, maxCommentsByPlatform, maxDeltaByPlatform);
-        const scoreB = scorer(b as UnifiedNovel & { ridiInnerRank?: number }, maxViewsByPlatform, maxCommentsByPlatform, maxDeltaByPlatform);
-        if (scoreA !== scoreB) return scoreB - scoreA;
-        return b.todayViews - a.todayViews;
-      }
-      if (sortKey === "views") return b.todayViews - a.todayViews;
-      if (sortKey === "rating") return b.rating - a.rating;
-      return 0;
-    });
+   if (sortKey === "rank") {
+    // 특정 플랫폼 탭이면 원본 순위 그대로
+    if (platform !== "all") {
+      return (a.todayRank ?? 999) - (b.todayRank ?? 999);
+    }
+    // 전체 탭이면 통합 점수
+    const scorer = mode === "overall" ? computeUnifiedScore : computeTrendScore;
+    const scoreA = scorer(a as UnifiedNovel & { ridiInnerRank?: number }, maxViewsByPlatform, maxCommentsByPlatform, maxDeltaByPlatform);
+    const scoreB = scorer(b as UnifiedNovel & { ridiInnerRank?: number }, maxViewsByPlatform, maxCommentsByPlatform, maxDeltaByPlatform);
+    if (scoreA !== scoreB) return scoreB - scoreA;
+    return b.todayViews - a.todayViews;
+  }
+  if (sortKey === "views") return b.todayViews - a.todayViews;
+  if (sortKey === "rating") return b.rating - a.rating;
+  return 0;
+});
 
   const topCards = filtered.slice(0, 4);
 
