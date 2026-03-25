@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header, type DateRange, type PlatformFilter } from "./Header";
 import { Sidebar } from "./Sidebar";
+import { useTodayCombined } from "@/hooks/useTodayCombined";
 
 interface AppLayoutProps {
   isDark?: boolean;
@@ -14,6 +15,9 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
   const [dateRange, setDateRange] = useState<DateRange>("today");
   const [platform, setPlatform] = useState<PlatformFilter>("all");
 
+  // 최신 업데이트 날짜를 레이아웃에서 가져와 모든 페이지에 제공
+  const { latestDate } = useTodayCombined();
+
   return (
     <div className="min-h-screen bg-background">
       <Header
@@ -23,6 +27,7 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
         onPlatformChange={setPlatform}
         isDark={isDark}
         onToggleTheme={onToggleTheme}
+        latestDate={latestDate}
       />
       <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(p => !p)} />
       <main
@@ -30,7 +35,7 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
         style={{ marginLeft: sidebarOpen ? 220 : 64 }}
       >
         <div className="p-6">
-          <Outlet context={{ dateRange, platform }} />
+          <Outlet context={{ dateRange, platform, latestDate }} />
         </div>
       </main>
     </div>
