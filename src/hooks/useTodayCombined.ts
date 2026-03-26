@@ -178,10 +178,12 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   }
   return count;
 })(),
-peakRank: todayRank,
-promotion: row.promotion,
+
     peakRank: todayRank,
     promotion: row.promotion,   // 🔹 백엔드에서 내려준 걸 그대로
+    status: "none",
+    readingGoal: 0,
+    currentEpisode: 0,
   };
 }
 
