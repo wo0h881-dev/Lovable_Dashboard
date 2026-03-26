@@ -11,6 +11,7 @@ const navItems = [
   { icon: Building2, label: "출판사",      path: "/publishers" },
   { icon: TrendingUp,label: "트렌드",      path: "/trends" },
   { icon: Sparkles,  label: "신작",        path: "/new-works" },
+  { icon: BookOpen, label: "독서 목표",      path: "/reading-goal" }, // 📚 Reading Goal 탭
 ];
 
 interface Props {
