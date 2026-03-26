@@ -1,5 +1,7 @@
 // src/pages/ReadingGoal.tsx
 
+console.log("ReadingGoal 페이지 렌더링됨");
+
 import React, { useState, useMemo } from "react";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { Novel } from "@/lib/types";
