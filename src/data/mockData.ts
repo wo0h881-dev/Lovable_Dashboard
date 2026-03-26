@@ -64,6 +64,14 @@ export interface Novel {
 }
 
 
+// --- 독서 기록 (책장) 관련 필드 추가 ---
+  status: 'none' | 'reading' | 'completed' | 'wish'; 
+  currentEpisode: number; // 현재까지 읽은 회차
+  readingGoalDays: number; // 완독 목표 일수
+  readingStartDate?: string; // 독서 시작일
+  memo?: string; // 노션 연동 전 간단 메모
+  // -------------------------------------
+
 export const novels: Novel[] = [
   {
     id: "1",
