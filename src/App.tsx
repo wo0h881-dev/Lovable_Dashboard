@@ -12,6 +12,7 @@ import GenrePage from "./pages/GenreAnalysis";
 import PublishersPage from "./pages/Publishers";
 import TrendsPage from "./pages/Trends";
 import NewWorksPage from "./pages/NewWorks";
+import ReadingGoalPage from "./pages/ReadingGoal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => {
               <Route path="/publishers" element={<PublishersPage />} />
               <Route path="/trends"     element={<TrendsPage />} />
               <Route path="/new-works"  element={<NewWorksPage />} />
+              <Route path="/reading-goal" element={<ReadingGoalPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
