@@ -13,7 +13,6 @@ export type Genre =
   | "역사/시대물"
   | "기타";
 
-
 export interface PromotionNotice {
   title: string;  // "안내"
   body: string;   // "외전 오픈 안내(3/22)" 같은 본문
@@ -22,13 +21,11 @@ export interface PromotionNotice {
 
 export interface PromotionInfo {
   timeFreeType?: "none" | "waitFree" | "threeHour";
-
   // JSON의 eventBanners 그대로
   eventBanners?: {
     title: string;    // "외전까지 달려야 완결"
     subtitle: string; // "외전 달리면 캐시가 가득!"
   }[];
-
   notices?: PromotionNotice[];
 }
 
@@ -37,7 +34,7 @@ export interface Novel {
   title: string;
   author: string;
   genre: Genre;        // 카드/차트에 보일 요약 장르
-  rawGenre?: string;   // 원본 세부 카테고리 (리디 등)
+  rawGenre?: string;   // 원본 세부 카테고리 (리디 등 - M/N열 데이터)
   publisher: string;
   platform: Platform;
   coverGradient: string;
@@ -57,20 +54,17 @@ export interface Novel {
   firstAppeared: string;
   consecutiveDays: number;
   peakRank: number;
-  // 🔹 새로 추가 (선택적)
   rankHistory?: { date: string; rank: number | null }[];   // 오래된 → 최신
   viewsHistory?: { date: string; views: number }[];        // 오래된 → 최신
-  promotion?: PromotionInfo;   // 🔹 추가
-}
+  promotion?: PromotionInfo;
 
-
-// --- 독서 기록 (책장) 관련 필드 추가 ---
+  // --- 독서 기록 (책장) 관련 필드 (정상적으로 Novel 인터페이스 내부로 이동) ---
   status: 'none' | 'reading' | 'completed' | 'wish'; 
-  currentEpisode: number; // 현재까지 읽은 회차
-  readingGoalDays: number; // 완독 목표 일수
-  readingStartDate?: string; // 독서 시작일
-  memo?: string; // 노션 연동 전 간단 메모
-  // -------------------------------------
+  currentEpisode: number;     // 현재까지 읽은 회차
+  readingGoalDays: number;    // 완독 목표 일수
+  readingStartDate?: string;  // 독서 시작일
+  memo?: string;              // 노션 연동 전 간단 메모
+}
 
 export const novels: Novel[] = [
   {
@@ -78,6 +72,7 @@ export const novels: Novel[] = [
     title: "달빛 조각사 리버스: 전생의 검황",
     author: "남희성",
     genre: "판타지",
+    rawGenre: "게임판타지 / 성장물", // 세부장르 예시 추가
     publisher: "카카오엔터",
     platform: "kakao",
     coverGradient: "from-amber-900 to-orange-700",
@@ -96,12 +91,17 @@ export const novels: Novel[] = [
     firstAppeared: "2023-01-15",
     consecutiveDays: 412,
     peakRank: 1,
+    // 독서 기록 초기값 예시
+    status: 'reading',
+    currentEpisode: 120,
+    readingGoalDays: 30,
   },
   {
     id: "2",
     title: "황제의 외동딸",
     author: "황제외동딸작가",
     genre: "로판",
+    rawGenre: "육아물 / 환생물",
     publisher: "문피아",
     platform: "naver",
     coverGradient: "from-rose-900 to-pink-700",
@@ -120,12 +120,16 @@ export const novels: Novel[] = [
     firstAppeared: "2022-08-01",
     consecutiveDays: 580,
     peakRank: 1,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 14,
   },
   {
     id: "3",
     title: "나 혼자만 레벨업",
     author: "추공",
     genre: "판타지",
+    rawGenre: "헌터물 / 상태창",
     publisher: "디앤씨미디어",
     platform: "kakao",
     coverGradient: "from-blue-900 to-indigo-700",
@@ -144,12 +148,16 @@ export const novels: Novel[] = [
     firstAppeared: "2021-03-04",
     consecutiveDays: 1120,
     peakRank: 1,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "4",
     title: "전지적 독자 시점",
     author: "싱숑",
     genre: "판타지",
+    rawGenre: "성좌물 / 아포칼립스",
     publisher: "문피아",
     platform: "naver",
     coverGradient: "from-slate-800 to-gray-600",
@@ -168,12 +176,16 @@ export const novels: Novel[] = [
     firstAppeared: "2021-09-15",
     consecutiveDays: 890,
     peakRank: 1,
+    status: 'completed',
+    currentEpisode: 551,
+    readingGoalDays: 30,
   },
   {
     id: "5",
     title: "악역의 엔딩은 죽음뿐",
     author: "로로로",
     genre: "로판",
+    rawGenre: "게임빙의 / 역하렘",
     publisher: "조아라",
     platform: "ridi",
     coverGradient: "from-purple-900 to-violet-700",
@@ -192,12 +204,16 @@ export const novels: Novel[] = [
     firstAppeared: "2022-11-20",
     consecutiveDays: 490,
     peakRank: 3,
+    status: 'wish',
+    currentEpisode: 0,
+    readingGoalDays: 14,
   },
   {
     id: "6",
     title: "빙의 게임: 네 남자의 행방불명",
     author: "이금희",
     genre: "로맨스",
+    rawGenre: "현대로맨스 / 오피스물",
     publisher: "카카오엔터",
     platform: "kakao",
     coverGradient: "from-teal-900 to-cyan-700",
@@ -216,12 +232,16 @@ export const novels: Novel[] = [
     firstAppeared: "2023-03-08",
     consecutiveDays: 360,
     peakRank: 2,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "7",
     title: "SSS급 죽어야 사는 헌터",
     author: "천도운",
     genre: "현판",
+    rawGenre: "회귀물 / 탑등반물",
     publisher: "문피아",
     platform: "naver",
     coverGradient: "from-red-900 to-orange-700",
@@ -240,12 +260,16 @@ export const novels: Novel[] = [
     firstAppeared: "2023-06-01",
     consecutiveDays: 290,
     peakRank: 5,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "8",
     title: "오빠라고 부르지 마",
     author: "아이리스",
     genre: "BL",
+    rawGenre: "캠퍼스물 / 일상물",
     publisher: "조아라",
     platform: "ridi",
     coverGradient: "from-pink-900 to-rose-700",
@@ -264,12 +288,16 @@ export const novels: Novel[] = [
     firstAppeared: "2023-02-14",
     consecutiveDays: 420,
     peakRank: 6,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "9",
     title: "무림의 표류자",
     author: "진산월",
     genre: "무협",
+    rawGenre: "정통무협 / 먼치킨",
     publisher: "디앤씨미디어",
     platform: "kakao",
     coverGradient: "from-yellow-900 to-amber-700",
@@ -288,12 +316,16 @@ export const novels: Novel[] = [
     firstAppeared: "2024-03-12",
     consecutiveDays: 1,
     peakRank: 9,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "10",
     title: "빛바랜 봄날에 너를 만났다",
     author: "봄비",
     genre: "로맨스",
+    rawGenre: "잔잔물 / 첫사랑",
     publisher: "문피아",
     platform: "naver",
     coverGradient: "from-emerald-900 to-green-700",
@@ -312,12 +344,16 @@ export const novels: Novel[] = [
     firstAppeared: "2022-05-18",
     consecutiveDays: 1,
     peakRank: 7,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "11",
     title: "공작가의 흑막 딸",
     author: "해나",
     genre: "로판",
+    rawGenre: "빙의물 / 책략여주",
     publisher: "조아라",
     platform: "ridi",
     coverGradient: "from-violet-900 to-purple-700",
@@ -336,12 +372,16 @@ export const novels: Novel[] = [
     firstAppeared: "2022-12-05",
     consecutiveDays: 480,
     peakRank: 8,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
   {
     id: "12",
     title: "아레나 마스터: 랭킹의 왕",
     author: "전기작가",
     genre: "현판",
+    rawGenre: "게임판타지 / 프로게이머",
     publisher: "카카오엔터",
     platform: "kakao",
     coverGradient: "from-blue-900 to-sky-700",
@@ -360,6 +400,9 @@ export const novels: Novel[] = [
     firstAppeared: "2023-07-22",
     consecutiveDays: 234,
     peakRank: 4,
+    status: 'none',
+    currentEpisode: 0,
+    readingGoalDays: 7,
   },
 ];
 
@@ -497,17 +540,15 @@ export const notableWorks = novels.filter(
 );
 
 export function formatViews(platform: Platform, views: number): string {
-  // 리디: 평가수 그대로 + "평가"
   if (platform === "ridi") {
     return Number(views ?? 0).toLocaleString("ko-KR") + " 평가";
   }
 
-  // 네이버/카카오: 조회수 포맷 (항상 '만' 기준)
   const v = Number(views ?? 0);
   if (!Number.isFinite(v) || v <= 0) return "-";
 
-  const man = v / 10_000; // 1만 = 1
-  const s = man.toFixed(1).replace(/\.0$/, ""); // 1114.0 -> 1114
+  const man = v / 10_000;
+  const s = man.toFixed(1).replace(/\.0$/, "");
   return `${s}만`;
 }
 
@@ -528,25 +569,21 @@ export function getRankChangeLabel(
 
 export function parseKoreanCount(value: string | number | null | undefined): number {
   if (value == null) return 0;
-
   if (typeof value === "number") return value;
 
   const s = String(value).trim();
   if (!s) return 0;
 
-  // "1,440" 같은 건 콤마만 제거
   if (/^\d{1,3}(,\d{3})*$/.test(s)) {
     return Number(s.replace(/,/g, "")) || 0;
   }
 
-  // "1.2만", "1만" 처리
   if (s.endsWith("만")) {
     const base = s.replace("만", "");
     const n = Number(base.replace(/,/g, ""));
     return Number.isFinite(n) ? Math.round(n * 10_000) : 0;
   }
 
-  // 그냥 숫자형 문자열
   const n = Number(s.replace(/,/g, ""));
   return Number.isFinite(n) ? n : 0;
 }
