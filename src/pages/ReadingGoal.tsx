@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   BookOpen, Search, X, Target, Calendar, Plus,
   CheckCircle2, Clock, BookMarked, PauseCircle, Trash2,
-  Edit2, FireExtinguisher, Flame,
+  Edit2, Flame,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
@@ -76,8 +76,6 @@ function calcStats(goal: ReadingGoal) {
 function GoalModal({ novel, existingGoal, onSave, onClose }: { novel?: Novel; existingGoal?: ReadingGoal; onSave: (goal: ReadingGoal) => void; onClose: () => void; }) {
   const base = existingGoal;
   const [status, setStatus] = useState<ReadingStatus>(base?.status ?? "want");
-  
-  // [개선] 숫자 입력을 위해 number | "" 타입 사용
   const [currentEpisode, setCurrentEpisode] = useState<number | "">(base?.currentEpisode ?? 0);
   const [goalMode, setGoalMode] = useState<"days" | "daily" | "date">(base?.targetDate ? "date" : base?.dailyTarget ? "daily" : "days");
   const [targetDays, setTargetDays] = useState<number | "">(base?.targetDays ?? 30);
@@ -100,7 +98,6 @@ function GoalModal({ novel, existingGoal, onSave, onClose }: { novel?: Novel; ex
   const handleSave = () => {
     const now = new Date().toISOString().slice(0, 10);
     const finalCurrent = currentEpisode === "" ? 0 : currentEpisode;
-    
     const goal: ReadingGoal = {
       id: base?.id ?? `goal_${Date.now()}`,
       novelId: novel?.id ?? base?.novelId ?? "",
@@ -132,7 +129,6 @@ function GoalModal({ novel, existingGoal, onSave, onClose }: { novel?: Novel; ex
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-      // onClick={onClose} 제거하여 배경 클릭 시 안 닫히게 설정
     >
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }}
@@ -164,7 +160,7 @@ function GoalModal({ novel, existingGoal, onSave, onClose }: { novel?: Novel; ex
         </div>
 
         <div className="mb-4">
-          <p className="text-[11px] font-semibold text-muted-foreground mb-2 uppercase tracking-wide">현재 진도</p>
+          <p className="text-[11px] font-semibold text-muted-foreground mb-2 uppercase tracking-wide">현재 진도 (화수 입력)</p>
           <div className="flex items-center gap-2">
             <input
               type="number"
@@ -265,7 +261,7 @@ export default function ReadingGoalsPage() {
   const novels: Novel[] = sourceData ?? [];
   const [goals, setGoals] = useState<ReadingGoal[]>(loadGoals);
   const [search, setSearch] = useState("");
-  const [isSearchFocused, setIsSearchFocused] = useState(false); // [추가] 검색창 포커스 상태
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchResults, setSearchResults] = useState<Novel[]>([]);
   const [modalNovel, setModalNovel] = useState<Novel | null>(null);
   const [editGoal, setEditGoal] = useState<ReadingGoal | null>(null);
@@ -293,9 +289,39 @@ export default function ReadingGoalsPage() {
 
   const filteredGoals = goals.filter(g => filterStatus === "all" || g.status === filterStatus);
 
+  // 1️⃣ [복구] 통계 요약 데이터
+  const statsSummary = useMemo(() => ({
+    total: goals.length,
+    reading: goals.filter(g => g.status === "reading").length,
+    done: goals.filter(g => g.status === "done").length,
+    want: goals.filter(g => g.status === "want").length,
+    paused: goals.filter(g => g.status === "paused").length,
+  }), [goals]);
+
   return (
     <div className="space-y-6 animate-fade-in">
-      <div><h1 className="text-xl font-black tracking-tight">독서 목표</h1><p className="text-xs text-muted-foreground mt-0.5">{latestDate} 기준 · 나만의 책장</p></div>
+      <div>
+        <h1 className="text-xl font-black tracking-tight">독서 목표</h1>
+        <p className="text-xs text-muted-foreground mt-0.5">{latestDate} 기준 · 나만의 책장</p>
+      </div>
+
+      {/* 2️⃣ [복구] 상단 KPI 통계 요약 카드 */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { label: "전체", value: statsSummary.total, color: "text-foreground", icon: BookOpen },
+          { label: "읽는 중", value: statsSummary.reading, color: "text-primary", icon: BookOpen },
+          { label: "완독", value: statsSummary.done, color: "text-emerald-500", icon: CheckCircle2 },
+          { label: "읽고 싶어요", value: statsSummary.want, color: "text-sky-500", icon: BookMarked },
+        ].map(({ label, value, color, icon: Icon }) => (
+          <div key={label} className="kpi-card flex items-center gap-3">
+            <Icon size={18} className={color} />
+            <div>
+              <p className="text-[10px] text-muted-foreground">{label}</p>
+              <p className={cn("font-mono text-xl font-black", color)}>{value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
 
       <div className="surface-card space-y-3">
         <h2 className="text-sm font-bold flex items-center gap-2"><Plus size={14} className="text-primary" />작품 검색 & 추가</h2>
@@ -305,18 +331,16 @@ export default function ReadingGoalsPage() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             onFocus={() => setIsSearchFocused(true)}
-            onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)} // 클릭 처리를 위한 지연
+            onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
             placeholder="제목 또는 작가명으로 검색…"
             className="w-full pl-8 pr-3 py-2 text-xs rounded-lg bg-surface-elevated border border-border focus:outline-none focus:ring-1 focus:ring-primary"
           />
         </div>
 
-        {/* 검색 결과 및 종합 순위 리스트 */}
         <AnimatePresence>
           {(search || isSearchFocused) && (
             <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="border border-border rounded-xl overflow-hidden divide-y divide-border bg-surface-elevated shadow-xl">
               {search ? (
-                // 검색 결과 표시
                 searchResults.map(n => (
                   <div key={n.id} onClick={() => { setModalNovel(n); setSearch(""); }} className="flex items-center gap-3 px-3 py-2.5 hover:bg-surface transition-colors cursor-pointer">
                     <NovelCover novel={n} size="sm" />
@@ -324,7 +348,6 @@ export default function ReadingGoalsPage() {
                   </div>
                 ))
               ) : (
-                // [추가] 검색창 클릭 시 종합 순위 (Top 5) 표시
                 <>
                   <div className="px-3 py-2 bg-surface/50 text-[10px] font-bold text-primary flex items-center gap-1"><Flame size={10}/> 실시간 종합 인기 순위</div>
                   {novels.slice(0, 5).map((n, idx) => (
@@ -341,9 +364,28 @@ export default function ReadingGoalsPage() {
         </AnimatePresence>
       </div>
 
+      {/* 3️⃣ [복구] 상세 필터 탭 (전체, 읽는 중, 읽고 싶어요, 완독, 중단) */}
       <div className="flex items-center gap-2 flex-wrap">
-        {[{ key: "all", label: "전체" }, { key: "reading", label: "읽는 중" }, { key: "done", label: "완독" }].map(({ key, label }) => (
-          <button key={key} onClick={() => setFilterStatus(key as any)} className={cn("px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors", filterStatus === key ? "bg-primary text-primary-foreground" : "bg-surface border border-border text-muted-foreground")}>{label}</button>
+        {([
+          { key: "all", label: "전체", count: statsSummary.total },
+          { key: "reading", label: "읽는 중", count: statsSummary.reading },
+          { key: "want", label: "읽고 싶어요", count: statsSummary.want },
+          { key: "done", label: "완독", count: statsSummary.done },
+          { key: "paused", label: "중단", count: statsSummary.paused },
+        ] as const).map(({ key, label, count }) => (
+          <button
+            key={key}
+            onClick={() => setFilterStatus(key)}
+            className={cn(
+              "px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5",
+              filterStatus === key
+                ? "bg-primary text-primary-foreground shadow-md"
+                : "bg-surface border border-border text-muted-foreground hover:text-foreground"
+            )}
+          >
+            {label}
+            <span className={cn("text-[10px] font-mono px-1 rounded", filterStatus === key ? "bg-white/20" : "bg-surface-elevated")}>{count}</span>
+          </button>
         ))}
       </div>
 
