@@ -6,7 +6,6 @@ import {
   Search,
   X,
   Target,
-  Calendar,
   Plus,
   CheckCircle2,
   Clock,
@@ -14,6 +13,7 @@ import {
   PauseCircle,
   Trash2,
   ChevronDown,
+  Edit2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
@@ -27,7 +27,6 @@ import {
   attachRidiInnerRank,
 } from "@/lib/rankingScore";
 
-// ── 타입 ─────────────────────────────────────────────────
 type ReadingStatus = "reading" | "want" | "done" | "paused";
 
 interface ReadingGoal {
@@ -43,16 +42,15 @@ interface ReadingGoal {
   coverEmoji: string;
   episodeCount: number;
   status: ReadingStatus;
-  currentEpisode: number;       // 현재 읽은 화
-  targetDays?: number;          // 목표 일수
-  dailyTarget?: number;         // 하루 목표 편수
-  targetDate?: string;          // 목표 완독일 (yyyy-MM-dd)
+  currentEpisode: number;
+  targetDays?: number;
+  dailyTarget?: number;
+  targetDate?: string;
   addedAt: string;
   startedAt?: string;
   completedAt?: string;
 }
 
-// ── 로컬스토리지 키 ───────────────────────────────────────
 const STORAGE_KEY = "webnovel_reading_goals";
 
 function loadGoals(): ReadingGoal[] {
@@ -68,19 +66,40 @@ function saveGoals(goals: ReadingGoal[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(goals));
 }
 
-// ── 상태 레이블/색상 ──────────────────────────────────────
 const STATUS_CONFIG: Record<
   ReadingStatus,
   { label: string; icon: React.ElementType; color: string; bg: string }
 > = {
-  reading: { label: "읽는 중", icon: BookOpen, color: "text-primary", bg: "bg-primary/10" },
-  want: { label: "읽고 싶어요", icon: BookMarked, color: "text-sky-500", bg: "bg-sky-500/10" },
-  done: { label: "완독", icon: CheckCircle2, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-  paused: { label: "중단", icon: PauseCircle, color: "text-slate-500", bg: "bg-slate-500/10" },
+  reading: {
+    label: "읽는 중",
+    icon: BookOpen,
+    color: "text-primary",
+    bg: "bg-primary/10",
+  },
+  want: {
+    label: "읽고 싶어요",
+    icon: BookMarked,
+    color: "text-sky-500",
+    bg: "bg-sky-500/10",
+  },
+  done: {
+    label: "완독",
+    icon: CheckCircle2,
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10",
+  },
+  paused: {
+    label: "중단",
+    icon: PauseCircle,
+    color: "text-slate-500",
+    bg: "bg-slate-500/10",
+  },
 };
 
-// ── 숫자 입력 헬퍼 ────────────────────────────────────────
-function parseOptionalNumber(value: string, options?: { min?: number; max?: number }): number | "" {
+function parseOptionalNumber(
+  value: string,
+  options?: { min?: number; max?: number }
+): number | "" {
   if (value === "") return "";
   const parsed = Number(value);
   if (Number.isNaN(parsed)) return "";
@@ -95,7 +114,6 @@ function numberOr(value: number | "", fallback: number): number {
   return typeof value === "number" && Number.isFinite(value) ? value : fallback;
 }
 
-// ── 날짜 계산 헬퍼 ───────────────────────────────────────
 function calcStats(goal: ReadingGoal) {
   const remaining = Math.max(0, goal.episodeCount - goal.currentEpisode);
   const progress =
@@ -120,16 +138,45 @@ function calcStats(goal: ReadingGoal) {
       0,
       Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
     );
-    if (daysLeft > 0) {
-      dailyNeeded = Math.ceil(remaining / daysLeft);
-      daysNeeded = daysLeft;
-    }
+    dailyNeeded = daysLeft > 0 ? Math.ceil(remaining / daysLeft) : null;
+    daysNeeded = daysLeft;
   }
 
   return { remaining, progress, daysNeeded, dailyNeeded, daysLeft };
 }
 
-// ── 상태 변경 드롭다운 ───────────────────────────────────
+function ModalCover({
+  novel,
+  goal,
+}: {
+  novel?: Novel;
+  goal?: ReadingGoal;
+}) {
+  if (novel) {
+    return <NovelCover novel={novel} size="sm" />;
+  }
+
+  if (goal?.thumbnailUrl) {
+    return (
+      <img
+        src={goal.thumbnailUrl}
+        alt={goal.title}
+        className="w-10 h-12 rounded-lg object-cover shadow-sm"
+      />
+    );
+  }
+
+  return (
+    <div
+      className={`w-10 h-12 rounded-lg bg-gradient-to-br ${
+        goal?.coverGradient ?? "from-slate-800 to-gray-600"
+      } flex items-center justify-center text-lg`}
+    >
+      {goal?.coverEmoji ?? "📖"}
+    </div>
+  );
+}
+
 function StatusDropdown({
   status,
   onChange,
@@ -176,25 +223,28 @@ function StatusDropdown({
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             className="absolute right-0 top-full mt-1 w-32 rounded-xl border border-border bg-surface shadow-xl z-20 overflow-hidden"
           >
-            {(Object.entries(STATUS_CONFIG) as [ReadingStatus, typeof STATUS_CONFIG[ReadingStatus]][]).map(
-              ([key, item]) => (
-                <button
-                  key={key}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onChange(key);
-                    setOpen(false);
-                  }}
-                  className={cn(
-                    "w-full flex items-center gap-2 px-3 py-2 text-xs text-left transition-colors hover:bg-surface-elevated",
-                    status === key ? item.color : "text-foreground"
-                  )}
-                >
-                  <item.icon size={12} />
-                  <span>{item.label}</span>
-                </button>
-              )
-            )}
+            {(
+              Object.entries(STATUS_CONFIG) as [
+                ReadingStatus,
+                (typeof STATUS_CONFIG)[ReadingStatus],
+              ][]
+            ).map(([key, item]) => (
+              <button
+                key={key}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onChange(key);
+                  setOpen(false);
+                }}
+                className={cn(
+                  "w-full flex items-center gap-2 px-3 py-2 text-xs text-left transition-colors hover:bg-surface-elevated",
+                  status === key ? item.color : "text-foreground"
+                )}
+              >
+                <item.icon size={12} />
+                <span>{item.label}</span>
+              </button>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
@@ -202,7 +252,6 @@ function StatusDropdown({
   );
 }
 
-// ── 목표 설정 모달 ───────────────────────────────────────
 function GoalModal({
   novel,
   existingGoal,
@@ -216,7 +265,9 @@ function GoalModal({
 }) {
   const base = existingGoal;
   const [status, setStatus] = useState<ReadingStatus>(base?.status ?? "want");
-  const [currentEpisode, setCurrentEpisode] = useState<number | "">(base?.currentEpisode ?? "");
+  const [currentEpisode, setCurrentEpisode] = useState<number | "">(
+    base?.currentEpisode ?? ""
+  );
   const [goalMode, setGoalMode] = useState<"days" | "daily" | "date">(
     base?.targetDate ? "date" : base?.dailyTarget ? "daily" : "days"
   );
@@ -231,20 +282,32 @@ function GoalModal({
   const stats = useMemo(() => {
     const remaining = Math.max(0, ep - currentEpisodeNumber);
 
-    if (goalMode === "days" && typeof targetDays === "number" && targetDays > 0) {
-      return { daily: Math.ceil(remaining / targetDays), days: targetDays };
+    if (goalMode === "days") {
+      if (typeof targetDays === "number" && targetDays > 0) {
+        return { daily: Math.ceil(remaining / targetDays), days: targetDays };
+      }
+      return { daily: null, days: null };
     }
-    if (goalMode === "daily" && typeof dailyTarget === "number" && dailyTarget > 0) {
-      return { daily: dailyTarget, days: Math.ceil(remaining / dailyTarget) };
+
+    if (goalMode === "daily") {
+      if (typeof dailyTarget === "number" && dailyTarget > 0) {
+        return { daily: dailyTarget, days: Math.ceil(remaining / dailyTarget) };
+      }
+      return { daily: null, days: null };
     }
-    if (goalMode === "date" && targetDate) {
-      const d = Math.max(
-        0,
-        Math.ceil((new Date(targetDate).getTime() - Date.now()) / 86400000)
-      );
-      return { daily: d > 0 ? Math.ceil(remaining / d) : 0, days: d };
+
+    if (goalMode === "date") {
+      if (targetDate) {
+        const d = Math.max(
+          0,
+          Math.ceil((new Date(targetDate).getTime() - Date.now()) / 86400000)
+        );
+        return { daily: d > 0 ? Math.ceil(remaining / d) : null, days: d };
+      }
+      return { daily: null, days: null };
     }
-    return null;
+
+    return { daily: null, days: null };
   }, [goalMode, targetDays, dailyTarget, targetDate, currentEpisodeNumber, ep]);
 
   const handleSave = () => {
@@ -284,12 +347,14 @@ function GoalModal({
     onClose();
   };
 
+  const statDailyText = stats.daily == null ? "-" : `${stats.daily}편`;
+  const statDaysText = stats.days == null ? "-" : `${stats.days}일`;
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={onClose}
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
     >
       <motion.div
@@ -312,15 +377,7 @@ function GoalModal({
         </div>
 
         <div className="flex items-center gap-3 mb-5 p-3 bg-surface-elevated rounded-xl border border-border">
-          {novel ? (
-            <NovelCover novel={novel} size="sm" />
-          ) : (
-            <div
-              className={`w-10 h-12 rounded-lg bg-gradient-to-br ${base?.coverGradient} flex items-center justify-center text-lg`}
-            >
-              {base?.coverEmoji}
-            </div>
-          )}
+          <ModalCover novel={novel} goal={base} />
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-foreground line-clamp-1">{title}</p>
             <p className="text-[10px] text-muted-foreground mt-0.5">총 {ep}화</p>
@@ -332,23 +389,26 @@ function GoalModal({
             상태
           </p>
           <div className="grid grid-cols-4 gap-1.5">
-            {(Object.entries(STATUS_CONFIG) as [ReadingStatus, typeof STATUS_CONFIG[ReadingStatus]][]).map(
-              ([key, cfg]) => (
-                <button
-                  key={key}
-                  onClick={() => setStatus(key)}
-                  className={cn(
-                    "flex flex-col items-center gap-1 py-2 px-1 rounded-lg text-[10px] font-semibold border transition-colors",
-                    status === key
-                      ? `${cfg.bg} ${cfg.color} border-current/30`
-                      : "border-border text-muted-foreground hover:bg-surface-elevated"
-                  )}
-                >
-                  <cfg.icon size={13} />
-                  {cfg.label}
-                </button>
-              )
-            )}
+            {(
+              Object.entries(STATUS_CONFIG) as [
+                ReadingStatus,
+                (typeof STATUS_CONFIG)[ReadingStatus],
+              ][]
+            ).map(([key, cfg]) => (
+              <button
+                key={key}
+                onClick={() => setStatus(key)}
+                className={cn(
+                  "flex flex-col items-center gap-1 py-2 px-1 rounded-lg text-[10px] font-semibold border transition-colors",
+                  status === key
+                    ? `${cfg.bg} ${cfg.color} border-current/30`
+                    : "border-border text-muted-foreground hover:bg-surface-elevated"
+                )}
+              >
+                <cfg.icon size={13} />
+                {cfg.label}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -365,8 +425,7 @@ function GoalModal({
               onChange={(e) =>
                 setCurrentEpisode(parseOptionalNumber(e.target.value, { min: 0, max: ep }))
               }
-              placeholder="빈칸부터 입력"
-              className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <span className="text-xs text-muted-foreground">/ {ep}화</span>
             <div className="flex-1 h-1.5 bg-surface-elevated rounded-full overflow-hidden">
@@ -387,6 +446,7 @@ function GoalModal({
           <p className="text-[11px] font-semibold text-muted-foreground mb-2 uppercase tracking-wide">
             목표 설정
           </p>
+
           <div className="flex gap-1.5 mb-3">
             {[
               { key: "days", label: "기간 입력" },
@@ -417,8 +477,7 @@ function GoalModal({
                 onChange={(e) =>
                   setTargetDays(parseOptionalNumber(e.target.value, { min: 1 }))
                 }
-                placeholder="일수 입력"
-                className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="text-xs text-muted-foreground">일 안에 완독</span>
             </div>
@@ -434,8 +493,7 @@ function GoalModal({
                 onChange={(e) =>
                   setDailyTarget(parseOptionalNumber(e.target.value, { min: 1 }))
                 }
-                placeholder="편수 입력"
-                className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-muted-foreground [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="text-xs text-muted-foreground">편씩 읽기</span>
             </div>
@@ -451,20 +509,18 @@ function GoalModal({
           )}
         </div>
 
-        {stats && (
-          <div className="mb-5 p-3 bg-primary/5 border border-primary/20 rounded-xl">
-            <div className="grid grid-cols-2 gap-3 text-center">
-              <div>
-                <p className="text-[10px] text-muted-foreground">하루 목표</p>
-                <p className="font-mono text-sm font-black text-primary">{stats.daily}편</p>
-              </div>
-              <div>
-                <p className="text-[10px] text-muted-foreground">완독까지</p>
-                <p className="font-mono text-sm font-black text-primary">{stats.days}일</p>
-              </div>
+        <div className="mb-5 p-3 bg-primary/5 border border-primary/20 rounded-xl">
+          <div className="grid grid-cols-2 gap-3 text-center">
+            <div>
+              <p className="text-[10px] text-muted-foreground">하루 목표</p>
+              <p className="font-mono text-sm font-black text-primary">{statDailyText}</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-muted-foreground">완독까지</p>
+              <p className="font-mono text-sm font-black text-primary">{statDaysText}</p>
             </div>
           </div>
-        )}
+        </div>
 
         <button
           onClick={handleSave}
@@ -477,7 +533,6 @@ function GoalModal({
   );
 }
 
-// ── 책장 카드 ─────────────────────────────────────────────
 function GoalCard({
   goal,
   onEdit,
@@ -503,6 +558,7 @@ function GoalCard({
 
   return (
     <motion.div
+      layout
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
@@ -646,6 +702,7 @@ function GoalCard({
                   }}
                   className="text-[10px] text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
                 >
+                  <Edit2 size={9} />
                   진도 업데이트
                 </button>
               )}
@@ -657,7 +714,6 @@ function GoalCard({
   );
 }
 
-// ── 메인 페이지 ──────────────────────────────────────────
 export default function ReadingGoalsPage() {
   const { data: sourceData, latestDate } = useTodayCombined();
   const novels: Novel[] = sourceData ?? [];
