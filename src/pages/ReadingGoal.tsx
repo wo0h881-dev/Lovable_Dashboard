@@ -155,12 +155,13 @@ function GoalModal({
   };
 
   return (
+    return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-      onClick={onClose}
+      // 배경 클릭 시 닫히지 않도록 onClick={onClose} 제거
     >
       <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
@@ -219,13 +220,13 @@ function GoalModal({
         <div className="mb-4">
           <p className="text-[11px] font-semibold text-muted-foreground mb-2 uppercase tracking-wide">현재 진도</p>
           <div className="flex items-center gap-2">
-            <input
+           <input
               type="number"
               min={0}
               max={ep}
               value={currentEpisode}
               onChange={e => setCurrentEpisode(Math.min(ep, Math.max(0, Number(e.target.value))))}
-              className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <span className="text-xs text-muted-foreground">/ {ep}화</span>
             <div className="flex-1 h-1.5 bg-surface-elevated rounded-full overflow-hidden">
@@ -269,7 +270,7 @@ function GoalModal({
               <input
                 type="number" min={1} value={targetDays}
                 onChange={e => setTargetDays(Math.max(1, Number(e.target.value)))}
-                className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="text-xs text-muted-foreground">일 안에 완독</span>
             </div>
@@ -280,7 +281,7 @@ function GoalModal({
               <input
                 type="number" min={1} value={dailyTarget}
                 onChange={e => setDailyTarget(Math.max(1, Number(e.target.value)))}
-                className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary"
+                className="w-20 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="text-xs text-muted-foreground">편씩 읽기</span>
             </div>
