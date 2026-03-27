@@ -154,7 +154,6 @@ function GoalModal({
     onClose();
   };
 
-  return (
     return (
     <motion.div
       initial={{ opacity: 0 }}
