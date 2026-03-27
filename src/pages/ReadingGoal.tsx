@@ -264,6 +264,7 @@ function GoalModal({
   onClose: () => void;
 }) {
   const base = existingGoal;
+
   const [status, setStatus] = useState<ReadingStatus>(base?.status ?? "want");
   const [currentEpisode, setCurrentEpisode] = useState<number | "">(
     base?.currentEpisode ?? ""
@@ -278,6 +279,17 @@ function GoalModal({
   const ep = novel?.episodeCount ?? base?.episodeCount ?? 0;
   const title = novel?.title ?? base?.title ?? "";
   const currentEpisodeNumber = numberOr(currentEpisode, 0);
+
+  useEffect(() => {
+    if (typeof currentEpisode === "number" && currentEpisode > 0 && status === "want") {
+      setStatus("reading");
+      return;
+    }
+
+    if ((currentEpisode === "" || currentEpisode === 0) && !base && status === "reading") {
+      setStatus("want");
+    }
+  }, [currentEpisode, status, base]);
 
   const stats = useMemo(() => {
     const remaining = Math.max(0, ep - currentEpisodeNumber);
@@ -327,7 +339,10 @@ function GoalModal({
         novel?.coverGradient ?? base?.coverGradient ?? "from-slate-800 to-gray-600",
       coverEmoji: novel?.coverEmoji ?? base?.coverEmoji ?? "📖",
       episodeCount: ep,
-      status,
+      status:
+        safeCurrent > 0 && status === "want"
+          ? "reading"
+          : status,
       currentEpisode: safeCurrent,
       targetDays:
         goalMode === "days" && typeof targetDays === "number" && targetDays > 0
@@ -339,8 +354,14 @@ function GoalModal({
           : undefined,
       targetDate: goalMode === "date" && targetDate ? targetDate : undefined,
       addedAt: base?.addedAt ?? today,
-      startedAt: status === "reading" ? base?.startedAt ?? today : base?.startedAt,
-      completedAt: status === "done" || safeCurrent >= ep ? base?.completedAt ?? today : undefined,
+      startedAt:
+        (safeCurrent > 0 || status === "reading")
+          ? base?.startedAt ?? today
+          : base?.startedAt,
+      completedAt:
+        status === "done" || safeCurrent >= ep
+          ? base?.completedAt ?? today
+          : undefined,
     };
 
     onSave(goal);
@@ -906,36 +927,38 @@ export default function ReadingGoalsPage() {
         </h2>
 
         <div ref={searchWrapRef} className="relative">
-          <Search
-            size={13}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-          />
-          <input
-            value={search}
-            onChange={(e) => {
-              const next = e.target.value;
-              setSearch(next);
-              if (next.trim()) setShowTrendList(false);
-            }}
-            onClick={() => {
-              if (!search.trim()) setShowTrendList(true);
-            }}
-            placeholder="제목 / 작가 검색…"
-            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-          />
-
-          {search && (
-            <button
-              onClick={() => {
-                setSearch("");
-                setSearchResults([]);
-                setShowTrendList(false);
+          <div className="relative">
+            <Search
+              size={13}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none z-10"
+            />
+            <input
+              value={search}
+              onChange={(e) => {
+                const next = e.target.value;
+                setSearch(next);
+                if (next.trim()) setShowTrendList(false);
               }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-            >
-              <X size={13} />
-            </button>
-          )}
+              onClick={() => {
+                if (!search.trim()) setShowTrendList(true);
+              }}
+              placeholder="제목 / 작가 검색…"
+              className="w-full pl-8 pr-9 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+            />
+
+            {search && (
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setSearchResults([]);
+                  setShowTrendList(false);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
+              >
+                <X size={13} />
+              </button>
+            )}
+          </div>
 
           <AnimatePresence>
             {visibleResults.length > 0 && (
@@ -943,7 +966,7 @@ export default function ReadingGoalsPage() {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                className="mt-2 border border-border rounded-xl overflow-hidden divide-y divide-border bg-surface"
+                className="absolute left-0 right-0 top-full mt-2 border border-border rounded-xl overflow-hidden divide-y divide-border bg-surface shadow-xl z-20"
               >
                 {!search.trim() && showTrendList && (
                   <div className="px-3 py-2 bg-surface-elevated/60 text-[10px] font-semibold text-muted-foreground">
