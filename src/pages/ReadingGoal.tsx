@@ -571,28 +571,43 @@ export default function ReadingGoalsPage() {
               exit={{ opacity: 0, y: -8 }}
               className="border border-border rounded-xl overflow-hidden divide-y divide-border"
             >
-              {searchResults.map(n => (
-                <div key={n.id} className="flex items-center gap-3 px-3 py-2.5 hover:bg-surface-elevated transition-colors">
-                  <NovelCover novel={n} size="sm" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-foreground line-clamp-1">{n.title}</p>
-                    <div className="flex items-center gap-1.5 mt-0.5">
-                      <PlatformBadge platform={n.platform as any} size="sm" />
-                      <span className="text-[10px] text-muted-foreground">{n.author} · {n.episodeCount}화</span>
+              {searchResults.map(n => {
+                const added = isAlreadyAdded(n.id);
+                return (
+                  <div 
+                    key={n.id} 
+                    onClick={() => {
+                      if (!added) {
+                        // 1. 책장에 없는 책 클릭 시 -> 추가 모달 열기
+                        setModalNovel(n);
+                      } else {
+                        // 2. 이미 추가된 책 클릭 시 -> 수정 모달 열기 (UX 개선)
+                        const existing = goals.find(g => g.novelId === n.id);
+                        if (existing) setEditGoal(existing);
+                      }
+                      setSearch(""); 
+                      setSearchResults([]);
+                    }}
+                    className="flex items-center gap-3 px-3 py-2.5 hover:bg-surface-elevated transition-colors cursor-pointer"
+                  >
+                    <NovelCover novel={n} size="sm" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-foreground line-clamp-1">{n.title}</p>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <PlatformBadge platform={n.platform as any} size="sm" />
+                        <span className="text-[10px] text-muted-foreground">{n.author} · {n.episodeCount}화</span>
+                      </div>
                     </div>
+                    {added ? (
+                      <span className="text-[10px] text-muted-foreground px-2 py-1 rounded-full bg-surface-elevated">추가됨</span>
+                    ) : (
+                      <button className="flex items-center gap-1 text-[10px] font-bold text-primary px-2.5 py-1 rounded-full bg-primary/10 transition-colors pointer-events-none">
+                        <Plus size={10} />추가
+                      </button>
+                    )}
                   </div>
-                  {isAlreadyAdded(n.id) ? (
-                    <span className="text-[10px] text-muted-foreground px-2 py-1 rounded-full bg-surface-elevated">추가됨</span>
-                  ) : (
-                    <button
-                      onClick={() => { setModalNovel(n); setSearch(""); setSearchResults([]); }}
-                      className="flex items-center gap-1 text-[10px] font-bold text-primary px-2.5 py-1 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
-                    >
-                      <Plus size={10} />추가
-                    </button>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
           )}
         </AnimatePresence>
