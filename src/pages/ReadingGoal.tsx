@@ -150,11 +150,15 @@ function normalizeText(v: string | undefined | null) {
   return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
-function dedupeByTitleAuthor<T extends { title: string; author: string }>(items: T[]) {
+function dedupeByTitleAuthorPlatform<T extends { title: string; author: string; platform: string }>(
+  items: T[]
+) {
   const map = new Map<string, T>();
 
   for (const item of items) {
-    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}`;
+    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}::${normalizeText(
+      item.platform
+    )}`;
     if (!map.has(key)) {
       map.set(key, item);
     }
