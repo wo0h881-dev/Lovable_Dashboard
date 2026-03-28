@@ -123,7 +123,6 @@ function calcStats(goal: ReadingGoal) {
 
   let daysNeeded: number | null = null;
   let dailyNeeded: number | null = null;
-  let daysLeft: number | null = null;
 
   if (goal.targetDays && goal.targetDays > 0) {
     dailyNeeded = Math.ceil(remaining / goal.targetDays);
@@ -134,7 +133,7 @@ function calcStats(goal: ReadingGoal) {
   } else if (goal.targetDate) {
     const today = new Date();
     const target = new Date(goal.targetDate);
-    daysLeft = Math.max(
+    const daysLeft = Math.max(
       0,
       Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
     );
@@ -142,9 +141,8 @@ function calcStats(goal: ReadingGoal) {
     daysNeeded = daysLeft;
   }
 
-  return { remaining, progress, daysNeeded, dailyNeeded, daysLeft };
+  return { remaining, progress, daysNeeded, dailyNeeded };
 }
-
 
 function normalizeText(v: string | undefined | null) {
   return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
@@ -156,12 +154,8 @@ function dedupeByTitleAuthorPlatform<T extends { title: string; author: string; 
   const map = new Map<string, T>();
 
   for (const item of items) {
-    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}::${normalizeText(
-      item.platform
-    )}`;
-    if (!map.has(key)) {
-      map.set(key, item);
-    }
+    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}::${normalizeText(item.platform)}`;
+    if (!map.has(key)) map.set(key, item);
   }
 
   return Array.from(map.values());
@@ -288,9 +282,7 @@ function GoalModal({
   const base = existingGoal;
 
   const [status, setStatus] = useState<ReadingStatus>(base?.status ?? "want");
-  const [currentEpisode, setCurrentEpisode] = useState<number | "">(
-    base?.currentEpisode ?? ""
-  );
+  const [currentEpisode, setCurrentEpisode] = useState<number | "">(base?.currentEpisode ?? "");
   const [goalMode, setGoalMode] = useState<"days" | "daily" | "date">(
     base?.targetDate ? "date" : base?.dailyTarget ? "daily" : "days"
   );
@@ -357,14 +349,10 @@ function GoalModal({
       platform: novel?.platform ?? base?.platform ?? "",
       genre: novel?.genre ?? base?.genre ?? "",
       thumbnailUrl: novel?.thumbnailUrl ?? base?.thumbnailUrl,
-      coverGradient:
-        novel?.coverGradient ?? base?.coverGradient ?? "from-slate-800 to-gray-600",
+      coverGradient: novel?.coverGradient ?? base?.coverGradient ?? "from-slate-800 to-gray-600",
       coverEmoji: novel?.coverEmoji ?? base?.coverEmoji ?? "📖",
       episodeCount: ep,
-      status:
-        safeCurrent > 0 && status === "want"
-          ? "reading"
-          : status,
+      status: safeCurrent > 0 && status === "want" ? "reading" : status,
       currentEpisode: safeCurrent,
       targetDays:
         goalMode === "days" && typeof targetDays === "number" && targetDays > 0
@@ -377,13 +365,9 @@ function GoalModal({
       targetDate: goalMode === "date" && targetDate ? targetDate : undefined,
       addedAt: base?.addedAt ?? today,
       startedAt:
-        (safeCurrent > 0 || status === "reading")
-          ? base?.startedAt ?? today
-          : base?.startedAt,
+        safeCurrent > 0 || status === "reading" ? base?.startedAt ?? today : base?.startedAt,
       completedAt:
-        status === "done" || safeCurrent >= ep
-          ? base?.completedAt ?? today
-          : undefined,
+        status === "done" || safeCurrent >= ep ? base?.completedAt ?? today : undefined,
     };
 
     onSave(goal);
@@ -638,10 +622,7 @@ function GoalCard({
               </p>
             </div>
 
-            <div
-              className="flex items-center gap-1 shrink-0"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
               <StatusDropdown status={goal.status} onChange={onChangeStatus} />
               <button
                 onClick={onDelete}
@@ -694,10 +675,7 @@ function GoalCard({
           )}
 
           {canShowProgressUpdate && (
-            <div
-              className="mt-2 flex items-center gap-2"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="mt-2 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
               {showEpEdit ? (
                 <>
                   <input
@@ -798,7 +776,7 @@ export default function ReadingGoalsPage() {
       maxDeltaByPlatform
     );
 
-    return dedupeByTitleAuthor(
+    return dedupeByTitleAuthorPlatform(
       [...novelsWithRidiInner]
         .sort((a, b) => {
           const scoreA = computeTrendScore(
@@ -820,7 +798,7 @@ export default function ReadingGoalsPage() {
     ).slice(0, 5);
   }, [novels]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (!search.trim()) {
       setSearchResults([]);
       return;
@@ -1005,9 +983,8 @@ export default function ReadingGoalsPage() {
                     <div
                       key={n.id}
                       onClick={() => {
-                        if (!added) {
-                          setModalNovel(n);
-                        } else {
+                        if (!added) setModalNovel(n);
+                        else {
                           const existing = goals.find((g) => g.novelId === n.id);
                           if (existing) setEditGoal(existing);
                         }
