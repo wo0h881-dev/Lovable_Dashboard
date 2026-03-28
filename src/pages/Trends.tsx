@@ -635,7 +635,6 @@ export default function TrendsPage() {
     if (activeSelected.length === 0) return [];
 
     const normalized = activeSelected.map((n) => ({
-      novel: n,
       history: normalizeRankHistory(n, latestDate),
     }));
 
@@ -657,7 +656,6 @@ export default function TrendsPage() {
     if (activeSelected.length === 0) return [];
 
     const normalized = activeSelected.map((n) => ({
-      novel: n,
       history: normalizeViewsHistory(n, latestDate),
     }));
 
@@ -699,10 +697,7 @@ export default function TrendsPage() {
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-medium"
               style={{ borderColor: LINE_COLORS[i], color: LINE_COLORS[i] }}
             >
-              <button
-                onClick={() => setPanelNovel(n)}
-                className="line-clamp-1 max-w-28 text-left"
-              >
+              <button onClick={() => setPanelNovel(n)} className="line-clamp-1 max-w-28 text-left">
                 {n.title}
               </button>
               <button onClick={() => removeNovel(n.id)}>
