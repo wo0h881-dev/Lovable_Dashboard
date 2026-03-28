@@ -584,7 +584,7 @@ function FixedTrendDetailPanel({
             댓글
           </div>
           <p className="text-sm font-black mt-2">
-            {Number(novel.commentCount || 0).toLocaleString("ko-KR")}
+            {Number(novel.platform === "ridi" ? novel.todayViews || 0 : novel.commentCount || 0).toLocaleString("ko-KR")}
           </p>
         </div>
 
