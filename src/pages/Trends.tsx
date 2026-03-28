@@ -10,6 +10,7 @@ import {
   Eye,
   MessageCircle,
   Star,
+  ExternalLink,
 } from "lucide-react";
 import {
   LineChart,
@@ -31,9 +32,9 @@ import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { type Novel } from "@/data/mockData";
 
 const LINE_COLORS = [
-  "hsl(var(--primary))",
-  "hsl(var(--ridi))",
-  "hsl(var(--kakao))",
+  "#22c55e", // green
+  "#3b82f6", // blue
+  "#facc15", // yellow
 ];
 
 function parseViewStr(v: string | number | null | undefined): number {
@@ -168,20 +169,54 @@ function getReasonSummary(novel: Novel) {
   };
 }
 
-function buildCombinedChartData(novel: Novel) {
-  const rankHistory = (novel.rankHistory || [])
-    .slice()
+function normalizeRankHistory(novel: Novel, latestDate: string) {
+  const history = (novel.rankHistory || [])
+    .map((r) => ({ date: r.date, rank: r.rank }))
+    .filter((r) => r.date && typeof r.rank === "number")
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  const viewsHistory = (novel.viewsHistory || [])
-    .slice()
+  if (history.length > 0) {
+    const hasLatest = history.some((h) => h.date === latestDate);
+    if (!hasLatest && typeof novel.todayRank === "number") {
+      history.push({ date: latestDate, rank: novel.todayRank });
+    }
+    return history;
+  }
+
+  if (typeof novel.todayRank === "number") {
+    return [{ date: latestDate, rank: novel.todayRank }];
+  }
+
+  return [];
+}
+
+function normalizeViewsHistory(novel: Novel, latestDate: string) {
+  const history = (novel.viewsHistory || [])
+    .map((v) => ({ date: v.date, views: parseViewStr(v.views as any) }))
+    .filter((v) => v.date && typeof v.views === "number")
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+  if (history.length > 0) {
+    const hasLatest = history.some((h) => h.date === latestDate);
+    if (!hasLatest && typeof novel.todayViews === "number") {
+      history.push({ date: latestDate, views: Number(novel.todayViews || 0) });
+    }
+    return history;
+  }
+
+  if (typeof novel.todayViews === "number" && novel.todayViews > 0) {
+    return [{ date: latestDate, views: Number(novel.todayViews || 0) }];
+  }
+
+  return [];
+}
+
+function buildCombinedChartData(novel: Novel, latestDate: string) {
+  const rankHistory = normalizeRankHistory(novel, latestDate);
+  const viewsHistory = normalizeViewsHistory(novel, latestDate);
 
   const rankMap = new Map(rankHistory.map((r) => [r.date, r.rank]));
-  const viewsMap = new Map(
-    viewsHistory.map((v) => [v.date, parseViewStr(v.views as any)])
-  );
-
+  const viewsMap = new Map(viewsHistory.map((v) => [v.date, v.views]));
   const allDates = Array.from(new Set([...rankMap.keys(), ...viewsMap.keys()])).sort();
 
   return allDates.map((date) => ({
@@ -195,15 +230,17 @@ function FixedTrendDetailPanel({
   novel,
   latestDate,
   allNovels,
-  onSelectNovel,
+  onSelectPanelNovel,
+  onOpenDrawer,
 }: {
   novel: Novel;
   latestDate: string;
   allNovels: Novel[];
-  onSelectNovel: (novel: Novel) => void;
+  onSelectPanelNovel: (novel: Novel) => void;
+  onOpenDrawer: (novel: Novel) => void;
 }) {
   const reason = useMemo(() => getReasonSummary(novel), [novel]);
-  const chartData = useMemo(() => buildCombinedChartData(novel), [novel]);
+  const chartData = useMemo(() => buildCombinedChartData(novel, latestDate), [novel, latestDate]);
 
   const competitors = useMemo(() => {
     return allNovels
@@ -227,7 +264,12 @@ function FixedTrendDetailPanel({
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr_auto] gap-4 items-start mb-5">
-        <NovelCover novel={novel} className="w-20 h-28 rounded-xl shadow-md" />
+        <button
+          onClick={() => onOpenDrawer(novel)}
+          className="text-left"
+        >
+          <NovelCover novel={novel} className="w-20 h-28 rounded-xl shadow-md hover:opacity-90 transition-opacity" />
+        </button>
 
         <div className="min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-2">
@@ -248,7 +290,22 @@ function FixedTrendDetailPanel({
             ))}
           </div>
 
-          <h3 className="text-xl font-black tracking-tight text-foreground">{novel.title}</h3>
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              onClick={() => onOpenDrawer(novel)}
+              className="text-xl font-black tracking-tight text-foreground hover:text-primary transition-colors text-left"
+            >
+              {novel.title}
+            </button>
+            <button
+              onClick={() => onOpenDrawer(novel)}
+              className="p-1 rounded hover:bg-surface-elevated text-muted-foreground"
+              aria-label="상세 모달 열기"
+            >
+              <ExternalLink size={14} />
+            </button>
+          </div>
+
           <p className="text-xs text-muted-foreground mt-1">
             {novel.author} · 총 {novel.episodeCount || "-"}화
           </p>
@@ -351,7 +408,8 @@ function FixedTrendDetailPanel({
                 name="순위"
                 stroke="hsl(var(--primary))"
                 strokeWidth={2}
-                dot={false}
+                dot={{ r: 2 }}
+                activeDot={{ r: 4 }}
                 connectNulls
               />
               <Line
@@ -361,7 +419,8 @@ function FixedTrendDetailPanel({
                 name="조회수/평가수"
                 stroke="#34d399"
                 strokeWidth={2}
-                dot={false}
+                dot={{ r: 2 }}
+                activeDot={{ r: 4 }}
                 connectNulls
               />
             </ComposedChart>
@@ -409,25 +468,30 @@ function FixedTrendDetailPanel({
           <div className="space-y-2">
             {competitors.length > 0 ? (
               competitors.map((item) => (
-                <button
+                <div
                   key={item.id}
-                  onClick={() => onSelectNovel(item)}
-                  className="w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-surface-elevated transition-colors text-left"
+                  className="w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-surface-elevated transition-colors"
                 >
-                  <NovelCover novel={item} size="sm" className="w-8 h-10 rounded" />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-foreground truncate">
-                      {item.title}
-                    </p>
+                  <button onClick={() => onOpenDrawer(item)}>
+                    <NovelCover novel={item} size="sm" className="w-8 h-10 rounded" />
+                  </button>
+                  <button
+                    onClick={() => onSelectPanelNovel(item)}
+                    className="flex-1 min-w-0 text-left"
+                  >
+                    <p className="text-xs font-semibold text-foreground truncate">{item.title}</p>
                     <p className="text-[10px] text-muted-foreground">
                       #{item.todayRank ?? "-"} · {item.genre}
                     </p>
-                  </div>
-                  <span className="text-[10px] font-mono font-bold text-primary">
+                  </button>
+                  <button
+                    onClick={() => onOpenDrawer(item)}
+                    className="text-[10px] font-mono font-bold text-primary"
+                  >
                     {(item.viewsChangePct || 0) >= 0 ? "+" : ""}
                     {(item.viewsChangePct || 0).toFixed(1)}%
-                  </span>
-                </button>
+                  </button>
+                </div>
               ))
             ) : (
               <p className="text-xs text-muted-foreground">비교 가능한 경쟁작이 없어요.</p>
@@ -486,7 +550,8 @@ export default function TrendsPage() {
   const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Novel[]>([]);
-  const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
+  const [drawerNovel, setDrawerNovel] = useState<Novel | null>(null);
+  const [panelNovel, setPanelNovel] = useState<Novel | null>(null);
 
   const novels: Novel[] = sourceData ?? [];
 
@@ -508,47 +573,73 @@ export default function TrendsPage() {
   const addNovel = (n: Novel) => {
     if (activeSelected.find((s) => s.id === n.id)) return;
     if (activeSelected.length >= 3) return;
-    setSelected([...activeSelected, n]);
+    const next = [...activeSelected, n];
+    setSelected(next);
+
+    if (!panelNovel) {
+      setPanelNovel(n);
+    }
+
     setQuery("");
   };
 
   const removeNovel = (id: string) => {
-    setSelected(activeSelected.filter((s) => s.id !== id));
+    const next = activeSelected.filter((s) => s.id !== id);
+    setSelected(next);
+
+    if (panelNovel?.id === id) {
+      setPanelNovel(next[0] ?? null);
+    }
+    if (drawerNovel?.id === id) {
+      setDrawerNovel(null);
+    }
   };
 
   const rankChartData = useMemo(() => {
     if (activeSelected.length === 0) return [];
+
+    const normalized = activeSelected.map((n) => ({
+      novel: n,
+      history: normalizeRankHistory(n, latestDate),
+    }));
+
     const allDates = Array.from(
-      new Set(activeSelected.flatMap((n) => (n.rankHistory || []).map((r) => r.date)))
+      new Set(normalized.flatMap((item) => item.history.map((r) => r.date)))
     ).sort();
 
     return allDates.map((date) => {
       const row: Record<string, any> = { date: date.slice(5) };
-      activeSelected.forEach((n, i) => {
-        const entry = (n.rankHistory || []).find((r) => r.date === date);
+      normalized.forEach((item, i) => {
+        const entry = item.history.find((r) => r.date === date);
         row[`rank${i}`] = entry?.rank ?? null;
       });
       return row;
     });
-  }, [activeSelected]);
+  }, [activeSelected, latestDate]);
 
   const viewsChartData = useMemo(() => {
     if (activeSelected.length === 0) return [];
+
+    const normalized = activeSelected.map((n) => ({
+      novel: n,
+      history: normalizeViewsHistory(n, latestDate),
+    }));
+
     const allDates = Array.from(
-      new Set(activeSelected.flatMap((n) => (n.viewsHistory || []).map((v) => v.date)))
+      new Set(normalized.flatMap((item) => item.history.map((v) => v.date)))
     ).sort();
 
     return allDates.map((date) => {
       const row: Record<string, any> = { date: date.slice(5) };
-      activeSelected.forEach((n, i) => {
-        const entry = (n.viewsHistory || []).find((v) => v.date === date);
-        row[`views${i}`] = entry ? parseViewStr(entry.views as any) : null;
+      normalized.forEach((item, i) => {
+        const entry = item.history.find((v) => v.date === date);
+        row[`views${i}`] = entry?.views ?? null;
       });
       return row;
     });
-  }, [activeSelected]);
+  }, [activeSelected, latestDate]);
 
-  const fixedDetailNovel = selectedNovel ?? activeSelected[0] ?? null;
+  const fixedDetailNovel = panelNovel ?? activeSelected[0] ?? null;
 
   if (isLoading) return <LoadingScreen />;
   if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
@@ -574,7 +665,7 @@ export default function TrendsPage() {
               style={{ borderColor: LINE_COLORS[i], color: LINE_COLORS[i] }}
             >
               <button
-                onClick={() => setSelectedNovel(n)}
+                onClick={() => setPanelNovel(n)}
                 className="line-clamp-1 max-w-28 text-left"
               >
                 {n.title}
@@ -636,7 +727,8 @@ export default function TrendsPage() {
                 />
                 <YAxis
                   reversed
-                  domain={[1, "auto"]}
+                  domain={["dataMin - 2", "dataMax + 2"]}
+                  allowDecimals={false}
                   tick={{
                     fontSize: 9,
                     fill: "hsl(var(--muted-foreground))",
@@ -661,8 +753,9 @@ export default function TrendsPage() {
                     dataKey={`rank${i}`}
                     name={n.title.length > 12 ? `${n.title.slice(0, 12)}…` : n.title}
                     stroke={LINE_COLORS[i]}
-                    strokeWidth={2}
-                    dot={false}
+                    strokeWidth={2.5}
+                    dot={{ r: 2 }}
+                    activeDot={{ r: 4 }}
                     connectNulls
                   />
                 ))}
@@ -718,6 +811,7 @@ export default function TrendsPage() {
                     "",
                   ]}
                 />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
                 {activeSelected.map((n, i) => (
                   <Line
                     key={n.id}
@@ -725,8 +819,9 @@ export default function TrendsPage() {
                     dataKey={`views${i}`}
                     name={n.title.length > 12 ? `${n.title.slice(0, 12)}…` : n.title}
                     stroke={LINE_COLORS[i]}
-                    strokeWidth={2}
-                    dot={false}
+                    strokeWidth={2.5}
+                    dot={{ r: 2 }}
+                    activeDot={{ r: 4 }}
                     connectNulls
                   />
                 ))}
@@ -742,35 +837,39 @@ export default function TrendsPage() {
           {activeSelected.map((n, i) => (
             <div
               key={n.id}
-              className="kpi-card border-l-2 cursor-pointer hover:shadow-lg transition-shadow"
+              className="kpi-card border-l-2 hover:shadow-lg transition-shadow"
               style={{ borderLeftColor: LINE_COLORS[i] }}
-              onClick={() => setSelectedNovel(n)}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <NovelCover novel={n} size="sm" />
-                <div className="min-w-0">
-                  <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
-                  <PlatformBadge platform={n.platform} />
+              <button
+                onClick={() => setPanelNovel(n)}
+                className="w-full text-left"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <NovelCover novel={n} size="sm" />
+                  <div className="min-w-0">
+                    <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
+                    <PlatformBadge platform={n.platform} />
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div>
-                  <span className="text-muted-foreground">오늘 순위</span>
-                  <div className="font-mono font-bold">#{n.todayRank}</div>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span className="text-muted-foreground">오늘 순위</span>
+                    <div className="font-mono font-bold">#{n.todayRank}</div>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">연속 진입</span>
+                    <div className="font-mono font-bold">{n.consecutiveDays}일</div>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">최고 순위</span>
+                    <div className="font-mono font-bold">#{n.peakRank}</div>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground">첫 등장</span>
+                    <div className="font-mono font-bold text-[10px]">{n.firstAppeared}</div>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-muted-foreground">연속 진입</span>
-                  <div className="font-mono font-bold">{n.consecutiveDays}일</div>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">최고 순위</span>
-                  <div className="font-mono font-bold">#{n.peakRank}</div>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">첫 등장</span>
-                  <div className="font-mono font-bold text-[10px]">{n.firstAppeared}</div>
-                </div>
-              </div>
+              </button>
             </div>
           ))}
         </div>
@@ -782,17 +881,18 @@ export default function TrendsPage() {
           novel={fixedDetailNovel}
           latestDate={latestDate}
           allNovels={novels}
-          onSelectNovel={setSelectedNovel}
+          onSelectPanelNovel={setPanelNovel}
+          onOpenDrawer={setDrawerNovel}
         />
       )}
 
       {/* Drawer 유지 */}
       <NovelDetailDrawer
-        novel={selectedNovel}
-        onClose={() => setSelectedNovel(null)}
+        novel={drawerNovel}
+        onClose={() => setDrawerNovel(null)}
         latestDate={latestDate}
         allNovels={novels}
-        onSelectNovel={setSelectedNovel}
+        onSelectNovel={setDrawerNovel}
       />
     </div>
   );
