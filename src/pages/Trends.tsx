@@ -30,31 +30,63 @@ import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { type Novel } from "@/data/mockData";
 
-const LINE_COLORS = [
-  "#22c55e",
-  "#3b82f6",
-  "#facc15",
-];
+const LINE_COLORS = ["#22c55e", "#3b82f6", "#facc15"];
 
-//중복 안 뜨게 하는 함수
 function normalizeText(v: string | undefined | null) {
   return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
-function dedupeByTitleAuthor<T extends { title: string; author: string }>(items: T[]) {
+function getDisplayCommentCount(novel: Novel): number {
+  return novel.platform === "ridi"
+    ? Number(novel.todayViews || 0)
+    : Number(novel.commentCount || 0);
+}
+
+function pickBetterNovel(prev: Novel, next: Novel): Novel {
+  const prevRankHistoryLen = prev.rankHistory?.length || 0;
+  const nextRankHistoryLen = next.rankHistory?.length || 0;
+
+  if (nextRankHistoryLen > prevRankHistoryLen) return next;
+  if (prevRankHistoryLen > nextRankHistoryLen) return prev;
+
+  const prevViewsHistoryLen = prev.viewsHistory?.length || 0;
+  const nextViewsHistoryLen = next.viewsHistory?.length || 0;
+
+  if (nextViewsHistoryLen > prevViewsHistoryLen) return next;
+  if (prevViewsHistoryLen > nextViewsHistoryLen) return prev;
+
+  const prevConsecutive = prev.consecutiveDays || 0;
+  const nextConsecutive = next.consecutiveDays || 0;
+
+  if (nextConsecutive > prevConsecutive) return next;
+  if (prevConsecutive > nextConsecutive) return prev;
+
+  const prevSignal = getDisplayCommentCount(prev);
+  const nextSignal = getDisplayCommentCount(next);
+
+  if (nextSignal > prevSignal) return next;
+  if (prevSignal > nextSignal) return prev;
+
+  return (next.todayViews || 0) > (prev.todayViews || 0) ? next : prev;
+}
+
+function dedupeByTitleAuthor<T extends Novel>(items: T[]) {
   const map = new Map<string, T>();
 
   for (const item of items) {
     const key = `${normalizeText(item.title)}::${normalizeText(item.author)}`;
-    if (!map.has(key)) {
+    const prev = map.get(key);
+
+    if (!prev) {
       map.set(key, item);
+      continue;
     }
+
+    map.set(key, pickBetterNovel(prev, item as Novel) as T);
   }
 
   return Array.from(map.values());
 }
-
-//
 
 function parseViewStr(v: string | number | null | undefined): number {
   if (v == null) return 0;
@@ -106,7 +138,10 @@ function getAnalysisBadges(novel: Novel): string[] {
   if (novel.promotion?.timeFreeType && novel.promotion.timeFreeType !== "none") {
     badges.push("PROMOTION");
   }
-  if ((novel.viewsChangePct || 0) >= 20 && (!novel.promotion || novel.promotion.timeFreeType === "none")) {
+  if (
+    (novel.viewsChangePct || 0) >= 20 &&
+    (!novel.promotion || novel.promotion.timeFreeType === "none")
+  ) {
     badges.push("VIRAL");
   }
   if ((novel.consecutiveDays || 0) >= 14) {
@@ -120,6 +155,7 @@ function getReasonSummary(novel: Novel) {
   const delta = novel.viewsChangePct || 0;
   const noticeCount = novel.promotion?.notices?.length || 0;
   const timeFree = novel.promotion?.timeFreeType;
+  const displayCommentCount = getDisplayCommentCount(novel);
 
   if (timeFree === "waitFree" || timeFree === "threeHour") {
     return {
@@ -132,7 +168,11 @@ function getReasonSummary(novel: Novel) {
       evidence: [
         timeFree === "waitFree" ? "기다무 적용" : "3다무 적용",
         `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "프로모션 정보 감지",
+        noticeCount > 0
+          ? `관련 공지 ${noticeCount}건`
+          : novel.platform === "ridi"
+            ? `평가/댓글 ${displayCommentCount.toLocaleString("ko-KR")}개`
+            : "프로모션 정보 감지",
       ],
     };
   }
@@ -158,7 +198,11 @@ function getReasonSummary(novel: Novel) {
       evidence: [
         "재진입 감지",
         `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "추가 이슈 가능성",
+        noticeCount > 0
+          ? `관련 공지 ${noticeCount}건`
+          : novel.platform === "ridi"
+            ? `평가/댓글 ${displayCommentCount.toLocaleString("ko-KR")}개`
+            : "추가 이슈 가능성",
       ],
     };
   }
@@ -171,7 +215,9 @@ function getReasonSummary(novel: Novel) {
       evidence: [
         "프로모션 정보 없음",
         `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        "후기 확산 가능성",
+        novel.platform === "ridi"
+          ? `평가/댓글 ${displayCommentCount.toLocaleString("ko-KR")}개`
+          : "후기 확산 가능성",
       ],
     };
   }
@@ -182,7 +228,7 @@ function getReasonSummary(novel: Novel) {
     confidence: "낮음",
     evidence: [
       `평점 ${novel.rating?.toFixed?.(1) ?? novel.rating ?? "-"}`,
-      `댓글 ${Number(novel.commentCount || 0).toLocaleString("ko-KR")}개`,
+      `${novel.platform === "ridi" ? "평가/댓글" : "댓글"} ${displayCommentCount.toLocaleString("ko-KR")}개`,
       `${novel.consecutiveDays || 0}일 연속 차트인`,
     ],
   };
@@ -211,7 +257,7 @@ function normalizeRankHistory(novel: Novel, latestDate: string) {
 
 function normalizeViewsHistory(novel: Novel, latestDate: string) {
   const history = (novel.viewsHistory || [])
-    .map((v) => ({ date: v.date, views: parseViewStr(v.views as any) }))
+    .map((v) => ({ date: v.date, views: parseViewStr(v.views as string | number | null | undefined) }))
     .filter((v) => v.date && typeof v.views === "number")
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
@@ -435,13 +481,21 @@ function FixedTrendDetailPanel({
                 reversed
                 domain={["dataMin - 2", "dataMax + 2"]}
                 allowDecimals={false}
-                tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+                tick={{
+                  fontSize: 9,
+                  fill: "hsl(var(--muted-foreground))",
+                  fontFamily: "Roboto Mono",
+                }}
                 tickFormatter={(v) => `${v}위`}
               />
               <YAxis
                 yAxisId="views"
                 orientation="right"
-                tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+                tick={{
+                  fontSize: 9,
+                  fill: "hsl(var(--muted-foreground))",
+                  fontFamily: "Roboto Mono",
+                }}
                 tickFormatter={(v) => toKoreanUnit(Number(v))}
               />
               <Tooltip
@@ -584,7 +638,7 @@ function FixedTrendDetailPanel({
             댓글
           </div>
           <p className="text-sm font-black mt-2">
-            {Number(novel.platform === "ridi" ? novel.todayViews || 0 : novel.commentCount || 0).toLocaleString("ko-KR")}
+            {getDisplayCommentCount(novel).toLocaleString("ko-KR")}
           </p>
         </div>
 
@@ -623,10 +677,10 @@ export default function TrendsPage() {
   const activeSelected = selected.length > 0 ? selected : initialSelected;
 
   const results = query
-  ? dedupeByTitleAuthor(
-      novels.filter((n) => n.title.includes(query) || n.author.includes(query))
-    ).slice(0, 6)
-  : [];
+    ? dedupeByTitleAuthor(
+        novels.filter((n) => n.title.includes(query) || n.author.includes(query))
+      ).slice(0, 6)
+    : [];
 
   const addNovel = (n: Novel) => {
     if (activeSelected.find((s) => s.id === n.id)) return;
@@ -665,7 +719,7 @@ export default function TrendsPage() {
     ).sort();
 
     return allDates.map((date) => {
-      const row: Record<string, any> = { date: date.slice(5) };
+      const row: Record<string, number | string | null> = { date: date.slice(5) };
       normalized.forEach((item, i) => {
         const entry = item.history.find((r) => r.date === date);
         row[`rank${i}`] = entry?.rank ?? null;
@@ -686,7 +740,7 @@ export default function TrendsPage() {
     ).sort();
 
     return allDates.map((date) => {
-      const row: Record<string, any> = { date: date.slice(5) };
+      const row: Record<string, number | string | null> = { date: date.slice(5) };
       normalized.forEach((item, i) => {
         const entry = item.history.find((v) => v.date === date);
         row[`views${i}`] = entry?.views ?? null;
@@ -780,7 +834,11 @@ export default function TrendsPage() {
                   reversed
                   domain={["dataMin - 2", "dataMax + 2"]}
                   allowDecimals={false}
-                  tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+                  tick={{
+                    fontSize: 9,
+                    fill: "hsl(var(--muted-foreground))",
+                    fontFamily: "Roboto Mono",
+                  }}
                   tickFormatter={(v) => `${v}위`}
                 />
                 <Tooltip
@@ -828,7 +886,11 @@ export default function TrendsPage() {
                   interval="preserveStartEnd"
                 />
                 <YAxis
-                  tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+                  tick={{
+                    fontSize: 9,
+                    fill: "hsl(var(--muted-foreground))",
+                    fontFamily: "Roboto Mono",
+                  }}
                   tickFormatter={(v) =>
                     v >= 100_000_000
                       ? `${(v / 100_000_000).toFixed(1)}억`
