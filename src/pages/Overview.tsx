@@ -37,7 +37,7 @@ import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import LoadingScreen from "@/components/shared/LoadingScreen";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import {
   computeUnifiedScore,
   computeTrendScore,
