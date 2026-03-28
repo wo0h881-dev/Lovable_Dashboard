@@ -145,6 +145,44 @@ function calcStats(goal: ReadingGoal) {
   return { remaining, progress, daysNeeded, dailyNeeded, daysLeft };
 }
 
+function normalizeText(v: string | undefined | null) {
+  return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function dedupeByTitleAuthorPlatform<T extends { title: string; author: string; platform: string }>(
+  items: T[]
+) {
+  const map = new Map<string, T>();
+
+  for (const item of items) {
+    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}::${normalizeText(
+      item.platform
+    )}`;
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
+function normalizeText(v: string | undefined | null) {
+  return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function dedupeByTitleAuthor<T extends { title: string; author: string }>(items: T[]) {
+  const map = new Map<string, T>();
+
+  for (const item of items) {
+    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}`;
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
 function ModalCover({
   novel,
   goal,
@@ -776,27 +814,29 @@ export default function ReadingGoalsPage() {
       maxDeltaByPlatform
     );
 
-    return [...novelsWithRidiInner]
-      .sort((a, b) => {
-        const scoreA = computeTrendScore(
-          a,
-          maxViewsByPlatform,
-          maxCommentsByPlatform,
-          maxDeltaByPlatform
-        );
-        const scoreB = computeTrendScore(
-          b,
-          maxViewsByPlatform,
-          maxCommentsByPlatform,
-          maxDeltaByPlatform
-        );
-        if (scoreA !== scoreB) return scoreB - scoreA;
-        return (b.todayViews ?? 0) - (a.todayViews ?? 0);
-      })
-      .slice(0, 5) as Novel[];
+    return dedupeByTitleAuthor(
+      [...novelsWithRidiInner]
+        .sort((a, b) => {
+          const scoreA = computeTrendScore(
+            a,
+            maxViewsByPlatform,
+            maxCommentsByPlatform,
+            maxDeltaByPlatform
+          );
+          const scoreB = computeTrendScore(
+            b,
+            maxViewsByPlatform,
+            maxCommentsByPlatform,
+            maxDeltaByPlatform
+          );
+          if (scoreA !== scoreB) return scoreB - scoreA;
+          return (b.todayViews ?? 0) - (a.todayViews ?? 0);
+        })
+        .slice(0, 20) as Novel[]
+    ).slice(0, 5);
   }, [novels]);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!search.trim()) {
       setSearchResults([]);
       return;
@@ -804,14 +844,14 @@ export default function ReadingGoalsPage() {
 
     const keyword = search.trim();
     setSearchResults(
-      novels
-        .filter(
+      dedupeByTitleAuthorPlatform(
+        novels.filter(
           (n) =>
             n.title.includes(keyword) ||
             n.author.includes(keyword) ||
             n.publisher?.includes?.(keyword)
         )
-        .slice(0, 6)
+      ).slice(0, 6)
     );
   }, [search, novels]);
 
