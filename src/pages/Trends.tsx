@@ -23,7 +23,6 @@ import {
   Legend,
   ComposedChart,
 } from "recharts";
-import { cn } from "@/lib/utils";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
@@ -32,9 +31,9 @@ import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { type Novel } from "@/data/mockData";
 
 const LINE_COLORS = [
-  "#22c55e", // green
-  "#3b82f6", // blue
-  "#facc15", // yellow
+  "#22c55e",
+  "#3b82f6",
+  "#facc15",
 ];
 
 function parseViewStr(v: string | number | null | undefined): number {
@@ -172,7 +171,7 @@ function getReasonSummary(novel: Novel) {
 function normalizeRankHistory(novel: Novel, latestDate: string) {
   const history = (novel.rankHistory || [])
     .map((r) => ({ date: r.date, rank: r.rank }))
-    .filter((r) => r.date && typeof r.rank === "number")
+    .filter((r) => r.date && typeof r.rank !== "undefined")
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   if (history.length > 0) {
@@ -209,6 +208,42 @@ function normalizeViewsHistory(novel: Novel, latestDate: string) {
   }
 
   return [];
+}
+
+function getNovelTrendStats(novel: Novel, latestDate: string) {
+  const rankHistory = normalizeRankHistory(novel, latestDate);
+  const latestRank =
+    [...rankHistory].reverse().find((r) => r.rank !== null)?.rank ?? novel.todayRank ?? null;
+
+  const firstAppeared =
+    rankHistory.find((r) => r.rank !== null)?.date || novel.firstAppeared || latestDate;
+
+  const peakRank = (() => {
+    const ranks = rankHistory
+      .map((r) => r.rank)
+      .filter((r): r is number => typeof r === "number" && r > 0);
+    if (ranks.length === 0) return novel.peakRank ?? novel.todayRank ?? null;
+    return Math.min(...ranks);
+  })();
+
+  const consecutiveDays = (() => {
+    const sortedDesc = [...rankHistory].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+    let count = 0;
+    for (const h of sortedDesc) {
+      if (h.rank !== null) count++;
+      else break;
+    }
+    return count;
+  })();
+
+  return {
+    latestRank,
+    firstAppeared,
+    peakRank,
+    consecutiveDays,
+  };
 }
 
 function buildCombinedChartData(novel: Novel, latestDate: string) {
@@ -264,11 +299,11 @@ function FixedTrendDetailPanel({
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr_auto] gap-4 items-start mb-5">
-        <button
-          onClick={() => onOpenDrawer(novel)}
-          className="text-left"
-        >
-          <NovelCover novel={novel} className="w-20 h-28 rounded-xl shadow-md hover:opacity-90 transition-opacity" />
+        <button onClick={() => onOpenDrawer(novel)} className="text-left">
+          <NovelCover
+            novel={novel}
+            className="w-20 h-28 rounded-xl shadow-md hover:opacity-90 transition-opacity"
+          />
         </button>
 
         <div className="min-w-0">
@@ -378,7 +413,8 @@ function FixedTrendDetailPanel({
               <YAxis
                 yAxisId="rank"
                 reversed
-                domain={[1, "auto"]}
+                domain={["dataMin - 2", "dataMax + 2"]}
+                allowDecimals={false}
                 tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
                 tickFormatter={(v) => `${v}위`}
               />
@@ -653,7 +689,6 @@ export default function TrendsPage() {
         </p>
       </div>
 
-      {/* 작품 비교 */}
       <div className="surface-card space-y-4">
         <div className="flex items-center gap-3 flex-wrap">
           <h2 className="text-sm font-bold flex-1">작품 트렌드 비교</h2>
@@ -710,7 +745,6 @@ export default function TrendsPage() {
           )}
         </div>
 
-        {/* 순위 추이 */}
         {rankChartData.length > 0 && (
           <div>
             <p className="text-xs text-muted-foreground mb-2 font-medium">일별 순위 추이</p>
@@ -729,11 +763,7 @@ export default function TrendsPage() {
                   reversed
                   domain={["dataMin - 2", "dataMax + 2"]}
                   allowDecimals={false}
-                  tick={{
-                    fontSize: 9,
-                    fill: "hsl(var(--muted-foreground))",
-                    fontFamily: "Roboto Mono",
-                  }}
+                  tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
                   tickFormatter={(v) => `${v}위`}
                 />
                 <Tooltip
@@ -764,7 +794,6 @@ export default function TrendsPage() {
           </div>
         )}
 
-        {/* 조회수 추이 */}
         {viewsChartData.length > 0 && (
           <div>
             <p className="text-xs text-muted-foreground mb-2 font-medium">
@@ -782,11 +811,7 @@ export default function TrendsPage() {
                   interval="preserveStartEnd"
                 />
                 <YAxis
-                  tick={{
-                    fontSize: 9,
-                    fill: "hsl(var(--muted-foreground))",
-                    fontFamily: "Roboto Mono",
-                  }}
+                  tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
                   tickFormatter={(v) =>
                     v >= 100_000_000
                       ? `${(v / 100_000_000).toFixed(1)}억`
@@ -831,51 +856,54 @@ export default function TrendsPage() {
         )}
       </div>
 
-      {/* 요약 카드 */}
       {activeSelected.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {activeSelected.map((n, i) => (
-            <div
-              key={n.id}
-              className="kpi-card border-l-2 hover:shadow-lg transition-shadow"
-              style={{ borderLeftColor: LINE_COLORS[i] }}
-            >
-              <button
-                onClick={() => setPanelNovel(n)}
-                className="w-full text-left"
+          {activeSelected.map((n, i) => {
+            const stats = getNovelTrendStats(n, latestDate);
+
+            return (
+              <div
+                key={n.id}
+                className="kpi-card border-l-2 hover:shadow-lg transition-shadow"
+                style={{ borderLeftColor: LINE_COLORS[i] }}
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <NovelCover novel={n} size="sm" />
-                  <div className="min-w-0">
-                    <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
-                    <PlatformBadge platform={n.platform} />
+                <button onClick={() => setPanelNovel(n)} className="w-full text-left">
+                  <div className="flex items-center gap-2 mb-3">
+                    <NovelCover novel={n} size="sm" />
+                    <div className="min-w-0">
+                      <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
+                      <PlatformBadge platform={n.platform} />
+                    </div>
                   </div>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div>
-                    <span className="text-muted-foreground">오늘 순위</span>
-                    <div className="font-mono font-bold">#{n.todayRank}</div>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <span className="text-muted-foreground">오늘 순위</span>
+                      <div className="font-mono font-bold">
+                        {typeof stats.latestRank === "number" ? `#${stats.latestRank}` : "-"}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">연속 진입</span>
+                      <div className="font-mono font-bold">{stats.consecutiveDays}일</div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">최고 순위</span>
+                      <div className="font-mono font-bold">
+                        {typeof stats.peakRank === "number" ? `#${stats.peakRank}` : "-"}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground">첫 등장</span>
+                      <div className="font-mono font-bold text-[10px]">{stats.firstAppeared}</div>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">연속 진입</span>
-                    <div className="font-mono font-bold">{n.consecutiveDays}일</div>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">최고 순위</span>
-                    <div className="font-mono font-bold">#{n.peakRank}</div>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground">첫 등장</span>
-                    <div className="font-mono font-bold text-[10px]">{n.firstAppeared}</div>
-                  </div>
-                </div>
-              </button>
-            </div>
-          ))}
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
 
-      {/* 하단 고정 상세 패널 */}
       {fixedDetailNovel && (
         <FixedTrendDetailPanel
           novel={fixedDetailNovel}
@@ -886,7 +914,6 @@ export default function TrendsPage() {
         />
       )}
 
-      {/* Drawer 유지 */}
       <NovelDetailDrawer
         novel={drawerNovel}
         onClose={() => setDrawerNovel(null)}
