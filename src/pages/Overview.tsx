@@ -1,35 +1,656 @@
 // src/pages/Overview.tsx
 import { useMemo, useState } from "react";
-import { Trophy, TrendingUp, Star, BookOpen, Zap, RefreshCw, LogIn, ChevronRight } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
-import { PlatformBadge } from "@/components/shared/PlatformBadge";
-import { NovelCover } from "@/components/shared/NovelCover";
-import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { 
-  getPlatformMaxStats, 
-  attachRidiInnerRank, 
-  computeUnifiedScore, 
-  computeTrendScore,
-  type UnifiedNovel 
-} from "@/lib/rankingScore";
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ComposedChart,
+  Line,
+} from "recharts";
+import {
+  BookOpen,
+  Zap,
+  RefreshCw,
+  LogIn,
+  Trophy,
+  TrendingUp,
+  Building2,
+  Sparkles,
+  Megaphone,
+  Flame,
+  ArrowUpRight,
+  Eye,
+  MessageCircle,
+  Star,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Novel } from "@/data/mockData";
-import { LoadingScreen } from "@/components/shared/LoadingScreen";
+import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { NovelCover } from "@/components/shared/NovelCover";
+import { PlatformBadge } from "@/components/shared/PlatformBadge";
+import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
+import LoadingScreen from "@/components/shared/LoadingScreen";
+import {
+  computeUnifiedScore,
+  computeTrendScore,
+  getPlatformMaxStats,
+  type UnifiedNovel,
+  attachRidiInnerRank,
+} from "@/lib/rankingScore";
 
 const PLATFORM_COLORS: Record<string, string> = {
-  naver: "#10b981",
-  kakao: "#facc15",
-  ridi: "#1e40af",
+  naver: "#20C997",
+  kakao: "#FACC15",
+  ridi: "#5B74FF",
+  etc: "#94A3B8",
 };
+
+type InsightItem = {
+  title: string;
+  body: string;
+};
+
+type ReasonSummary = {
+  title: string;
+  body: string;
+  confidence: "높음" | "중간" | "낮음";
+  evidence: string[];
+};
+
+function toKoreanUnit(n: number): string {
+  if (!Number.isFinite(n) || n <= 0) return "-";
+  const eok = 100_000_000;
+  const man = 10_000;
+  if (n >= eok) return `${(n / eok).toFixed(1).replace(/\.0$/, "")}억`;
+  if (n >= man) {
+    const manVal = n / man;
+    if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
+    return `${Math.round(manVal).toLocaleString("ko-KR")}만`;
+  }
+  return n.toLocaleString("ko-KR");
+}
+
+function formatViews(platform: string, views: number): string {
+  const v = Number(views ?? 0);
+  if (!Number.isFinite(v) || v <= 0) return "-";
+  if (platform === "ridi") return `${v.toLocaleString("ko-KR")} 평가`;
+  return toKoreanUnit(v);
+}
+
+function getTimeFreeLabel(novel: Novel): string | null {
+  const type = novel.promotion?.timeFreeType;
+  if (type === "waitFree") return "기다무";
+  if (type === "threeHour") return "3다무";
+  return null;
+}
+
+function getAnalysisBadges(novel: Novel): string[] {
+  const badges: string[] = [];
+  if (novel.isNew) badges.push("NEW");
+  if (novel.isReEntry) badges.push("RE-ENTRY");
+  if (novel.promotion?.timeFreeType && novel.promotion.timeFreeType !== "none") {
+    badges.push("PROMOTION");
+  }
+  if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
+    badges.push("VIRAL");
+  }
+  if ((novel.consecutiveDays || 0) >= 14) {
+    badges.push("STEADY");
+  }
+  return badges.slice(0, 3);
+}
+
+function getReasonSummary(novel: Novel): ReasonSummary {
+  const delta = novel.viewsChangePct || 0;
+  const noticeCount = novel.promotion?.notices?.length || 0;
+  const timeFree = novel.promotion?.timeFreeType;
+  const badges = getAnalysisBadges(novel);
+
+  if (timeFree === "waitFree" || timeFree === "threeHour") {
+    return {
+      title: "프로모션 영향 가능성이 높아요",
+      body:
+        timeFree === "waitFree"
+          ? "기다무 적용과 함께 유입이 늘어난 패턴으로 보여요."
+          : "3다무 적용과 함께 단기 유입이 강하게 붙은 패턴으로 보여요.",
+      confidence: "높음",
+      evidence: [
+        timeFree === "waitFree" ? "기다무 적용" : "3다무 적용",
+        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
+        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "프로모션 정보 감지",
+      ],
+    };
+  }
+
+  if (novel.isNew && delta >= 15) {
+    return {
+      title: "신작 효과가 크게 작용하고 있어요",
+      body: "초기 노출과 첫 유입이 빠르게 붙으면서 급상승한 흐름으로 보여요.",
+      confidence: "높음",
+      evidence: [
+        "NEW 작품",
+        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
+        `${novel.episodeCount || 0}화 초기 구간`,
+      ],
+    };
+  }
+
+  if (novel.isReEntry) {
+    return {
+      title: "재진입 + 재노출 효과로 보여요",
+      body: "이전에 차트에 있었던 작품이 다시 유입을 받으며 재상승한 패턴이에요.",
+      confidence: "중간",
+      evidence: [
+        "재진입 감지",
+        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
+        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "추가 이슈 가능성",
+      ],
+    };
+  }
+
+  if (delta >= 20) {
+    return {
+      title: "바이럴 또는 후기 확산 영향으로 보여요",
+      body: "프로모션 없이 조회수와 화제성이 동시에 뛰는 바이럴형 상승 패턴이에요.",
+      confidence: "중간",
+      evidence: [
+        "프로모션 정보 없음",
+        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
+        badges.includes("STEADY") ? "기존 체급 보유" : "후기 확산 가능성",
+      ],
+    };
+  }
+
+  return {
+    title: "기존 체급과 누적 반응이 유지되는 흐름이에요",
+    body: "급격한 프로모션보다는 평점, 댓글, 누적 노출이 작용한 안정적 상승으로 보여요.",
+    confidence: "낮음",
+    evidence: [
+      `평점 ${novel.rating?.toFixed?.(1) ?? novel.rating ?? "-"}`,
+      `댓글 ${Number(novel.commentCount || 0).toLocaleString("ko-KR")}개`,
+      `${novel.consecutiveDays || 0}일 연속 차트인`,
+    ],
+  };
+}
+
+function buildCombinedChartData(novel: Novel) {
+  const rankHistory = (novel.rankHistory || []).slice().sort((a, b) =>
+    new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  const viewsHistory = (novel.viewsHistory || []).slice().sort((a, b) =>
+    new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
+  const rankMap = new Map(rankHistory.map((r) => [r.date, r.rank]));
+  const viewsMap = new Map(viewsHistory.map((v) => [v.date, v.views]));
+  const allDates = Array.from(new Set([...rankMap.keys(), ...viewsMap.keys()])).sort();
+
+  return allDates.map((date) => ({
+    date: date.slice(5),
+    rank: rankMap.get(date) ?? null,
+    views: typeof viewsMap.get(date) === "number" ? Number(viewsMap.get(date)) : null,
+  }));
+}
+
+function InsightCard({ item }: { item: InsightItem }) {
+  return (
+    <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+      <p className="text-xs font-bold text-foreground">{item.title}</p>
+      <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{item.body}</p>
+    </div>
+  );
+}
+
+function StatCard({
+  icon,
+  label,
+  value,
+  color,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+  color: string;
+}) {
+  return (
+    <div className="surface-card p-4 flex flex-col items-center gap-1 border border-border/40">
+      <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>{icon}</div>
+      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+        {label}
+      </p>
+      <p className="text-xl font-black">{value}</p>
+    </div>
+  );
+}
+
+function RankingColumn({
+  title,
+  subtitle,
+  icon,
+  data,
+  mode,
+  onSelect,
+}: {
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  data: Novel[];
+  mode: "overall" | "trend" | "publisher" | "new";
+  onSelect?: (novel: Novel) => void;
+}) {
+  return (
+    <div className="surface-card border border-border/50 shadow-sm">
+      <div className="flex flex-col mb-5">
+        <div className="flex items-center gap-2">
+          {icon}
+          <h2 className="font-extrabold text-lg tracking-tight">{title}</h2>
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-0.5 ml-7 font-medium uppercase">
+          {subtitle}
+        </p>
+      </div>
+
+      <div className="space-y-1">
+        {data.slice(0, 10).map((novel, idx) => {
+          const timeFreeLabel = getTimeFreeLabel(novel);
+          const badges = getAnalysisBadges(novel);
+
+          return (
+            <div
+              key={`${mode}-${novel.id}-${idx}`}
+              onClick={() => onSelect?.(novel)}
+              className={cn(
+                "flex items-center gap-3 py-2 px-2 rounded-lg transition-colors",
+                onSelect ? "hover:bg-surface-elevated cursor-pointer group" : "cursor-default"
+              )}
+            >
+              <span
+                className={cn(
+                  "w-5 text-center font-mono font-black text-sm",
+                  idx < 3 ? "text-primary" : "text-muted-foreground/40"
+                )}
+              >
+                {idx + 1}
+              </span>
+
+              <div className="relative shrink-0">
+                <NovelCover
+                  novel={novel}
+                  size="sm"
+                  className="rounded shadow-sm shrink-0 w-8 h-10"
+                />
+                {timeFreeLabel && (
+                  <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
+                    <Zap size={8} />
+                    {timeFreeLabel}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-bold truncate group-hover:text-primary transition-colors">
+                  {novel.title}
+                </h3>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <PlatformBadge platform={novel.platform as any} size="sm" />
+                  <span className="text-[10px] text-muted-foreground truncate">
+                    {novel.author}
+                  </span>
+                  {badges.slice(0, 2).map((badge) => (
+                    <span
+                      key={badge}
+                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-right shrink-0">
+                {mode === "overall" && (
+                  <div className="flex items-center gap-0.5 text-amber-500 font-mono text-xs font-bold justify-end">
+                    <Star size={10} fill="currentColor" />
+                    {novel.rating.toFixed(1)}
+                  </div>
+                )}
+                {mode === "trend" && (
+                  <div
+                    className={cn(
+                      "text-xs font-mono font-black",
+                      (novel.viewsChangePct || 0) >= 0 ? "text-up" : "text-down"
+                    )}
+                  >
+                    {(novel.viewsChangePct || 0) >= 0 ? "+" : ""}
+                    {(novel.viewsChangePct || 0).toFixed(1)}%
+                  </div>
+                )}
+                {mode === "publisher" && (
+                  <div className="text-xs font-mono font-black text-primary/90">
+                    #{novel.todayRank ?? "-"}
+                  </div>
+                )}
+                {mode === "new" && (
+                  <div className="text-xs font-mono font-black text-emerald-400">
+                    NEW
+                  </div>
+                )}
+                <div className="text-[10px] text-muted-foreground mt-0.5">
+                  {novel.publisher}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FixedDetailPanel({
+  novel,
+  latestDate,
+  allNovels,
+  onSelectNovel,
+}: {
+  novel: Novel;
+  latestDate: string;
+  allNovels: Novel[];
+  onSelectNovel: (novel: Novel) => void;
+}) {
+  const badges = getAnalysisBadges(novel);
+  const reason = getReasonSummary(novel);
+  const chartData = useMemo(() => buildCombinedChartData(novel), [novel]);
+
+  const competitors = useMemo(() => {
+    return allNovels
+      .filter((n) => n.genre === novel.genre && n.id !== novel.id)
+      .sort((a, b) => (a.todayRank ?? 999) - (b.todayRank ?? 999))
+      .slice(0, 4);
+  }, [allNovels, novel]);
+
+  return (
+    <div className="surface-card border border-border/50 shadow-sm">
+      <div className="flex items-center justify-between gap-3 mb-5">
+        <div>
+          <h2 className="font-extrabold text-lg tracking-tight">선택 작품 상세 패널</h2>
+          <p className="text-[10px] text-muted-foreground mt-0.5 font-medium uppercase">
+            트렌드 탭 하단 고정 상세 패널 구조
+          </p>
+        </div>
+        <div className="text-[10px] text-muted-foreground font-mono">{latestDate}</div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr_auto] gap-4 items-start mb-5">
+        <NovelCover novel={novel} className="w-20 h-28 rounded-xl shadow-md" />
+
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 flex-wrap mb-2">
+            <PlatformBadge platform={novel.platform as any} size="sm" />
+            <span className="text-[10px] px-2 py-1 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold">
+              {novel.genre}
+            </span>
+            <span className="text-[10px] px-2 py-1 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold">
+              {novel.publisher}
+            </span>
+          </div>
+          <h3 className="text-xl font-black tracking-tight text-foreground">{novel.title}</h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            {novel.author} · 총 {novel.episodeCount || "-"}화
+          </p>
+
+          <div className="flex items-center gap-2 flex-wrap mt-3">
+            {badges.map((badge) => (
+              <span
+                key={badge}
+                className="text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold"
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="surface-card border border-border/40 p-4 min-w-[110px]">
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+            Trend Score
+          </p>
+          <p className="text-3xl font-black text-primary mt-1">
+            {Math.round((novel.viewsChangePct || 0) + (novel.todayRank ? 25 - Math.min(novel.todayRank, 25) : 0))}
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-primary/5 border border-primary/20 rounded-2xl p-4 mb-5">
+        <div className="flex items-center gap-2 mb-2">
+          <Flame size={16} className="text-primary" />
+          <h3 className="text-sm font-bold text-foreground">급상승 이유 자동 서술</h3>
+        </div>
+        <p className="text-sm font-bold text-foreground mb-1">{reason.title}</p>
+        <p className="text-xs text-muted-foreground leading-relaxed">{reason.body}</p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+          <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              핵심 근거
+            </p>
+            <p className="text-xs font-semibold mt-2 text-foreground">
+              {reason.evidence[0] ?? "-"}
+            </p>
+          </div>
+          <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              보조 근거
+            </p>
+            <p className="text-xs font-semibold mt-2 text-foreground">
+              {reason.evidence[1] ?? "-"}
+            </p>
+          </div>
+          <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+              신뢰도
+            </p>
+            <p className="text-xs font-semibold mt-2 text-foreground">{reason.confidence}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="surface-card h-[260px] flex flex-col shadow-sm border border-border/40 mb-5">
+        <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
+          <TrendingUp size={16} className="text-primary" />
+          순위 / 조회 추이
+        </h3>
+        <div className="flex-1">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={chartData}>
+              <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
+              <XAxis dataKey="date" tick={{ fontSize: 10 }} />
+              <YAxis
+                yAxisId="rank"
+                orientation="left"
+                reversed
+                width={30}
+                tick={{ fontSize: 10 }}
+                allowDecimals={false}
+              />
+              <YAxis
+                yAxisId="views"
+                orientation="right"
+                width={48}
+                tickFormatter={(v) => toKoreanUnit(Number(v))}
+                tick={{ fontSize: 10 }}
+              />
+              <Tooltip
+                contentStyle={{
+                  background: "rgba(18,26,43,0.96)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: 12,
+                  fontSize: 12,
+                }}
+                formatter={(value: any, name: any) => {
+                  if (name === "rank") return [`#${value}`, "순위"];
+                  return [toKoreanUnit(Number(value)), "조회"];
+                }}
+              />
+              <Line
+                yAxisId="rank"
+                type="monotone"
+                dataKey="rank"
+                stroke="#65A4FF"
+                strokeWidth={2.5}
+                dot={false}
+                connectNulls
+              />
+              <Line
+                yAxisId="views"
+                type="monotone"
+                dataKey="views"
+                stroke="#34D399"
+                strokeWidth={2.5}
+                dot={false}
+                connectNulls
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+        <div className="surface-card border border-border/40 p-4">
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+            <Megaphone size={16} className="text-amber-400" />
+            프로모션 / 소식
+          </h3>
+          <div className="space-y-2 text-xs">
+            <div className="flex justify-between gap-3">
+              <span className="text-muted-foreground">시간무/무료 유형</span>
+              <span className="font-semibold text-foreground">
+                {getTimeFreeLabel(novel) ?? "없음"}
+              </span>
+            </div>
+            <div className="flex justify-between gap-3">
+              <span className="text-muted-foreground">공지 수</span>
+              <span className="font-semibold text-foreground">
+                {novel.promotion?.notices?.length || 0}건
+              </span>
+            </div>
+            {novel.promotion?.notices?.slice(0, 2).map((notice, idx) => (
+              <div
+                key={`${notice.title}-${idx}`}
+                className="bg-surface-elevated border border-border/40 rounded-xl p-3"
+              >
+                <p className="font-semibold text-foreground line-clamp-1">{notice.title}</p>
+                <p className="text-muted-foreground mt-1 line-clamp-2">{notice.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="surface-card border border-border/40 p-4">
+          <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+            <ArrowUpRight size={16} className="text-emerald-400" />
+            경쟁작 비교
+          </h3>
+          <div className="space-y-2">
+            {competitors.length > 0 ? (
+              competitors.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => onSelectNovel(item)}
+                  className="w-full flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-surface-elevated transition-colors text-left"
+                >
+                  <NovelCover novel={item} size="sm" className="w-8 h-10 rounded" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-foreground truncate">{item.title}</p>
+                    <p className="text-[10px] text-muted-foreground">
+                      #{item.todayRank ?? "-"} · {item.genre}
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-mono font-bold text-primary">
+                    {(item.viewsChangePct || 0) >= 0 ? "+" : ""}
+                    {(item.viewsChangePct || 0).toFixed(1)}%
+                  </span>
+                </button>
+              ))
+            ) : (
+              <p className="text-xs text-muted-foreground">비교 가능한 경쟁작이 없어요.</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
+        <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+          <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+            <Eye size={12} />
+            오늘 조회
+          </div>
+          <p className="text-sm font-black mt-2">{formatViews(novel.platform, novel.todayViews)}</p>
+        </div>
+        <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+          <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+            <TrendingUp size={12} />
+            증감률
+          </div>
+          <p className="text-sm font-black mt-2">
+            {(novel.viewsChangePct || 0) >= 0 ? "+" : ""}
+            {(novel.viewsChangePct || 0).toFixed(1)}%
+          </p>
+        </div>
+        <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+          <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+            <MessageCircle size={12} />
+            댓글
+          </div>
+          <p className="text-sm font-black mt-2">
+            {Number(novel.commentCount || 0).toLocaleString("ko-KR")}
+          </p>
+        </div>
+        <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+          <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
+            <Star size={12} />
+            평점
+          </div>
+          <p className="text-sm font-black mt-2">{novel.rating?.toFixed?.(1) ?? novel.rating}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function OverviewPage() {
   const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
-  const { overallTop10, trendTop10, stats, platformData, genreStackedData } = useMemo(() => {
+  const {
+    overallTop10,
+    trendTop10,
+    publisherTop10,
+    newTop10,
+    stats,
+    platformData,
+    genreStackedData,
+    overviewInsights,
+  } = useMemo(() => {
     if (!sourceData || sourceData.length === 0) {
-      return { overallTop10: [], trendTop10: [], stats: { total: 0, new: 0, changed: 0, reEntry: 0 }, platformData: [], genreStackedData: [] };
+      return {
+        overallTop10: [] as Novel[],
+        trendTop10: [] as Novel[],
+        publisherTop10: [] as Novel[],
+        newTop10: [] as Novel[],
+        stats: { total: 0, new: 0, changed: 0, reEntry: 0 },
+        platformData: [] as { name: string; value: number; key: string }[],
+        genreStackedData: [] as any[],
+        overviewInsights: [] as InsightItem[],
+      };
     }
 
     const maxStats = getPlatformMaxStats(sourceData as UnifiedNovel[]);
@@ -37,131 +658,353 @@ export default function OverviewPage() {
       sourceData as UnifiedNovel[],
       maxStats.maxCommentsByPlatform,
       maxStats.maxDeltaByPlatform
-    );
+    ) as Novel[];
 
     const overall = [...enrichedData]
       .sort((a, b) => {
-        const scoreA = computeUnifiedScore(a, maxStats.maxViewsByPlatform, maxStats.maxCommentsByPlatform, maxStats.maxDeltaByPlatform);
-        const scoreB = computeUnifiedScore(b, maxStats.maxViewsByPlatform, maxStats.maxCommentsByPlatform, maxStats.maxDeltaByPlatform);
+        const scoreA = computeUnifiedScore(
+          a as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform
+        );
+        const scoreB = computeUnifiedScore(
+          b as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform
+        );
         return scoreB - scoreA;
       })
       .slice(0, 10);
 
     const trend = [...enrichedData]
       .sort((a, b) => {
-        const scoreA = computeTrendScore(a, maxStats.maxViewsByPlatform, maxStats.maxCommentsByPlatform, maxStats.maxDeltaByPlatform);
-        const scoreB = computeTrendScore(b, maxStats.maxViewsByPlatform, maxStats.maxCommentsByPlatform, maxStats.maxDeltaByPlatform);
+        const scoreA = computeTrendScore(
+          a as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform
+        );
+        const scoreB = computeTrendScore(
+          b as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform
+        );
         return scoreB - scoreA;
       })
       .slice(0, 10);
 
+    const newTop = [...enrichedData]
+      .filter((n) => n.isNew)
+      .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
+      .slice(0, 10);
+
+    const publisherMap = new Map<
+      string,
+      { count: number; trendHits: number; bestRank: number }
+    >();
+
+    enrichedData.forEach((n) => {
+      const key = n.publisher || "-";
+      const prev = publisherMap.get(key) || {
+        count: 0,
+        trendHits: 0,
+        bestRank: 999,
+      };
+      prev.count += 1;
+      if (trend.some((t) => t.id === n.id)) prev.trendHits += 1;
+      prev.bestRank = Math.min(prev.bestRank, n.todayRank ?? 999);
+      publisherMap.set(key, prev);
+    });
+
+    const publisherTop = [...enrichedData]
+      .sort((a, b) => {
+        const pa = publisherMap.get(a.publisher || "-");
+        const pb = publisherMap.get(b.publisher || "-");
+        const scoreA = (pa?.trendHits || 0) * 100 - (pa?.bestRank || 999);
+        const scoreB = (pb?.trendHits || 0) * 100 - (pb?.bestRank || 999);
+        return scoreB - scoreA;
+      })
+      .filter(
+        (novel, idx, arr) =>
+          arr.findIndex((n) => (n.publisher || "-") === (novel.publisher || "-")) === idx
+      )
+      .slice(0, 10);
+
     const total = sourceData.length;
-    const newCount = sourceData.filter(n => n.isNew).length;
-    const reEntryCount = sourceData.filter(n => n.isReEntry).length;
-    const changedCount = sourceData.filter(n => (n.rankChange || 0) !== 0).length;
+    const newCount = sourceData.filter((n) => n.isNew).length;
+    const reEntryCount = sourceData.filter((n) => n.isReEntry).length;
+    const changedCount = sourceData.filter((n) => (n.rankChange || 0) !== 0).length;
 
     const pMap: Record<string, number> = {};
-    sourceData.forEach(n => { pMap[n.platform] = (pMap[n.platform] || 0) + 1; });
-    const pData = Object.entries(pMap).map(([name, value]) => ({ name: name.toUpperCase(), value, key: name }));
+    sourceData.forEach((n) => {
+      pMap[n.platform] = (pMap[n.platform] || 0) + 1;
+    });
+    const pData = Object.entries(pMap).map(([name, value]) => ({
+      name: name.toUpperCase(),
+      value,
+      key: name,
+    }));
 
     const gMap: Record<string, any> = {};
-    sourceData.forEach(n => {
-      if (!gMap[n.genre]) gMap[n.genre] = { name: n.genre, naver: 0, kakao: 0, ridi: 0, total: 0 };
+    sourceData.forEach((n) => {
+      if (!gMap[n.genre]) {
+        gMap[n.genre] = { name: n.genre, naver: 0, kakao: 0, ridi: 0, total: 0 };
+      }
       gMap[n.genre][n.platform] += 1;
       gMap[n.genre].total += 1;
     });
-    const gData = Object.values(gMap).sort((a: any, b: any) => b.total - a.total).slice(0, 8);
+    const gData = Object.values(gMap)
+      .sort((a: any, b: any) => b.total - a.total)
+      .slice(0, 8);
 
-    return { 
-      overallTop10: overall, 
-      trendTop10: trend, 
+    const dominantPlatform =
+      Object.entries(pMap).sort((a, b) => b[1] - a[1])[0]?.[0] || "kakao";
+    const dominantGenre = gData[0]?.name || "기타";
+    const promoCount = sourceData.filter(
+      (n) => n.promotion?.timeFreeType && n.promotion.timeFreeType !== "none"
+    ).length;
+    const viralCount = sourceData.filter(
+      (n) => (n.viewsChangePct || 0) >= 20 && (!n.promotion || n.promotion.timeFreeType === "none")
+    ).length;
+    const leadingPublisher = publisherTop[0]?.publisher || "-";
+
+    const insights: InsightItem[] = [
+      {
+        title: "오늘의 인사이트",
+        body: `${dominantPlatform.toUpperCase()} 플랫폼과 ${dominantGenre} 장르가 오늘 시장 흐름을 주도하고 있어요.`,
+      },
+      {
+        title: "프로모션 관측",
+        body: `프로모션 또는 무료 이벤트가 감지된 작품이 ${promoCount}개로, 상위권 상승의 주요 원인으로 보여요.`,
+      },
+      {
+        title: "바이럴 관측",
+        body: `프로모션 없이 조회수 급등이 감지된 작품이 ${viralCount}개로, 후기 확산형 상승도 함께 보이고 있어요.`,
+      },
+      {
+        title: "출판사 포인트",
+        body: `${leadingPublisher}가 오늘 가장 강한 존재감을 보이며 출판사 탑 선두에 있어요.`,
+      },
+    ];
+
+    return {
+      overallTop10: overall,
+      trendTop10: trend,
+      publisherTop10: publisherTop,
+      newTop10: newTop,
       stats: { total, new: newCount, changed: changedCount, reEntry: reEntryCount },
       platformData: pData,
-      genreStackedData: gData
+      genreStackedData: gData,
+      overviewInsights: insights,
     };
   }, [sourceData]);
 
-  // sourceNovels: 경쟁작 비교용 전체 목록
   const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
+  const fixedDetailNovel = selectedNovel ?? trendTop10[0] ?? overallTop10[0] ?? null;
 
   if (isLoading) return <LoadingScreen />;
-  if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
+  if (error) {
+    return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
+  }
 
   return (
     <div className="space-y-8 animate-fade-in pb-12">
       <header className="flex justify-between items-end">
         <div>
-          <h1 className="text-2xl font-black tracking-tight text-foreground italic">MARKET OVERVIEW</h1>
-          <p className="text-sm text-muted-foreground mt-1 font-medium">{latestDate} 기준 실시간 통합 대시보드</p>
+          <h1 className="text-2xl font-black tracking-tight text-foreground italic">
+            MARKET OVERVIEW
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1 font-medium">
+            {latestDate} 기준 실시간 통합 대시보드
+          </p>
         </div>
       </header>
 
-      {/* 통계 요약 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <StatCard icon={<BookOpen size={18} />} label="분석 작품" value={`${stats.total}개`} color="text-blue-500" />
-        <StatCard icon={<Zap size={18} />} label="오늘의 신작" value={`${stats.new}개`} color="text-amber-500" />
-        <StatCard icon={<RefreshCw size={18} />} label="순위 변동" value={`${stats.changed}개`} color="text-emerald-500" />
-        <StatCard icon={<LogIn size={18} />} label="차트 재진입" value={`${stats.reEntry}개`} color="text-purple-500" />
+        <StatCard
+          icon={<BookOpen size={18} />}
+          label="분석 작품"
+          value={`${stats.total}개`}
+          color="text-blue-500"
+        />
+        <StatCard
+          icon={<Zap size={18} />}
+          label="오늘의 신작"
+          value={`${stats.new}개`}
+          color="text-amber-500"
+        />
+        <StatCard
+          icon={<RefreshCw size={18} />}
+          label="순위 변동"
+          value={`${stats.changed}개`}
+          color="text-emerald-500"
+        />
+        <StatCard
+          icon={<LogIn size={18} />}
+          label="차트 재진입"
+          value={`${stats.reEntry}개`}
+          color="text-purple-500"
+        />
       </div>
 
-      {/* 차트 섹션 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="surface-card h-[350px] flex flex-col shadow-sm border border-border/40">
-          <h3 className="text-sm font-bold mb-4 flex items-center gap-2">플랫폼별 작품 점유율</h3>
-          <div className="flex-1">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie data={platformData} innerRadius={70} outerRadius={90} paddingAngle={8} dataKey="value">
-                  {platformData.map((entry) => (
-                    <Cell key={entry.key} fill={PLATFORM_COLORS[entry.key]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend verticalAlign="bottom" iconType="circle" />
-              </PieChart>
-            </ResponsiveContainer>
+      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
+        <div className="surface-card border border-border/40 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles size={16} className="text-primary" />
+            <h3 className="text-sm font-bold">오늘의 인사이트 자동요약</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {overviewInsights.map((item) => (
+              <InsightCard key={item.title} item={item} />
+            ))}
           </div>
         </div>
 
-        <div className="surface-card h-[350px] flex flex-col shadow-sm border border-border/40">
-          <h3 className="text-sm font-bold mb-4 flex items-center gap-2">장르별 플랫폼 상세 분포</h3>
-          <div className="flex-1">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={genreStackedData} layout="vertical">
-                <XAxis type="number" hide />
-                <YAxis dataKey="name" type="category" width={70} tick={{ fontSize: 11, fontWeight: 'bold' }} />
-                <Tooltip cursor={{ fill: 'rgba(0,0,0,0.05)' }} />
-                <Legend verticalAlign="top" align="right" iconType="rect" />
-                <Bar dataKey="kakao" stackId="a" fill={PLATFORM_COLORS.kakao} name="카카오" />
-                <Bar dataKey="naver" stackId="a" fill={PLATFORM_COLORS.naver} name="네이버" />
-                <Bar dataKey="ridi" stackId="a" fill={PLATFORM_COLORS.ridi} name="리디" radius={[0, 4, 4, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+        <div className="surface-card border border-border/40 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp size={16} className="text-primary" />
+            <h3 className="text-sm font-bold">오버뷰 빠른요약</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                플랫폼 강세
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                {platformData[0]?.name ?? "-"} 중심
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                주도 장르
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                {genreStackedData[0]?.name ?? "-"}
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                출판사 포인트
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                {publisherTop10[0]?.publisher ?? "-"}
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                신작 반응
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                상위 {newTop10.length}작품 집계
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 랭킹 섹션 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <RankingBox 
-          title="종합 인기 TOP 10" 
+      {/* 차트 두 개를 한 카드로 묶음 */}
+      <div className="surface-card border border-border/40 shadow-sm">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
+              플랫폼별 작품 점유율
+            </h3>
+            <div className="h-[280px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={platformData}
+                    innerRadius={58}
+                    outerRadius={82}
+                    paddingAngle={8}
+                    dataKey="value"
+                  >
+                    {platformData.map((entry) => (
+                      <Cell key={entry.key} fill={PLATFORM_COLORS[entry.key] || "#94A3B8"} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" iconType="circle" />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
+              장르별 플랫폼 상세 분포
+            </h3>
+            <div className="h-[280px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={genreStackedData} layout="vertical">
+                  <CartesianGrid stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                  <XAxis type="number" hide />
+                  <YAxis
+                    dataKey="name"
+                    type="category"
+                    width={72}
+                    tick={{ fontSize: 11, fontWeight: "bold" }}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="naver" stackId="a" fill={PLATFORM_COLORS.naver} radius={[0, 0, 0, 0]} />
+                  <Bar dataKey="kakao" stackId="a" fill={PLATFORM_COLORS.kakao} radius={[0, 0, 0, 0]} />
+                  <Bar dataKey="ridi" stackId="a" fill={PLATFORM_COLORS.ridi} radius={[0, 6, 6, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* TOP10 4열 */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+        <RankingColumn
+          title="종합 인기 TOP 10"
           subtitle="체급 및 시장 점유율 기반 대작 랭킹"
-          icon={<Trophy className="text-amber-500" size={20} />} 
-          data={overallTop10} 
-          type="overall"
+          icon={<Trophy className="text-amber-500" size={20} />}
+          data={overallTop10}
+          mode="overall"
           onSelect={setSelectedNovel}
         />
-        <RankingBox 
-          title="실시간 트렌드 TOP 10" 
+        <RankingColumn
+          title="실시간 트렌드 TOP 10"
           subtitle="조회수 급증 및 화제성 중심 랭킹"
-          icon={<TrendingUp className="text-blue-500" size={20} />} 
-          data={trendTop10} 
-          type="trend"
+          icon={<TrendingUp className="text-blue-500" size={20} />}
+          data={trendTop10}
+          mode="trend"
+          onSelect={setSelectedNovel}
+        />
+        <RankingColumn
+          title="출판사 TOP 10"
+          subtitle="출판사 대표작 기준 존재감 랭킹"
+          icon={<Building2 className="text-violet-500" size={20} />}
+          data={publisherTop10}
+          mode="publisher"
+          onSelect={setSelectedNovel}
+        />
+        <RankingColumn
+          title="신작 TOP 10"
+          subtitle="초기 반응이 빠른 신작 랭킹"
+          icon={<Sparkles className="text-emerald-500" size={20} />}
+          data={newTop10}
+          mode="new"
           onSelect={setSelectedNovel}
         />
       </div>
 
-      {/* 상세 정보 Drawer — allNovels, latestDate, onSelectNovel 전달 */}
+      {fixedDetailNovel && (
+        <FixedDetailPanel
+          novel={fixedDetailNovel}
+          latestDate={latestDate}
+          allNovels={sourceNovels}
+          onSelectNovel={setSelectedNovel}
+        />
+      )}
+
       <NovelDetailDrawer
         novel={selectedNovel}
         onClose={() => setSelectedNovel(null)}
@@ -169,67 +1012,6 @@ export default function OverviewPage() {
         allNovels={sourceNovels}
         onSelectNovel={setSelectedNovel}
       />
-    </div>
-  );
-}
-
-function StatCard({ icon, label, value, color }: { icon: React.ReactNode, label: string, value: string, color: string }) {
-  return (
-    <div className="surface-card p-4 flex flex-col items-center gap-1 border border-border/40">
-      <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>{icon}</div>
-      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{label}</p>
-      <p className="text-xl font-black">{value}</p>
-    </div>
-  );
-}
-
-function RankingBox({ title, subtitle, icon, data, type, onSelect }: any) {
-  return (
-    <div className="surface-card border border-border/50 shadow-sm">
-      <div className="flex flex-col mb-6">
-        <div className="flex items-center gap-2">
-          {icon}
-          <h2 className="font-extrabold text-lg tracking-tight">{title}</h2>
-        </div>
-        <p className="text-[10px] text-muted-foreground mt-0.5 ml-7 font-medium uppercase">{subtitle}</p>
-      </div>
-
-      <div className="space-y-1">
-        {data.map((novel: any, idx: number) => (
-          <div 
-            key={novel.id} 
-            onClick={() => onSelect(novel)}
-            className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-surface-elevated cursor-pointer group transition-colors"
-          >
-            <span className={cn(
-              "w-5 text-center font-mono font-black text-sm", 
-              idx < 3 ? "text-primary" : "text-muted-foreground/30"
-            )}>
-              {idx + 1}
-            </span>
-            <NovelCover novel={novel} size="sm" className="rounded shadow-sm shrink-0 w-8 h-10" />
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-bold truncate group-hover:text-primary transition-colors">{novel.title}</h3>
-              <div className="flex items-center gap-2">
-                <PlatformBadge platform={novel.platform} size="sm" />
-                <span className="text-[10px] text-muted-foreground truncate">{novel.author}</span>
-              </div>
-            </div>
-            <div className="text-right shrink-0">
-              {type === 'overall' ? (
-                <div className="flex items-center gap-0.5 text-amber-500 font-mono text-xs font-bold">
-                  <Star size={10} fill="currentColor" /> {novel.rating.toFixed(1)}
-                </div>
-              ) : (
-                <div className={cn("text-xs font-mono font-black", (novel.viewsChangePct || 0) >= 0 ? "text-up" : "text-down")}>
-                  {(novel.viewsChangePct || 0) >= 0 ? '▲' : '▼'}{Math.abs(novel.viewsChangePct || 0).toFixed(1)}%
-                </div>
-              )}
-            </div>
-            <ChevronRight size={14} className="text-muted-foreground/20 group-hover:text-primary transition-colors" />
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
