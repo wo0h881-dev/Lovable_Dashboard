@@ -188,7 +188,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   })();
 
   return {
-    id: `${platform}-${row["제목"]}-${todayRank}`,
+    id: `${platform}-${row["제목"]}-${row["작가"]}`,
     title: row["제목"] || "(제목 없음)",
     author: row["작가"] || "-",
     genre: toUnifiedGenre(platform, row["장르"] || "기타"),
@@ -226,6 +226,42 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   };
 }
 
+function normalizeText(v: string | undefined | null) {
+  return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function buildStableKey(novel: Novel) {
+  return `${novel.platform}::${normalizeText(novel.title)}::${normalizeText(novel.author)}`;
+}
+
+function chooseBetterNovel(prev: Novel, next: Novel): Novel {
+  // rankHistory가 더 긴 쪽 우선
+  if ((next.rankHistory?.length || 0) > (prev.rankHistory?.length || 0)) return next;
+  // viewsHistory가 더 긴 쪽 우선
+  if ((next.viewsHistory?.length || 0) > (prev.viewsHistory?.length || 0)) return next;
+  // 조회수가 더 큰 쪽 우선
+  if ((next.todayViews || 0) > (prev.todayViews || 0)) return next;
+  return prev;
+}
+
+function dedupeNovels(novels: Novel[]) {
+  const map = new Map<string, Novel>();
+
+  for (const novel of novels) {
+    const key = buildStableKey(novel);
+    const prev = map.get(key);
+
+    if (!prev) {
+      map.set(key, novel);
+      continue;
+    }
+
+    map.set(key, chooseBetterNovel(prev, novel));
+  }
+
+  return Array.from(map.values());
+}
+
 
 // --- Hook ---
 export function useTodayCombined() {
@@ -250,7 +286,7 @@ export function useTodayCombined() {
         const promoMap = await fetchKakaoPromotionMap();
 
         // 🔹 Novel로 변환하면서 Kakao에만 promotion 주입
-        const novels = rows
+               const mappedNovels = rows
           .filter(r => r.날짜 === mostRecentDate)
           .map((row, idx) => {
             const n = mapRowToNovel(row, idx);
@@ -266,12 +302,23 @@ export function useTodayCombined() {
             return n;
           });
 
+        const novels = dedupeNovels(mappedNovels);
 
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map(n => ({
           ...n,
-          overallScore: computeUnifiedScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform),
-          trendScore: computeTrendScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform)
+          overallScore: computeUnifiedScore(
+            n as unknown as UnifiedNovel,
+            stats.maxViewsByPlatform,
+            stats.maxCommentsByPlatform,
+            stats.maxDeltaByPlatform
+          ),
+          trendScore: computeTrendScore(
+            n as unknown as UnifiedNovel,
+            stats.maxViewsByPlatform,
+            stats.maxCommentsByPlatform,
+            stats.maxDeltaByPlatform
+          )
         }));
 
         setData(scoredNovels);
