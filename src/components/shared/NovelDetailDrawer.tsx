@@ -248,9 +248,16 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
 
               {/* 핵심 지표 4개 */}
               <div className="grid grid-cols-2 gap-2">
-                {[
+                                {[
                   { label: novel.platform === "ridi" ? "오늘 평가수" : "오늘 조회수", value: formatViews(novel.platform, novel.todayViews), icon: TrendingUp, color: "text-emerald-500" },
-                  { label: "댓글 수", value: Number(novel.commentCount || 0).toLocaleString(), icon: MessageCircle, color: "text-sky-500" },
+                  {
+                    label: "댓글 수",
+                    value: Number(
+                      novel.platform === "ridi" ? novel.todayViews || 0 : novel.commentCount || 0
+                    ).toLocaleString(),
+                    icon: MessageCircle,
+                    color: "text-sky-500"
+                  },
                   { label: "총 회차", value: `${novel.episodeCount}화`, icon: BookOpen, color: "text-violet-500" },
                   { label: "연속 차트인", value: `${stats.currentStreakDays}일`, icon: Calendar, color: "text-orange-500" },
                 ].map((item) => (
