@@ -36,6 +36,26 @@ const LINE_COLORS = [
   "#facc15",
 ];
 
+//중복 안 뜨게 하는 함수
+function normalizeText(v: string | undefined | null) {
+  return String(v || "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+function dedupeByTitleAuthor<T extends { title: string; author: string }>(items: T[]) {
+  const map = new Map<string, T>();
+
+  for (const item of items) {
+    const key = `${normalizeText(item.title)}::${normalizeText(item.author)}`;
+    if (!map.has(key)) {
+      map.set(key, item);
+    }
+  }
+
+  return Array.from(map.values());
+}
+
+//
+
 function parseViewStr(v: string | number | null | undefined): number {
   if (v == null) return 0;
   if (typeof v === "number") return v;
@@ -603,8 +623,10 @@ export default function TrendsPage() {
   const activeSelected = selected.length > 0 ? selected : initialSelected;
 
   const results = query
-    ? novels.filter((n) => n.title.includes(query) || n.author.includes(query)).slice(0, 6)
-    : [];
+  ? dedupeByTitleAuthor(
+      novels.filter((n) => n.title.includes(query) || n.author.includes(query))
+    ).slice(0, 6)
+  : [];
 
   const addNovel = (n: Novel) => {
     if (activeSelected.find((s) => s.id === n.id)) return;
