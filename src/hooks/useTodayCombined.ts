@@ -231,7 +231,7 @@ function normalizeText(v: string | undefined | null) {
 }
 
 function buildStableKey(novel: Novel) {
-  return `${novel.platform}::${normalizeText(novel.title)}::${normalizeText(novel.author)}`;
+  return `${normalizeText(novel.title)}::${normalizeText(novel.author)}`;
 }
 
 function chooseBetterNovel(prev: Novel, next: Novel): Novel {
