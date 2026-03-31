@@ -425,24 +425,27 @@ export function useTodayCombined() {
 
         // Novel로 변환 + Kakao에만 기존 구조 그대로 프로모션 주입
         const novels: Novel[] = rows
-          .filter((r) => r.날짜 === mostRecentDate)
-          .map((row, idx) => {
-            const n = mapRowToNovel(row, idx);
+  .filter((r) => r.날짜 === mostRecentDate)
+  .map((row, idx) => {
+    console.log("🔥 row promotion 체크:", row["제목"], row.promotion);
 
-            // 카카오는 기존 구조 절대 변경하지 않고 그대로 유지
-            if (n.platform === "kakao") {
-              const key = `kakao::${n.title.trim()}`;
-              const promo = promoMap.get(key);
-              if (promo) {
-                n.promotion = {
-                  ...(n.promotion ?? {}),
-                  ...promo,
-                };
-              }
-            }
+    const n = mapRowToNovel(row, idx);
 
-            return n;
-          });
+    console.log("🔥 mapped promotion:", n.title, n.promotion);
+
+    if (n.platform === "kakao") {
+      const key = `kakao::${n.title.trim()}`;
+      const promo = promoMap.get(key);
+      if (promo) {
+        n.promotion = {
+          ...(n.promotion ?? {}),
+          ...promo,
+        };
+      }
+    }
+
+    return n;
+  });
 
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
