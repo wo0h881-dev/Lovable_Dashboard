@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X, TrendingUp, Star, MessageCircle, BookOpen, Calendar,
   Zap, ArrowUp, ArrowDown, Maximize2, Minimize2, Clock,
+  BookMarked,
 } from "lucide-react";
 import {
   ComposedChart, Line, Bar, XAxis, YAxis, Tooltip,
@@ -21,6 +22,51 @@ interface Props {
   latestDate?: string;
   allNovels?: Novel[];
   onSelectNovel?: (novel: Novel) => void;
+  onAddToGoals?: (novel: Novel) => void; // 독서목표 추가용
+}
+
+// ── 플랫폼별 프로모션 스타일 ─────────────────────────────
+function getPromoStyle(platform: string) {
+  if (platform === "naver") return {
+    sectionBg: "bg-naver/8",
+    bannerBg: "bg-naver/10",
+    barGradient: "from-naver to-naver/60",
+    iconColor: "text-naver",
+    titleColor: "text-naver dark:text-green-300",
+    badgeBg: "bg-naver/15",
+    badgeText: "text-naver",
+    badgeBorder: "border-naver/30",
+    promotionBg: "bg-red-500/15",
+    promotionText: "text-red-500",
+    promotionBorder: "border-red-500/25",
+  };
+  if (platform === "ridi") return {
+    sectionBg: "bg-ridi/8",
+    bannerBg: "bg-ridi/10",
+    barGradient: "from-ridi to-ridi/60",
+    iconColor: "text-ridi",
+    titleColor: "text-ridi dark:text-blue-300",
+    badgeBg: "bg-ridi/15",
+    badgeText: "text-ridi",
+    badgeBorder: "border-ridi/30",
+    promotionBg: "bg-red-500/15",
+    promotionText: "text-red-500",
+    promotionBorder: "border-red-500/25",
+  };
+  // kakao (default - 기존 그대로 유지)
+  return {
+    sectionBg: "bg-amber-500/8",
+    bannerBg: "bg-amber-500/10",
+    barGradient: "from-amber-400 to-orange-500",
+    iconColor: "text-amber-500",
+    titleColor: "text-amber-600 dark:text-amber-300",
+    badgeBg: "bg-amber-500/15",
+    badgeText: "text-amber-600",
+    badgeBorder: "border-amber-500/25",
+    promotionBg: "bg-red-500/15",
+    promotionText: "text-red-500",
+    promotionBorder: "border-red-500/25",
+  };
 }
 
 function SectionHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
@@ -75,9 +121,12 @@ function parseViewStr(v: string | number | null | undefined): number | null {
   return parseFloat(s.replace(/,/g, "")) || null;
 }
 
-export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], onSelectNovel }: Props) {
+export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], onSelectNovel, onAddToGoals }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const stats = useMemo(() => (novel ? computeNovelStats(novel) : null), [novel]);
+
+  // 플랫폼별 프로모션 스타일
+  const promoStyle = useMemo(() => getPromoStyle(novel?.platform ?? "kakao"), [novel?.platform]);
 
   const dedupedRankHistory = useMemo(() => {
     if (!novel?.rankHistory) return [];
@@ -163,6 +212,7 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
     return last ? last.rank !== null : true;
   }, [novel, dedupedRankHistory, latestDate]);
 
+  // PROMOTION 뱃지: 기다무/3다무 or 이벤트배너 있을 때만
   const hasPromotion =
     !!novel?.promotion &&
     ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
@@ -171,6 +221,13 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
   const timeFreeLabel =
     novel?.promotion?.timeFreeType === "threeHour" ? "3다무" :
     novel?.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
+
+  // 프로모션 섹션 표시 여부
+  const hasPromotionSection =
+    !!novel?.promotion &&
+    ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
+      (novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0) ||
+      (novel.promotion.notices && novel.promotion.notices.length > 0));
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
 
@@ -195,6 +252,17 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 <span className="text-xs font-bold text-muted-foreground tracking-wide">작품 분석 리포트</span>
               </div>
               <div className="flex items-center gap-1">
+                {/* 독서목표 추가 버튼 */}
+                {onAddToGoals && (
+                  <button
+                    onClick={() => onAddToGoals(novel)}
+                    className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+                    title="독서 목표에 추가"
+                  >
+                    <BookMarked size={12} />
+                    목표 추가
+                  </button>
+                )}
                 <button onClick={() => setIsExpanded((v) => !v)}
                   className="p-1.5 rounded-lg hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground"
                   title={isExpanded ? "축소" : "확장"}>
@@ -215,12 +283,12 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {hasPromotion && (
-                      <span className="bg-red-500/15 text-red-500 text-[10px] font-black px-1.5 py-0.5 rounded border border-red-500/25 inline-flex items-center gap-1">
+                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.promotionBg} ${promoStyle.promotionText} ${promoStyle.promotionBorder}`}>
                         <Zap size={9} />PROMOTION
                       </span>
                     )}
                     {timeFreeLabel && (
-                      <span className="bg-amber-500/15 text-amber-600 text-[10px] font-black px-1.5 py-0.5 rounded border border-amber-500/25 inline-flex items-center gap-1">
+                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.badgeBg} ${promoStyle.badgeText} ${promoStyle.badgeBorder}`}>
                         <Clock size={9} />{timeFreeLabel}
                       </span>
                     )}
@@ -248,16 +316,9 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
 
               {/* 핵심 지표 4개 */}
               <div className="grid grid-cols-2 gap-2">
-                                {[
+                {[
                   { label: novel.platform === "ridi" ? "오늘 평가수" : "오늘 조회수", value: formatViews(novel.platform, novel.todayViews), icon: TrendingUp, color: "text-emerald-500" },
-                  {
-                    label: "댓글 수",
-                    value: Number(
-                      novel.platform === "ridi" ? novel.todayViews || 0 : novel.commentCount || 0
-                    ).toLocaleString(),
-                    icon: MessageCircle,
-                    color: "text-sky-500"
-                  },
+                  { label: "댓글 수", value: Number(novel.platform === "ridi" ? 0 : novel.commentCount || 0).toLocaleString(), icon: MessageCircle, color: "text-sky-500" },
                   { label: "총 회차", value: `${novel.episodeCount}화`, icon: BookOpen, color: "text-violet-500" },
                   { label: "연속 차트인", value: `${stats.currentStreakDays}일`, icon: Calendar, color: "text-orange-500" },
                 ].map((item) => (
@@ -303,47 +364,52 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 </div>
               )}
 
-              {/* 프로모션/소식 */}
-              {novel.promotion &&
-                ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
-                  (novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0) ||
-                  (novel.promotion.notices && novel.promotion.notices.length > 0)) && (
+              {/* ── 프로모션/소식 (플랫폼별 색상 적용) ── */}
+              {hasPromotionSection && (
                 <div className="space-y-3">
                   <SectionHeader icon={Zap} label="프로모션 / 소식" />
-                  <div className="rounded-xl overflow-hidden border border-border space-y-px bg-surface-elevated">
+                  <div className={`rounded-xl overflow-hidden border border-border space-y-px ${promoStyle.sectionBg}`}>
+
+                    {/* 기다무/3다무 배너 */}
                     {timeFreeLabel && (
-                      <div className="relative overflow-hidden bg-amber-500/10 px-4 py-3 flex items-center gap-3 border-b border-border">
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 to-yellow-500" />
-                        <Clock size={14} className="text-amber-500 shrink-0 ml-1" />
+                      <div className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border`}>
+                        <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
+                        <Clock size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
                         <div className="flex-1">
-                          <p className="text-xs font-extrabold text-amber-600 dark:text-amber-300">
+                          <p className={`text-xs font-extrabold ${promoStyle.titleColor}`}>
                             {timeFreeLabel === "기다무" ? "기다리면 무료 (기다무)" : "3시간마다 무료 (3다무)"}
                           </p>
                           <p className="text-[11px] text-muted-foreground mt-0.5">무료 연재 혜택 적용 중</p>
                         </div>
                       </div>
                     )}
-                    {novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0 && (
+
+                    {/* 이벤트 배너 */}
+                    {novel.promotion?.eventBanners && novel.promotion.eventBanners.length > 0 && (
                       <div className="space-y-px">
                         {novel.promotion.eventBanners.map((b, i) => (
-                          <div key={i} className="relative overflow-hidden bg-amber-500/10 px-4 py-3 flex items-center gap-3 border-b border-border last:border-0">
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 to-orange-500" />
-                            <Zap size={14} className="text-amber-500 shrink-0 ml-1" />
+                          <div key={i} className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}>
+                            <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
+                            <Zap size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
                             <div className="flex-1 min-w-0">
-                              <p className="text-xs font-extrabold text-amber-600 dark:text-amber-300 leading-tight">{b.title}</p>
+                              <p className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}>{b.title}</p>
                               {b.subtitle && <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{b.subtitle}</p>}
                             </div>
                           </div>
                         ))}
                       </div>
                     )}
-                    {novel.promotion.notices && novel.promotion.notices.length > 0 && (
+
+                    {/* 공지 리스트 */}
+                    {novel.promotion?.notices && novel.promotion.notices.length > 0 && (
                       <div className="max-h-44 overflow-y-auto divide-y divide-border">
                         {novel.promotion.notices.map((notice, idx) => (
                           <div key={idx} className="px-4 py-3 hover:bg-surface transition-colors">
                             <p className="text-xs font-bold text-foreground leading-snug">{notice.body || notice.title}</p>
                             <div className="flex items-center gap-2 mt-1.5">
-                              <span className="text-[10px] font-semibold text-muted-foreground bg-surface px-1.5 py-0.5 rounded">{notice.title}</span>
+                              <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}>
+                                {notice.title}
+                              </span>
                               {notice.date && <span className="text-[10px] text-muted-foreground">{notice.date}</span>}
                             </div>
                           </div>
