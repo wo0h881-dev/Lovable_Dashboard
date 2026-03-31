@@ -30,6 +30,36 @@ async function fetchKakaoPromotionMap() {
   return map;
 }
 
+type PromotionPayload = {
+  date: string;
+  platform: Platform;
+  items: { title: string; promotion: PromotionInfo }[];
+};
+
+const PROMO_API_KAKAO = "/api/promotions/kakao-today";
+const PROMO_API_NAVER = "/api/promotions/naver-today";
+const PROMO_API_RIDI = "/api/promotions/ridi-today";
+
+async function fetchPromotionMap(
+  url: string,
+  platform: Platform,
+): Promise<Map<string, PromotionInfo>> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`${platform} promotion fetch failed: ${res.status}`);
+  }
+
+  const json = (await res.json()) as PromotionPayload;
+  const map = new Map<string, PromotionInfo>();
+
+  for (const item of json.items ?? []) {
+    const key = `${platform}::${item.title.trim()}`;
+    map.set(key, item.promotion);
+  }
+
+  return map;
+}
+
 interface TodayCombinedRow {
   출처: string;
   오늘순위: number | string;
@@ -420,8 +450,11 @@ export function useTodayCombined() {
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        // Kakao 프로모션 맵 가져오기
-        const promoMap = await fetchKakaoPromotionMap();
+        const [kakaoPromoMap, naverPromoMap, ridiPromoMap] = await Promise.all([
+  fetchPromotionMap(PROMO_API_KAKAO, "kakao"),
+  fetchPromotionMap(PROMO_API_NAVER, "naver"),
+  fetchPromotionMap(PROMO_API_RIDI, "ridi"),
+]);
 
         // Novel로 변환 + Kakao에만 기존 구조 그대로 프로모션 주입
         const novels: Novel[] = rows
@@ -433,15 +466,21 @@ export function useTodayCombined() {
 
     console.log("🔥 mapped promotion:", n.title, n.promotion);
 
-    if (n.platform === "kakao") {
-      const key = `kakao::${n.title.trim()}`;
-      const promo = promoMap.get(key);
-      if (promo) {
-        n.promotion = {
-          ...(n.promotion ?? {}),
-          ...promo,
-        };
-      }
+    const key = `${n.platform}::${n.title.trim()}`;
+
+const promo =
+  n.platform === "kakao"
+    ? kakaoPromoMap.get(key)
+    : n.platform === "naver"
+      ? naverPromoMap.get(key)
+      : ridiPromoMap.get(key);
+
+if (promo) {
+  n.promotion = {
+    ...(n.promotion ?? {}),
+    ...promo,
+  };
+}
     }
 
     return n;
