@@ -1,4 +1,4 @@
-import naverData from "../../../public/data/naver-promotions-today.json";
+import ridiData from "../../../public/data/ridi-promotions-today.json";
 import type { PromotionInfo } from "src/data/mockData";
 
 type RawPromotion = {
@@ -8,11 +8,13 @@ type RawPromotion = {
   daysLeft?: number | null;
   eventBanners?: { title: string; subtitle: string }[];
   notices?: { label?: string; title?: string; body?: string; date?: string }[];
+  ridiWaitFree?: boolean;
+  ridiFreeLabel?: string | null;
 };
 
 type RawPayload = {
   date: string;
-  platform: "naver";
+  platform: "ridi";
   items: {
     title: string;
     promotion?: RawPromotion | null;
@@ -34,15 +36,17 @@ function normalizePromotion(raw: RawPromotion | null | undefined): PromotionInfo
         body: n.body || n.title || "",
         date: n.date,
       })) ?? [],
+    ridiWaitFree: raw.ridiWaitFree ?? false,
+    ridiFreeLabel: raw.ridiFreeLabel ?? null,
   };
 }
 
 export const onRequestGet: PagesFunction = async () => {
-  const source = naverData as RawPayload;
+  const source = ridiData as RawPayload;
 
   const normalized = {
     date: source.date,
-    platform: "naver" as const,
+    platform: "ridi" as const,
     items: (source.items ?? [])
       .filter((item) => item?.title && item?.promotion)
       .map((item) => ({
