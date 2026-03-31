@@ -977,10 +977,13 @@ export default function TrendsPage() {
                       </div>
                     </div>
                     <div>
-                      <span className="text-muted-foreground">연속 진입</span>
-                      <div className="font-mono font-bold">{stats.consecutiveDays}일</div>
-                    </div>
-                    <div>
+                     <span className="text-muted-foreground">연속 진입</span>
+                {/* ✅ useTodayCombined에서 계산해 온 값을 우선 사용 */}
+                <div className="font-mono font-bold">
+                  {(n.consecutiveDays ?? stats.consecutiveDays ?? 0)}일
+                </div>
+              </div>
+              <div>
                       <span className="text-muted-foreground">최고 순위</span>
                       <div className="font-mono font-bold">
                         {typeof stats.peakRank === "number" ? `#${stats.peakRank}` : "-"}
