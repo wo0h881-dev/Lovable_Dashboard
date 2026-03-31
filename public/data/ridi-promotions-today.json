@@ -1,1 +1,630 @@
-
+{
+  "date": "2026-03-31",
+  "platform": "ridi",
+  "items": [
+    {
+      "title": "닉몰",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "인투 더 섀도우(Into the shadow)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "유유상종",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "졸업은 해야지",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "류안",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "닉몰",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "조폭 아저씨 (삽화본)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "Gray",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "나의 품에서 꽃이 되길",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "네 번째 남편",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "진흙 속에 피는 연꽃",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "백련가약(白蓮佳約)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 15화 무료",
+        "freeEpisodes": 15,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "15화 무료"
+      }
+    },
+    {
+      "title": "죽여주는 영애님",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "너희들의 것",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "옆에 있는 죄",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "아네트",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "물에 빠진 한량을 주웠을 뿐인데요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "디어 마이 매드 허니(Dear My Mad Honey)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "그땐 버려도 되는 줄 알았다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "흠결 없는 불행",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "황금 악마",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "상수리나무 아래",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 6화 무료",
+        "freeEpisodes": 6,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "6화 무료"
+      }
+    },
+    {
+      "title": "괴괴한 마물 남편",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "저택에서 하는 술래잡기",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "은행원도 용꿈을 꾸나요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "은행원도 용꿈을 꾸나요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "명문고 EX급 조연의 리플레이",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "Up 22화 무료",
+        "freeEpisodes": 22,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": false,
+        "ridiFreeLabel": "22화 무료"
+      }
+    },
+    {
+      "title": "백작가의 망나니가 되었다",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": false,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "금손 아빠가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "내 눈에만 범인이 보임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "이 소설은 내 소설이 아니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "악역 소장은 육아 중!",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "내 무협 주인공이 나를 싫어한다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "데뷔부터 바로잡는 밴드생활",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "검은머리 흙수저 미국에서 살아남기",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "고려에서 치트 없이 문명합니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료"
+      }
+    },
+    {
+      "title": "범람의 흔적",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "풀칠 ; 내 가이드 입에 풀칠하기",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "디플라워 미 이프 유 캔(Deflower Me If You Can)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "<길에 꽃 심는 노인>",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "황제의 총애",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "<조연을 위한 회귀 지침서가 너무 많음>",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 4화 무료",
+        "freeEpisodes": 4,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "4화 무료"
+      }
+    },
+    {
+      "title": "내려앉은 밤",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "착각으로 구원하라",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "킵 고잉 크레이지 (Keep Going Crazy)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "버림받은 가이드는 꿀 빱니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "짭성자도 쓸모가 있다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    },
+    {
+      "title": "순서가 이게 맞냐?",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료"
+      }
+    }
+  ]
+}
