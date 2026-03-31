@@ -29,6 +29,7 @@ import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
 import { type Novel } from "@/data/mockData";
+import { computeNovelStats } from "@/lib/novelStats";
 
 const LINE_COLORS = ["#22c55e", "#3b82f6", "#facc15"];
 
@@ -951,55 +952,58 @@ export default function TrendsPage() {
       </div>
 
       {activeSelected.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {activeSelected.map((n, i) => {
-            const stats = getNovelTrendStats(n, latestDate);
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+    {activeSelected.map((n, i) => {
+      const stats = getNovelTrendStats(n, latestDate);
+      const detailStats = computeNovelStats(n); // ✅ 모달과 동일한 계산
 
-            return (
-              <div
-                key={n.id}
-                className="kpi-card border-l-2 hover:shadow-lg transition-shadow"
-                style={{ borderLeftColor: LINE_COLORS[i] }}
-              >
-                <button onClick={() => setPanelNovel(n)} className="w-full text-left">
-                  <div className="flex items-center gap-2 mb-3">
-                    <NovelCover novel={n} size="sm" />
-                    <div className="min-w-0">
-                      <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
-                      <PlatformBadge platform={n.platform} />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <span className="text-muted-foreground">오늘 순위</span>
-                      <div className="font-mono font-bold">
-                        {typeof stats.latestRank === "number" ? `#${stats.latestRank}` : "-"}
-                      </div>
-                    </div>
-                    <div>
-                     <span className="text-muted-foreground">연속 진입</span>
-                {/* ✅ useTodayCombined에서 계산해 온 값을 우선 사용 */}
+      return (
+        <div
+          key={n.id}
+          className="kpi-card border-l-2 hover:shadow-lg transition-shadow"
+          style={{ borderLeftColor: LINE_COLORS[i] }}
+        >
+          <button onClick={() => setPanelNovel(n)} className="w-full text-left">
+            <div className="flex items-center gap-2 mb-3">
+              <NovelCover novel={n} size="sm" />
+              <div className="min-w-0">
+                <div className="text-xs font-semibold line-clamp-2">{n.title}</div>
+                <PlatformBadge platform={n.platform} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span className="text-muted-foreground">오늘 순위</span>
                 <div className="font-mono font-bold">
-                  {(n.consecutiveDays ?? stats.consecutiveDays ?? 0)}일
+                  {typeof stats.latestRank === "number" ? `#${stats.latestRank}` : "-"}
                 </div>
               </div>
               <div>
-                      <span className="text-muted-foreground">최고 순위</span>
-                      <div className="font-mono font-bold">
-                        {typeof stats.peakRank === "number" ? `#${stats.peakRank}` : "-"}
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-muted-foreground">첫 등장</span>
-                      <div className="font-mono font-bold text-[10px]">{stats.firstAppeared}</div>
-                    </div>
-                  </div>
-                </button>
+                <span className="text-muted-foreground">연속 진입</span>
+                {/* ✅ 모달과 동일한 currentStreakDays 사용 */}
+                <div className="font-mono font-bold">
+                  {detailStats.currentStreakDays}일
+                </div>
               </div>
-            );
-          })}
+              <div>
+                <span className="text-muted-foreground">최고 순위</span>
+                <div className="font-mono font-bold">
+                  {typeof stats.peakRank === "number" ? `#${stats.peakRank}` : "-"}
+                </div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">첫 등장</span>
+                <div className="font-mono font-bold text-[10px]">
+                  {stats.firstAppeared}
+                </div>
+              </div>
+            </div>
+          </button>
         </div>
-      )}
+      );
+    })}
+  </div>
+)}
 
       {fixedDetailNovel && (
         <FixedTrendDetailPanel
