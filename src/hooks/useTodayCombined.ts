@@ -1,21 +1,17 @@
 // src/hooks/useTodayCombined.ts
 import { useEffect, useState } from "react";
-import type { Novel, Platform, Genre } from "@/data/mockData";
-import { 
-  getPlatformMaxStats, 
-  computeUnifiedScore, 
+import type { Novel, Platform, Genre, PromotionInfo } from "@/data/mockData";
+import {
+  getPlatformMaxStats,
+  computeUnifiedScore,
   computeTrendScore,
-  type UnifiedNovel 
+  type UnifiedNovel,
 } from "@/lib/rankingScore";
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
 const PROMO_API_KAKAO = "/api/promotions/kakao-today";
 
-type PromotionInfo = {
-  timeFreeType: "none" | "waitFree" | "threeHour";
-  notices: { title: string; body: string; date?: string | null }[];
-};
-
+// Kakao 전용 프로모션 페이로드 타입 (시트 → API 서버에서 내려주는 구조)
 type KakaoPromotionPayload = {
   date: string;
   platform: "kakao";
@@ -33,7 +29,6 @@ async function fetchKakaoPromotionMap() {
   }
   return map;
 }
-
 
 interface TodayCombinedRow {
   출처: string;
@@ -53,7 +48,10 @@ interface TodayCombinedRow {
   평점?: string | number;
   댓글수?: string | number;
   총회차수?: string | number;
+
+  // 시트에 이미 프로모션 컬럼을 넣어 두었다면 여기에 들어옴
   promotion?: PromotionInfo;
+
   [key: string]: any;
 }
 
@@ -62,14 +60,24 @@ export interface ScoredNovel extends Novel {
   trendScore: number;
 }
 
-// --- 장르 통합 함수 (이게 빠져서 이상해졌던 거예요!) ---
+// --- 장르 통합 함수 ---
 function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
   const raw = (rawGenre || "").trim();
-  
+
   // 1. 네이버/카카오는 이미 정제되어 있음
   if (platform === "naver" || platform === "kakao") {
-    const validGenres = ["현판", "로판", "로맨스", "판타지", "무협", "BL", "기타"];
-    return validGenres.includes(raw) ? (raw as Genre) : "기타";
+    const validGenres: Genre[] = [
+      "현판",
+      "로판",
+      "로맨스",
+      "판타지",
+      "무협",
+      "BL",
+      "현대물",
+      "역사/시대물",
+      "기타",
+    ];
+    return validGenres.includes(raw as Genre) ? (raw as Genre) : "기타";
   }
 
   // 2. 리디북스의 상세 장르를 통합 장르로 매핑
@@ -82,7 +90,7 @@ function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
   if (raw.includes("현대 판타지") || raw.includes("현판")) return "현판";
   if (raw.includes("퓨전 판타지") || raw.includes("판타지")) return "판타지";
   if (raw.includes("무협")) return "무협";
-  
+
   return "기타";
 }
 
@@ -109,24 +117,46 @@ function parseViewsToNumber(v: string | number): number {
   }
   if (total > 0) return total;
 
-  if (s.endsWith("억")) return (parseFloat(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
-  if (s.endsWith("만")) return (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
+  if (s.endsWith("억"))
+    return (
+      (parseFloat(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000
+    );
+  if (s.endsWith("만"))
+    return (
+      (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000
+    );
   return parseFloat(s.replace(/,/g, "")) || 0;
 }
 
 function parseCommentCount(raw: any): number {
   const s = String(raw || "").trim();
-  if (s.endsWith("만")) return Math.round((parseFloat(s.replace("만", "")) || 0) * 10_000);
+  if (s.endsWith("만"))
+    return Math.round(
+      (parseFloat(s.replace("만", "")) || 0) * 10_000,
+    );
   return parseInt(s.replace(/,/g, ""), 10) || 0;
 }
 
 function parseRankChange(label: string) {
   const s = (label || "").trim();
-  if (s === "NEW") return { rankChange: null, isNew: true, isReEntry: false };
-  if (s === "재진입") return { rankChange: null, isNew: false, isReEntry: true };
-  if (s === "유지") return { rankChange: 0, isNew: false, isReEntry: false };
-  if (s.startsWith("▲")) return { rankChange: parseInt(s.replace("▲", ""), 10) || null, isNew: false, isReEntry: false };
-  if (s.startsWith("▼")) return { rankChange: -(parseInt(s.replace("▼", ""), 10) || 0), isNew: false, isReEntry: false };
+  if (s === "NEW")
+    return { rankChange: null, isNew: true, isReEntry: false };
+  if (s === "재진입")
+    return { rankChange: null, isNew: false, isReEntry: true };
+  if (s === "유지")
+    return { rankChange: 0, isNew: false, isReEntry: false };
+  if (s.startsWith("▲"))
+    return {
+      rankChange: parseInt(s.replace("▲", ""), 10) || null,
+      isNew: false,
+      isReEntry: false,
+    };
+  if (s.startsWith("▼"))
+    return {
+      rankChange: -(parseInt(s.replace("▼", ""), 10) || 0),
+      isNew: false,
+      isReEntry: false,
+    };
   return { rankChange: null, isNew: false, isReEntry: false };
 }
 
@@ -139,22 +169,39 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const todayViewsNumber = parseViewsToNumber(row["오늘조회수"]);
   const prevViewsNumber = parseViewsToNumber(row["전일조회수"]);
 
-  const rawRankHistory = ((row["rankHistory"] ?? []) as { date: string; rank: number | null }[])
+  const rawRankHistory = ((row["rankHistory"] ?? []) as {
+    date: string;
+    rank: number | null;
+  }[])
     .filter((r) => r?.date)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .sort(
+      (a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 
-  const rawViewsHistory = ((row["viewsHistory"] ?? []) as { date: string; views: string | number }[])
+  const rawViewsHistory = ((row["viewsHistory"] ?? []) as {
+    date: string;
+    views: string | number;
+  }[])
     .filter((v) => v?.date)
     .map((v) => ({
       date: v.date,
       views: parseViewsToNumber(String(v.views)),
     }))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .sort(
+      (a, b) =>
+        new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
 
   const rankHistory =
     rawRankHistory.length > 0
       ? rawRankHistory
-      : [{ date: row["날짜"] || "", rank: typeof todayRank === "number" ? todayRank : null }];
+      : [
+          {
+            date: row["날짜"] || "",
+            rank: typeof todayRank === "number" ? todayRank : null,
+          },
+        ];
 
   const viewsHistory =
     rawViewsHistory.length > 0
@@ -169,7 +216,8 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
 
   const consecutiveDays = (() => {
     const sortedDesc = [...rankHistory].sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      (a, b) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
     let count = 0;
     for (const h of sortedDesc) {
@@ -182,7 +230,10 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const peakRank = (() => {
     const ranks = rankHistory
       .map((h) => h.rank)
-      .filter((r): r is number => typeof r === "number" && r > 0);
+      .filter(
+        (r): r is number =>
+          typeof r === "number" && r > 0,
+      );
     if (ranks.length === 0) return todayRank;
     return Math.min(...ranks);
   })();
@@ -194,19 +245,32 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     genre: toUnifiedGenre(platform, row["장르"] || "기타"),
     publisher: row["출판사"] || "-",
     platform,
-    thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : undefined,
+    thumbnailUrl:
+      row["썸네일"] && row["썸네일"] !== "-"
+        ? row["썸네일"]
+        : undefined,
     todayRank,
-    prevRank: row["전일순위"] === "NEW" ? null : parseInt(String(row["전일순위"])),
+    prevRank:
+      row["전일순위"] === "NEW"
+        ? null
+        : parseInt(String(row["전일순위"])),
     rankChange,
     isNew,
     isReEntry,
     todayViews: todayViewsNumber,
     viewsChange: todayViewsNumber - prevViewsNumber,
     viewsChangePct:
-      prevViewsNumber > 0 ? ((todayViewsNumber - prevViewsNumber) / prevViewsNumber) * 100 : 0,
+      prevViewsNumber > 0
+        ? ((todayViewsNumber - prevViewsNumber) /
+            prevViewsNumber) *
+          100
+        : 0,
     rating: parseFloat(String(row["평점"])) || 0,
     commentCount: parseCommentCount(row["댓글수"]),
-    episodeCount: parseInt(String(row["총회차수"]).match(/\d+/)?.[0] || "0", 10),
+    episodeCount: parseInt(
+      String(row["총회차수"]).match(/\d+/)?.[0] || "0",
+      10,
+    ),
     firstAppeared,
     coverGradient:
       platform === "naver"
@@ -214,18 +278,26 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
         : platform === "kakao"
           ? "from-amber-900 to-orange-700"
           : "from-blue-900 to-indigo-700",
-    coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
+    coverEmoji:
+      platform === "naver"
+        ? "📗"
+        : platform === "kakao"
+          ? "💛"
+          : "📘",
     rankHistory,
     viewsHistory,
     consecutiveDays,
     peakRank,
+
+    // 시트에 직결된 promotion (있으면 그대로, 없으면 undefined)
     promotion: row.promotion,
+
+    // 책장 기본값
     status: "none",
-    readingGoal: 0,
     currentEpisode: 0,
+    readingGoalDays: 0,
   };
 }
-
 
 // --- Hook ---
 export function useTodayCombined() {
@@ -237,21 +309,32 @@ export function useTodayCombined() {
   useEffect(() => {
     async function load() {
       try {
-        if (!APPS_SCRIPT_URL) throw new Error("VITE_APPS_SCRIPT_URL 미설정");
-        const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-              const rows = (await res.json()) as TodayCombinedRow[];
-        if (!rows || rows.length === 0) { setData([]); return; }
+        if (!APPS_SCRIPT_URL)
+          throw new Error("VITE_APPS_SCRIPT_URL 미설정");
 
-        const dates = rows.map(r => r.날짜).filter(Boolean).sort().reverse();
+        const res = await fetch(
+          `${APPS_SCRIPT_URL}?action=getTodayCombined`,
+        );
+        const rows = (await res.json()) as TodayCombinedRow[];
+        if (!rows || rows.length === 0) {
+          setData([]);
+          return;
+        }
+
+        const dates = rows
+          .map((r) => r.날짜)
+          .filter(Boolean)
+          .sort()
+          .reverse();
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        // 🔹 Kakao 프로모션 맵 가져오기
+        // Kakao 프로모션 맵 가져오기
         const promoMap = await fetchKakaoPromotionMap();
 
-        // 🔹 Novel로 변환하면서 Kakao에만 promotion 주입
-        const novels = rows
-          .filter(r => r.날짜 === mostRecentDate)
+        // Novel로 변환 + Kakao에만 프로모션 주입
+        const novels: Novel[] = rows
+          .filter((r) => r.날짜 === mostRecentDate)
           .map((row, idx) => {
             const n = mapRowToNovel(row, idx);
 
@@ -259,19 +342,33 @@ export function useTodayCombined() {
               const key = `kakao::${n.title.trim()}`;
               const promo = promoMap.get(key);
               if (promo) {
-                n.promotion = promo;
+                n.promotion = {
+                  ...(n.promotion ?? {}),
+                  ...promo,
+                };
               }
             }
 
             return n;
           });
 
-
-        const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
-        const scoredNovels: ScoredNovel[] = novels.map(n => ({
+        const stats = getPlatformMaxStats(
+          novels as unknown as UnifiedNovel[],
+        );
+        const scoredNovels: ScoredNovel[] = novels.map((n) => ({
           ...n,
-          overallScore: computeUnifiedScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform),
-          trendScore: computeTrendScore(n as unknown as UnifiedNovel, stats.maxViewsByPlatform, stats.maxCommentsByPlatform, stats.maxDeltaByPlatform)
+          overallScore: computeUnifiedScore(
+            n as unknown as UnifiedNovel,
+            stats.maxViewsByPlatform,
+            stats.maxCommentsByPlatform,
+            stats.maxDeltaByPlatform,
+          ),
+          trendScore: computeTrendScore(
+            n as unknown as UnifiedNovel,
+            stats.maxViewsByPlatform,
+            stats.maxCommentsByPlatform,
+            stats.maxDeltaByPlatform,
+          ),
         }));
 
         setData(scoredNovels);
@@ -281,6 +378,7 @@ export function useTodayCombined() {
         setIsLoading(false);
       }
     }
+
     load();
   }, []);
 
