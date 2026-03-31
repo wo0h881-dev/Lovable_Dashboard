@@ -278,11 +278,16 @@ function normalizeViewsHistory(novel: Novel, latestDate: string) {
 
 function getNovelTrendStats(novel: Novel, latestDate: string) {
   const rankHistory = normalizeRankHistory(novel, latestDate);
+
   const latestRank =
-    [...rankHistory].reverse().find((r) => r.rank !== null)?.rank ?? novel.todayRank ?? null;
+    [...rankHistory].reverse().find((r) => r.rank !== null)?.rank ??
+    novel.todayRank ??
+    null;
 
   const firstAppeared =
-    rankHistory.find((r) => r.rank !== null)?.date || novel.firstAppeared || latestDate;
+    rankHistory.find((r) => r.rank !== null)?.date ||
+    novel.firstAppeared ||
+    latestDate;
 
   const peakRank = (() => {
     const ranks = rankHistory
@@ -292,17 +297,27 @@ function getNovelTrendStats(novel: Novel, latestDate: string) {
     return Math.min(...ranks);
   })();
 
-  const consecutiveDays = (() => {
+  // 기존 계산 로직
+  const calculatedConsecutive = (() => {
     const sortedDesc = [...rankHistory].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
     let count = 0;
     for (const h of sortedDesc) {
-      if (h.rank !== null) count++;
-      else break;
+      if (h.rank !== null && typeof h.rank === "number" && h.rank > 0) {
+        count++;
+      } else {
+        break;
+      }
     }
     return count;
   })();
+
+  // ✅ useTodayCombined / computeNovelStats 에서 이미 계산해둔 값을 우선 사용
+  const consecutiveDays =
+    (novel.consecutiveDays ?? 0) > 0
+      ? (novel.consecutiveDays as number)
+      : calculatedConsecutive;
 
   return {
     latestRank,
