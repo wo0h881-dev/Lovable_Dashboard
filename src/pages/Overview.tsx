@@ -434,37 +434,65 @@ export default function OverviewPage() {
       .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
       .slice(0, 10);
 
-    const publisherMap = new Map<
-      string,
-      { count: number; trendHits: number; bestRank: number }
-    >();
+    type PublisherStats = {
+  count: number;          // 작품 수
+  totalViews: number;     // 총 조회수
+  bestRank: number;       // 최고 순위 (작을수록 좋음)
+  sumRank: number;        // 순위 합 (avgRank 계산용)
+  top5Count: number;      // 오늘 순위 5위 이내 작품 수
+  trendHits: number;      // 트렌드 TOP10 진입 수
+};
 
-    enrichedData.forEach((n) => {
-      const key = n.publisher || "-";
-      const prev = publisherMap.get(key) || {
-        count: 0,
-        trendHits: 0,
-        bestRank: 999,
-      };
-      prev.count += 1;
-      if (trend.some((t) => t.id === n.id)) prev.trendHits += 1;
-      prev.bestRank = Math.min(prev.bestRank, n.todayRank ?? 999);
-      publisherMap.set(key, prev);
-    });
+const publisherMap = new Map<string, PublisherStats>();
 
-    const publisherTop = [...enrichedData]
-      .sort((a, b) => {
-        const pa = publisherMap.get(a.publisher || "-");
-        const pb = publisherMap.get(b.publisher || "-");
-        const scoreA = (pa?.trendHits || 0) * 100 - (pa?.bestRank || 999);
-        const scoreB = (pb?.trendHits || 0) * 100 - (pb?.bestRank || 999);
-        return scoreB - scoreA;
-      })
-      .filter(
-        (novel, idx, arr) =>
-          arr.findIndex((n) => (n.publisher || "-") === (novel.publisher || "-")) === idx
-      )
-      .slice(0, 10);
+const trendIds = new Set(trend.map((n) => n.id));
+
+enrichedData.forEach((n) => {
+  const key = n.publisher || "-";
+  const prev: PublisherStats =
+    publisherMap.get(key) || {
+      count: 0,
+      totalViews: 0,
+      bestRank: 999,
+      sumRank: 0,
+      top5Count: 0,
+      trendHits: 0,
+    };
+
+  const rank = typeof n.todayRank === "number" ? n.todayRank : 999;
+
+  prev.count += 1;
+  prev.totalViews += Number(n.todayViews || 0);
+  prev.bestRank = Math.min(prev.bestRank, rank);
+  prev.sumRank += rank;
+  if (rank > 0 && rank <= 5) prev.top5Count += 1;
+  if (trendIds.has(n.id)) prev.trendHits += 1;
+
+  publisherMap.set(key, prev);
+});
+
+    const publisherTop = [...publisherMap.entries()]
+  .map(([publisher, s]) => {
+    const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
+    const top5Ratio = s.count > 0 ? s.top5Count / s.count : 0;
+
+    // 🔥 히트 메이커형 스코어
+    const score =
+      (s.bestRank < 999 ? 120 - s.bestRank * 2 : 0) + // 최고 순위 반영
+      top5Ratio * 80 +                                // 상위권 비율
+      s.trendHits * 30;                               // 트렌드 진입수
+
+    return { publisher, score };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 10);
+
+// 나중에 카드 렌더링에서 쓸 수 있게, 대표 작품 하나를 붙여줌
+const publisherTop10: Novel[] = publisherTop
+  .map((p) =>
+    enrichedData.find((n) => (n.publisher || "-") === p.publisher)
+  )
+  .filter((n): n is Novel => !!n);
 
     const total = sourceData.length;
     const newCount = sourceData.filter((n) => n.isNew).length;
