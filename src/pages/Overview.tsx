@@ -379,6 +379,14 @@ export default function OverviewPage() {
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
 
+    const topPublisher = publisherScores[0];
+const leadingPublisher = topPublisher?.publisher || "-";
+const leadingStats = topPublisher?.stats;
+const leadingAvgRank =
+  leadingStats && leadingStats.count > 0
+    ? leadingStats.sumRank / leadingStats.count
+    : null;
+
     const publisherTop10: Novel[] = publisherScores
       .map((p) => p.stats.bestNovel)
       .filter((n): n is Novel => !!n);
