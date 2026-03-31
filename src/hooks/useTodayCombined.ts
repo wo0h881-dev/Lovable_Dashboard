@@ -1,4 +1,3 @@
-// src/hooks/useTodayCombined.ts
 import { useEffect, useState } from "react";
 import type { Novel, Platform, Genre, PromotionInfo } from "@/data/mockData";
 import {
@@ -10,55 +9,14 @@ import {
 
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
 const PROMO_API_KAKAO = "/api/promotions/kakao-today";
-
-// Kakao 전용 프로모션 페이로드 타입 (시트 → API 서버에서 내려주는 구조)
-type KakaoPromotionPayload = {
-  date: string;
-  platform: "kakao";
-  items: { title: string; promotion: PromotionInfo }[];
-};
-
-async function fetchKakaoPromotionMap() {
-  const res = await fetch(PROMO_API_KAKAO);
-  const json = (await res.json()) as KakaoPromotionPayload;
-
-  const map = new Map<string, PromotionInfo>();
-  for (const item of json.items) {
-    const key = `kakao::${item.title.trim()}`;
-    map.set(key, item.promotion);
-  }
-  return map;
-}
+const PROMO_API_NAVER = "/api/promotions/naver-today";
+const PROMO_API_RIDI = "/api/promotions/ridi-today";
 
 type PromotionPayload = {
   date: string;
   platform: Platform;
   items: { title: string; promotion: PromotionInfo }[];
 };
-
-const PROMO_API_KAKAO = "/api/promotions/kakao-today";
-const PROMO_API_NAVER = "/api/promotions/naver-today";
-const PROMO_API_RIDI = "/api/promotions/ridi-today";
-
-async function fetchPromotionMap(
-  url: string,
-  platform: Platform,
-): Promise<Map<string, PromotionInfo>> {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`${platform} promotion fetch failed: ${res.status}`);
-  }
-
-  const json = (await res.json()) as PromotionPayload;
-  const map = new Map<string, PromotionInfo>();
-
-  for (const item of json.items ?? []) {
-    const key = `${platform}::${item.title.trim()}`;
-    map.set(key, item.promotion);
-  }
-
-  return map;
-}
 
 interface TodayCombinedRow {
   출처: string;
@@ -78,10 +36,7 @@ interface TodayCombinedRow {
   평점?: string | number;
   댓글수?: string | number;
   총회차수?: string | number;
-
-  // 시트에 이미 프로모션 컬럼을 넣어 두었다면 여기에 들어옴
   promotion?: PromotionInfo | string | null;
-
   [key: string]: any;
 }
 
@@ -90,11 +45,9 @@ export interface ScoredNovel extends Novel {
   trendScore: number;
 }
 
-// --- 장르 통합 함수 ---
 function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
   const raw = (rawGenre || "").trim();
 
-  // 1. 네이버/카카오는 이미 정제되어 있음
   if (platform === "naver" || platform === "kakao") {
     const validGenres: Genre[] = [
       "현판",
@@ -110,7 +63,6 @@ function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
     return validGenres.includes(raw as Genre) ? (raw as Genre) : "기타";
   }
 
-  // 2. 리디북스의 상세 장르를 통합 장르로 매핑
   const upper = raw.toUpperCase();
   if (upper.includes("BL")) return "BL";
   if (raw.includes("로맨스") && raw.includes("현대물")) return "로맨스";
@@ -124,7 +76,6 @@ function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
   return "기타";
 }
 
-// --- 보조 파서 함수들 ---
 function toPlatform(src: string): Platform {
   const s = String(src || "").trim();
   if (s.includes("네이버") || s.toLowerCase().includes("naver")) return "naver";
@@ -135,12 +86,13 @@ function toPlatform(src: string): Platform {
 
 function parseViewsToNumber(v: string | number): number {
   if (v === null || v === undefined) return 0;
-  let s = String(v).trim();
+  const s = String(v).trim();
   if (!s || s === "#ERROR!") return 0;
 
   const regex = /([\d.,]+)\s*억|([\d.,]+)\s*만/g;
   let total = 0;
   let m: RegExpExecArray | null;
+
   while ((m = regex.exec(s)) !== null) {
     if (m[1]) total += parseFloat(m[1].replace(/,/g, "")) * 100_000_000;
     if (m[2]) total += parseFloat(m[2].replace(/,/g, "")) * 10_000;
@@ -153,6 +105,7 @@ function parseViewsToNumber(v: string | number): number {
   if (s.endsWith("만")) {
     return (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
   }
+
   return parseFloat(s.replace(/,/g, "")) || 0;
 }
 
@@ -209,7 +162,6 @@ function normalizePromotion(
 
   let parsed: any = promotion;
 
-  // 시트/Apps Script에서 JSON 문자열로 내려오는 경우 대응
   if (typeof parsed === "string") {
     const s = parsed.trim();
     if (!s) return undefined;
@@ -250,7 +202,9 @@ function normalizePromotion(
       ? parsed.notices
           .filter(
             (n: any) =>
-              n && typeof n === "object" && (typeof n.title === "string" || typeof n.body === "string"),
+              n &&
+              typeof n === "object" &&
+              (typeof n.title === "string" || typeof n.body === "string"),
           )
           .map((n: any) => ({
             title: String(n.title ?? "").trim(),
@@ -266,7 +220,6 @@ function normalizePromotion(
         : String(parsed.ridiFreeLabel).trim() || null,
   };
 
-  // 네이버/리디가 카카오처럼 카드에 보이도록 최소한의 보정
   if (platform === "ridi") {
     if (!normalized.timeFreeType) {
       if (normalized.ridiWaitFree) {
@@ -275,7 +228,12 @@ function normalizePromotion(
         const label = normalized.ridiFreeLabel.replace(/\s+/g, "").toLowerCase();
         if (label.includes("3")) {
           normalized.timeFreeType = "threeHour";
-        } else if (label.includes("기다무") || label.includes("대여") || label.includes("무료")) {
+        } else if (
+          label.includes("기다무") ||
+          label.includes("리다무") ||
+          label.includes("대여") ||
+          label.includes("무료")
+        ) {
           normalized.timeFreeType = "waitFree";
         }
       }
@@ -289,21 +247,21 @@ function normalizePromotion(
   if (platform === "naver") {
     if (!normalized.timeFreeType && normalized.tag) {
       const tag = normalized.tag.replace(/\s+/g, "").toLowerCase();
-      if (tag.includes("3다무") || tag.includes("3시간")) {
+      if (tag.includes("3다무") || tag.includes("3시간") || tag.includes("타임딜")) {
         normalized.timeFreeType = "threeHour";
       } else if (
         tag.includes("기다무") ||
         tag.includes("매일무료") ||
+        tag.includes("매일10시무료") ||
         tag.includes("기다리면무료")
       ) {
         normalized.timeFreeType = "waitFree";
-      } else if (tag.includes("이용권") || tag.includes("패스")) {
+      } else if (tag.includes("이용권") || tag.includes("패스") || tag.includes("에디션")) {
         normalized.timeFreeType = "pass";
       }
     }
   }
 
-  // 비어있는 객체면 undefined 처리
   const hasValue = Object.values(normalized).some((v) => {
     if (Array.isArray(v)) return v.length > 0;
     return v !== undefined;
@@ -312,7 +270,26 @@ function normalizePromotion(
   return hasValue ? normalized : undefined;
 }
 
-// --- 메인 매핑 함수 ---
+async function fetchPromotionMap(
+  url: string,
+  platform: Platform,
+): Promise<Map<string, PromotionInfo>> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`${platform} promotion fetch failed: ${res.status}`);
+  }
+
+  const json = (await res.json()) as PromotionPayload;
+  const map = new Map<string, PromotionInfo>();
+
+  for (const item of json.items ?? []) {
+    const key = `${platform}::${item.title.trim()}`;
+    map.set(key, item.promotion);
+  }
+
+  return map;
+}
+
 function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const platform = toPlatform(row["출처"]);
   const todayRank = parseInt(String(row["오늘순위"])) || index + 1;
@@ -355,7 +332,10 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
       : [{ date: row["날짜"] || "", views: todayViewsNumber }];
 
   const firstAppeared =
-    rankHistory.find((h) => h.rank !== null)?.date || rankHistory[0]?.date || row["날짜"] || "";
+    rankHistory.find((h) => h.rank !== null)?.date ||
+    rankHistory[0]?.date ||
+    row["날짜"] ||
+    "";
 
   const consecutiveDays = (() => {
     const sortedDesc = [...rankHistory].sort(
@@ -384,19 +364,26 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     genre: toUnifiedGenre(platform, row["장르"] || "기타"),
     publisher: row["출판사"] || "-",
     platform,
-    thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : undefined,
+    thumbnailUrl:
+      row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : undefined,
     todayRank,
-    prevRank: row["전일순위"] === "NEW" ? null : parseInt(String(row["전일순위"])),
+    prevRank:
+      row["전일순위"] === "NEW" ? null : parseInt(String(row["전일순위"])),
     rankChange,
     isNew,
     isReEntry,
     todayViews: todayViewsNumber,
     viewsChange: todayViewsNumber - prevViewsNumber,
     viewsChangePct:
-      prevViewsNumber > 0 ? ((todayViewsNumber - prevViewsNumber) / prevViewsNumber) * 100 : 0,
+      prevViewsNumber > 0
+        ? ((todayViewsNumber - prevViewsNumber) / prevViewsNumber) * 100
+        : 0,
     rating: parseFloat(String(row["평점"])) || 0,
     commentCount: parseCommentCount(row["댓글수"]),
-    episodeCount: parseInt(String(row["총회차수"]).match(/\d+/)?.[0] || "0", 10),
+    episodeCount: parseInt(
+      String(row["총회차수"]).match(/\d+/)?.[0] || "0",
+      10,
+    ),
     firstAppeared,
     coverGradient:
       platform === "naver"
@@ -404,23 +391,19 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
         : platform === "kakao"
           ? "from-amber-900 to-orange-700"
           : "from-blue-900 to-indigo-700",
-    coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
+    coverEmoji:
+      platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
     rankHistory,
     viewsHistory,
     consecutiveDays,
     peakRank,
-
-    // 문자열/객체 어떤 형태로 와도 정규화
     promotion: normalizePromotion(platform, row.promotion),
-
-    // 책장 기본값
     status: "none",
     currentEpisode: 0,
     readingGoalDays: 0,
   };
 }
 
-// --- Hook ---
 export function useTodayCombined() {
   const [data, setData] = useState<ScoredNovel[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -434,8 +417,16 @@ export function useTodayCombined() {
           throw new Error("VITE_APPS_SCRIPT_URL 미설정");
         }
 
-        const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
-        const rows = (await res.json()) as TodayCombinedRow[];
+        const [rowsRes, kakaoPromoMap, naverPromoMap, ridiPromoMap] =
+          await Promise.all([
+            fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`),
+            fetchPromotionMap(PROMO_API_KAKAO, "kakao"),
+            fetchPromotionMap(PROMO_API_NAVER, "naver"),
+            fetchPromotionMap(PROMO_API_RIDI, "ridi"),
+          ]);
+
+        const rows = (await rowsRes.json()) as TodayCombinedRow[];
+
         if (!rows || rows.length === 0) {
           setData([]);
           return;
@@ -450,41 +441,28 @@ export function useTodayCombined() {
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
-        const [kakaoPromoMap, naverPromoMap, ridiPromoMap] = await Promise.all([
-  fetchPromotionMap(PROMO_API_KAKAO, "kakao"),
-  fetchPromotionMap(PROMO_API_NAVER, "naver"),
-  fetchPromotionMap(PROMO_API_RIDI, "ridi"),
-]);
-
-        // Novel로 변환 + Kakao에만 기존 구조 그대로 프로모션 주입
         const novels: Novel[] = rows
-  .filter((r) => r.날짜 === mostRecentDate)
-  .map((row, idx) => {
-    console.log("🔥 row promotion 체크:", row["제목"], row.promotion);
+          .filter((r) => r.날짜 === mostRecentDate)
+          .map((row, idx) => {
+            const n = mapRowToNovel(row, idx);
+            const key = `${n.platform}::${n.title.trim()}`;
 
-    const n = mapRowToNovel(row, idx);
+            const promo =
+              n.platform === "kakao"
+                ? kakaoPromoMap.get(key)
+                : n.platform === "naver"
+                  ? naverPromoMap.get(key)
+                  : ridiPromoMap.get(key);
 
-    console.log("🔥 mapped promotion:", n.title, n.promotion);
+            if (promo) {
+              n.promotion = {
+                ...(n.promotion ?? {}),
+                ...promo,
+              };
+            }
 
-    const key = `${n.platform}::${n.title.trim()}`;
-
-const promo =
-  n.platform === "kakao"
-    ? kakaoPromoMap.get(key)
-    : n.platform === "naver"
-      ? naverPromoMap.get(key)
-      : ridiPromoMap.get(key);
-
-if (promo) {
-  n.promotion = {
-    ...(n.promotion ?? {}),
-    ...promo,
-  };
-}
-    }
-
-    return n;
-  });
+            return n;
+          });
 
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
@@ -505,7 +483,7 @@ if (promo) {
 
         setData(scoredNovels);
       } catch (err: any) {
-        setError(err.message);
+        setError(err.message || "데이터 로드 실패");
       } finally {
         setIsLoading(false);
       }
