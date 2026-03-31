@@ -28,6 +28,39 @@ const platformTabs: { key: PlatformTab; label: string }[] = [
 
 const genres: (Genre | "전체")[] = ["전체", "로판", "판타지", "로맨스", "현판", "BL", "무협", "기타"];
 
+
+// 네이버/카카오 공통 기다무/타임딜/프리패스 라벨
+function getTimeFreeLabelFromPromotion(n: Novel): string | null {
+  const t = n.promotion?.timeFreeType;
+  if (!t || t === "none") return null;
+
+  if (t === "waitFree") return "기다무";
+  if (t === "threeHour") return "3시간 무료";
+  if (t === "pass") return "프리패스";
+
+  return n.promotion?.tag ?? null;
+}
+
+// 리디 전용 라벨 (리다무 / n화 무료)
+function getRidiPromotionLabelsFromPromotion(n: Novel): string[] {
+  const p = n.promotion;
+  if (!p) return [];
+
+  const labels: string[] = [];
+
+  if (p.ridiWaitFree) {
+    labels.push("리다무");
+  }
+  if (p.ridiFreeLabel) {
+    labels.push(p.ridiFreeLabel);
+  } else if (p.freeEpisodes) {
+    labels.push(`${p.freeEpisodes}화 무료`);
+  }
+
+  return labels;
+}
+
+
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
   const eok = 100_000_000;
@@ -222,9 +255,57 @@ export default function RankingsPage() {
             </thead>
             <tbody>
               {filtered.map((n, i) => {
-                const timeFreeLabel =
-                  n.promotion?.timeFreeType === "threeHour" ? "3다무" :
-                  n.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
+                <tbody>
+  {filtered.map((n, i) => {
+    const timeFreeLabel = getTimeFreeLabelFromPromotion(n);
+    const ridiLabels = n.platform === "ridi" ? getRidiPromotionLabelsFromPromotion(n) : [];
+
+    return (
+      <motion.tr
+        key={n.id}
+        className="data-table-row"
+        onClick={() => setSelectedNovel(n)}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: i * 0.02 }}
+      >
+        {/* ...앞부분 동일... */}
+        <td className="py-2.5 px-3 max-w-[200px]">
+          <div className="flex items-center gap-2">
+            {/* 썸네일 + 프로모션 뱃지 */}
+            <div className="relative shrink-0">
+              <NovelCover novel={n} size="sm" />
+
+              {/* 리디: 리다무 / 3화 무료 등 여러 개 */}
+              {n.platform === "ridi" && ridiLabels.length > 0 && (
+                <div className="absolute -bottom-1 -right-1 flex gap-1">
+                  {ridiLabels.map((label) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold bg-sky-400 text-black leading-none shadow"
+                    >
+                      <Zap size={8} />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* 네이버/카카오: 기다무/3시간 무료/프리패스 한 개 */}
+              {n.platform !== "ridi" && timeFreeLabel && (
+                <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
+                  <Zap size={8} />
+                  {timeFreeLabel}
+                </span>
+              )}
+            </div>
+
+            <span className="line-clamp-2 font-medium text-foreground">
+              {n.title}
+            </span>
+          </div>
+        </td>
+        {/* 나머지 컬럼들은 그대로 유지 */}
 
                 return (
                   <motion.tr
