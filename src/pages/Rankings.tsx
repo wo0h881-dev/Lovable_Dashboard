@@ -253,8 +253,6 @@ export default function RankingsPage() {
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {filtered.map((n, i) => {
                 <tbody>
   {filtered.map((n, i) => {
     const timeFreeLabel = getTimeFreeLabelFromPromotion(n);
