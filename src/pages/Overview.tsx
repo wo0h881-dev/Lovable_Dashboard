@@ -55,7 +55,9 @@ function InsightCard({ item }: { item: InsightItem }) {
   return (
     <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
       <p className="text-xs font-bold text-foreground">{item.title}</p>
-      <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">{item.body}</p>
+      <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+        {item.body}
+      </p>
     </div>
   );
 }
@@ -73,7 +75,9 @@ function StatCard({
 }) {
   return (
     <div className="surface-card p-4 flex flex-col items-center gap-1 border border-border/40">
-      <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>{icon}</div>
+      <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>
+        {icon}
+      </div>
       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
         {label}
       </p>
@@ -97,7 +101,7 @@ function getAnalysisBadges(novel: Novel): string[] {
     badges.push("PROMOTION");
   }
   if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
-    badges.push("VIRAL");
+    badges.push("VIRAL";
   }
   if ((novel.consecutiveDays || 0) >= 14) {
     badges.push("STEADY");
@@ -146,13 +150,13 @@ function RankingColumn({
               onClick={() => onSelect?.(novel)}
               className={cn(
                 "flex items-center gap-3 py-2 px-2 rounded-lg transition-colors",
-                onSelect ? "hover:bg-surface-elevated cursor-pointer group" : "cursor-default"
+                onSelect ? "hover:bg-surface-elevated cursor-pointer group" : "cursor-default",
               )}
             >
               <span
                 className={cn(
                   "w-5 text-center font-mono font-black text-sm",
-                  idx < 3 ? "text-primary" : "text-muted-foreground/40"
+                  idx < 3 ? "text-primary" : "text-muted-foreground/40",
                 )}
               >
                 {idx + 1}
@@ -209,7 +213,7 @@ function RankingColumn({
                   <div
                     className={cn(
                       "text-xs font-mono font-black",
-                      (novel.viewsChangePct || 0) >= 0 ? "text-up" : "text-down"
+                      (novel.viewsChangePct || 0) >= 0 ? "text-up" : "text-down",
                     )}
                   >
                     {(novel.viewsChangePct || 0) >= 0 ? "+" : ""}
@@ -284,7 +288,7 @@ export default function OverviewPage() {
     const enrichedData = attachRidiInnerRank(
       sourceData as UnifiedNovel[],
       maxStats.maxCommentsByPlatform,
-      maxStats.maxDeltaByPlatform
+      maxStats.maxDeltaByPlatform,
     ) as Novel[];
 
     const overall = [...enrichedData]
@@ -293,13 +297,13 @@ export default function OverviewPage() {
           a as UnifiedNovel,
           maxStats.maxViewsByPlatform,
           maxStats.maxCommentsByPlatform,
-          maxStats.maxDeltaByPlatform
+          maxStats.maxDeltaByPlatform,
         );
         const scoreB = computeUnifiedScore(
           b as UnifiedNovel,
           maxStats.maxViewsByPlatform,
           maxStats.maxCommentsByPlatform,
-          maxStats.maxDeltaByPlatform
+          maxStats.maxDeltaByPlatform,
         );
         return scoreB - scoreA;
       })
@@ -311,13 +315,13 @@ export default function OverviewPage() {
           a as UnifiedNovel,
           maxStats.maxViewsByPlatform,
           maxStats.maxCommentsByPlatform,
-          maxStats.maxDeltaByPlatform
+          maxStats.maxDeltaByPlatform,
         );
         const scoreB = computeTrendScore(
           b as UnifiedNovel,
           maxStats.maxViewsByPlatform,
           maxStats.maxCommentsByPlatform,
-          maxStats.maxDeltaByPlatform
+          maxStats.maxDeltaByPlatform,
         );
         return scoreB - scoreA;
       })
@@ -328,7 +332,7 @@ export default function OverviewPage() {
       .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
       .slice(0, 10);
 
-    // 출판사 스코어: 3번(균형형)
+    // --- 출판사 스코어 (3번 균형형) ---
     const publisherMap = new Map<string, PublisherStats>();
     const trendIds = new Set(trend.map((n) => n.id));
 
@@ -380,12 +384,12 @@ export default function OverviewPage() {
       .slice(0, 10);
 
     const topPublisher = publisherScores[0];
-const leadingPublisher = topPublisher?.publisher || "-";
-const leadingStats = topPublisher?.stats;
-const leadingAvgRank =
-  leadingStats && leadingStats.count > 0
-    ? leadingStats.sumRank / leadingStats.count
-    : null;
+    const leadingPublisher = topPublisher?.publisher || "-";
+    const leadingStats = topPublisher?.stats;
+    const leadingAvgRank =
+      leadingStats && leadingStats.count > 0
+        ? leadingStats.sumRank / leadingStats.count
+        : null;
 
     const publisherTop10: Novel[] = publisherScores
       .map((p) => p.stats.bestNovel)
@@ -419,14 +423,13 @@ const leadingAvgRank =
       .slice(0, 8);
 
     const promoCount = sourceData.filter(
-      (n) => n.promotion?.timeFreeType && n.promotion.timeFreeType !== "none"
+      (n) => n.promotion?.timeFreeType && n.promotion.timeFreeType !== "none",
     ).length;
     const viralCount = sourceData.filter(
       (n) =>
         (n.viewsChangePct || 0) >= 20 &&
-        (!n.promotion || n.promotion.timeFreeType === "none")
+        (!n.promotion || n.promotion.timeFreeType === "none"),
     ).length;
-    const leadingPublisher = publisherTop10[0]?.publisher || "-";
 
     const overallPlatformMap: Record<string, number> = {};
     overall.forEach((n) => {
@@ -447,28 +450,28 @@ const leadingAvgRank =
       "kakao";
 
     const overviewInsights: InsightItem[] = [
-  {
-    title: "시장 중심축",
-    body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
-  },
-  {
-    title: "프로모션 영향",
-    body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
-  },
-  {
-    title: "바이럴 움직임",
-    body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
-  },
-  {
-    title: "출판사 포인트",
-    body:
-      leadingStats && leadingAvgRank !== null
-        ? `${leadingPublisher}는 총 ${leadingStats.count}편, 평균 순위 ${leadingAvgRank.toFixed(
-            1
-          )}위, 트렌드 TOP10 진입 ${leadingStats.trendHits}회로 오늘 가장 강한 존재감을 보이고 있어요.`
-        : "오늘은 특정 출판사가 두드러지게 앞서는 패턴이 뚜렷하지 않아요.",
-  },
-];
+      {
+        title: "시장 중심축",
+        body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
+      },
+      {
+        title: "프로모션 영향",
+        body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
+      },
+      {
+        title: "바이럴 움직임",
+        body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
+      },
+      {
+        title: "출판사 포인트",
+        body:
+          leadingStats && leadingAvgRank !== null
+            ? `${leadingPublisher}는 총 ${leadingStats.count}편, 평균 순위 ${leadingAvgRank.toFixed(
+                1,
+              )}위, 트렌드 TOP10 진입 ${leadingStats.trendHits}회로 오늘 가장 강한 존재감을 보이고 있어요.`
+            : "오늘은 특정 출판사가 두드러지게 앞서는 패턴이 뚜렷하지 않아요.",
+      },
+    ];
 
     return {
       overallTop10: overall,
@@ -492,7 +495,7 @@ const leadingAvgRank =
   }
 
   return (
-    <div className="space-y-8 맡animate-fade-in pb-12">
+    <div className="space-y-8 animate-fade-in pb-12">
       <header className="flex justify-between items-end">
         <div>
           <h1 className="text-2xl font-black tracking-tight text-foreground italic">
@@ -625,7 +628,10 @@ const leadingAvgRank =
             <div className="h-[280px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={genreStackedData} layout="vertical">
-                  <CartesianGrid stroke="rgba(255,255,255,0.05)" horizontal={false} />
+                  <CartesianGrid
+                    stroke="rgba(255,255,255,0.05)"
+                    horizontal={false}
+                  />
                   <XAxis type="number" hide />
                   <YAxis
                     dataKey="name"
