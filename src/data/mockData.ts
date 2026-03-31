@@ -13,28 +13,39 @@ export type Genre =
   | "역사/시대물"
   | "기타";
 
+// 1) 공지 타입은 그대로 사용
 export interface PromotionNotice {
   title: string;  // "안내"
   body: string;   // "외전 오픈 안내(3/22)" 같은 본문
   date?: string;
 }
 
+// 2) PromotionInfo 하나로 통합
 export interface PromotionInfo {
-  timeFreeType?: "none" | "waitFree" | "threeHour";
-  // JSON의 eventBanners 그대로
+  // 공통 프로모션 타입
+  timeFreeType?: "none" | "waitFree" | "threeHour" | "pass";
+  tag?: string;
+  freeEpisodes?: number | null;
+  daysLeft?: number | null;
+
+  // 배너 / 공지
   eventBanners?: {
-    title: string;    // "외전까지 달려야 완결"
-    subtitle: string; // "외전 달리면 캐시가 가득!"
+    title: string;
+    subtitle: string;
   }[];
   notices?: PromotionNotice[];
+
+  // 리디 전용
+  ridiWaitFree?: boolean;
+  ridiFreeLabel?: string | null;
 }
 
 export interface Novel {
   id: string;
   title: string;
   author: string;
-  genre: Genre;        // 카드/차트에 보일 요약 장르
-  rawGenre?: string;   // 원본 세부 카테고리 (리디 등 - M/N열 데이터)
+  genre: Genre;
+  rawGenre?: string;
   publisher: string;
   platform: Platform;
   coverGradient: string;
@@ -45,7 +56,7 @@ export interface Novel {
   rankChange: number | null;
   isNew: boolean;
   isReEntry: boolean;
-  todayViews: number;        // 네이버/카카오: 조회수, 리디: 평가수
+  todayViews: number;
   viewsChange: number;
   viewsChangePct: number;
   rating: number;
@@ -54,16 +65,15 @@ export interface Novel {
   firstAppeared: string;
   consecutiveDays: number;
   peakRank: number;
-  rankHistory?: { date: string; rank: number | null }[];   // 오래된 → 최신
-  viewsHistory?: { date: string; views: number }[];        // 오래된 → 최신
+  rankHistory?: { date: string; rank: number | null }[];
+  viewsHistory?: { date: string; views: number }[];
   promotion?: PromotionInfo;
 
-  // --- 독서 기록 (책장) 관련 필드 (정상적으로 Novel 인터페이스 내부로 이동) ---
-  status: 'none' | 'reading' | 'completed' | 'wish'; 
-  currentEpisode: number;     // 현재까지 읽은 회차
-  readingGoalDays: number;    // 완독 목표 일수
-  readingStartDate?: string;  // 독서 시작일
-  memo?: string;              // 노션 연동 전 간단 메모
+  status: "none" | "reading" | "completed" | "wish";
+  currentEpisode: number;
+  readingGoalDays: number;
+  readingStartDate?: string;
+  memo?: string;
 }
 
 export const novels: Novel[] = [
