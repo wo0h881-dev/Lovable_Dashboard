@@ -14,6 +14,49 @@ interface Props {
   variant?: "default" | "compact";
 }
 
+/**
+ * 네이버/카카오 공통 기다무/타임딜/프리패스 라벨
+ */
+function getTimeFreeLabelFromPromotion(n: Novel): string | null {
+  const t = n.promotion?.timeFreeType;
+  if (!t || t === "none") return null;
+
+  if (t === "waitFree") return "기다무";
+  if (t === "threeHour") return "3시간 무료";
+  if (t === "pass") return "프리패스";
+
+  // 그 외 값은 tag로 대체
+  return n.promotion?.tag ?? null;
+}
+
+/**
+ * 리디 전용 라벨 (리다무, n화 무료, 기타 문구)
+ */
+function getRidiPromotionLabelsFromPromotion(n: Novel): string[] {
+  const p = n.promotion;
+  if (!p) return [];
+
+  const labels: string[] = [];
+
+  // 리다무 여부
+  if (p.ridiWaitFree) labels.push("리다무");
+
+  // "3화 무료" 같은 고정 문구가 따로 들어오면 그대로 사용
+  if (p.ridiFreeLabel) {
+    labels.push(p.ridiFreeLabel);
+  } else if (p.freeEpisodes) {
+    // 아니면 freeEpisodes 숫자로 생성
+    labels.push(`${p.freeEpisodes}화 무료`);
+  }
+
+  // 추가 태그가 있으면 뒤에 붙이기
+  if (p.tag && !labels.includes(p.tag)) {
+    labels.push(p.tag);
+  }
+
+  return labels;
+}
+
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
   const eok = 100_000_000;
@@ -37,49 +80,106 @@ function formatViews(platform: Platform, views: number): string {
 function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
   let n: number;
-  if (typeof value === "number") { n = value; }
-  else {
+  if (typeof value === "number") {
+    n = value;
+  } else {
     const s = String(value).trim();
     if (!s) return "-";
-    if (/^\d{1,3}(,\d{3})*$/.test(s)) n = Number(s.replace(/,/g, ""));
-    else if (s.endsWith("억")) n = (Number(s.replace("억","").replace(/,/g,""))||0)*100_000_000;
-    else if (s.endsWith("만")) n = (Number(s.replace("만","").replace(/,/g,""))||0)*10_000;
-    else n = Number(s.replace(/,/g, ""));
+    if (/^\d{1,3}(,\d{3})*$/.test(s)) {
+      n = Number(s.replace(/,/g, ""));
+    } else if (s.endsWith("억")) {
+      n =
+        (Number(s.replace("억", "").replace(/,/g, "")) || 0) *
+        100_000_000;
+    } else if (s.endsWith("만")) {
+      n =
+        (Number(s.replace("만", "").replace(/,/g, "")) || 0) *
+        10_000;
+    } else {
+      n = Number(s.replace(/,/g, ""));
+    }
   }
   if (!Number.isFinite(n) || n <= 0) return "-";
   return toKoreanUnit(n);
 }
 
-export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
+export function RankingCard({
+  novel,
+  rank,
+  onClick,
+  variant = "default",
+}: Props) {
   const viewsUp = novel.viewsChangePct > 0;
-  const timeFreeLabel =
-    novel.promotion?.timeFreeType === "threeHour" ? "3다무" :
-    novel.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
+
+  // 네이버/카카오 타임 프로모션
+  const timeFreeLabel = getTimeFreeLabelFromPromotion(novel);
+
+  // 리디 전용 프로모션 (리다무, 3화 무료 등 여러 개 가능)
+  const ridiLabels =
+    novel.platform === "ridi"
+      ? getRidiPromotionLabelsFromPromotion(novel)
+      : [];
 
   return (
     <motion.div
       className="ranking-card"
-      whileHover={{ scale: 1.018, boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))" }}
+      whileHover={{
+        scale: 1.018,
+        boxShadow:
+          "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))",
+      }}
       transition={{ duration: 0.18 }}
       onClick={() => onClick?.(novel)}
     >
       {/* 순위 번호 */}
-      <div className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4" style={{ minWidth: 64 }}>
-        <span className={cn(
-          "font-mono font-black leading-none",
-          rank <= 3 ? "text-4xl" : rank <= 9 ? "text-3xl" : "text-2xl",
-          rank === 1 && "text-yellow-400",
-          rank === 2 && "text-slate-400",
-          rank === 3 && "text-amber-600",
-          rank > 3 && "text-muted-foreground",
-        )}>
+      <div
+        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4"
+        style={{ minWidth: 64 }}
+      >
+        <span
+          className={cn(
+            "font-mono font-black leading-none",
+            rank <= 3
+              ? "text-4xl"
+              : rank <= 9
+              ? "text-3xl"
+              : "text-2xl",
+            rank === 1 && "text-yellow-400",
+            rank === 2 && "text-slate-400",
+            rank === 3 && "text-amber-600",
+            rank > 3 && "text-muted-foreground",
+          )}
+        >
           {rank}
         </span>
       </div>
 
-       {/* 커버 */}
+      {/* 커버 + 프로모션 뱃지 */}
       <div className="flex-shrink-0 py-3 pl-3">
-        <NovelCover novel={novel} size="md" />
+        <div className="relative">
+          <NovelCover novel={novel} size="md" />
+
+          {novel.platform === "ridi" && ridiLabels.length > 0 && (
+            <div className="absolute -bottom-1 -right-1 flex gap-1">
+              {ridiLabels.map((label) => (
+                <span
+                  key={label}
+                  className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-sky-400 text-black leading-none shadow"
+                >
+                  <Zap size={8} />
+                  {label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {novel.platform !== "ridi" && timeFreeLabel && (
+            <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
+              <Zap size={8} />
+              {timeFreeLabel}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* 내용 */}
@@ -91,24 +191,25 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
-              {/* 오늘 순위 + 기다무 뱃지 — 제목 바로 아래 */}
+
+              {/* 오늘 순위 뱃지 */}
               <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
-                    <span className="text-[9px] opacity-70">TODAY</span>
+                    <span className="text-[9px] opacity-70">
+                      TODAY
+                    </span>
                     #{novel.todayRank}위
-                  </span>
-                )}
-                {timeFreeLabel && (
-                  <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-600 border border-amber-400/40">
-                    <Zap size={9} />
-                    {timeFreeLabel}
                   </span>
                 )}
               </div>
             </div>
-            <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
+            <PlatformBadge
+              platform={novel.platform}
+              className="flex-shrink-0 mt-0.5"
+            />
           </div>
+
           <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
             <span className="opacity-40">·</span>
@@ -121,7 +222,12 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
-          <span className={cn("font-mono text-xs font-semibold", viewsUp ? "text-up" : "text-down")}>
+          <span
+            className={cn(
+              "font-mono text-xs font-semibold",
+              viewsUp ? "text-up" : "text-down",
+            )}
+          >
             {formatViews(novel.platform, novel.todayViews)}
           </span>
           {variant === "default" && (
@@ -132,11 +238,19 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               </span>
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
-                <span className="font-mono">{novel.platform === "ridi" ? "-" : formatComments(novel.commentCount)}</span>
+                <span className="font-mono">
+                  {novel.platform === "ridi"
+                    ? "-"
+                    : formatComments(novel.commentCount)}
+                </span>
               </span>
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
-                <span className="font-mono">{novel.episodeCount ? `${novel.episodeCount}화` : "-"}</span>
+                <span className="font-mono">
+                  {novel.episodeCount
+                    ? `${novel.episodeCount}화`
+                    : "-"}
+                </span>
               </span>
             </>
           )}
@@ -145,11 +259,19 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
 
       {/* 우측: 증감률 */}
       <div className="flex-shrink-0 flex items-center pr-4">
-        <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
+        <div
+          className={cn(
+            "text-right",
+            viewsUp ? "text-up" : "text-down",
+          )}
+        >
           <div className="font-mono text-xs font-bold">
-            {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
+            {viewsUp ? "▲" : "▼"}{" "}
+            {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">전일 대비</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">
+            전일 대비
+          </div>
         </div>
       </div>
     </motion.div>
