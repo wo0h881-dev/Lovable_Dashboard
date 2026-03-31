@@ -1,6 +1,6 @@
 // src/components/shared/RankingCard.tsx
 import { motion } from "framer-motion";
-import { MessageCircle, Star, BookOpen, Zap, Clock } from "lucide-react";
+import { MessageCircle, Star, BookOpen, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
@@ -17,27 +17,28 @@ interface Props {
 // ── 플랫폼별 프로모션 색상 ────────────────────────────────
 function getPromoStyle(platform: Platform) {
   if (platform === "naver") return {
-    bg: "bg-naver/20",
+    bg: "bg-naver/15",
     text: "text-naver",
     border: "border-naver/30",
-    badgeBg: "bg-naver",
-    badgeText: "text-black",
   };
   if (platform === "ridi") return {
-    bg: "bg-ridi/20",
+    bg: "bg-ridi/15",
     text: "text-ridi",
     border: "border-ridi/30",
-    badgeBg: "bg-ridi",
-    badgeText: "text-white",
   };
   // kakao (default)
   return {
     bg: "bg-amber-400/20",
     text: "text-amber-600",
     border: "border-amber-400/40",
-    badgeBg: "bg-amber-400",
-    badgeText: "text-black",
   };
+}
+
+function getTimeFreeLabel(novel: Novel): string | null {
+  const t = novel.promotion?.timeFreeType;
+  if (t === "threeHour") return "3다무";
+  if (t === "waitFree") return "기다무";
+  return null;
 }
 
 function toKoreanUnit(n: number): string {
@@ -74,16 +75,6 @@ function formatComments(value: string | number | null | undefined): string {
   }
   if (!Number.isFinite(n) || n <= 0) return "-";
   return toKoreanUnit(n);
-}
-
-function getTimeFreeLabel(novel: Novel): string | null {
-  const t = novel.promotion?.timeFreeType;
-  if (t === "threeHour") return "3다무";
-  if (t === "waitFree") return "기다무";
-  if (t === "pass") return "패스";
-  // 리디 전용
-  if (novel.promotion?.ridiWaitFree) return novel.promotion.ridiFreeLabel || "기다무";
-  return null;
 }
 
 export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
@@ -125,7 +116,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
-              {/* 오늘 순위 + 기다무 뱃지 */}
+              {/* 오늘 순위 + 기다무/3다무 뱃지 */}
               <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
