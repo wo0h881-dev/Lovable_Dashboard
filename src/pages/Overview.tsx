@@ -355,7 +355,6 @@ function RankingColumn({
   );
 }
 
-
 export default function OverviewPage() {
   const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
@@ -369,6 +368,8 @@ export default function OverviewPage() {
     platformData,
     genreStackedData,
     overviewInsights,
+    overallLeader,
+    trendLeader,
   } = useMemo(() => {
     if (!sourceData || sourceData.length === 0) {
       return {
@@ -380,6 +381,8 @@ export default function OverviewPage() {
         platformData: [] as { name: string; value: number; key: string }[],
         genreStackedData: [] as any[],
         overviewInsights: [] as InsightItem[],
+        overallLeader: "kakao",
+        trendLeader: "kakao",
       };
     }
 
@@ -490,33 +493,49 @@ export default function OverviewPage() {
       .sort((a: any, b: any) => b.total - a.total)
       .slice(0, 8);
 
-    const dominantPlatform =
-      Object.entries(pMap).sort((a, b) => b[1] - a[1])[0]?.[0] || "kakao";
-    const dominantGenre = gData[0]?.name || "기타";
     const promoCount = sourceData.filter(
       (n) => n.promotion?.timeFreeType && n.promotion.timeFreeType !== "none"
     ).length;
     const viralCount = sourceData.filter(
-      (n) => (n.viewsChangePct || 0) >= 20 && (!n.promotion || n.promotion.timeFreeType === "none")
+      (n) =>
+        (n.viewsChangePct || 0) >= 20 &&
+        (!n.promotion || n.promotion.timeFreeType === "none")
     ).length;
     const leadingPublisher = publisherTop[0]?.publisher || "-";
 
+    // ✅ 종합 TOP10, 트렌드 TOP10 기준 플랫폼 리더 계산
+    const overallPlatformMap: Record<string, number> = {};
+    overall.forEach((n) => {
+      overallPlatformMap[n.platform] = (overallPlatformMap[n.platform] || 0) + 1;
+    });
+    const overallLeader =
+      Object.entries(overallPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
+      "kakao";
+
+    const trendPlatformMap: Record<string, number> = {};
+    trend.forEach((n) => {
+      trendPlatformMap[n.platform] = (trendPlatformMap[n.platform] || 0) + 1;
+    });
+    const trendLeader =
+      Object.entries(trendPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
+      "kakao";
+
     const insights: InsightItem[] = [
       {
-        title: "오늘의 인사이트",
-        body: `${dominantPlatform.toUpperCase()} 플랫폼과 ${dominantGenre} 장르가 오늘 시장 흐름을 주도하고 있어요.`,
+        title: "시장 중심축",
+        body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
       },
       {
-        title: "프로모션 관측",
-        body: `프로모션 또는 무료 이벤트가 감지된 작품이 ${promoCount}개로, 상위권 상승의 주요 원인으로 보여요.`,
+        title: "프로모션 영향",
+        body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
       },
       {
-        title: "바이럴 관측",
-        body: `프로모션 없이 조회수 급등이 감지된 작품이 ${viralCount}개로, 후기 확산형 상승도 함께 보이고 있어요.`,
+        title: "바이럴 움직임",
+        body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
       },
       {
         title: "출판사 포인트",
-        body: `${leadingPublisher}가 오늘 가장 강한 존재감을 보이며 출판사 탑 선두에 있어요.`,
+        body: `${leadingPublisher}가 오늘 기준 대표작 성과와 상위 노출에서 가장 두드러진 출판사예요.`,
       },
     ];
 
@@ -529,6 +548,8 @@ export default function OverviewPage() {
       platformData: pData,
       genreStackedData: gData,
       overviewInsights: insights,
+      overallLeader,
+      trendLeader,
     };
   }, [sourceData]);
 
@@ -604,7 +625,8 @@ export default function OverviewPage() {
                 플랫폼 강세
               </p>
               <p className="font-semibold mt-2 text-foreground">
-                {platformData[0]?.name ?? "-"} 중심
+                종합 TOP10은 {overallLeader.toUpperCase()}, 트렌드 TOP10은{" "}
+                {trendLeader.toUpperCase()} 중심이에요.
               </p>
             </div>
             <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
@@ -653,7 +675,10 @@ export default function OverviewPage() {
                     dataKey="value"
                   >
                     {platformData.map((entry) => (
-                      <Cell key={entry.key} fill={PLATFORM_COLORS[entry.key] || "#94A3B8"} />
+                      <Cell
+                        key={entry.key}
+                        fill={PLATFORM_COLORS[entry.key] || "#94A3B8"}
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -680,9 +705,24 @@ export default function OverviewPage() {
                   />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="naver" stackId="a" fill={PLATFORM_COLORS.naver} radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="kakao" stackId="a" fill={PLATFORM_COLORS.kakao} radius={[0, 0, 0, 0]} />
-                  <Bar dataKey="ridi" stackId="a" fill={PLATFORM_COLORS.ridi} radius={[0, 6, 6, 0]} />
+                  <Bar
+                    dataKey="naver"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.naver}
+                    radius={[0, 0, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="kakao"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.kakao}
+                    radius={[0, 0, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="ridi"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.ridi}
+                    radius={[0, 6, 6, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
