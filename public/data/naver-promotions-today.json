@@ -1,0 +1,17 @@
+{
+  "date": "2026-04-01",
+  "platform": "naver",
+  "items": [
+    {
+      "title": "작품명",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 85,
+        "eventBanners": [],
+        "notices": []
+      }
+    }
+  ]
+}
