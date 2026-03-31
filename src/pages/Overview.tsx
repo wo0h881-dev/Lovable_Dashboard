@@ -12,8 +12,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  ComposedChart,
-  Line,
 } from "recharts";
 import {
   BookOpen,
@@ -24,11 +22,6 @@ import {
   TrendingUp,
   Building2,
   Sparkles,
-  Megaphone,
-  Flame,
-  ArrowUpRight,
-  Eye,
-  MessageCircle,
   Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -56,13 +49,6 @@ const PLATFORM_COLORS: Record<string, string> = {
 type InsightItem = {
   title: string;
   body: string;
-};
-
-type ReasonSummary = {
-  title: string;
-  body: string;
-  confidence: "높음" | "중간" | "낮음";
-  evidence: string[];
 };
 
 function toKoreanUnit(n: number): string {
@@ -106,98 +92,6 @@ function getAnalysisBadges(novel: Novel): string[] {
     badges.push("STEADY");
   }
   return badges.slice(0, 3);
-}
-
-function getReasonSummary(novel: Novel): ReasonSummary {
-  const delta = novel.viewsChangePct || 0;
-  const noticeCount = novel.promotion?.notices?.length || 0;
-  const timeFree = novel.promotion?.timeFreeType;
-  const badges = getAnalysisBadges(novel);
-
-  if (timeFree === "waitFree" || timeFree === "threeHour") {
-    return {
-      title: "프로모션 영향 가능성이 높아요",
-      body:
-        timeFree === "waitFree"
-          ? "기다무 적용과 함께 유입이 늘어난 패턴으로 보여요."
-          : "3다무 적용과 함께 단기 유입이 강하게 붙은 패턴으로 보여요.",
-      confidence: "높음",
-      evidence: [
-        timeFree === "waitFree" ? "기다무 적용" : "3다무 적용",
-        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "프로모션 정보 감지",
-      ],
-    };
-  }
-
-  if (novel.isNew && delta >= 15) {
-    return {
-      title: "신작 효과가 크게 작용하고 있어요",
-      body: "초기 노출과 첫 유입이 빠르게 붙으면서 급상승한 흐름으로 보여요.",
-      confidence: "높음",
-      evidence: [
-        "NEW 작품",
-        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        `${novel.episodeCount || 0}화 초기 구간`,
-      ],
-    };
-  }
-
-  if (novel.isReEntry) {
-    return {
-      title: "재진입 + 재노출 효과로 보여요",
-      body: "이전에 차트에 있었던 작품이 다시 유입을 받으며 재상승한 패턴이에요.",
-      confidence: "중간",
-      evidence: [
-        "재진입 감지",
-        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        noticeCount > 0 ? `관련 공지 ${noticeCount}건` : "추가 이슈 가능성",
-      ],
-    };
-  }
-
-  if (delta >= 20) {
-    return {
-      title: "바이럴 또는 후기 확산 영향으로 보여요",
-      body: "프로모션 없이 조회수와 화제성이 동시에 뛰는 바이럴형 상승 패턴이에요.",
-      confidence: "중간",
-      evidence: [
-        "프로모션 정보 없음",
-        `조회수 증감률 ${delta >= 0 ? "+" : ""}${delta.toFixed(1)}%`,
-        badges.includes("STEADY") ? "기존 체급 보유" : "후기 확산 가능성",
-      ],
-    };
-  }
-
-  return {
-    title: "기존 체급과 누적 반응이 유지되는 흐름이에요",
-    body: "급격한 프로모션보다는 평점, 댓글, 누적 노출이 작용한 안정적 상승으로 보여요.",
-    confidence: "낮음",
-    evidence: [
-      `평점 ${novel.rating?.toFixed?.(1) ?? novel.rating ?? "-"}`,
-      `댓글 ${Number(novel.commentCount || 0).toLocaleString("ko-KR")}개`,
-      `${novel.consecutiveDays || 0}일 연속 차트인`,
-    ],
-  };
-}
-
-function buildCombinedChartData(novel: Novel) {
-  const rankHistory = (novel.rankHistory || []).slice().sort((a, b) =>
-    new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-  const viewsHistory = (novel.viewsHistory || []).slice().sort((a, b) =>
-    new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-
-  const rankMap = new Map(rankHistory.map((r) => [r.date, r.rank]));
-  const viewsMap = new Map(viewsHistory.map((v) => [v.date, v.views]));
-  const allDates = Array.from(new Set([...rankMap.keys(), ...viewsMap.keys()])).sort();
-
-  return allDates.map((date) => ({
-    date: date.slice(5),
-    rank: rankMap.get(date) ?? null,
-    views: typeof viewsMap.get(date) === "number" ? Number(viewsMap.get(date)) : null,
-  }));
 }
 
 function InsightCard({ item }: { item: InsightItem }) {
@@ -263,6 +157,9 @@ function RankingColumn({
           const timeFreeLabel = getTimeFreeLabel(novel);
           const badges = getAnalysisBadges(novel);
 
+          const primaryLabel =
+            mode === "publisher" ? (novel.publisher || "-") : novel.title;
+
           return (
             <div
               key={`${mode}-${novel.id}-${idx}`}
@@ -297,13 +194,15 @@ function RankingColumn({
 
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-bold truncate group-hover:text-primary transition-colors">
-                  {novel.title}
+                  {primaryLabel}
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
                   <PlatformBadge platform={novel.platform as any} size="sm" />
-                  <span className="text-[10px] text-muted-foreground truncate">
-                    {novel.author}
-                  </span>
+                  {mode !== "publisher" && (
+                    <span className="text-[10px] text-muted-foreground truncate">
+                      {novel.author}
+                    </span>
+                  )}
                   {badges.slice(0, 2).map((badge) => (
                     <span
                       key={badge}
@@ -343,9 +242,11 @@ function RankingColumn({
                     NEW
                   </div>
                 )}
-                <div className="text-[10px] text-muted-foreground mt-0.5">
-                  {novel.publisher}
-                </div>
+                {mode !== "publisher" && (
+                  <div className="text-[10px] text-muted-foreground mt-0.5">
+                    {novel.publisher}
+                  </div>
+                )}
               </div>
             </div>
           );
@@ -354,6 +255,16 @@ function RankingColumn({
     </div>
   );
 }
+
+type PublisherStats = {
+  count: number;
+  totalViews: number;
+  bestRank: number;
+  sumRank: number;
+  top5Count: number;
+  trendHits: number;
+  bestNovel: Novel | null; // 대표작(현재 랭킹이 가장 높은 작품)
+};
 
 export default function OverviewPage() {
   const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
@@ -434,69 +345,58 @@ export default function OverviewPage() {
       .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
       .slice(0, 10);
 
-    type PublisherStats = {
-  count: number;          // 작품 수
-  totalViews: number;     // 총 조회수
-  bestRank: number;       // 최고 순위 (작을수록 좋음)
-  sumRank: number;        // 순위 합 (avgRank 계산용)
-  top5Count: number;      // 오늘 순위 5위 이내 작품 수
-  trendHits: number;      // 트렌드 TOP10 진입 수
-};
+    // 🔥 히트 메이커형 출판사 스코어 (2번 안)
+    const publisherMap = new Map<string, PublisherStats>();
+    const trendIds = new Set(trend.map((n) => n.id));
 
-const publisherMap = new Map<string, PublisherStats>();
+    enrichedData.forEach((n) => {
+      const key = n.publisher || "-";
+      const prev: PublisherStats =
+        publisherMap.get(key) || {
+          count: 0,
+          totalViews: 0,
+          bestRank: 999,
+          sumRank: 0,
+          top5Count: 0,
+          trendHits: 0,
+          bestNovel: null,
+        };
 
-const trendIds = new Set(trend.map((n) => n.id));
+      const rank = typeof n.todayRank === "number" ? n.todayRank : 999;
 
-enrichedData.forEach((n) => {
-  const key = n.publisher || "-";
-  const prev: PublisherStats =
-    publisherMap.get(key) || {
-      count: 0,
-      totalViews: 0,
-      bestRank: 999,
-      sumRank: 0,
-      top5Count: 0,
-      trendHits: 0,
-    };
+      prev.count += 1;
+      prev.totalViews += Number(n.todayViews || 0);
+      prev.sumRank += rank;
+      if (rank > 0 && rank <= 5) prev.top5Count += 1;
+      if (trendIds.has(n.id)) prev.trendHits += 1;
 
-  const rank = typeof n.todayRank === "number" ? n.todayRank : 999;
+      if (rank < prev.bestRank) {
+        prev.bestRank = rank;
+        prev.bestNovel = n;
+      }
 
-  prev.count += 1;
-  prev.totalViews += Number(n.todayViews || 0);
-  prev.bestRank = Math.min(prev.bestRank, rank);
-  prev.sumRank += rank;
-  if (rank > 0 && rank <= 5) prev.top5Count += 1;
-  if (trendIds.has(n.id)) prev.trendHits += 1;
+      publisherMap.set(key, prev);
+    });
 
-  publisherMap.set(key, prev);
-});
+    const publisherScores = [...publisherMap.entries()]
+      .map(([publisher, s]) => {
+        const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
+        const top5Ratio = s.count > 0 ? s.top5Count / s.count : 0;
 
-    const publisherTop = [...publisherMap.entries()]
-  .map(([publisher, s]) => {
-    const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
+        const score =
+          (s.bestRank < 999 ? 120 - s.bestRank * 2 : 0) + // 최고 순위
+          top5Ratio * 80 +                                // 상위권 비율
+          s.trendHits * 30;                               // 트렌드 진입수
 
-    const volumeScore =
-      Math.log10(s.totalViews + 1) * 25 + // 조회수 체급
-      s.count * 4;                        // 작품 수
+        return { publisher, score, stats: s, avgRank };
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
 
-    const qualityScore =
-      (s.bestRank < 999 ? 80 - s.bestRank : 0) + // 최고 순위 보너스
-      (avgRank < 999 ? 60 - Math.min(avgRank, 60) : 0); // 평균 순위 보너스
+    const publisherTop10: Novel[] = publisherScores
+      .map((p) => p.stats.bestNovel)
+      .filter((n): n is Novel => !!n);
 
-    const trendScore = s.trendHits * 30; // 트렌드 진입 보너스
-
-    const score = volumeScore + qualityScore + trendScore;
-
-    return { publisher, score };
-  })
-  .sort((a, b) => b.score - a.score)
-  .slice(0, 10);
-
-const publisherTop10: Novel[] = publisherTop
-  .map((p) =>
-    enrichedData.find((n) => (n.publisher || "-") === p.publisher)
-  )
-  .filter((n): n is Novel => !!n);
     const total = sourceData.length;
     const newCount = sourceData.filter((n) => n.isNew).length;
     const reEntryCount = sourceData.filter((n) => n.isReEntry).length;
@@ -532,12 +432,13 @@ const publisherTop10: Novel[] = publisherTop
         (n.viewsChangePct || 0) >= 20 &&
         (!n.promotion || n.promotion.timeFreeType === "none")
     ).length;
-    const leadingPublisher = publisherTop[0]?.publisher || "-";
+    const leadingPublisher = publisherTop10[0]?.publisher || "-";
 
-    // ✅ 종합 TOP10, 트렌드 TOP10 기준 플랫폼 리더 계산
+    // 종합/트렌드 플랫폼 리더
     const overallPlatformMap: Record<string, number> = {};
     overall.forEach((n) => {
-      overallPlatformMap[n.platform] = (overallPlatformMap[n.platform] || 0) + 1;
+      overallPlatformMap[n.platform] =
+        (overallPlatformMap[n.platform] || 0) + 1;
     });
     const overallLeader =
       Object.entries(overallPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
@@ -545,7 +446,8 @@ const publisherTop10: Novel[] = publisherTop
 
     const trendPlatformMap: Record<string, number> = {};
     trend.forEach((n) => {
-      trendPlatformMap[n.platform] = (trendPlatformMap[n.platform] || 0) + 1;
+      trendPlatformMap[n.platform] =
+        (trendPlatformMap[n.platform] || 0) + 1;
     });
     const trendLeader =
       Object.entries(trendPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
@@ -573,7 +475,7 @@ const publisherTop10: Novel[] = publisherTop
     return {
       overallTop10: overall,
       trendTop10: trend,
-      publisherTop10: publisherTop,
+      publisherTop10,
       newTop10: newTop,
       stats: { total, new: newCount, changed: changedCount, reEntry: reEntryCount },
       platformData: pData,
@@ -688,7 +590,7 @@ const publisherTop10: Novel[] = publisherTop
         </div>
       </div>
 
-      {/* 차트 두 개를 한 카드로 묶음 */}
+      {/* 플랫폼/장르 차트 */}
       <div className="surface-card border border-border/40 shadow-sm">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           <div className="min-w-0">
@@ -781,7 +683,7 @@ const publisherTop10: Novel[] = publisherTop
         />
         <RankingColumn
           title="출판사 TOP 10"
-          subtitle="출판사 대표작 기준 존재감 랭킹"
+          subtitle="출판사별 대표작(현재 최고 순위 기준)"
           icon={<Building2 className="text-violet-500" size={20} />}
           data={publisherTop10}
           mode="publisher"
