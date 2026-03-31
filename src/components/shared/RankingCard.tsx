@@ -1,6 +1,6 @@
 // src/components/shared/RankingCard.tsx
 import { motion } from "framer-motion";
-import { MessageCircle, Star, BookOpen, Zap } from "lucide-react";
+import { MessageCircle, Star, BookOpen, Zap, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
@@ -12,6 +12,32 @@ interface Props {
   rank: number;
   onClick?: (novel: Novel) => void;
   variant?: "default" | "compact";
+}
+
+// ── 플랫폼별 프로모션 색상 ────────────────────────────────
+function getPromoStyle(platform: Platform) {
+  if (platform === "naver") return {
+    bg: "bg-naver/20",
+    text: "text-naver",
+    border: "border-naver/30",
+    badgeBg: "bg-naver",
+    badgeText: "text-black",
+  };
+  if (platform === "ridi") return {
+    bg: "bg-ridi/20",
+    text: "text-ridi",
+    border: "border-ridi/30",
+    badgeBg: "bg-ridi",
+    badgeText: "text-white",
+  };
+  // kakao (default)
+  return {
+    bg: "bg-amber-400/20",
+    text: "text-amber-600",
+    border: "border-amber-400/40",
+    badgeBg: "bg-amber-400",
+    badgeText: "text-black",
+  };
 }
 
 function toKoreanUnit(n: number): string {
@@ -50,11 +76,20 @@ function formatComments(value: string | number | null | undefined): string {
   return toKoreanUnit(n);
 }
 
+function getTimeFreeLabel(novel: Novel): string | null {
+  const t = novel.promotion?.timeFreeType;
+  if (t === "threeHour") return "3다무";
+  if (t === "waitFree") return "기다무";
+  if (t === "pass") return "패스";
+  // 리디 전용
+  if (novel.promotion?.ridiWaitFree) return novel.promotion.ridiFreeLabel || "기다무";
+  return null;
+}
+
 export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
   const viewsUp = novel.viewsChangePct > 0;
-  const timeFreeLabel =
-    novel.promotion?.timeFreeType === "threeHour" ? "3다무" :
-    novel.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
+  const timeFreeLabel = getTimeFreeLabel(novel);
+  const promoStyle = getPromoStyle(novel.platform);
 
   return (
     <motion.div
@@ -77,7 +112,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         </span>
       </div>
 
-       {/* 커버 */}
+      {/* 커버 */}
       <div className="flex-shrink-0 py-3 pl-3">
         <NovelCover novel={novel} size="md" />
       </div>
@@ -87,11 +122,10 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         <div>
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              {/* 제목 */}
               <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
-              {/* 오늘 순위 + 기다무 뱃지 — 제목 바로 아래 */}
+              {/* 오늘 순위 + 기다무 뱃지 */}
               <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
@@ -100,8 +134,11 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                   </span>
                 )}
                 {timeFreeLabel && (
-                  <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-600 border border-amber-400/40">
-                    <Zap size={9} />
+                  <span className={cn(
+                    "inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold border",
+                    promoStyle.bg, promoStyle.text, promoStyle.border
+                  )}>
+                    <Clock size={9} />
                     {timeFreeLabel}
                   </span>
                 )}
