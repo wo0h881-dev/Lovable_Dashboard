@@ -1,6 +1,13 @@
 // src/components/shared/RankingCard.tsx
 import { motion } from "framer-motion";
-import { MessageCircle, Star, BookOpen, Clock } from "lucide-react";
+import {
+  MessageCircle,
+  Star,
+  BookOpen,
+  Clock,
+  Ticket,
+  CalendarDays,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
 import { RankChange } from "./RankChange";
@@ -16,16 +23,20 @@ interface Props {
 
 // ── 플랫폼별 프로모션 색상 ────────────────────────────────
 function getPromoStyle(platform: Platform) {
-  if (platform === "naver") return {
-    bg: "bg-naver/15",
-    text: "text-naver",
-    border: "border-naver/30",
-  };
-  if (platform === "ridi") return {
-    bg: "bg-ridi/15",
-    text: "text-ridi",
-    border: "border-ridi/30",
-  };
+  if (platform === "naver") {
+    return {
+      bg: "bg-naver/15",
+      text: "text-naver",
+      border: "border-naver/30",
+    };
+  }
+  if (platform === "ridi") {
+    return {
+      bg: "bg-ridi/15",
+      text: "text-ridi",
+      border: "border-ridi/30",
+    };
+  }
   // kakao (default)
   return {
     bg: "bg-amber-400/20",
@@ -34,10 +45,38 @@ function getPromoStyle(platform: Platform) {
   };
 }
 
-function getTimeFreeLabel(novel: Novel): string | null {
+function getPrimaryPromoLabel(novel: Novel): string | null {
   const t = novel.promotion?.timeFreeType;
+
+  // 카카오 기존 구조 유지
   if (t === "threeHour") return "3다무";
   if (t === "waitFree") return "기다무";
+  if (t === "pass") return "패스";
+
+  // 리디 보조 필드 대응
+  if (novel.platform === "ridi") {
+    if (novel.promotion?.ridiFreeLabel) return novel.promotion.ridiFreeLabel;
+    if (novel.promotion?.ridiWaitFree) return "기다리면 무료";
+  }
+
+  // 네이버/리디 tag 대응
+  if (novel.promotion?.tag) return novel.promotion.tag;
+
+  return null;
+}
+
+function getSecondaryPromoLabel(novel: Novel): string | null {
+  const freeEpisodes = novel.promotion?.freeEpisodes;
+  const daysLeft = novel.promotion?.daysLeft;
+
+  if (typeof freeEpisodes === "number" && freeEpisodes > 0) {
+    return `${freeEpisodes}화 무료`;
+  }
+
+  if (typeof daysLeft === "number" && daysLeft >= 0) {
+    return `${daysLeft}일 남음`;
+  }
+
   return null;
 }
 
@@ -63,42 +102,54 @@ function formatViews(platform: Platform, views: number): string {
 
 function formatComments(value: string | number | null | undefined): string {
   if (value == null) return "-";
+
   let n: number;
-  if (typeof value === "number") { n = value; }
-  else {
+  if (typeof value === "number") {
+    n = value;
+  } else {
     const s = String(value).trim();
     if (!s) return "-";
     if (/^\d{1,3}(,\d{3})*$/.test(s)) n = Number(s.replace(/,/g, ""));
-    else if (s.endsWith("억")) n = (Number(s.replace("억","").replace(/,/g,""))||0)*100_000_000;
-    else if (s.endsWith("만")) n = (Number(s.replace("만","").replace(/,/g,""))||0)*10_000;
+    else if (s.endsWith("억")) n = (Number(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
+    else if (s.endsWith("만")) n = (Number(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
     else n = Number(s.replace(/,/g, ""));
   }
+
   if (!Number.isFinite(n) || n <= 0) return "-";
   return toKoreanUnit(n);
 }
 
 export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
   const viewsUp = novel.viewsChangePct > 0;
-  const timeFreeLabel = getTimeFreeLabel(novel);
   const promoStyle = getPromoStyle(novel.platform);
+  const primaryPromoLabel = getPrimaryPromoLabel(novel);
+  const secondaryPromoLabel = getSecondaryPromoLabel(novel);
 
   return (
     <motion.div
       className="ranking-card"
-      whileHover={{ scale: 1.018, boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))" }}
+      whileHover={{
+        scale: 1.018,
+        boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))",
+      }}
       transition={{ duration: 0.18 }}
       onClick={() => onClick?.(novel)}
     >
       {/* 순위 번호 */}
-      <div className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4" style={{ minWidth: 64 }}>
-        <span className={cn(
-          "font-mono font-black leading-none",
-          rank <= 3 ? "text-4xl" : rank <= 9 ? "text-3xl" : "text-2xl",
-          rank === 1 && "text-yellow-400",
-          rank === 2 && "text-slate-400",
-          rank === 3 && "text-amber-600",
-          rank > 3 && "text-muted-foreground",
-        )}>
+      <div
+        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4"
+        style={{ minWidth: 64 }}
+      >
+        <span
+          className={cn(
+            "font-mono font-black leading-none",
+            rank <= 3 ? "text-4xl" : rank <= 9 ? "text-3xl" : "text-2xl",
+            rank === 1 && "text-yellow-400",
+            rank === 2 && "text-slate-400",
+            rank === 3 && "text-amber-600",
+            rank > 3 && "text-muted-foreground",
+          )}
+        >
           {rank}
         </span>
       </div>
@@ -116,7 +167,8 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
-              {/* 오늘 순위 + 기다무/3다무 뱃지 */}
+
+              {/* 오늘 순위 + 프로모션 뱃지 */}
               <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
@@ -124,19 +176,74 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                     #{novel.todayRank}위
                   </span>
                 )}
-                {timeFreeLabel && (
-                  <span className={cn(
-                    "inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold border",
-                    promoStyle.bg, promoStyle.text, promoStyle.border
-                  )}>
+
+                {primaryPromoLabel && (
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border",
+                      promoStyle.bg,
+                      promoStyle.text,
+                      promoStyle.border,
+                    )}
+                  >
                     <Clock size={9} />
-                    {timeFreeLabel}
+                    {primaryPromoLabel}
+                  </span>
+                )}
+
+                {!primaryPromoLabel && secondaryPromoLabel && (
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border",
+                      promoStyle.bg,
+                      promoStyle.text,
+                      promoStyle.border,
+                    )}
+                  >
+                    <Ticket size={9} />
+                    {secondaryPromoLabel}
                   </span>
                 )}
               </div>
+
+              {/* 추가 프로모션 정보 */}
+              {(secondaryPromoLabel && primaryPromoLabel) || novel.promotion?.daysLeft != null ? (
+                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                  {secondaryPromoLabel && primaryPromoLabel && (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
+                        promoStyle.bg,
+                        promoStyle.text,
+                        promoStyle.border,
+                      )}
+                    >
+                      <Ticket size={9} />
+                      {secondaryPromoLabel}
+                    </span>
+                  )}
+
+                  {novel.promotion?.daysLeft != null &&
+                    !(secondaryPromoLabel === `${novel.promotion.daysLeft}일 남음`) && (
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
+                          promoStyle.bg,
+                          promoStyle.text,
+                          promoStyle.border,
+                        )}
+                      >
+                        <CalendarDays size={9} />
+                        {novel.promotion.daysLeft}일 남음
+                      </span>
+                    )}
+                </div>
+              ) : null}
             </div>
+
             <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
           </div>
+
           <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
             <span className="opacity-40">·</span>
@@ -149,22 +256,34 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
         {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
-          <span className={cn("font-mono text-xs font-semibold", viewsUp ? "text-up" : "text-down")}>
+          <span
+            className={cn(
+              "font-mono text-xs font-semibold",
+              viewsUp ? "text-up" : "text-down",
+            )}
+          >
             {formatViews(novel.platform, novel.todayViews)}
           </span>
+
           {variant === "default" && (
             <>
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <Star size={10} className="text-yellow-400" />
                 <span className="font-mono">{novel.rating}</span>
               </span>
+
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
-                <span className="font-mono">{novel.platform === "ridi" ? "-" : formatComments(novel.commentCount)}</span>
+                <span className="font-mono">
+                  {novel.platform === "ridi" ? "-" : formatComments(novel.commentCount)}
+                </span>
               </span>
+
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <BookOpen size={10} />
-                <span className="font-mono">{novel.episodeCount ? `${novel.episodeCount}화` : "-"}</span>
+                <span className="font-mono">
+                  {novel.episodeCount ? `${novel.episodeCount}화` : "-"}
+                </span>
               </span>
             </>
           )}
