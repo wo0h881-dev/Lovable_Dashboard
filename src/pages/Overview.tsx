@@ -101,7 +101,7 @@ function getAnalysisBadges(novel: Novel): string[] {
     badges.push("PROMOTION");
   }
   if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
-    badges.push("VIRAL";
+    badges.push("VIRAL");
   }
   if ((novel.consecutiveDays || 0) >= 14) {
     badges.push("STEADY");
