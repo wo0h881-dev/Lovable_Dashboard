@@ -474,26 +474,29 @@ enrichedData.forEach((n) => {
     const publisherTop = [...publisherMap.entries()]
   .map(([publisher, s]) => {
     const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
-    const top5Ratio = s.count > 0 ? s.top5Count / s.count : 0;
 
-    // 🔥 히트 메이커형 스코어
-    const score =
-      (s.bestRank < 999 ? 120 - s.bestRank * 2 : 0) + // 최고 순위 반영
-      top5Ratio * 80 +                                // 상위권 비율
-      s.trendHits * 30;                               // 트렌드 진입수
+    const volumeScore =
+      Math.log10(s.totalViews + 1) * 25 + // 조회수 체급
+      s.count * 4;                        // 작품 수
+
+    const qualityScore =
+      (s.bestRank < 999 ? 80 - s.bestRank : 0) + // 최고 순위 보너스
+      (avgRank < 999 ? 60 - Math.min(avgRank, 60) : 0); // 평균 순위 보너스
+
+    const trendScore = s.trendHits * 30; // 트렌드 진입 보너스
+
+    const score = volumeScore + qualityScore + trendScore;
 
     return { publisher, score };
   })
   .sort((a, b) => b.score - a.score)
   .slice(0, 10);
 
-// 나중에 카드 렌더링에서 쓸 수 있게, 대표 작품 하나를 붙여줌
 const publisherTop10: Novel[] = publisherTop
   .map((p) =>
     enrichedData.find((n) => (n.publisher || "-") === p.publisher)
   )
   .filter((n): n is Novel => !!n);
-
     const total = sourceData.length;
     const newCount = sourceData.filter((n) => n.isNew).length;
     const reEntryCount = sourceData.filter((n) => n.isReEntry).length;
