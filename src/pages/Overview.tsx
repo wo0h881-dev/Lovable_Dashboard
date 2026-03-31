@@ -439,23 +439,28 @@ export default function OverviewPage() {
       "kakao";
 
     const overviewInsights: InsightItem[] = [
-      {
-        title: "시장 중심축",
-        body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
-      },
-      {
-        title: "프로모션 영향",
-        body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
-      },
-      {
-        title: "바이럴 움직임",
-        body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
-      },
-      {
-        title: "출판사 포인트",
-        body: `${leadingPublisher}가 오늘 기준 대표작 성과와 상위 노출에서 가장 두드러진 출판사예요.`,
-      },
-    ];
+  {
+    title: "시장 중심축",
+    body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
+  },
+  {
+    title: "프로모션 영향",
+    body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
+  },
+  {
+    title: "바이럴 움직임",
+    body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
+  },
+  {
+    title: "출판사 포인트",
+    body:
+      leadingStats && leadingAvgRank !== null
+        ? `${leadingPublisher}는 총 ${leadingStats.count}편, 평균 순위 ${leadingAvgRank.toFixed(
+            1
+          )}위, 트렌드 TOP10 진입 ${leadingStats.trendHits}회로 오늘 가장 강한 존재감을 보이고 있어요.`
+        : "오늘은 특정 출판사가 두드러지게 앞서는 패턴이 뚜렷하지 않아요.",
+  },
+];
 
     return {
       overallTop10: overall,
