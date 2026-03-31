@@ -51,49 +51,6 @@ type InsightItem = {
   body: string;
 };
 
-function toKoreanUnit(n: number): string {
-  if (!Number.isFinite(n) || n <= 0) return "-";
-  const eok = 100_000_000;
-  const man = 10_000;
-  if (n >= eok) return `${(n / eok).toFixed(1).replace(/\.0$/, "")}억`;
-  if (n >= man) {
-    const manVal = n / man;
-    if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
-    return `${Math.round(manVal).toLocaleString("ko-KR")}만`;
-  }
-  return n.toLocaleString("ko-KR");
-}
-
-function formatViews(platform: string, views: number): string {
-  const v = Number(views ?? 0);
-  if (!Number.isFinite(v) || v <= 0) return "-";
-  if (platform === "ridi") return `${v.toLocaleString("ko-KR")} 평가`;
-  return toKoreanUnit(v);
-}
-
-function getTimeFreeLabel(novel: Novel): string | null {
-  const type = novel.promotion?.timeFreeType;
-  if (type === "waitFree") return "기다무";
-  if (type === "threeHour") return "3다무";
-  return null;
-}
-
-function getAnalysisBadges(novel: Novel): string[] {
-  const badges: string[] = [];
-  if (novel.isNew) badges.push("NEW");
-  if (novel.isReEntry) badges.push("RE-ENTRY");
-  if (novel.promotion?.timeFreeType && novel.promotion.timeFreeType !== "none") {
-    badges.push("PROMOTION");
-  }
-  if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
-    badges.push("VIRAL");
-  }
-  if ((novel.consecutiveDays || 0) >= 14) {
-    badges.push("STEADY");
-  }
-  return badges.slice(0, 3);
-}
-
 function InsightCard({ item }: { item: InsightItem }) {
   return (
     <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
@@ -123,6 +80,29 @@ function StatCard({
       <p className="text-xl font-black">{value}</p>
     </div>
   );
+}
+
+function getTimeFreeLabel(novel: Novel): string | null {
+  const type = novel.promotion?.timeFreeType;
+  if (type === "waitFree") return "기다무";
+  if (type === "threeHour") return "3다무";
+  return null;
+}
+
+function getAnalysisBadges(novel: Novel): string[] {
+  const badges: string[] = [];
+  if (novel.isNew) badges.push("NEW");
+  if (novel.isReEntry) badges.push("RE-ENTRY");
+  if (novel.promotion?.timeFreeType && novel.promotion.timeFreeType !== "none") {
+    badges.push("PROMOTION");
+  }
+  if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
+    badges.push("VIRAL");
+  }
+  if ((novel.consecutiveDays || 0) >= 14) {
+    badges.push("STEADY");
+  }
+  return badges.slice(0, 3);
 }
 
 function RankingColumn({
@@ -157,7 +137,8 @@ function RankingColumn({
           const timeFreeLabel = getTimeFreeLabel(novel);
           const badges = getAnalysisBadges(novel);
 
-          const primaryLabel = novel.title;
+          const primaryLabel =
+            mode === "publisher" ? (novel.publisher || "-") : novel.title;
 
           return (
             <div
@@ -197,19 +178,25 @@ function RankingColumn({
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
                   <PlatformBadge platform={novel.platform as any} size="sm" />
-                  <span className="text-[10px] text-muted-foreground truncate">
-      {novel.publisher || "-"}
-    </span>
-    {badges.slice(0, 2).map((badge) => (
-      <span
-        key={badge}
-        className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
-      >
-        {badge}
-      </span>
-    ))}
-  </div>
-</div>
+                  {mode === "publisher" ? (
+                    <span className="text-[10px] text-muted-foreground truncate">
+                      {novel.title}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-muted-foreground truncate">
+                      {novel.author}
+                    </span>
+                  )}
+                  {badges.slice(0, 2).map((badge) => (
+                    <span
+                      key={badge}
+                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
               <div className="text-right shrink-0">
                 {mode === "overall" && (
@@ -230,21 +217,21 @@ function RankingColumn({
                   </div>
                 )}
                 {mode === "publisher" && (
-    <div className="text-xs font-mono font-black text-primary/90">
-      #{novel.todayRank ?? "-"}
-    </div>
-  )}
+                  <div className="text-xs font-mono font-bold text-primary/90">
+                    #{novel.todayRank ?? "-"}
+                  </div>
+                )}
                 {mode === "new" && (
                   <div className="text-xs font-mono font-black text-emerald-400">
                     NEW
                   </div>
                 )}
                 {mode !== "publisher" && (
-    <div className="text-[10px] text-muted-foreground mt-0.5">
-      {novel.publisher}
-    </div>
-  )}
-</div>
+                  <div className="text-[10px] text-muted-foreground mt-0.5">
+                    {novel.publisher}
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
@@ -258,9 +245,8 @@ type PublisherStats = {
   totalViews: number;
   bestRank: number;
   sumRank: number;
-  top5Count: number;
   trendHits: number;
-  bestNovel: Novel | null; // 대표작(현재 랭킹이 가장 높은 작품)
+  bestNovel: Novel | null;
 };
 
 export default function OverviewPage() {
@@ -342,7 +328,7 @@ export default function OverviewPage() {
       .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
       .slice(0, 10);
 
-    // 🔥 히트 메이커형 출판사 스코어 (2번 안)
+    // 출판사 스코어: 3번(균형형)
     const publisherMap = new Map<string, PublisherStats>();
     const trendIds = new Set(trend.map((n) => n.id));
 
@@ -354,7 +340,6 @@ export default function OverviewPage() {
           totalViews: 0,
           bestRank: 999,
           sumRank: 0,
-          top5Count: 0,
           trendHits: 0,
           bestNovel: null,
         };
@@ -364,7 +349,6 @@ export default function OverviewPage() {
       prev.count += 1;
       prev.totalViews += Number(n.todayViews || 0);
       prev.sumRank += rank;
-      if (rank > 0 && rank <= 5) prev.top5Count += 1;
       if (trendIds.has(n.id)) prev.trendHits += 1;
 
       if (rank < prev.bestRank) {
@@ -378,14 +362,19 @@ export default function OverviewPage() {
     const publisherScores = [...publisherMap.entries()]
       .map(([publisher, s]) => {
         const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
-        const top5Ratio = s.count > 0 ? s.top5Count / s.count : 0;
 
-        const score =
-          (s.bestRank < 999 ? 120 - s.bestRank * 2 : 0) + // 최고 순위
-          top5Ratio * 80 +                                // 상위권 비율
-          s.trendHits * 30;                               // 트렌드 진입수
+        const volumeScore =
+          Math.log10(s.totalViews + 1) * 25 + s.count * 4;
 
-        return { publisher, score, stats: s, avgRank };
+        const qualityScore =
+          (s.bestRank < 999 ? 80 - s.bestRank : 0) +
+          (avgRank < 999 ? 60 - Math.min(avgRank, 60) : 0);
+
+        const trendScore = s.trendHits * 30;
+
+        const score = volumeScore + qualityScore + trendScore;
+
+        return { publisher, score, stats: s };
       })
       .sort((a, b) => b.score - a.score)
       .slice(0, 10);
@@ -431,7 +420,6 @@ export default function OverviewPage() {
     ).length;
     const leadingPublisher = publisherTop10[0]?.publisher || "-";
 
-    // 종합/트렌드 플랫폼 리더
     const overallPlatformMap: Record<string, number> = {};
     overall.forEach((n) => {
       overallPlatformMap[n.platform] =
@@ -450,7 +438,7 @@ export default function OverviewPage() {
       Object.entries(trendPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
       "kakao";
 
-    const insights: InsightItem[] = [
+    const overviewInsights: InsightItem[] = [
       {
         title: "시장 중심축",
         body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
@@ -477,14 +465,13 @@ export default function OverviewPage() {
       stats: { total, new: newCount, changed: changedCount, reEntry: reEntryCount },
       platformData: pData,
       genreStackedData: gData,
-      overviewInsights: insights,
+      overviewInsights,
       overallLeader,
       trendLeader,
     };
   }, [sourceData]);
 
   const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
-  const fixedDetailNovel = selectedNovel ?? trendTop10[0] ?? overallTop10[0] ?? null;
 
   if (isLoading) return <LoadingScreen />;
   if (error) {
@@ -492,7 +479,7 @@ export default function OverviewPage() {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
+    <div className="space-y-8 맡animate-fade-in pb-12">
       <header className="flex justify-between items-end">
         <div>
           <h1 className="text-2xl font-black tracking-tight text-foreground italic">
