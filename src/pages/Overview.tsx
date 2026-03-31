@@ -157,8 +157,7 @@ function RankingColumn({
           const timeFreeLabel = getTimeFreeLabel(novel);
           const badges = getAnalysisBadges(novel);
 
-          const primaryLabel =
-            mode === "publisher" ? (novel.publisher || "-") : novel.title;
+          const primaryLabel = novel.title;
 
           return (
             <div
@@ -198,21 +197,19 @@ function RankingColumn({
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
                   <PlatformBadge platform={novel.platform as any} size="sm" />
-                  {mode !== "publisher" && (
-                    <span className="text-[10px] text-muted-foreground truncate">
-                      {novel.author}
-                    </span>
-                  )}
-                  {badges.slice(0, 2).map((badge) => (
-                    <span
-                      key={badge}
-                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                  <span className="text-[10px] text-muted-foreground truncate">
+      {novel.publisher || "-"}
+    </span>
+    {badges.slice(0, 2).map((badge) => (
+      <span
+        key={badge}
+        className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
+      >
+        {badge}
+      </span>
+    ))}
+  </div>
+</div>
 
               <div className="text-right shrink-0">
                 {mode === "overall" && (
@@ -233,21 +230,21 @@ function RankingColumn({
                   </div>
                 )}
                 {mode === "publisher" && (
-                  <div className="text-xs font-mono font-black text-primary/90">
-                    #{novel.todayRank ?? "-"}
-                  </div>
-                )}
+    <div className="text-xs font-mono font-black text-primary/90">
+      #{novel.todayRank ?? "-"}
+    </div>
+  )}
                 {mode === "new" && (
                   <div className="text-xs font-mono font-black text-emerald-400">
                     NEW
                   </div>
                 )}
                 {mode !== "publisher" && (
-                  <div className="text-[10px] text-muted-foreground mt-0.5">
-                    {novel.publisher}
-                  </div>
-                )}
-              </div>
+    <div className="text-[10px] text-muted-foreground mt-0.5">
+      {novel.publisher}
+    </div>
+  )}
+</div>
             </div>
           );
         })}
