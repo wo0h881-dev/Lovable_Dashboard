@@ -50,7 +50,7 @@ interface TodayCombinedRow {
   총회차수?: string | number;
 
   // 시트에 이미 프로모션 컬럼을 넣어 두었다면 여기에 들어옴
-  promotion?: PromotionInfo;
+  promotion?: PromotionInfo | string | null;
 
   [key: string]: any;
 }
@@ -110,54 +110,176 @@ function parseViewsToNumber(v: string | number): number {
 
   const regex = /([\d.,]+)\s*억|([\d.,]+)\s*만/g;
   let total = 0;
-  let m;
+  let m: RegExpExecArray | null;
   while ((m = regex.exec(s)) !== null) {
     if (m[1]) total += parseFloat(m[1].replace(/,/g, "")) * 100_000_000;
     if (m[2]) total += parseFloat(m[2].replace(/,/g, "")) * 10_000;
   }
   if (total > 0) return total;
 
-  if (s.endsWith("억"))
-    return (
-      (parseFloat(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000
-    );
-  if (s.endsWith("만"))
-    return (
-      (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000
-    );
+  if (s.endsWith("억")) {
+    return (parseFloat(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
+  }
+  if (s.endsWith("만")) {
+    return (parseFloat(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
+  }
   return parseFloat(s.replace(/,/g, "")) || 0;
 }
 
 function parseCommentCount(raw: any): number {
   const s = String(raw || "").trim();
-  if (s.endsWith("만"))
-    return Math.round(
-      (parseFloat(s.replace("만", "")) || 0) * 10_000,
-    );
+  if (s.endsWith("만")) {
+    return Math.round((parseFloat(s.replace("만", "")) || 0) * 10_000);
+  }
   return parseInt(s.replace(/,/g, ""), 10) || 0;
 }
 
 function parseRankChange(label: string) {
   const s = (label || "").trim();
-  if (s === "NEW")
+  if (s === "NEW") {
     return { rankChange: null, isNew: true, isReEntry: false };
-  if (s === "재진입")
+  }
+  if (s === "재진입") {
     return { rankChange: null, isNew: false, isReEntry: true };
-  if (s === "유지")
+  }
+  if (s === "유지") {
     return { rankChange: 0, isNew: false, isReEntry: false };
-  if (s.startsWith("▲"))
+  }
+  if (s.startsWith("▲")) {
     return {
       rankChange: parseInt(s.replace("▲", ""), 10) || null,
       isNew: false,
       isReEntry: false,
     };
-  if (s.startsWith("▼"))
+  }
+  if (s.startsWith("▼")) {
     return {
       rankChange: -(parseInt(s.replace("▼", ""), 10) || 0),
       isNew: false,
       isReEntry: false,
     };
+  }
   return { rankChange: null, isNew: false, isReEntry: false };
+}
+
+function toOptionalNumber(value: unknown): number | null | undefined {
+  if (value === null) return null;
+  if (value === undefined || value === "") return undefined;
+  if (typeof value === "number") return Number.isFinite(value) ? value : undefined;
+
+  const n = Number(String(value).replace(/,/g, "").trim());
+  return Number.isFinite(n) ? n : undefined;
+}
+
+function normalizePromotion(
+  platform: Platform,
+  promotion: TodayCombinedRow["promotion"],
+): PromotionInfo | undefined {
+  if (!promotion) return undefined;
+
+  let parsed: any = promotion;
+
+  // 시트/Apps Script에서 JSON 문자열로 내려오는 경우 대응
+  if (typeof parsed === "string") {
+    const s = parsed.trim();
+    if (!s) return undefined;
+    try {
+      parsed = JSON.parse(s);
+    } catch {
+      return undefined;
+    }
+  }
+
+  if (!parsed || typeof parsed !== "object") return undefined;
+
+  const normalized: PromotionInfo = {
+    timeFreeType:
+      parsed.timeFreeType === "none" ||
+      parsed.timeFreeType === "waitFree" ||
+      parsed.timeFreeType === "threeHour" ||
+      parsed.timeFreeType === "pass"
+        ? parsed.timeFreeType
+        : undefined,
+    tag: typeof parsed.tag === "string" ? parsed.tag.trim() || undefined : undefined,
+    freeEpisodes: toOptionalNumber(parsed.freeEpisodes),
+    daysLeft: toOptionalNumber(parsed.daysLeft),
+    eventBanners: Array.isArray(parsed.eventBanners)
+      ? parsed.eventBanners
+          .filter(
+            (b: any) =>
+              b &&
+              typeof b === "object" &&
+              (typeof b.title === "string" || typeof b.subtitle === "string"),
+          )
+          .map((b: any) => ({
+            title: String(b.title ?? "").trim(),
+            subtitle: String(b.subtitle ?? "").trim(),
+          }))
+      : undefined,
+    notices: Array.isArray(parsed.notices)
+      ? parsed.notices
+          .filter(
+            (n: any) =>
+              n && typeof n === "object" && (typeof n.title === "string" || typeof n.body === "string"),
+          )
+          .map((n: any) => ({
+            title: String(n.title ?? "").trim(),
+            body: String(n.body ?? "").trim(),
+            date: n.date ? String(n.date).trim() : undefined,
+          }))
+      : undefined,
+    ridiWaitFree:
+      typeof parsed.ridiWaitFree === "boolean" ? parsed.ridiWaitFree : undefined,
+    ridiFreeLabel:
+      parsed.ridiFreeLabel == null
+        ? parsed.ridiFreeLabel
+        : String(parsed.ridiFreeLabel).trim() || null,
+  };
+
+  // 네이버/리디가 카카오처럼 카드에 보이도록 최소한의 보정
+  if (platform === "ridi") {
+    if (!normalized.timeFreeType) {
+      if (normalized.ridiWaitFree) {
+        normalized.timeFreeType = "waitFree";
+      } else if (normalized.ridiFreeLabel) {
+        const label = normalized.ridiFreeLabel.replace(/\s+/g, "").toLowerCase();
+        if (label.includes("3")) {
+          normalized.timeFreeType = "threeHour";
+        } else if (label.includes("기다무") || label.includes("대여") || label.includes("무료")) {
+          normalized.timeFreeType = "waitFree";
+        }
+      }
+    }
+
+    if (!normalized.tag && normalized.ridiFreeLabel) {
+      normalized.tag = normalized.ridiFreeLabel;
+    }
+  }
+
+  if (platform === "naver") {
+    if (!normalized.timeFreeType && normalized.tag) {
+      const tag = normalized.tag.replace(/\s+/g, "").toLowerCase();
+      if (tag.includes("3다무") || tag.includes("3시간")) {
+        normalized.timeFreeType = "threeHour";
+      } else if (
+        tag.includes("기다무") ||
+        tag.includes("매일무료") ||
+        tag.includes("기다리면무료")
+      ) {
+        normalized.timeFreeType = "waitFree";
+      } else if (tag.includes("이용권") || tag.includes("패스")) {
+        normalized.timeFreeType = "pass";
+      }
+    }
+  }
+
+  // 비어있는 객체면 undefined 처리
+  const hasValue = Object.values(normalized).some((v) => {
+    if (Array.isArray(v)) return v.length > 0;
+    return v !== undefined;
+  });
+
+  return hasValue ? normalized : undefined;
 }
 
 // --- 메인 매핑 함수 ---
@@ -174,10 +296,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     rank: number | null;
   }[])
     .filter((r) => r?.date)
-    .sort(
-      (a, b) =>
-        new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const rawViewsHistory = ((row["viewsHistory"] ?? []) as {
     date: string;
@@ -188,10 +307,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
       date: v.date,
       views: parseViewsToNumber(String(v.views)),
     }))
-    .sort(
-      (a, b) =>
-        new Date(a.date).getTime() - new Date(b.date).getTime(),
-    );
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const rankHistory =
     rawRankHistory.length > 0
@@ -209,15 +325,11 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
       : [{ date: row["날짜"] || "", views: todayViewsNumber }];
 
   const firstAppeared =
-    rankHistory.find((h) => h.rank !== null)?.date ||
-    rankHistory[0]?.date ||
-    row["날짜"] ||
-    "";
+    rankHistory.find((h) => h.rank !== null)?.date || rankHistory[0]?.date || row["날짜"] || "";
 
   const consecutiveDays = (() => {
     const sortedDesc = [...rankHistory].sort(
-      (a, b) =>
-        new Date(b.date).getTime() - new Date(a.date).getTime(),
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
     let count = 0;
     for (const h of sortedDesc) {
@@ -230,10 +342,7 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
   const peakRank = (() => {
     const ranks = rankHistory
       .map((h) => h.rank)
-      .filter(
-        (r): r is number =>
-          typeof r === "number" && r > 0,
-      );
+      .filter((r): r is number => typeof r === "number" && r > 0);
     if (ranks.length === 0) return todayRank;
     return Math.min(...ranks);
   })();
@@ -245,32 +354,19 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
     genre: toUnifiedGenre(platform, row["장르"] || "기타"),
     publisher: row["출판사"] || "-",
     platform,
-    thumbnailUrl:
-      row["썸네일"] && row["썸네일"] !== "-"
-        ? row["썸네일"]
-        : undefined,
+    thumbnailUrl: row["썸네일"] && row["썸네일"] !== "-" ? row["썸네일"] : undefined,
     todayRank,
-    prevRank:
-      row["전일순위"] === "NEW"
-        ? null
-        : parseInt(String(row["전일순위"])),
+    prevRank: row["전일순위"] === "NEW" ? null : parseInt(String(row["전일순위"])),
     rankChange,
     isNew,
     isReEntry,
     todayViews: todayViewsNumber,
     viewsChange: todayViewsNumber - prevViewsNumber,
     viewsChangePct:
-      prevViewsNumber > 0
-        ? ((todayViewsNumber - prevViewsNumber) /
-            prevViewsNumber) *
-          100
-        : 0,
+      prevViewsNumber > 0 ? ((todayViewsNumber - prevViewsNumber) / prevViewsNumber) * 100 : 0,
     rating: parseFloat(String(row["평점"])) || 0,
     commentCount: parseCommentCount(row["댓글수"]),
-    episodeCount: parseInt(
-      String(row["총회차수"]).match(/\d+/)?.[0] || "0",
-      10,
-    ),
+    episodeCount: parseInt(String(row["총회차수"]).match(/\d+/)?.[0] || "0", 10),
     firstAppeared,
     coverGradient:
       platform === "naver"
@@ -278,19 +374,14 @@ function mapRowToNovel(row: TodayCombinedRow, index: number): Novel {
         : platform === "kakao"
           ? "from-amber-900 to-orange-700"
           : "from-blue-900 to-indigo-700",
-    coverEmoji:
-      platform === "naver"
-        ? "📗"
-        : platform === "kakao"
-          ? "💛"
-          : "📘",
+    coverEmoji: platform === "naver" ? "📗" : platform === "kakao" ? "💛" : "📘",
     rankHistory,
     viewsHistory,
     consecutiveDays,
     peakRank,
 
-    // 시트에 직결된 promotion (있으면 그대로, 없으면 undefined)
-    promotion: row.promotion,
+    // 문자열/객체 어떤 형태로 와도 정규화
+    promotion: normalizePromotion(platform, row.promotion),
 
     // 책장 기본값
     status: "none",
@@ -309,12 +400,11 @@ export function useTodayCombined() {
   useEffect(() => {
     async function load() {
       try {
-        if (!APPS_SCRIPT_URL)
+        if (!APPS_SCRIPT_URL) {
           throw new Error("VITE_APPS_SCRIPT_URL 미설정");
+        }
 
-        const res = await fetch(
-          `${APPS_SCRIPT_URL}?action=getTodayCombined`,
-        );
+        const res = await fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`);
         const rows = (await res.json()) as TodayCombinedRow[];
         if (!rows || rows.length === 0) {
           setData([]);
@@ -326,18 +416,20 @@ export function useTodayCombined() {
           .filter(Boolean)
           .sort()
           .reverse();
+
         const mostRecentDate = dates[0];
         setLatestDate(mostRecentDate);
 
         // Kakao 프로모션 맵 가져오기
         const promoMap = await fetchKakaoPromotionMap();
 
-        // Novel로 변환 + Kakao에만 프로모션 주입
+        // Novel로 변환 + Kakao에만 기존 구조 그대로 프로모션 주입
         const novels: Novel[] = rows
           .filter((r) => r.날짜 === mostRecentDate)
           .map((row, idx) => {
             const n = mapRowToNovel(row, idx);
 
+            // 카카오는 기존 구조 절대 변경하지 않고 그대로 유지
             if (n.platform === "kakao") {
               const key = `kakao::${n.title.trim()}`;
               const promo = promoMap.get(key);
@@ -352,9 +444,7 @@ export function useTodayCombined() {
             return n;
           });
 
-        const stats = getPlatformMaxStats(
-          novels as unknown as UnifiedNovel[],
-        );
+        const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
           ...n,
           overallScore: computeUnifiedScore(
