@@ -53,120 +53,15 @@ type InsightItem = {
   body: string;
 };
 
-
-function normalizeBannerText(text?: string | null) {
-  return (text ?? "")
-    .toLowerCase()
-    .replace(/\.\.\.|…/g, "")
-    .replace(/\s+/g, "")
-    .replace(/[!！?？.,·•[\](){}<>《》"'`~:;|/\\+-]/g, "")
-    .trim();
-}
-
-function buildBannerFrequencyMaps(sourceData: Novel[]) {
-  const globalMap = new Map<string, number>();
-  const platformMap = new Map<string, number>();
-
-  sourceData.forEach((novel) => {
-    const banners = novel.promotion?.eventBanners ?? [];
-
-    banners.forEach((banner) => {
-      const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
-      const normalized = normalizeBannerText(text);
-      if (!normalized) return;
-
-      globalMap.set(normalized, (globalMap.get(normalized) ?? 0) + 1);
-
-      const platformKey = `${novel.platform}::${normalized}`;
-      platformMap.set(platformKey, (platformMap.get(platformKey) ?? 0) + 1);
-    });
-  });
-
-  return { globalMap, platformMap };
-}
-
-function isRepeatedBanner(
-  novel: Novel,
-  banner: { title?: string; subtitle?: string },
-  globalMap: Map<string, number>,
-  platformMap: Map<string, number>,
-) {
-  const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
-  const normalized = normalizeBannerText(text);
-  if (!normalized) return false;
-
-  const globalCount = globalMap.get(normalized) ?? 0;
-  const platformCount =
-    platformMap.get(`${novel.platform}::${normalized}`) ?? 0;
-
-  return platformCount >= 2 || globalCount >= 3;
-}
-
-function bannerMatchesNovelTitle(bannerText: string, novelTitle: string) {
-  const banner = normalizeBannerText(bannerText);
-  const title = normalizeBannerText(novelTitle);
-
-  if (!banner || !title) return false;
-
-  // 완전 포함
-  if (banner.includes(title) || title.includes(banner)) return true;
-
-  // 말줄임표/잘림 대응: 제목 앞부분 6자 이상이면 일치로 인정
-  const minPrefix = Math.min(Math.max(6, Math.floor(title.length * 0.45)), title.length);
-  const titlePrefix = title.slice(0, minPrefix);
-
-  if (titlePrefix && banner.includes(titlePrefix)) return true;
-
-  // 배너가 더 긴 경우에도 앞부분 비교
-  const bannerPrefix = banner.slice(0, minPrefix);
-  if (bannerPrefix && title.includes(bannerPrefix)) return true;
-
-  return false;
-}
-
-function hasConservativePromoBanner(
-  novel: Novel,
-  globalMap: Map<string, number>,
-  platformMap: Map<string, number>,
-) {
-  const banners = novel.promotion?.eventBanners ?? [];
-  if (banners.length === 0) return false;
-
-  return banners.some((banner) => {
-    const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
-    if (!text) return false;
-
-    if (isRepeatedBanner(novel, banner, globalMap, platformMap)) {
-      return false;
-    }
-
-    return bannerMatchesNovelTitle(text, novel.title);
-  });
-}
-
-function isConservativeMeaningfulPromo(
-  novel: Novel,
-  globalMap: Map<string, number>,
-  platformMap: Map<string, number>,
-) {
-  const p = novel.promotion;
-  if (!p) return false;
-
-  if (novel.platform === "naver") {
-    return p.tag?.trim() === "타임딜";
-  }
-
-  if (novel.platform === "kakao" || novel.platform === "ridi") {
-    return hasConservativePromoBanner(novel, globalMap, platformMap);
-  }
-
-  return false;
-}
-
+type PromoBadge = {
+  label: string;
+  icon: "clock" | "ticket" | "none";
+  className: string;
+} | null;
 
 function InsightCard({ item }: { item: InsightItem }) {
   return (
-    <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+    <div className="bg-surface-elevated border border-border/40 rounded-xl p-3 md:p-3">
       <p className="text-xs font-bold text-foreground">{item.title}</p>
       <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
         {item.body}
@@ -187,23 +82,17 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="surface-card p-4 flex flex-col items-center gap-1 border border-border/40">
+    <div className="surface-card p-3 md:p-4 flex flex-col items-center gap-1 border border-border/40">
       <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>
         {icon}
       </div>
       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
         {label}
       </p>
-      <p className="text-xl font-black">{value}</p>
+      <p className="text-lg md:text-xl font-black">{value}</p>
     </div>
   );
 }
-
-type PromoBadge = {
-  label: string;
-  icon: "clock" | "ticket" | "none";
-  className: string;
-} | null;
 
 function getPromoBadgeClass(platform: Novel["platform"]): string {
   if (platform === "naver") return "bg-naver text-black";
@@ -276,6 +165,115 @@ function getAnalysisBadges(novel: Novel): string[] {
   return badges.slice(0, 3);
 }
 
+function normalizeBannerText(text?: string | null) {
+  return (text ?? "")
+    .toLowerCase()
+    .replace(/\.\.\.|…/g, "")
+    .replace(/\s+/g, "")
+    .replace(/[!！?？.,·•[\](){}<>《》"'`~:;|/\\+-]/g, "")
+    .trim();
+}
+
+function buildBannerFrequencyMaps(sourceData: Novel[]) {
+  const globalMap = new Map<string, number>();
+  const platformMap = new Map<string, number>();
+
+  sourceData.forEach((novel) => {
+    const banners = novel.promotion?.eventBanners ?? [];
+
+    banners.forEach((banner) => {
+      const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+      const normalized = normalizeBannerText(text);
+      if (!normalized) return;
+
+      globalMap.set(normalized, (globalMap.get(normalized) ?? 0) + 1);
+
+      const platformKey = `${novel.platform}::${normalized}`;
+      platformMap.set(platformKey, (platformMap.get(platformKey) ?? 0) + 1);
+    });
+  });
+
+  return { globalMap, platformMap };
+}
+
+function isRepeatedBanner(
+  novel: Novel,
+  banner: { title?: string; subtitle?: string },
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+  const normalized = normalizeBannerText(text);
+  if (!normalized) return false;
+
+  const globalCount = globalMap.get(normalized) ?? 0;
+  const platformCount =
+    platformMap.get(`${novel.platform}::${normalized}`) ?? 0;
+
+  return platformCount >= 2 || globalCount >= 3;
+}
+
+function bannerMatchesNovelTitle(bannerText: string, novelTitle: string) {
+  const banner = normalizeBannerText(bannerText);
+  const title = normalizeBannerText(novelTitle);
+
+  if (!banner || !title) return false;
+
+  if (banner.includes(title) || title.includes(banner)) return true;
+
+  const minPrefix = Math.min(
+    Math.max(6, Math.floor(title.length * 0.45)),
+    title.length,
+  );
+  const titlePrefix = title.slice(0, minPrefix);
+
+  if (titlePrefix && banner.includes(titlePrefix)) return true;
+
+  const bannerPrefix = banner.slice(0, minPrefix);
+  if (bannerPrefix && title.includes(bannerPrefix)) return true;
+
+  return false;
+}
+
+function hasConservativePromoBanner(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const banners = novel.promotion?.eventBanners ?? [];
+  if (banners.length === 0) return false;
+
+  return banners.some((banner) => {
+    const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+    if (!text) return false;
+
+    if (isRepeatedBanner(novel, banner, globalMap, platformMap)) {
+      return false;
+    }
+
+    return bannerMatchesNovelTitle(text, novel.title);
+  });
+}
+
+function isConservativeMeaningfulPromo(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const p = novel.promotion;
+  if (!p) return false;
+
+  if (novel.platform === "naver") {
+    return p.tag?.trim() === "타임딜";
+  }
+
+  if (novel.platform === "kakao" || novel.platform === "ridi") {
+    return hasConservativePromoBanner(novel, globalMap, platformMap);
+  }
+
+  return false;
+}
+
 function RankingColumn({
   title,
   subtitle,
@@ -293,10 +291,10 @@ function RankingColumn({
 }) {
   return (
     <div className="surface-card border border-border/50 shadow-sm">
-      <div className="flex flex-col mb-5">
+      <div className="flex flex-col mb-4 md:mb-5">
         <div className="flex items-center gap-2">
           {icon}
-          <h2 className="font-extrabold text-lg tracking-tight">{title}</h2>
+          <h2 className="font-extrabold text-base md:text-lg tracking-tight">{title}</h2>
         </div>
         <p className="text-[10px] text-muted-foreground mt-0.5 ml-7 font-medium uppercase">
           {subtitle}
@@ -322,7 +320,7 @@ function RankingColumn({
             >
               <span
                 className={cn(
-                  "w-5 text-center font-mono font-black text-sm",
+                  "w-5 text-center font-mono font-black text-sm shrink-0",
                   idx < 3 ? "text-primary" : "text-muted-foreground/40",
                 )}
               >
@@ -336,21 +334,21 @@ function RankingColumn({
                   className="rounded shadow-sm shrink-0 w-8 h-10"
                 />
                 {promoBadge && (
-  <span
-    className={cn(
-      "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow whitespace-nowrap",
-      promoBadge.className,
-    )}
-  >
-    {promoBadge.icon === "clock" && <Clock size={8} />}
-    {promoBadge.icon === "ticket" && <Ticket size={8} />}
-    {promoBadge.label}
-  </span>
-)}
+                  <span
+                    className={cn(
+                      "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow whitespace-nowrap",
+                      promoBadge.className,
+                    )}
+                  >
+                    {promoBadge.icon === "clock" && <Clock size={8} />}
+                    {promoBadge.icon === "ticket" && <Ticket size={8} />}
+                    {promoBadge.label}
+                  </span>
+                )}
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-bold truncate group-hover:text-primary transition-colors">
+                <h3 className="text-[13px] md:text-sm font-bold truncate group-hover:text-primary transition-colors">
                   {primaryLabel}
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -367,7 +365,7 @@ function RankingColumn({
                   {badges.slice(0, 2).map((badge) => (
                     <span
                       key={badge}
-                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold"
+                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold whitespace-nowrap"
                     >
                       {badge}
                     </span>
@@ -404,7 +402,7 @@ function RankingColumn({
                   </div>
                 )}
                 {mode !== "publisher" && (
-                  <div className="text-[10px] text-muted-foreground mt-0.5">
+                  <div className="text-[10px] text-muted-foreground mt-0.5 hidden sm:block">
                     {novel.publisher}
                   </div>
                 )}
@@ -459,7 +457,8 @@ export default function OverviewPage() {
 
     const maxStats = getPlatformMaxStats(sourceData as UnifiedNovel[]);
     const { globalMap: bannerGlobalMap, platformMap: bannerPlatformMap } =
-  buildBannerFrequencyMaps(sourceData);
+      buildBannerFrequencyMaps(sourceData);
+
     const enrichedData = attachRidiInnerRank(
       sourceData as UnifiedNovel[],
       maxStats.maxCommentsByPlatform,
@@ -507,7 +506,6 @@ export default function OverviewPage() {
       .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
       .slice(0, 10);
 
-    // --- 출판사 스코어 (3번 균형형) ---
     const publisherMap = new Map<string, PublisherStats>();
     const trendIds = new Set(trend.map((n) => n.id));
 
@@ -597,14 +595,14 @@ export default function OverviewPage() {
       .sort((a: any, b: any) => b.total - a.total)
       .slice(0, 8);
 
-   const promoCount = sourceData.filter((n) =>
-  isConservativeMeaningfulPromo(
-    n,
-    bannerGlobalMap,
-    bannerPlatformMap,
-  ),
-).length;
-    
+    const promoCount = sourceData.filter((n) =>
+      isConservativeMeaningfulPromo(
+        n,
+        bannerGlobalMap,
+        bannerPlatformMap,
+      ),
+    ).length;
+
     const viralCount = sourceData.filter(
       (n) =>
         (n.viewsChangePct || 0) >= 20 &&
@@ -636,7 +634,7 @@ export default function OverviewPage() {
       },
       {
         title: "프로모션 영향",
-        body: `작품별 개별 이벤트 프로모션이 확인된 작품은 총 ${promoCount}개예요.`,
+        body: `공용 배너와 시간제 무료를 제외하고, 작품별 개별 이벤트 프로모션이 확인된 작품은 총 ${promoCount}개예요.`,
       },
       {
         title: "바이럴 움직임",
@@ -675,19 +673,19 @@ export default function OverviewPage() {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in pb-12">
-      <header className="flex justify-between items-end">
+    <div className="space-y-6 md:space-y-8 animate-fade-in pb-10 md:pb-12">
+      <header className="flex flex-col gap-2 md:flex-row md:justify-between md:items-end">
         <div>
-          <h1 className="text-2xl font-black tracking-tight text-foreground italic">
+          <h1 className="text-xl md:text-2xl font-black tracking-tight text-foreground italic">
             MARKET OVERVIEW
           </h1>
-          <p className="text-sm text-muted-foreground mt-1 font-medium">
+          <p className="text-xs md:text-sm text-muted-foreground mt-1 font-medium">
             {latestDate} 기준 실시간 통합 대시보드
           </p>
         </div>
       </header>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
         <StatCard
           icon={<BookOpen size={18} />}
           label="분석 작품"
@@ -714,7 +712,7 @@ export default function OverviewPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-4 md:gap-6">
         <div className="surface-card border border-border/40 shadow-sm">
           <div className="flex items-center gap-2 mb-4">
             <Sparkles size={16} className="text-primary" />
@@ -770,20 +768,19 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* 플랫폼/장르 차트 */}
       <div className="surface-card border border-border/40 shadow-sm">
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
           <div className="min-w-0">
             <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
               플랫폼별 작품 점유율
             </h3>
-            <div className="h-[280px]">
+            <div className="h-[220px] md:h-[280px]">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={platformData}
-                    innerRadius={58}
-                    outerRadius={82}
+                    innerRadius={48}
+                    outerRadius={76}
                     paddingAngle={8}
                     dataKey="value"
                   >
@@ -805,7 +802,7 @@ export default function OverviewPage() {
             <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
               장르별 플랫폼 상세 분포
             </h3>
-            <div className="h-[280px]">
+            <div className="h-[240px] md:h-[280px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={genreStackedData} layout="vertical">
                   <CartesianGrid
@@ -846,8 +843,7 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* TOP10 4열 */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-6">
         <RankingColumn
           title="종합 인기 TOP 10"
           subtitle="체급 및 시장 점유율 기반 대작 랭킹"
