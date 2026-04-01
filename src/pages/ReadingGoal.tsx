@@ -595,7 +595,7 @@ function GoalCard({
       className="surface-card border border-border cursor-pointer p-3 md:p-4"
       onClick={onEdit}
     >
-      <div className="flex gap-3 items-start"
+      <div className="flex gap-3 items-start">
         <div className="shrink-0 relative">
           {goal.thumbnailUrl ? (
             <img
