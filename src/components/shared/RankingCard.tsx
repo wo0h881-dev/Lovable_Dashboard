@@ -1,4 +1,3 @@
-// src/components/shared/RankingCard.tsx
 import { motion } from "framer-motion";
 import {
   MessageCircle,
@@ -150,13 +149,13 @@ export function RankingCard({
     >
       {/* 순위 번호 */}
       <div
-        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-3 md:px-4"
-style={{ minWidth: 52 }}
+        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-2 md:px-4"
+        style={{ minWidth: 44 }}
       >
         <span
           className={cn(
             "font-mono font-black leading-none",
-            rank <= 3 ? "text-4xl" : rank <= 9 ? "text-3xl" : "text-2xl",
+            rank <= 3 ? "text-3xl md:text-4xl" : rank <= 9 ? "text-2xl md:text-3xl" : "text-xl md:text-2xl",
             rank === 1 && "text-yellow-400",
             rank === 2 && "text-slate-400",
             rank === 3 && "text-amber-600",
@@ -168,34 +167,34 @@ style={{ minWidth: 52 }}
       </div>
 
       {/* 커버 */}
-      <div className="flex-shrink-0 py-3 pl-3">
-  <div className="scale-90 md:scale-100 origin-left">
-    <NovelCover novel={novel} size="md" />
-  </div>
-</div>
+      <div className="flex-shrink-0 py-3 pl-2 md:pl-3">
+        <div className="scale-[0.82] md:scale-100 origin-left">
+          <NovelCover novel={novel} size="md" />
+        </div>
+      </div>
 
       {/* 내용 */}
-      <div className="flex-1 min-w-0 px-3 md:px-4 py-3 flex flex-col justify-between">
+      <div className="flex-1 min-w-0 px-2 md:px-4 py-3 flex flex-col justify-between">
         <div>
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-[13px] md:text-sm leading-snug line-clamp-2 text-foreground">
+              <h3 className="font-semibold text-[13px] md:text-sm leading-snug line-clamp-2 text-foreground break-words">
                 {novel.title}
               </h3>
 
               {/* TODAY 줄 */}
               <div className="flex items-center gap-1.5 mt-1">
                 {novel.todayRank != null && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-muted text-foreground border border-border whitespace-nowrap">
+                  <span className="inline-flex items-center gap-1 font-mono text-[10px] md:text-[11px] font-black px-2 py-0.5 rounded-full bg-muted text-foreground border border-border whitespace-nowrap">
                     <span className="text-[9px] opacity-70">TODAY</span>
                     #{novel.todayRank}위
                   </span>
                 )}
               </div>
 
-              {/* 프로모션 뱃지 줄: 각각 따로, 한 줄 유지 */}
+              {/* 프로모션 뱃지 줄 */}
               {(primaryPromoLabel || secondaryPromoLabel || showDaysLeft) && (
-                <div className="mt-1 flex items-center gap-1.5 flex-nowrap whitespace-nowrap overflow-x-auto">
+                <div className="mt-1 flex items-center gap-1.5 flex-nowrap whitespace-nowrap overflow-x-auto scrollbar-none">
                   {primaryPromoLabel && (
                     <span
                       className={cn(
@@ -247,12 +246,12 @@ style={{ minWidth: 52 }}
             />
           </div>
 
-          <div className="flex items-center gap-1.5 mt-1.5 text-[11px] md:text-xs text-muted-foreground flex-wrap">
-            <span>{novel.author}</span>
+          <div className="flex items-center gap-1 md:gap-1.5 mt-1.5 text-[10px] md:text-xs text-muted-foreground flex-wrap">
+            <span className="truncate">{novel.author}</span>
             <span className="opacity-40">·</span>
             <span className="text-primary/80">{novel.genre}</span>
             <span className="opacity-40">·</span>
-            <span>{novel.publisher}</span>
+            <span className="truncate">{novel.publisher}</span>
           </div>
         </div>
 
@@ -262,7 +261,7 @@ style={{ minWidth: 52 }}
 
           <span
             className={cn(
-              "font-mono text-xs font-semibold",
+              "font-mono text-xs font-semibold whitespace-nowrap",
               viewsUp ? "text-up" : "text-down",
             )}
           >
@@ -271,12 +270,12 @@ style={{ minWidth: 52 }}
 
           {variant === "default" && (
             <>
-              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground whitespace-nowrap">
                 <Star size={10} className="text-yellow-400" />
                 <span className="font-mono">{novel.rating}</span>
               </span>
 
-              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground whitespace-nowrap">
                 <MessageCircle size={10} />
                 <span className="font-mono">
                   {novel.platform === "ridi"
@@ -285,7 +284,7 @@ style={{ minWidth: 52 }}
                 </span>
               </span>
 
-              <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
+              <span className="flex items-center gap-0.5 text-xs text-muted-foreground whitespace-nowrap">
                 <BookOpen size={10} />
                 <span className="font-mono">
                   {novel.episodeCount ? `${novel.episodeCount}화` : "-"}
@@ -294,12 +293,24 @@ style={{ minWidth: 52 }}
             </>
           )}
         </div>
+
+        {/* 모바일 전용 증감률 */}
+        <div className="flex md:hidden items-center justify-end mt-2">
+          <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
+            <div className="font-mono text-xs font-bold whitespace-nowrap">
+              {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
+            </div>
+            <div className="text-[10px] text-muted-foreground mt-0.5">
+              전일 대비
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 우측: 증감률 */}
-      <div className="flex-shrink-0 flex items-center pr-3 md:pr-4">
+      <div className="hidden md:flex flex-shrink-0 items-center pr-3 md:pr-4">
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
-          <div className="font-mono text-xs font-bold">
+          <div className="font-mono text-xs font-bold whitespace-nowrap">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
           <div className="text-[10px] text-muted-foreground mt-0.5">
