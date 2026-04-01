@@ -115,7 +115,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
 
   if (novel.platform === "kakao") {
     if (promo.timeFreeType === "threeHour") {
-      return { label: "3다무", icon: "clock", className };
+      return { label: "3다무", icon: "none", className };
     }
     if (promo.timeFreeType === "waitFree") {
       return { label: "기다무", icon: "clock", className };
@@ -139,7 +139,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
       if (/화무/.test(ridiFreeLabel)) {
         return { label: ridiFreeLabel, icon: "ticket", className };
       }
-      return { label: ridiFreeLabel, icon: "ticket", className };
+      return { label: ridiFreeLabel, icon: "none", className };
     }
 
     if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
@@ -242,7 +242,6 @@ export default function RankingsPage() {
         )}
       </div>
 
-      {/* 필터 */}
       <div className="surface-card space-y-4">
         <div className="flex items-center gap-2 flex-wrap">
           {platformTabs.map((t) => (
@@ -360,7 +359,6 @@ export default function RankingsPage() {
         </div>
       </div>
 
-      {/* TOP 4 카드 */}
       {topCards.length > 0 && (
         <div>
           <p className="text-xs text-muted-foreground mb-3 font-medium">
@@ -379,7 +377,6 @@ export default function RankingsPage() {
         </div>
       )}
 
-      {/* 전체 순위표 */}
       <div className="surface-card overflow-hidden p-0">
         <div className="px-5 py-4 border-b border-border flex items-center justify-between">
           <h2 className="text-sm font-bold">
@@ -432,7 +429,7 @@ export default function RankingsPage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.02 }}
                   >
-                    <td className="py-2.5 px-3 flex-nowrap whitespace-nowrap">
+                    <td className="py-2.5 px-3">
                       <PlatformBadge platform={n.platform} />
                     </td>
 
