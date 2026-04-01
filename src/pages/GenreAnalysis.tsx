@@ -89,7 +89,7 @@ const falling = useMemo(() =>
 
 
       {/* 장르 탭 */}
-      <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex items-center gap-2 whitespace-nowrap">
         {genres.map((g) => (
           <button
             key={g}
