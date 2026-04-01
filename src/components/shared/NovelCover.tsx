@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Novel } from "@/data/mockData";
 
@@ -7,56 +8,52 @@ interface Props {
   size?: "sm" | "md" | "lg";
 }
 
-const sizes = { sm: "w-10 h-14", md: "w-16 h-22", lg: "w-20 h-28" };
+const sizeClasses = {
+  sm: "w-10 h-14",
+  md: "w-16 h-[5.625rem]",
+  lg: "w-20 h-28",
+};
+
+const emojiSizeClasses = {
+  sm: "text-lg",
+  md: "text-2xl",
+  lg: "text-3xl",
+};
 
 export function NovelCover({ novel, className, size = "md" }: Props) {
-  const style =
-    size === "md"
-      ? { width: 64, height: 90 }
-      : size === "lg"
-      ? { width: 80, height: 112 }
-      : { width: 40, height: 56 };
+  const [imageError, setImageError] = useState(false);
+  const hasThumbnail = !!novel.thumbnailUrl && !imageError;
 
-  // ✅ 썸네일 있으면 이미지 우선
-  if (novel.thumbnailUrl) {
+  if (hasThumbnail) {
     return (
       <div
         className={cn(
-          "flex-shrink-0 rounded overflow-hidden",
-          sizes[size],
-          className
+          "flex-shrink-0 rounded overflow-hidden bg-surface-elevated",
+          sizeClasses[size],
+          className,
         )}
-        style={style}
       >
         <img
           src={novel.thumbnailUrl}
           alt={novel.title}
           className="w-full h-full object-cover"
+          loading="lazy"
+          onError={() => setImageError(true)}
         />
       </div>
     );
   }
 
-  // ✅ 썸네일 없으면 기존 그라데이션 + 이모지
   return (
     <div
       className={cn(
-        "flex-shrink-0 rounded overflow-hidden flex items-center justify-center",
-        `bg-gradient-to-br ${novel.coverGradient}`,
-        sizes[size],
-        className
+        "flex-shrink-0 rounded overflow-hidden flex items-center justify-center bg-gradient-to-br",
+        novel.coverGradient,
+        sizeClasses[size],
+        className,
       )}
-      style={style}
     >
-      <span
-        className={cn(
-          size === "sm"
-            ? "text-lg"
-            : size === "md"
-            ? "text-2xl"
-            : "text-3xl"
-        )}
-      >
+      <span className={emojiSizeClasses[size]}>
         {novel.coverEmoji}
       </span>
     </div>
