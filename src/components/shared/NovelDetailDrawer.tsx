@@ -335,25 +335,6 @@ function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
   const promo: any = novel.promotion;
   const lines: RidiInfoLine[] = [];
 
-  if (promo.serialSchedule) {
-    lines.push({
-      label: "연재",
-      title: promo.serialSchedule,
-    });
-  }
-
-  if (Array.isArray(promo.notices)) {
-    promo.notices.forEach((notice: any) => {
-      const text = String(notice?.title || notice?.body || "").trim();
-      if (!text) return;
-
-      lines.push({
-        label: String(notice?.label || "공지").trim() || "공지",
-        title: text,
-      });
-    });
-  }
-
   if (Array.isArray(promo.eventBanners)) {
     promo.eventBanners.forEach((event: any) => {
       const text = String(event?.title || "").trim();
@@ -366,17 +347,10 @@ function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
     });
   }
 
-  if (Array.isArray(promo.benefits)) {
-    promo.benefits.forEach((benefit: any) => {
-      const title = String(benefit?.title || "").trim();
-      const subtitle = String(benefit?.subtitle || "").trim();
-      const text = subtitle ? `${title} · ${subtitle}` : title;
-      if (!text) return;
-
-      lines.push({
-        label: String(benefit?.label || "혜택").trim() || "혜택",
-        title: text,
-      });
+  if (promo.serialSchedule) {
+    lines.push({
+      label: "연재",
+      title: promo.serialSchedule,
     });
   }
 
@@ -387,12 +361,38 @@ function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
     });
   }
 
+  if (Array.isArray(promo.notices)) {
+    promo.notices.forEach((notice: any) => {
+      const label = String(notice?.label || notice?.title || "공지").trim();
+      const text = String(notice?.body || notice?.title || "").trim();
+      if (!text) return;
+
+      lines.push({
+        label,
+        title: text,
+      });
+    });
+  }
+
   const seen = new Set<string>();
-  return lines.filter((line) => {
+  const deduped = lines.filter((line) => {
     const key = `${line.label}::${line.title}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
+  });
+
+  const order = {
+    이벤트: 1,
+    연재: 2,
+    독점: 3,
+    공지: 4,
+  };
+
+  return deduped.sort((a, b) => {
+    const aOrder = order[a.label as keyof typeof order] ?? 999;
+    const bOrder = order[b.label as keyof typeof order] ?? 999;
+    return aOrder - bOrder;
   });
 }
 
@@ -882,24 +882,53 @@ export function NovelDetailDrawer({
                         )}
 
                         {ridiInfoLines.length > 0 && (
-                          <div className="max-h-56 overflow-y-auto divide-y divide-border">
-                            {ridiInfoLines.map((line, idx) => (
-                              <div
-                                key={`ridi-line-${line.label}-${idx}`}
-                                className="px-4 py-3 hover:bg-surface transition-colors"
-                              >
-                                <div className="flex items-start gap-2">
-                                  <span
-                                    className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}
+                          <div className="space-y-px">
+                            {ridiInfoLines.map((line, idx) => {
+                              const isEvent = line.label === "이벤트";
+
+                              if (isEvent) {
+                                return (
+                                  <div
+                                    key={`ridi-line-${line.label}-${idx}`}
+                                    className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
                                   >
-                                    {line.label}
-                                  </span>
-                                  <p className="text-xs font-bold text-foreground leading-snug break-words">
-                                    {line.title}
-                                  </p>
+                                    <div
+                                      className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                    />
+                                    <div className="ml-1 mt-0.5 shrink-0">
+                                      <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-ridi/15 text-ridi">
+                                        이벤트
+                                      </span>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p
+                                        className={`text-xs font-extrabold ${promoStyle.titleColor}`}
+                                      >
+                                        {line.title}
+                                      </p>
+                                    </div>
+                                  </div>
+                                );
+                              }
+
+                              return (
+                                <div
+                                  key={`ridi-line-${line.label}-${idx}`}
+                                  className="px-4 py-3 hover:bg-surface transition-colors border-b border-border last:border-0"
+                                >
+                                  <div className="flex items-start gap-2">
+                                    <span
+                                      className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}
+                                    >
+                                      {line.label}
+                                    </span>
+                                    <p className="text-xs font-bold text-foreground leading-snug break-words">
+                                      {line.title}
+                                    </p>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </>
