@@ -409,7 +409,8 @@ function mergeRidiPromotion(
     tag: incoming.tag || base.tag,
     freeEpisodes:
       incoming.freeEpisodes !== undefined ? incoming.freeEpisodes : base.freeEpisodes,
-    daysLeft: incoming.daysLeft !== undefined ? incoming.daysLeft : base.daysLeft,
+    daysLeft:
+      incoming.daysLeft !== undefined ? incoming.daysLeft : base.daysLeft,
 
     eventBanners: mergeBannerArrays(base.eventBanners, incoming.eventBanners),
     notices: mergeNoticeArrays(base.notices, incoming.notices),
@@ -598,31 +599,37 @@ export function useTodayCombined() {
         setLatestDate(mostRecentDate);
 
         const novels: Novel[] = rows
-          .filter((r) => r.날짜 === mostRecentDate)
-          .map((row, idx) => {
-            const n = mapRowToNovel(row, idx);
-            const key = `${n.platform}::${n.title.trim()}`;
+  .filter((r) => r.날짜 === mostRecentDate)
+  .map((row, idx) => {
+    const n = mapRowToNovel(row, idx);
+    const key = `${n.platform}::${n.title.trim()}`;
 
-            const promo =
-              n.platform === "kakao"
-                ? kakaoPromoMap.get(key)
-                : n.platform === "naver"
-                  ? naverPromoMap.get(key)
-                  : ridiPromoMap.get(key);
+    const promo =
+      n.platform === "kakao"
+        ? kakaoPromoMap.get(key)
+        : n.platform === "naver"
+          ? naverPromoMap.get(key)
+          : ridiPromoMap.get(key);
 
-            if (promo) {
-              if (n.platform === "ridi") {
-                n.promotion = mergeRidiPromotion(n.promotion, promo);
-              } else {
-                n.promotion = {
-                  ...(n.promotion ?? {}),
-                  ...promo,
-                };
-              }
-            }
+    if (promo) {
+      if (n.platform === "ridi") {
+        n.promotion = mergeRidiPromotion(n.promotion, promo);
+      } else {
+        n.promotion = {
+          ...(n.promotion ?? {}),
+          ...promo,
+        };
+      }
+    }
 
-            return n;
-          });
+    if (n.platform === "ridi" && n.title.includes("은행원도 용꿈을 꾸나요")) {
+  console.log("RIDI ROW PROMOTION", row.promotion);
+  console.log("RIDI MAP PROMOTION", promo);
+  console.log("RIDI FINAL PROMOTION", n.promotion);
+}
+
+    return n;
+  });
 
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
