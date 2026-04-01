@@ -484,9 +484,45 @@ export default function OverviewPage() {
       .sort((a: any, b: any) => b.total - a.total)
       .slice(0, 8);
 
-    const promoCount = sourceData.filter(
-      (n) => n.promotion?.timeFreeType && n.promotion.timeFreeType !== "none",
-    ).length;
+    const promoCount = sourceData.filter((n) => {
+  const p = n.promotion;
+  if (!p) return false;
+
+  const tag = p.tag?.trim() || "";
+  const ridiFreeLabel = p.ridiFreeLabel?.trim() || "";
+  const daysLeft = Number(p.daysLeft ?? 0);
+
+  const isAlwaysFreeTag =
+    tag === "기다무" ||
+    tag === "리다무" ||
+    tag === "기다리면 무료";
+
+  const isAlwaysFreeRidiLabel =
+    ridiFreeLabel === "리다무";
+
+  const hasEventBanner = (p.eventBanners?.length ?? 0) > 0;
+
+  const hasEventTag =
+    !!tag &&
+    !isAlwaysFreeTag &&
+    tag !== "기다무" &&
+    tag !== "3다무";
+
+  const hasEventFreeLabel =
+    !!ridiFreeLabel && !isAlwaysFreeRidiLabel;
+
+  const isNaverTimedEvent =
+    n.platform === "naver" &&
+    (tag === "타임딜" || daysLeft > 0);
+
+  return (
+    hasEventBanner ||
+    hasEventTag ||
+    hasEventFreeLabel ||
+    isNaverTimedEvent
+  );
+}).length;
+    
     const viralCount = sourceData.filter(
       (n) =>
         (n.viewsChangePct || 0) >= 20 &&
@@ -518,7 +554,7 @@ export default function OverviewPage() {
       },
       {
         title: "프로모션 영향",
-        body: `시간제 무료·프로모션이 적용된 작품이 총 ${promoCount}개로, 상위권 흐름에 상당한 영향을 주는 구간이에요.`,
+        body: `기다무·리다무 같은 상시 시간제 무료를 제외하고, 타임딜·잔여일 이벤트 등 별도 프로모션이 적용된 작품은 총 ${promoCount}개예요.`,
       },
       {
         title: "바이럴 움직임",
