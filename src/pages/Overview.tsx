@@ -53,6 +53,117 @@ type InsightItem = {
   body: string;
 };
 
+
+function normalizeBannerText(text?: string | null) {
+  return (text ?? "")
+    .toLowerCase()
+    .replace(/\.\.\.|…/g, "")
+    .replace(/\s+/g, "")
+    .replace(/[!！?？.,·•[\](){}<>《》"'`~:;|/\\+-]/g, "")
+    .trim();
+}
+
+function buildBannerFrequencyMaps(sourceData: Novel[]) {
+  const globalMap = new Map<string, number>();
+  const platformMap = new Map<string, number>();
+
+  sourceData.forEach((novel) => {
+    const banners = novel.promotion?.eventBanners ?? [];
+
+    banners.forEach((banner) => {
+      const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+      const normalized = normalizeBannerText(text);
+      if (!normalized) return;
+
+      globalMap.set(normalized, (globalMap.get(normalized) ?? 0) + 1);
+
+      const platformKey = `${novel.platform}::${normalized}`;
+      platformMap.set(platformKey, (platformMap.get(platformKey) ?? 0) + 1);
+    });
+  });
+
+  return { globalMap, platformMap };
+}
+
+function isRepeatedBanner(
+  novel: Novel,
+  banner: { title?: string; subtitle?: string },
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+  const normalized = normalizeBannerText(text);
+  if (!normalized) return false;
+
+  const globalCount = globalMap.get(normalized) ?? 0;
+  const platformCount =
+    platformMap.get(`${novel.platform}::${normalized}`) ?? 0;
+
+  return platformCount >= 2 || globalCount >= 3;
+}
+
+function bannerMatchesNovelTitle(bannerText: string, novelTitle: string) {
+  const banner = normalizeBannerText(bannerText);
+  const title = normalizeBannerText(novelTitle);
+
+  if (!banner || !title) return false;
+
+  // 완전 포함
+  if (banner.includes(title) || title.includes(banner)) return true;
+
+  // 말줄임표/잘림 대응: 제목 앞부분 6자 이상이면 일치로 인정
+  const minPrefix = Math.min(Math.max(6, Math.floor(title.length * 0.45)), title.length);
+  const titlePrefix = title.slice(0, minPrefix);
+
+  if (titlePrefix && banner.includes(titlePrefix)) return true;
+
+  // 배너가 더 긴 경우에도 앞부분 비교
+  const bannerPrefix = banner.slice(0, minPrefix);
+  if (bannerPrefix && title.includes(bannerPrefix)) return true;
+
+  return false;
+}
+
+function hasConservativePromoBanner(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const banners = novel.promotion?.eventBanners ?? [];
+  if (banners.length === 0) return false;
+
+  return banners.some((banner) => {
+    const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+    if (!text) return false;
+
+    if (isRepeatedBanner(novel, banner, globalMap, platformMap)) {
+      return false;
+    }
+
+    return bannerMatchesNovelTitle(text, novel.title);
+  });
+}
+
+function isConservativeMeaningfulPromo(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const p = novel.promotion;
+  if (!p) return false;
+
+  if (novel.platform === "naver") {
+    return p.tag?.trim() === "타임딜";
+  }
+
+  if (novel.platform === "kakao" || novel.platform === "ridi") {
+    return hasConservativePromoBanner(novel, globalMap, platformMap);
+  }
+
+  return false;
+}
+
+
 function InsightCard({ item }: { item: InsightItem }) {
   return (
     <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
@@ -347,6 +458,8 @@ export default function OverviewPage() {
     }
 
     const maxStats = getPlatformMaxStats(sourceData as UnifiedNovel[]);
+    const { globalMap: bannerGlobalMap, platformMap: bannerPlatformMap } =
+  buildBannerFrequencyMaps(sourceData);
     const enrichedData = attachRidiInnerRank(
       sourceData as UnifiedNovel[],
       maxStats.maxCommentsByPlatform,
@@ -484,44 +597,13 @@ export default function OverviewPage() {
       .sort((a: any, b: any) => b.total - a.total)
       .slice(0, 8);
 
-    const promoCount = sourceData.filter((n) => {
-  const p = n.promotion;
-  if (!p) return false;
-
-  const tag = p.tag?.trim() || "";
-  const ridiFreeLabel = p.ridiFreeLabel?.trim() || "";
-  const daysLeft = Number(p.daysLeft ?? 0);
-
-  const isAlwaysFreeTag =
-    tag === "기다무" ||
-    tag === "리다무" ||
-    tag === "기다리면 무료";
-
-  const isAlwaysFreeRidiLabel =
-    ridiFreeLabel === "리다무";
-
-  const hasEventBanner = (p.eventBanners?.length ?? 0) > 0;
-
-  const hasEventTag =
-    !!tag &&
-    !isAlwaysFreeTag &&
-    tag !== "기다무" &&
-    tag !== "3다무";
-
-  const hasEventFreeLabel =
-    !!ridiFreeLabel && !isAlwaysFreeRidiLabel;
-
-  const isNaverTimedEvent =
-    n.platform === "naver" &&
-    (tag === "타임딜" || daysLeft > 0);
-
-  return (
-    hasEventBanner ||
-    hasEventTag ||
-    hasEventFreeLabel ||
-    isNaverTimedEvent
-  );
-}).length;
+   const promoCount = sourceData.filter((n) =>
+  isConservativeMeaningfulPromo(
+    n,
+    bannerGlobalMap,
+    bannerPlatformMap,
+  ),
+).length;
     
     const viralCount = sourceData.filter(
       (n) =>
@@ -554,7 +636,7 @@ export default function OverviewPage() {
       },
       {
         title: "프로모션 영향",
-        body: `기다무·리다무 같은 상시 시간제 무료를 제외하고, 타임딜·잔여일 이벤트 등 별도 프로모션이 적용된 작품은 총 ${promoCount}개예요.`,
+        body: `작품별 개별 이벤트 프로모션이 확인된 작품은 총 ${promoCount}개예요.`,
       },
       {
         title: "바이럴 움직임",
