@@ -342,6 +342,7 @@ async function fetchPromotionMap(
     map.set(key, item.promotion);
   }
 
+  console.log("PROMO MAP SIZE", platform, map.size);
   return map;
 }
 
