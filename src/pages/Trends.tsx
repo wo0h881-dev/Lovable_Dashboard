@@ -380,11 +380,11 @@ function FixedTrendDetailPanel({
         <div className="text-[10px] text-muted-foreground font-mono">{latestDate}</div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-[auto_1fr_auto] gap-4 items-start mb-5">
+      <div className="flex flex-col xl:grid xl:grid-cols-[auto_1fr_auto] gap-4 items-start mb-5">
         <button onClick={() => onOpenDrawer(novel)} className="text-left">
           <NovelCover
             novel={novel}
-            className="w-20 h-28 rounded-xl shadow-md hover:opacity-90 transition-opacity"
+            className="w-16 h-24 md:w-20 md:h-28 rounded-xl shadow-md hover:opacity-90 transition-opacity"
           />
         </button>
 
@@ -626,7 +626,7 @@ function FixedTrendDetailPanel({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mt-5">
         <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
           <div className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
             <Eye size={12} />
@@ -780,7 +780,7 @@ export default function TrendsPage() {
       </div>
 
       <div className="surface-card space-y-4">
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-1">
           <h2 className="text-sm font-bold flex-1">작품 트렌드 비교</h2>
 
           {activeSelected.map((n, i) => (
@@ -808,7 +808,7 @@ export default function TrendsPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="작품 추가…"
-                className="pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary w-48"
+                className="pl-8 pr-3 py-2 md:py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary w-48"
               />
               {results.length > 0 && (
                 <div className="absolute top-full mt-1 left-0 w-64 bg-surface border border-border rounded-lg shadow-xl z-10 overflow-hidden">
@@ -816,7 +816,7 @@ export default function TrendsPage() {
                     <button
                       key={n.id}
                       onClick={() => addNovel(n)}
-                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-surface-elevated transition-colors text-left"
+                      className="w-full flex items-center gap-2 px-3 py-3 md:py-2 hover:bg-surface-elevated transition-colors text-left"
                     >
                       <NovelCover novel={n} size="sm" />
                       <div className="flex-1 min-w-0">
@@ -835,7 +835,7 @@ export default function TrendsPage() {
         {rankChartData.length > 0 && (
           <div>
             <p className="text-xs text-muted-foreground mb-2 font-medium">일별 순위 추이</p>
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={150}>
               <LineChart
                 data={rankChartData}
                 margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
@@ -890,7 +890,7 @@ export default function TrendsPage() {
             <p className="text-xs text-muted-foreground mb-2 font-medium">
               일별 조회수/평가수 추이
             </p>
-            <ResponsiveContainer width="100%" height={150}>
+            <ResponsiveContainer width="100%" height={130}>
               <LineChart
                 data={viewsChartData}
                 margin={{ top: 4, right: 4, bottom: 0, left: -20 }}
@@ -952,7 +952,7 @@ export default function TrendsPage() {
       </div>
 
       {activeSelected.length > 0 && (
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4">
     {activeSelected.map((n, i) => {
       const stats = getNovelTrendStats(n, latestDate);
       const detailStats = computeNovelStats(n); // ✅ 모달과 동일한 계산
