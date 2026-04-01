@@ -325,6 +325,55 @@ function normalizePromotion(
   return hasValue ? normalized : undefined;
 }
 
+
+function mergeRidiPromotion(
+  base?: PromotionInfo,
+  incoming?: PromotionInfo,
+): PromotionInfo | undefined {
+  if (!base && !incoming) return undefined;
+  if (!base) return incoming;
+  if (!incoming) return base;
+
+  return {
+    ...base,
+    ...incoming,
+
+    // 배열은 incoming이 비어있으면 base 유지
+    eventBanners:
+      Array.isArray(incoming.eventBanners) && incoming.eventBanners.length > 0
+        ? incoming.eventBanners
+        : base.eventBanners,
+
+    notices:
+      Array.isArray(incoming.notices) && incoming.notices.length > 0
+        ? incoming.notices
+        : base.notices,
+
+    benefits:
+      Array.isArray(incoming.benefits) && incoming.benefits.length > 0
+        ? incoming.benefits
+        : base.benefits,
+
+    // 문자열은 incoming이 비어있으면 base 유지
+    serialSchedule: incoming.serialSchedule || base.serialSchedule,
+    exclusiveText: incoming.exclusiveText || base.exclusiveText,
+    ridiWaitFreeText: incoming.ridiWaitFreeText || base.ridiWaitFreeText,
+
+    // null/undefined 구분해서 유지
+    freeEpisodes:
+      incoming.freeEpisodes !== undefined ? incoming.freeEpisodes : base.freeEpisodes,
+    daysLeft: incoming.daysLeft !== undefined ? incoming.daysLeft : base.daysLeft,
+    ridiWaitFree:
+      incoming.ridiWaitFree !== undefined ? incoming.ridiWaitFree : base.ridiWaitFree,
+    ridiFreeLabel:
+      incoming.ridiFreeLabel !== undefined ? incoming.ridiFreeLabel : base.ridiFreeLabel,
+
+    timeFreeType: incoming.timeFreeType || base.timeFreeType,
+    tag: incoming.tag || base.tag,
+  };
+}
+
+
 async function fetchPromotionMap(
   url: string,
   platform: Platform,
@@ -510,14 +559,19 @@ export function useTodayCombined() {
           : ridiPromoMap.get(key);
 
     if (promo) {
-      n.promotion = {
-        ...(n.promotion ?? {}),
-        ...promo,
-      };
+      if (n.platform === "ridi") {
+        n.promotion = mergeRidiPromotion(n.promotion, promo);
+      } else {
+        n.promotion = {
+          ...(n.promotion ?? {}),
+          ...promo,
+        };
+      }
     }
 
     return n;
   });
+        
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
           ...n,
