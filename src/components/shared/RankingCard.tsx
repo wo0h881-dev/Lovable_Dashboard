@@ -169,7 +169,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               </h3>
 
               {/* 오늘 순위 + 프로모션 뱃지 */}
-              <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+              <div className="flex items-center gap-1.5 mt-1 flex-nowrap whitespace-nowrap"">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
                     <span className="text-[9px] opacity-70">TODAY</span>
@@ -227,7 +227,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                     !(secondaryPromoLabel === `${novel.promotion.daysLeft}일 남음`) && (
                       <span
                         className={cn(
-                          "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
+                          "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
                           promoStyle.bg,
                           promoStyle.text,
                           promoStyle.border,
