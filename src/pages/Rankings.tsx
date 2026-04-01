@@ -1,4 +1,3 @@
-// src/pages/Rankings.tsx
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -242,49 +241,56 @@ export default function RankingsPage() {
         )}
       </div>
 
-      <div className="surface-card space-y-4">
-        <div className="flex items-center gap-2 flex-wrap">
-          {platformTabs.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setPlatform(t.key)}
-              className={cn(
-                "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors",
-                platform === t.key
-                  ? t.key === "naver"
-                    ? "bg-naver text-black"
-                    : t.key === "kakao"
-                    ? "bg-kakao text-black"
-                    : t.key === "ridi"
-                    ? "bg-ridi text-white"
-                    : "bg-primary text-primary-foreground"
-                  : "bg-surface-elevated text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {t.label}
-            </button>
-          ))}
+      <div className="surface-card space-y-4 p-3 md:p-4">
+        {/* 플랫폼/장르 */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-1 scrollbar-none">
+            {platformTabs.map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setPlatform(t.key)}
+                className={cn(
+                  "px-3 py-2 md:py-1.5 rounded-lg text-xs font-semibold transition-colors shrink-0",
+                  platform === t.key
+                    ? t.key === "naver"
+                      ? "bg-naver text-black"
+                      : t.key === "kakao"
+                        ? "bg-kakao text-black"
+                        : t.key === "ridi"
+                          ? "bg-ridi text-white"
+                          : "bg-primary text-primary-foreground"
+                    : "bg-surface-elevated text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
 
-          <div className="h-5 w-px bg-border mx-1" />
-
-          {genres.map((g) => (
-            <button
-              key={g}
-              onClick={() => setGenre(g)}
-              className={cn(
-                "px-2.5 py-1 rounded-md text-xs transition-colors",
-                genre === g
-                  ? "bg-primary/15 text-primary font-semibold"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {g}
-            </button>
-          ))}
+          <div className="overflow-x-auto pb-1 scrollbar-none">
+            <div className="flex items-center gap-2 whitespace-nowrap min-w-max">
+              <div className="h-5 w-px bg-border mx-1 shrink-0" />
+              {genres.map((g) => (
+                <button
+                  key={g}
+                  onClick={() => setGenre(g)}
+                  className={cn(
+                    "px-2.5 py-1 rounded-md text-xs transition-colors shrink-0",
+                    genre === g
+                      ? "bg-primary/15 text-primary font-semibold"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="relative flex-1 min-w-48">
+        {/* 검색/토글/모드/정렬 */}
+        <div className="flex flex-col gap-3">
+          <div className="relative w-full">
             <Search
               size={13}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -293,50 +299,52 @@ export default function RankingsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="제목 / 작가 검색…"
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pl-8 pr-3 py-2 md:py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
-          {[
-            { label: "NEW만 보기", value: showNew, setter: setShowNew },
-            { label: "재진입만 보기", value: showReEntry, setter: setShowReEntry },
-          ].map(({ label, value, setter }) => (
-            <button
-              key={label}
-              onClick={() => setter(!value)}
-              className={cn(
-                "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors",
-                value
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {label}
-            </button>
-          ))}
-
-          <div className="flex items-center gap-1 ml-auto">
+          <div className="flex flex-wrap items-center gap-2">
             {[
-              { key: "overall" as const, label: "종합" },
-              { key: "trend" as const, label: "트렌드" },
-            ].map((m) => (
+              { label: "NEW만 보기", value: showNew, setter: setShowNew },
+              { label: "재진입만 보기", value: showReEntry, setter: setShowReEntry },
+            ].map(({ label, value, setter }) => (
               <button
-                key={m.key}
-                onClick={() => setMode(m.key)}
+                key={label}
+                onClick={() => setter(!value)}
                 className={cn(
-                  "px-2.5 py-1 rounded text-xs",
-                  mode === m.key
-                    ? "bg-primary/15 text-primary font-semibold"
-                    : "text-muted-foreground hover:text-foreground",
+                  "px-3 py-1.5 rounded-full text-xs font-medium border transition-colors whitespace-nowrap",
+                  value
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border text-muted-foreground hover:text-foreground",
                 )}
               >
-                {m.label}
+                {label}
               </button>
             ))}
+
+            <div className="flex items-center gap-1 ml-auto">
+              {[
+                { key: "overall" as const, label: "종합" },
+                { key: "trend" as const, label: "트렌드" },
+              ].map((m) => (
+                <button
+                  key={m.key}
+                  onClick={() => setMode(m.key)}
+                  className={cn(
+                    "px-2.5 py-1 rounded text-xs whitespace-nowrap",
+                    mode === m.key
+                      ? "bg-primary/15 text-primary font-semibold"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center gap-1">
-            <SlidersHorizontal size={13} className="text-muted-foreground" />
+          <div className="flex items-center gap-1 overflow-x-auto whitespace-nowrap pb-1 scrollbar-none">
+            <SlidersHorizontal size={13} className="text-muted-foreground shrink-0" />
             {[
               { key: "rank" as const, label: "순위" },
               { key: "views" as const, label: "조회수" },
@@ -346,7 +354,7 @@ export default function RankingsPage() {
                 key={s.key}
                 onClick={() => setSortKey(s.key)}
                 className={cn(
-                  "px-2.5 py-1 rounded text-xs",
+                  "px-2.5 py-1 rounded text-xs shrink-0",
                   sortKey === s.key
                     ? "bg-surface-elevated text-foreground font-semibold"
                     : "text-muted-foreground hover:text-foreground",
@@ -377,7 +385,8 @@ export default function RankingsPage() {
         </div>
       )}
 
-      <div className="surface-card overflow-hidden p-0">
+      {/* 데스크톱 표 유지 */}
+      <div className="surface-card overflow-hidden p-0 hidden xl:block">
         <div className="px-5 py-4 border-b border-border flex items-center justify-between">
           <h2 className="text-sm font-bold">
             전체 순위표 ({mode === "overall" ? "종합" : "트렌드"})
@@ -429,7 +438,7 @@ export default function RankingsPage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.02 }}
                   >
-                    <td className="py-2.5 px-3 flex-nowrap whitespace-nowrap">
+                    <td className="py-2.5 px-3 whitespace-nowrap">
                       <PlatformBadge platform={n.platform} />
                     </td>
 
@@ -517,6 +526,47 @@ export default function RankingsPage() {
               })}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* 모바일에서는 표 숨기고 카드로만 */}
+      <div className="xl:hidden">
+        <div className="surface-card">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-bold">
+              전체 순위표 ({mode === "overall" ? "종합" : "트렌드"})
+            </h2>
+            <span className="font-mono text-xs text-muted-foreground">
+              {filtered.length}개
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {filtered.slice(0, 20).map((n, i) => (
+              <div
+                key={`mobile-${n.id}`}
+                className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
+                onClick={() => setSelectedNovel(n)}
+              >
+                <div className="flex items-center gap-2 shrink-0 min-w-0">
+                  <PlatformBadge platform={n.platform} />
+                  <span className="font-mono text-sm font-bold text-muted-foreground shrink-0">
+                    {i + 1}
+                  </span>
+                </div>
+
+                <span className="flex-1 text-[13px] font-medium line-clamp-1 min-w-0">
+                  {n.title}
+                </span>
+
+                <RankChange novel={n} />
+
+                <span className="font-mono text-xs font-semibold shrink-0 whitespace-nowrap">
+                  {formatViews(n.platform, n.todayViews)}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
