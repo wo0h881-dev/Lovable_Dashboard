@@ -5,6 +5,8 @@ import {
   Star,
   BookOpen,
   Clock,
+  Ticket,
+  CalendarDays,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
@@ -19,7 +21,6 @@ interface Props {
   variant?: "default" | "compact";
 }
 
-// ── 플랫폼별 프로모션 색상 ────────────────────────────────
 function getPromoStyle(platform: Platform) {
   if (platform === "naver") {
     return {
@@ -52,8 +53,8 @@ function getPrimaryPromoLabel(novel: Novel): string | null {
   }
   if (t === "pass") return "패스";
 
-  if (novel.platform === "ridi") {
-    if (novel.promotion?.ridiWaitFree) return "리다무";
+  if (novel.platform === "ridi" && novel.promotion?.ridiWaitFree) {
+    return "리다무";
   }
 
   if (novel.promotion?.tag) return novel.promotion.tag;
@@ -73,26 +74,6 @@ function getSecondaryPromoLabel(novel: Novel): string | null {
   }
 
   return null;
-}
-
-function getPromoInlineText(novel: Novel): string | null {
-  const parts: string[] = [];
-  const primaryPromoLabel = getPrimaryPromoLabel(novel);
-  const secondaryPromoLabel = getSecondaryPromoLabel(novel);
-  const daysLeft = novel.promotion?.daysLeft;
-
-  if (primaryPromoLabel) parts.push(primaryPromoLabel);
-
-  if (secondaryPromoLabel && secondaryPromoLabel !== primaryPromoLabel) {
-    parts.push(secondaryPromoLabel);
-  }
-
-  if (typeof daysLeft === "number" && daysLeft >= 0) {
-    parts.push(`${daysLeft}일 남음`);
-  }
-
-  if (parts.length === 0) return null;
-  return parts.join(" ");
 }
 
 function toKoreanUnit(n: number): string {
@@ -148,7 +129,14 @@ export function RankingCard({
 }: Props) {
   const viewsUp = novel.viewsChangePct > 0;
   const promoStyle = getPromoStyle(novel.platform);
-  const promoInlineText = getPromoInlineText(novel);
+  const primaryPromoLabel = getPrimaryPromoLabel(novel);
+  const secondaryPromoLabel = getSecondaryPromoLabel(novel);
+  const daysLeft = novel.promotion?.daysLeft;
+
+  const showDaysLeft =
+    typeof daysLeft === "number" &&
+    daysLeft >= 0 &&
+    secondaryPromoLabel !== `${daysLeft}일 남음`;
 
   return (
     <motion.div
@@ -193,7 +181,7 @@ export function RankingCard({
                 {novel.title}
               </h3>
 
-              {/* 오늘 순위 */}
+              {/* TODAY 줄 */}
               <div className="flex items-center gap-1.5 mt-1">
                 {novel.todayRank != null && (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25 whitespace-nowrap">
@@ -203,20 +191,50 @@ export function RankingCard({
                 )}
               </div>
 
-              {/* 프로모션 한 줄 */}
-              {promoInlineText && (
-                <div className="mt-1 overflow-x-auto">
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
-                      promoStyle.bg,
-                      promoStyle.text,
-                      promoStyle.border,
-                    )}
-                  >
-                    <Clock size={9} />
-                    {promoInlineText}
-                  </span>
+              {/* 프로모션 뱃지 줄: 각각 따로, 한 줄 유지 */}
+              {(primaryPromoLabel || secondaryPromoLabel || showDaysLeft) && (
+                <div className="mt-1 flex items-center gap-1.5 flex-nowrap whitespace-nowrap overflow-x-auto">
+                  {primaryPromoLabel && (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
+                        promoStyle.bg,
+                        promoStyle.text,
+                        promoStyle.border,
+                      )}
+                    >
+                      <Clock size={9} />
+                      {primaryPromoLabel}
+                    </span>
+                  )}
+
+                  {secondaryPromoLabel && (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
+                        promoStyle.bg,
+                        promoStyle.text,
+                        promoStyle.border,
+                      )}
+                    >
+                      <Ticket size={9} />
+                      {secondaryPromoLabel}
+                    </span>
+                  )}
+
+                  {showDaysLeft && (
+                    <span
+                      className={cn(
+                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
+                        promoStyle.bg,
+                        promoStyle.text,
+                        promoStyle.border,
+                      )}
+                    >
+                      <CalendarDays size={9} />
+                      {daysLeft}일 남음
+                    </span>
+                  )}
                 </div>
               )}
             </div>
