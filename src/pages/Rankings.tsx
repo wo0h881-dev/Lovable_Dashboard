@@ -139,7 +139,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
       if (/화무/.test(ridiFreeLabel)) {
         return { label: ridiFreeLabel, icon: "ticket", className };
       }
-      return { label: ridiFreeLabel, icon: "none", className };
+      return { label: ridiFreeLabel, icon: "ticket", className };
     }
 
     if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
@@ -432,7 +432,7 @@ export default function RankingsPage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.02 }}
                   >
-                    <td className="py-2.5 px-3">
+                    <td className="py-2.5 px-3 flex-nowrap whitespace-nowrap">
                       <PlatformBadge platform={n.platform} />
                     </td>
 
