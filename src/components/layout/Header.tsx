@@ -18,7 +18,7 @@ interface Props {
   isDark?: boolean;
   onToggleTheme?: () => void;
   latestDate?: string;
-  onOpenSidebar?: () => void;
+  onToggleSidebar?: () => void;
 }
 
 const dateLabels: Record<DateRange, string> = {
@@ -49,20 +49,20 @@ export function Header({
   isDark,
   onToggleTheme,
   latestDate,
-  onOpenSidebar,
+  onToggleSidebar,
 }: Props) {
   return (
     <header
       className="fixed top-0 left-0 right-0 h-14 z-40 flex items-center justify-between px-3 md:px-4 border-b border-border"
       style={{ background: "hsl(var(--background))" }}
     >
-      {/* 좌측: 모바일 메뉴 버튼 + 로고 + 업데이트 날짜 */}
+      {/* 좌측: 메뉴 버튼 + 로고 */}
       <div className="flex items-center gap-2 md:gap-3 min-w-0">
-        {onOpenSidebar && (
+        {onToggleSidebar && (
           <button
-            onClick={onOpenSidebar}
-            className="lg:hidden p-2 rounded-lg border border-border bg-surface hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground shrink-0"
-            title="사이드바 열기"
+            onClick={onToggleSidebar}
+            className="p-2 rounded-lg border border-border bg-surface hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground shrink-0"
+            title="사이드바 열기/닫기"
           >
             <Menu size={16} />
           </button>
@@ -90,9 +90,8 @@ export function Header({
         </div>
       </div>
 
-      {/* 우측: 필터 + 테마 토글 */}
+      {/* 우측 */}
       <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
-        {/* Date filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors text-foreground">
@@ -118,7 +117,6 @@ export function Header({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Platform filter */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors">
@@ -147,7 +145,6 @@ export function Header({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* 다크/라이트 토글 */}
         {onToggleTheme && (
           <button
             onClick={onToggleTheme}
