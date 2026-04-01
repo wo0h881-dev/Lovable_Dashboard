@@ -175,10 +175,15 @@ type PromoDetailItem = {
   icon: "clock" | "ticket" | "zap";
 };
 
-type RidiInfoItem = {
+type RidiInfoCardItem = {
   label: string;
   title: string;
   subtitle?: string;
+};
+
+type RidiListItem = {
+  label: string;
+  title: string;
 };
 
 function normalizeNaverTag(tag?: string | null): string | null {
@@ -192,7 +197,7 @@ function normalizeNaverTag(tag?: string | null): string | null {
 function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
   if (!novel?.promotion) return [];
 
-  const promo = novel.promotion;
+  const promo: any = novel.promotion;
   const badges: PromoTopBadge[] = [];
 
   if (novel.platform === "naver") {
@@ -229,7 +234,7 @@ function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
 function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
   if (!novel?.promotion) return [];
 
-  const promo = novel.promotion;
+  const promo: any = novel.promotion;
 
   if (novel.platform === "kakao") {
     const items: PromoDetailItem[] = [];
@@ -326,35 +331,18 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
   return [];
 }
 
-function getRidiAdditionalInfo(novel: Novel | null): RidiInfoItem[] {
+function getRidiInfoCards(novel: Novel | null): RidiInfoCardItem[] {
   if (!novel?.promotion || novel.platform !== "ridi") return [];
 
   const promo: any = novel.promotion;
-  const items: RidiInfoItem[] = [];
-
-  if (promo.serialSchedule) {
-    items.push({
-      label: "연재",
-      title: promo.serialSchedule,
-    });
-  }
-
-  if (Array.isArray(promo.notices) && promo.notices.length > 0) {
-    promo.notices.forEach((notice: any) => {
-      const title = String(notice?.title ?? "").trim();
-      if (!title) return;
-      items.push({
-        label: "공지",
-        title,
-      });
-    });
-  }
+  const items: RidiInfoCardItem[] = [];
 
   if (Array.isArray(promo.benefits) && promo.benefits.length > 0) {
     promo.benefits.forEach((benefit: any) => {
       const title = String(benefit?.title ?? "").trim();
       const subtitle = String(benefit?.subtitle ?? "").trim();
       if (!title) return;
+
       items.push({
         label: "혜택",
         title,
@@ -367,6 +355,7 @@ function getRidiAdditionalInfo(novel: Novel | null): RidiInfoItem[] {
     promo.eventBanners.forEach((event: any) => {
       const title = String(event?.title ?? "").trim();
       if (!title) return;
+
       items.push({
         label: "이벤트",
         title,
@@ -391,6 +380,43 @@ function getRidiAdditionalInfo(novel: Novel | null): RidiInfoItem[] {
   return items;
 }
 
+function getRidiSerialItems(novel: Novel | null): RidiListItem[] {
+  if (!novel?.promotion || novel.platform !== "ridi") return [];
+
+  const promo: any = novel.promotion;
+  const items: RidiListItem[] = [];
+
+  if (promo.serialSchedule) {
+    items.push({
+      label: "연재",
+      title: String(promo.serialSchedule).trim(),
+    });
+  }
+
+  return items;
+}
+
+function getRidiNoticeItems(novel: Novel | null): RidiListItem[] {
+  if (!novel?.promotion || novel.platform !== "ridi") return [];
+
+  const promo: any = novel.promotion;
+  const items: RidiListItem[] = [];
+
+  if (Array.isArray(promo.notices) && promo.notices.length > 0) {
+    promo.notices.forEach((notice: any) => {
+      const title = String(notice?.title ?? "").trim();
+      if (!title) return;
+
+      items.push({
+        label: "공지",
+        title,
+      });
+    });
+  }
+
+  return items;
+}
+
 function PromoIcon({
   icon,
   className,
@@ -407,12 +433,16 @@ function PromoIcon({
 }
 
 function getRidiLabelClass(label: string) {
-  if (label === "연재") return "bg-sky-500/12 text-sky-500";
-  if (label === "공지") return "bg-rose-500/12 text-rose-500";
   if (label === "혜택") return "bg-emerald-500/12 text-emerald-500";
   if (label === "이벤트") return "bg-violet-500/12 text-violet-500";
   if (label === "독점") return "bg-muted text-foreground";
   if (label === "리다무") return "bg-ridi/15 text-ridi";
+  return "bg-muted text-foreground";
+}
+
+function getRidiListLabelClass(label: string) {
+  if (label === "연재") return "bg-sky-500/12 text-sky-500";
+  if (label === "공지") return "bg-rose-500/12 text-rose-500";
   return "bg-muted text-foreground";
 }
 
@@ -548,16 +578,20 @@ export function NovelDetailDrawer({
 
   const topPromoBadges = useMemo(() => getTopPromoBadges(novel), [novel]);
   const promoDetailItems = useMemo(() => getPlatformPromoDetails(novel), [novel]);
-  const ridiAdditionalInfo = useMemo(() => getRidiAdditionalInfo(novel), [novel]);
+  const ridiInfoCards = useMemo(() => getRidiInfoCards(novel), [novel]);
+  const ridiSerialItems = useMemo(() => getRidiSerialItems(novel), [novel]);
+  const ridiNoticeItems = useMemo(() => getRidiNoticeItems(novel), [novel]);
 
   const hasPromotion =
-    topPromoBadges.length > 0 || !!novel?.promotion?.eventBanners?.length;
+    topPromoBadges.length > 0 || !!(novel as any)?.promotion?.eventBanners?.length;
 
   const hasPromotionSection =
     promoDetailItems.length > 0 ||
-    ridiAdditionalInfo.length > 0 ||
-    !!novel?.promotion?.eventBanners?.length ||
-    !!novel?.promotion?.notices?.length;
+    ridiInfoCards.length > 0 ||
+    ridiSerialItems.length > 0 ||
+    ridiNoticeItems.length > 0 ||
+    !!(novel as any)?.promotion?.eventBanners?.length ||
+    !!(novel as any)?.promotion?.notices?.length;
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
 
@@ -680,14 +714,14 @@ export function NovelDetailDrawer({
                   {
                     label: "댓글 수",
                     value: Number(
-                      novel.platform === "ridi" ? 0 : novel.commentCount || 0,
+                      novel.platform === "ridi" ? 0 : (novel as any).commentCount || 0,
                     ).toLocaleString(),
                     icon: MessageCircle,
                     color: "text-sky-500",
                   },
                   {
                     label: "총 회차",
-                    value: `${novel.episodeCount}화`,
+                    value: `${(novel as any).episodeCount}화`,
                     icon: BookOpen,
                     color: "text-violet-500",
                   },
@@ -849,9 +883,9 @@ export function NovelDetailDrawer({
                       </div>
                     )}
 
-                    {novel.platform === "ridi" && ridiAdditionalInfo.length > 0 && (
+                    {novel.platform === "ridi" && ridiInfoCards.length > 0 && (
                       <div className="space-y-px">
-                        {ridiAdditionalInfo.map((item, i) => (
+                        {ridiInfoCards.map((item, i) => (
                           <div
                             key={`${item.label}-${item.title}-${i}`}
                             className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
@@ -869,7 +903,9 @@ export function NovelDetailDrawer({
                               </span>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}>
+                              <p
+                                className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                              >
                                 {item.title}
                               </p>
                               {item.subtitle && (
@@ -883,11 +919,56 @@ export function NovelDetailDrawer({
                       </div>
                     )}
 
+                    {novel.platform === "ridi" &&
+                      (ridiSerialItems.length > 0 || ridiNoticeItems.length > 0) && (
+                        <div className="max-h-44 overflow-y-auto divide-y divide-border">
+                          {ridiSerialItems.map((item, idx) => (
+                            <div
+                              key={`${item.label}-${item.title}-${idx}`}
+                              className="px-4 py-3 hover:bg-surface transition-colors"
+                            >
+                              <p className="text-xs font-bold text-foreground leading-snug">
+                                {item.title}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1.5">
+                                <span
+                                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${getRidiListLabelClass(
+                                    item.label,
+                                  )}`}
+                                >
+                                  {item.label}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+
+                          {ridiNoticeItems.map((notice, idx) => (
+                            <div
+                              key={`${notice.title}-${idx}`}
+                              className="px-4 py-3 hover:bg-surface transition-colors"
+                            >
+                              <p className="text-xs font-bold text-foreground leading-snug">
+                                {notice.title}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1.5">
+                                <span
+                                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${getRidiListLabelClass(
+                                    notice.label,
+                                  )}`}
+                                >
+                                  {notice.label}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
                     {novel.platform !== "ridi" &&
-                      novel.promotion?.eventBanners &&
-                      novel.promotion.eventBanners.length > 0 && (
+                      (novel as any).promotion?.eventBanners &&
+                      (novel as any).promotion.eventBanners.length > 0 && (
                         <div className="space-y-px">
-                          {novel.promotion.eventBanners.map((b: any, i: number) => (
+                          {(novel as any).promotion.eventBanners.map((b: any, i: number) => (
                             <div
                               key={i}
                               className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}
@@ -917,10 +998,10 @@ export function NovelDetailDrawer({
                       )}
 
                     {novel.platform !== "ridi" &&
-                      novel.promotion?.notices &&
-                      novel.promotion.notices.length > 0 && (
+                      (novel as any).promotion?.notices &&
+                      (novel as any).promotion.notices.length > 0 && (
                         <div className="max-h-44 overflow-y-auto divide-y divide-border">
-                          {novel.promotion.notices.map((notice: any, idx: number) => (
+                          {(novel as any).promotion.notices.map((notice: any, idx: number) => (
                             <div
                               key={idx}
                               className="px-4 py-3 hover:bg-surface transition-colors"
@@ -1112,7 +1193,7 @@ export function NovelDetailDrawer({
                         {formatViews(novel.platform, novel.todayViews)}
                       </span>
                       <span className="text-right font-mono text-emerald-500 font-bold">
-                        {novel.consecutiveDays}일
+                        {(novel as any).consecutiveDays}일
                       </span>
                     </div>
                     {competitors.map((c, idx) => (
@@ -1138,7 +1219,7 @@ export function NovelDetailDrawer({
                           {formatViews(c.platform, c.todayViews)}
                         </span>
                         <span className="text-right font-mono text-muted-foreground">
-                          {c.consecutiveDays}일
+                          {(c as any).consecutiveDays}일
                         </span>
                       </div>
                     ))}
