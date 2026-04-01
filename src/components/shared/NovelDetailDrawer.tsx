@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   X, TrendingUp, Star, MessageCircle, BookOpen, Calendar,
   Zap, ArrowUp, ArrowDown, Maximize2, Minimize2, Clock,
-  BookMarked,
+  BookMarked, Ticket,
 } from "lucide-react";
 import {
   ComposedChart, Line, Bar, XAxis, YAxis, Tooltip,
@@ -121,6 +121,184 @@ function parseViewStr(v: string | number | null | undefined): number | null {
   return parseFloat(s.replace(/,/g, "")) || null;
 }
 
+type PromoTopBadge = {
+  label: string;
+  icon: "clock" | "ticket" | "none";
+};
+
+type PromoDetailItem = {
+  title: string;
+  subtitle?: string;
+  icon: "clock" | "ticket" | "zap";
+};
+
+function normalizeNaverTag(tag?: string | null): string | null {
+  if (!tag) return null;
+  const raw = String(tag).trim();
+  if (!raw) return null;
+
+  if (raw === "매일10시무료") return "매일 10시 무료";
+  return raw;
+}
+
+function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
+  if (!novel?.promotion) return [];
+
+  const promo = novel.promotion;
+  const badges: PromoTopBadge[] = [];
+
+  if (novel.platform === "naver") {
+    const tag = String(promo.tag ?? "").trim();
+
+    if (promo.timeFreeType === "waitFree") {
+      badges.push({ label: "기다무", icon: "clock" });
+    }
+
+    if (tag === "타임딜") {
+      badges.push({ label: "타임딜", icon: "none" });
+    }
+
+    return badges;
+  }
+
+  if (novel.platform === "ridi") {
+    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+      badges.push({ label: "리다무", icon: "clock" });
+    }
+
+    if (promo.ridiFreeLabel) {
+      badges.push({ label: promo.ridiFreeLabel, icon: "ticket" });
+    }
+
+    return badges;
+  }
+
+  // kakao 기존 유지
+  if (promo.timeFreeType === "threeHour") {
+    badges.push({ label: "3다무", icon: "clock" });
+  } else if (promo.timeFreeType === "waitFree") {
+    badges.push({ label: "기다무", icon: "clock" });
+  }
+
+  return badges;
+}
+
+function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
+  if (!novel?.promotion) return [];
+
+  const promo = novel.promotion;
+
+  // ── 카카오는 기존 유지 ─────────────────────────────
+  if (novel.platform === "kakao") {
+    const items: PromoDetailItem[] = [];
+
+    if (promo.timeFreeType === "waitFree") {
+      items.push({
+        title: "기다리면 무료 (기다무)",
+        subtitle: "무료 연재 혜택 적용 중",
+        icon: "clock",
+      });
+    } else if (promo.timeFreeType === "threeHour") {
+      items.push({
+        title: "3시간마다 무료 (3다무)",
+        subtitle: "무료 연재 혜택 적용 중",
+        icon: "clock",
+      });
+    }
+
+    return items;
+  }
+
+  // ── 네이버 상세 강화 ─────────────────────────────
+  if (novel.platform === "naver") {
+    const items: PromoDetailItem[] = [];
+    const tag = String(promo.tag ?? "").trim();
+    const normalizedTag = normalizeNaverTag(tag);
+
+    if (promo.timeFreeType === "waitFree") {
+      items.push({
+        title: normalizedTag ? `${normalizedTag}(기다무)` : "기다리면 무료(기다무)",
+        subtitle: "무료 연재 혜택 적용 중",
+        icon: "clock",
+      });
+    }
+
+    if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
+      let detail = `${promo.freeEpisodes}화 무료`;
+
+      if (typeof promo.daysLeft === "number" && promo.daysLeft >= 0) {
+        detail += ` · ${promo.daysLeft}일 남음`;
+      }
+
+      if (tag === "타임딜") {
+        detail += "(타임딜)";
+      }
+
+      items.push({
+        title: detail,
+        subtitle: tag === "타임딜" ? "기간 한정 무료 회차 혜택" : "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    } else if (tag === "타임딜") {
+      items.push({
+        title: "타임딜",
+        subtitle: typeof promo.daysLeft === "number" && promo.daysLeft >= 0
+          ? `${promo.daysLeft}일 남음`
+          : "기간 한정 혜택 진행 중",
+        icon: "zap",
+      });
+    }
+
+    return items;
+  }
+
+  // ── 리디 현재 데이터 기준 최소 개선 ─────────────────
+  if (novel.platform === "ridi") {
+    const items: PromoDetailItem[] = [];
+
+    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+      items.push({
+        title: "리다무",
+        subtitle: "기다리면 무료 혜택 적용 중",
+        icon: "clock",
+      });
+    }
+
+    if (promo.ridiFreeLabel) {
+      items.push({
+        title: promo.ridiFreeLabel,
+        subtitle: "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    } else if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
+      items.push({
+        title: `${promo.freeEpisodes}화 무료`,
+        subtitle: "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    }
+
+    return items;
+  }
+
+  return [];
+}
+
+function PromoIcon({
+  icon,
+  className,
+  size = 14,
+}: {
+  icon: "clock" | "ticket" | "zap" | "none";
+  className?: string;
+  size?: number;
+}) {
+  if (icon === "clock") return <Clock size={size} className={className} />;
+  if (icon === "ticket") return <Ticket size={size} className={className} />;
+  if (icon === "zap") return <Zap size={size} className={className} />;
+  return null;
+}
+
 export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], onSelectNovel, onAddToGoals }: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const stats = useMemo(() => (novel ? computeNovelStats(novel) : null), [novel]);
@@ -212,22 +390,19 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
     return last ? last.rank !== null : true;
   }, [novel, dedupedRankHistory, latestDate]);
 
-  // PROMOTION 뱃지: 기다무/3다무 or 이벤트배너 있을 때만
-  const hasPromotion =
-    !!novel?.promotion &&
-    ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
-      (novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0));
+  const topPromoBadges = useMemo(() => getTopPromoBadges(novel), [novel]);
+  const promoDetailItems = useMemo(() => getPlatformPromoDetails(novel), [novel]);
 
-  const timeFreeLabel =
-    novel?.promotion?.timeFreeType === "threeHour" ? "3다무" :
-    novel?.promotion?.timeFreeType === "waitFree" ? "기다무" : null;
+  // PROMOTION 뱃지
+  const hasPromotion =
+    topPromoBadges.length > 0 ||
+    !!novel?.promotion?.eventBanners?.length;
 
   // 프로모션 섹션 표시 여부
   const hasPromotionSection =
-    !!novel?.promotion &&
-    ((novel.promotion.timeFreeType && novel.promotion.timeFreeType !== "none") ||
-      (novel.promotion.eventBanners && novel.promotion.eventBanners.length > 0) ||
-      (novel.promotion.notices && novel.promotion.notices.length > 0));
+    promoDetailItems.length > 0 ||
+    !!novel?.promotion?.eventBanners?.length ||
+    !!novel?.promotion?.notices?.length;
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
 
@@ -252,7 +427,6 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 <span className="text-xs font-bold text-muted-foreground tracking-wide">작품 분석 리포트</span>
               </div>
               <div className="flex items-center gap-1">
-                {/* 독서목표 추가 버튼 */}
                 {onAddToGoals && (
                   <button
                     onClick={() => onAddToGoals(novel)}
@@ -263,20 +437,23 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                     목표 추가
                   </button>
                 )}
-                <button onClick={() => setIsExpanded((v) => !v)}
+                <button
+                  onClick={() => setIsExpanded((v) => !v)}
                   className="p-1.5 rounded-lg hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground"
-                  title={isExpanded ? "축소" : "확장"}>
+                  title={isExpanded ? "축소" : "확장"}
+                >
                   {isExpanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
                 </button>
-                <button onClick={onClose}
-                  className="p-1.5 rounded-lg hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground">
+                <button
+                  onClick={onClose}
+                  className="p-1.5 rounded-lg hover:bg-surface-elevated transition-colors text-muted-foreground hover:text-foreground"
+                >
                   <X size={16} />
                 </button>
               </div>
             </div>
 
             <div className={`p-5 space-y-7 ${isExpanded ? "max-w-2xl mx-auto" : ""}`}>
-
               {/* 커버 & 제목 */}
               <div className="flex gap-4">
                 <NovelCover novel={novel} size="lg" className="shadow-2xl shrink-0 ring-1 ring-border rounded-xl" />
@@ -284,27 +461,37 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {hasPromotion && (
                       <span className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.promotionBg} ${promoStyle.promotionText} ${promoStyle.promotionBorder}`}>
-                        <Zap size={9} />PROMOTION
+                        <Zap size={9} />
+                        PROMOTION
                       </span>
                     )}
-                    {timeFreeLabel && (
-                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.badgeBg} ${promoStyle.badgeText} ${promoStyle.badgeBorder}`}>
-                        <Clock size={9} />{timeFreeLabel}
+
+                    {topPromoBadges.map((badge, idx) => (
+                      <span
+                        key={`${badge.label}-${idx}`}
+                        className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.badgeBg} ${promoStyle.badgeText} ${promoStyle.badgeBorder}`}
+                      >
+                        <PromoIcon icon={badge.icon} size={9} />
+                        {badge.label}
                       </span>
-                    )}
+                    ))}
                   </div>
+
                   <h2 className="font-bold text-base leading-snug line-clamp-2 mb-1.5 text-foreground" title={novel.title}>
                     {novel.title}
                   </h2>
+
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
                     <span>{novel.author}</span>
                     <span className="opacity-30">·</span>
                     <span className="text-primary font-medium">{novel.genre}</span>
                     <span className="opacity-30">·</span>
                     <span className="flex items-center gap-0.5 text-yellow-500 font-bold">
-                      <Star size={11} fill="currentColor" />{novel.rating.toFixed(1)}
+                      <Star size={11} fill="currentColor" />
+                      {novel.rating.toFixed(1)}
                     </span>
                   </div>
+
                   <div className="flex items-center gap-2 mt-3">
                     <RankChange novel={novel} />
                     <span className="font-mono text-sm font-black text-foreground bg-surface-elevated px-2 py-0.5 rounded-md">
@@ -352,11 +539,18 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
                         <XAxis dataKey="date" tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
                         <YAxis yAxisId="rank" reversed domain={[1, "auto"]} tick={{ fontSize: 9, fill: "#38bdf8" }} width={rankAxisWidth} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}위`} />
-                        <YAxis yAxisId="views" orientation="right" tick={{ fontSize: 9, fill: "#10b981" }} width={42} axisLine={false} tickLine={false} domain={viewsDomain}
-                          tickFormatter={(v) => v >= 100_000_000 ? `${(v/100_000_000).toFixed(1)}억` : v >= 10_000 ? `${(v/10_000).toFixed(0)}만` : String(v)}
+                        <YAxis
+                          yAxisId="views"
+                          orientation="right"
+                          tick={{ fontSize: 9, fill: "#10b981" }}
+                          width={42}
+                          axisLine={false}
+                          tickLine={false}
+                          domain={viewsDomain}
+                          tickFormatter={(v) => v >= 100_000_000 ? `${(v / 100_000_000).toFixed(1)}억` : v >= 10_000 ? `${(v / 10_000).toFixed(0)}만` : String(v)}
                         />
                         <Tooltip content={<CombinedTooltip />} />
-                        <Bar yAxisId="views" dataKey="views" fill="#10b981" fillOpacity={0.35} stroke="#10b981" strokeOpacity={0.5} strokeWidth={1} radius={[3,3,0,0]} name="views" />
+                        <Bar yAxisId="views" dataKey="views" fill="#10b981" fillOpacity={0.35} stroke="#10b981" strokeOpacity={0.5} strokeWidth={1} radius={[3, 3, 0, 0]} name="views" />
                         <Line yAxisId="rank" type="monotone" dataKey="rank" stroke="#38bdf8" strokeWidth={2.5} dot={{ r: 3, fill: "#38bdf8", stroke: "hsl(var(--surface))", strokeWidth: 2 }} activeDot={{ r: 5, fill: "#38bdf8", stroke: "hsl(var(--surface))", strokeWidth: 2 }} name="rank" connectNulls />
                       </ComposedChart>
                     </ResponsiveContainer>
@@ -369,18 +563,28 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 <div className="space-y-3">
                   <SectionHeader icon={Zap} label="프로모션 / 소식" />
                   <div className={`rounded-xl overflow-hidden border border-border space-y-px ${promoStyle.sectionBg}`}>
-
-                    {/* 기다무/3다무 배너 */}
-                    {timeFreeLabel && (
-                      <div className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border`}>
-                        <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
-                        <Clock size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
-                        <div className="flex-1">
-                          <p className={`text-xs font-extrabold ${promoStyle.titleColor}`}>
-                            {timeFreeLabel === "기다무" ? "기다리면 무료 (기다무)" : "3시간마다 무료 (3다무)"}
-                          </p>
-                          <p className="text-[11px] text-muted-foreground mt-0.5">무료 연재 혜택 적용 중</p>
-                        </div>
+                    {/* 플랫폼별 상세 프로모션 */}
+                    {promoDetailItems.length > 0 && (
+                      <div className="space-y-px">
+                        {promoDetailItems.map((item, i) => (
+                          <div
+                            key={`${item.title}-${i}`}
+                            className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}
+                          >
+                            <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
+                            <PromoIcon icon={item.icon} size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
+                            <div className="flex-1">
+                              <p className={`text-xs font-extrabold ${promoStyle.titleColor}`}>
+                                {item.title}
+                              </p>
+                              {item.subtitle && (
+                                <p className="text-[11px] text-muted-foreground mt-0.5">
+                                  {item.subtitle}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     )}
 
@@ -515,7 +719,8 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                       <span className="text-right font-mono text-emerald-500 font-bold">{novel.consecutiveDays}일</span>
                     </div>
                     {competitors.map((c, idx) => (
-                      <div key={c.id}
+                      <div
+                        key={c.id}
                         className={`grid grid-cols-[1fr_44px_60px_44px] px-3 py-2.5 items-center cursor-pointer ${idx < competitors.length - 1 ? "border-b border-border" : ""} hover:bg-surface-elevated transition-colors`}
                         onClick={() => onSelectNovel?.(c)}
                         title={`${c.title} 상세보기`}
@@ -537,7 +742,6 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 <span>데이터 수집: Google Apps Script</span>
                 <span>업데이트: {latestDate || "-"}</span>
               </div>
-
             </div>
           </motion.div>
         </>
