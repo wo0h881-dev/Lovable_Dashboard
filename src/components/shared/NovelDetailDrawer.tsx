@@ -914,11 +914,6 @@ export function NovelDetailDrawer({
     <p className="text-xs font-bold text-foreground leading-snug">
       {(notice.label || "공지") + " " + (notice.title || notice.body)}
     </p>
-                                  <div className="flex items-center gap-2 mt-1.5">
-                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-500/12 text-rose-500">
-                                      {notice.label || "공지"}
-                                    </span>
-                                  </div>
                                 </div>
                               ),
                             )}
