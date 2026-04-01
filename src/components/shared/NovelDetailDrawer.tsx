@@ -175,17 +175,6 @@ type PromoDetailItem = {
   icon: "clock" | "ticket" | "zap";
 };
 
-type RidiInfoCardItem = {
-  label: string;
-  title: string;
-  subtitle?: string;
-};
-
-type RidiListItem = {
-  label: string;
-  title: string;
-};
-
 function normalizeNaverTag(tag?: string | null): string | null {
   if (!tag) return null;
   const raw = String(tag).trim();
@@ -330,87 +319,6 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
   return [];
 }
 
-function getRidiInfoCards(novel: Novel | null): RidiInfoCardItem[] {
-  if (!novel?.promotion || novel.platform !== "ridi") return [];
-  const promo: any = novel.promotion;
-  const items: RidiInfoCardItem[] = [];
-
-  if (Array.isArray(promo.benefits)) {
-    promo.benefits.forEach((benefit: any) => {
-      const title = String(benefit?.title ?? "").trim();
-      const subtitle = String(benefit?.subtitle ?? "").trim();
-      if (!title) return;
-
-      items.push({
-        label: "혜택",
-        title,
-        subtitle: subtitle || undefined,
-      });
-    });
-  }
-
-  if (Array.isArray(promo.eventBanners)) {
-    promo.eventBanners.forEach((event: any) => {
-      const title = String(event?.title ?? "").trim();
-      if (!title) return;
-
-      items.push({
-        label: "이벤트",
-        title,
-      });
-    });
-  }
-
-  if (promo.exclusiveText && String(promo.exclusiveText).trim()) {
-    items.push({
-      label: "독점",
-      title: String(promo.exclusiveText).trim(),
-    });
-  }
-
-  // 리다무 카드형은 상단 프로모션 카드에서 이미 노출되므로 여기선 중복 방지
-  return items;
-}
-
-function getRidiSerialItems(novel: Novel | null): RidiListItem[] {
-  if (!novel?.promotion || novel.platform !== "ridi") return [];
-  const promo: any = novel.promotion;
-  const items: RidiListItem[] = [];
-
-  const serial = String(promo.serialSchedule ?? "").trim();
-  if (serial) {
-    items.push({
-      label: "연재",
-      title: serial,
-    });
-  }
-
-  return items;
-}
-
-function getRidiNoticeItems(novel: Novel | null): RidiListItem[] {
-  if (!novel?.promotion || novel.platform !== "ridi") return [];
-  const promo: any = novel.promotion;
-  const items: RidiListItem[] = [];
-
-  if (Array.isArray(promo.notices)) {
-    promo.notices.forEach((notice: any) => {
-      const title =
-        String(notice?.title ?? "").trim() ||
-        String(notice?.body ?? "").trim();
-
-      if (!title) return;
-
-      items.push({
-        label: "공지",
-        title,
-      });
-    });
-  }
-
-  return items;
-}
-
 function PromoIcon({
   icon,
   className,
@@ -424,19 +332,6 @@ function PromoIcon({
   if (icon === "ticket") return <Ticket size={size} className={className} />;
   if (icon === "zap") return <Zap size={size} className={className} />;
   return null;
-}
-
-function getRidiLabelClass(label: string) {
-  if (label === "혜택") return "bg-emerald-500/12 text-emerald-500";
-  if (label === "이벤트") return "bg-violet-500/12 text-violet-500";
-  if (label === "독점") return "bg-muted text-foreground";
-  return "bg-muted text-foreground";
-}
-
-function getRidiListLabelClass(label: string) {
-  if (label === "연재") return "bg-sky-500/12 text-sky-500";
-  if (label === "공지") return "bg-rose-500/12 text-rose-500";
-  return "bg-muted text-foreground";
 }
 
 export function NovelDetailDrawer({
@@ -571,19 +466,17 @@ export function NovelDetailDrawer({
 
   const topPromoBadges = useMemo(() => getTopPromoBadges(novel), [novel]);
   const promoDetailItems = useMemo(() => getPlatformPromoDetails(novel), [novel]);
-  const ridiInfoCards = useMemo(() => getRidiInfoCards(novel), [novel]);
-  const ridiSerialItems = useMemo(() => getRidiSerialItems(novel), [novel]);
-  const ridiNoticeItems = useMemo(() => getRidiNoticeItems(novel), [novel]);
 
   const hasPromotion =
     topPromoBadges.length > 0 || !!(novel as any)?.promotion?.eventBanners?.length;
 
   const hasPromotionSection =
     promoDetailItems.length > 0 ||
-    ridiInfoCards.length > 0 ||
-    ridiSerialItems.length > 0 ||
-    ridiNoticeItems.length > 0 ||
+    !!(novel as any)?.promotion?.benefits?.length ||
     !!(novel as any)?.promotion?.eventBanners?.length ||
+    !!(novel as any)?.promotion?.exclusiveText ||
+    !!(novel as any)?.promotion?.ridiWaitFreeText ||
+    !!(novel as any)?.promotion?.serialSchedule ||
     !!(novel as any)?.promotion?.notices?.length;
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
@@ -876,86 +769,155 @@ export function NovelDetailDrawer({
                       </div>
                     )}
 
-                    {novel.platform === "ridi" && ridiInfoCards.length > 0 && (
-                      <div className="space-y-px">
-                        {ridiInfoCards.map((item, i) => (
-                          <div
-                            key={`${item.label}-${item.title}-${i}`}
-                            className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
-                          >
-                            <div
-                              className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
-                            />
-                            <div className="ml-1 mt-0.5 shrink-0">
-                              <span
-                                className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${getRidiLabelClass(
-                                  item.label,
-                                )}`}
+                    {novel.platform === "ridi" && (
+                      <>
+                        {/* 카드형: 혜택 / 이벤트 / 독점 / 리다무 */}
+                        {(
+                          ((novel.promotion as any)?.benefits?.length ?? 0) > 0 ||
+                          ((novel.promotion as any)?.eventBanners?.length ?? 0) > 0 ||
+                          !!(novel.promotion as any)?.exclusiveText ||
+                          !!(novel.promotion as any)?.ridiWaitFreeText
+                        ) && (
+                          <div className="space-y-px">
+                            {((novel.promotion as any)?.benefits ?? []).map(
+                              (benefit: any, i: number) => (
+                                <div
+                                  key={`benefit-${i}`}
+                                  className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
+                                >
+                                  <div
+                                    className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                  />
+                                  <div className="ml-1 mt-0.5 shrink-0">
+                                    <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-emerald-500/12 text-emerald-500">
+                                      혜택
+                                    </span>
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p
+                                      className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                    >
+                                      {benefit.title}
+                                    </p>
+                                    {benefit.subtitle && (
+                                      <p className="text-[11px] text-muted-foreground mt-1 leading-tight">
+                                        {benefit.subtitle}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                              ),
+                            )}
+
+                            {((novel.promotion as any)?.eventBanners ?? []).map(
+                              (event: any, i: number) => (
+                                <div
+                                  key={`event-${i}`}
+                                  className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
+                                >
+                                  <div
+                                    className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                  />
+                                  <div className="ml-1 mt-0.5 shrink-0">
+                                    <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-violet-500/12 text-violet-500">
+                                      이벤트
+                                    </span>
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p
+                                      className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                    >
+                                      {event.title}
+                                    </p>
+                                  </div>
+                                </div>
+                              ),
+                            )}
+
+                            {!!(novel.promotion as any)?.exclusiveText && (
+                              <div
+                                className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
                               >
-                                {item.label}
-                              </span>
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p
-                                className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                <div
+                                  className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                />
+                                <div className="ml-1 mt-0.5 shrink-0">
+                                  <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-muted text-foreground">
+                                    독점
+                                  </span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p
+                                    className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                  >
+                                    {(novel.promotion as any).exclusiveText}
+                                  </p>
+                                </div>
+                              </div>
+                            )}
+
+                            {!!(novel.promotion as any)?.ridiWaitFreeText && (
+                              <div
+                                className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
                               >
-                                {item.title}
-                              </p>
-                              {item.subtitle && (
-                                <p className="text-[11px] text-muted-foreground mt-1 leading-tight">
-                                  {item.subtitle}
-                                </p>
-                              )}
-                            </div>
+                                <div
+                                  className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                />
+                                <div className="ml-1 mt-0.5 shrink-0">
+                                  <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-ridi/15 text-ridi">
+                                    리다무
+                                  </span>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p
+                                    className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                  >
+                                    {(novel.promotion as any).ridiWaitFreeText}
+                                  </p>
+                                </div>
+                              </div>
+                            )}
                           </div>
-                        ))}
-                      </div>
+                        )}
+
+                        {/* 리스트형: 연재 / 공지 */}
+                        {(!!(novel.promotion as any)?.serialSchedule ||
+                          ((novel.promotion as any)?.notices?.length ?? 0) > 0) && (
+                          <div className="max-h-44 overflow-y-auto divide-y divide-border">
+                            {!!(novel.promotion as any)?.serialSchedule && (
+                              <div className="px-4 py-3 hover:bg-surface transition-colors">
+                                <p className="text-xs font-bold text-foreground leading-snug">
+                                  {(novel.promotion as any).serialSchedule}
+                                </p>
+                                <div className="flex items-center gap-2 mt-1.5">
+                                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-sky-500/12 text-sky-500">
+                                    연재
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+
+                            {((novel.promotion as any)?.notices ?? []).map(
+                              (notice: any, idx: number) => (
+                                <div
+                                  key={`notice-${idx}`}
+                                  className="px-4 py-3 hover:bg-surface transition-colors"
+                                >
+                                  <p className="text-xs font-bold text-foreground leading-snug">
+                                    {notice.title || notice.body}
+                                  </p>
+                                  <div className="flex items-center gap-2 mt-1.5">
+                                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-500/12 text-rose-500">
+                                      {notice.label || "공지"}
+                                    </span>
+                                  </div>
+                                </div>
+                              ),
+                            )}
+                          </div>
+                        )}
+                      </>
                     )}
-
-                    {novel.platform === "ridi" &&
-                      (ridiSerialItems.length > 0 || ridiNoticeItems.length > 0) && (
-                        <div className="max-h-44 overflow-y-auto divide-y divide-border">
-                          {ridiSerialItems.map((item, idx) => (
-                            <div
-                              key={`${item.label}-${item.title}-${idx}`}
-                              className="px-4 py-3 hover:bg-surface transition-colors"
-                            >
-                              <p className="text-xs font-bold text-foreground leading-snug">
-                                {item.title}
-                              </p>
-                              <div className="flex items-center gap-2 mt-1.5">
-                                <span
-                                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${getRidiListLabelClass(
-                                    item.label,
-                                  )}`}
-                                >
-                                  {item.label}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-
-                          {ridiNoticeItems.map((notice, idx) => (
-                            <div
-                              key={`${notice.title}-${idx}`}
-                              className="px-4 py-3 hover:bg-surface transition-colors"
-                            >
-                              <p className="text-xs font-bold text-foreground leading-snug">
-                                {notice.title}
-                              </p>
-                              <div className="flex items-center gap-2 mt-1.5">
-                                <span
-                                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${getRidiListLabelClass(
-                                    notice.label,
-                                  )}`}
-                                >
-                                  {notice.label}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
 
                     {novel.platform !== "ridi" &&
                       (novel as any).promotion?.eventBanners &&
