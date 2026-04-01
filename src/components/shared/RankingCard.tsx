@@ -184,7 +184,7 @@ export function RankingCard({
               {/* TODAY 줄 */}
               <div className="flex items-center gap-1.5 mt-1">
                 {novel.todayRank != null && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25 whitespace-nowrap">
+                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/25 whitespace-nowrap">
                     <span className="text-[9px] opacity-70">TODAY</span>
                     #{novel.todayRank}위
                   </span>
