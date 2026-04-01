@@ -140,7 +140,7 @@ export function RankingCard({
 
   return (
     <motion.div
-      className="ranking-card"
+      className="ranking-card overflow-hidden"
       whileHover={{
         scale: 1.018,
         boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px hsl(var(--border))",
@@ -150,8 +150,8 @@ export function RankingCard({
     >
       {/* 순위 번호 */}
       <div
-        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-4"
-        style={{ minWidth: 64 }}
+        className="flex-shrink-0 flex items-center justify-center bg-surface-elevated px-3 md:px-4"
+style={{ minWidth: 52 }}
       >
         <span
           className={cn(
@@ -169,15 +169,17 @@ export function RankingCard({
 
       {/* 커버 */}
       <div className="flex-shrink-0 py-3 pl-3">
-        <NovelCover novel={novel} size="md" />
-      </div>
+  <div className="scale-90 md:scale-100 origin-left">
+    <NovelCover novel={novel} size="md" />
+  </div>
+</div>
 
       {/* 내용 */}
-      <div className="flex-1 min-w-0 px-4 py-3 flex flex-col justify-between">
+      <div className="flex-1 min-w-0 px-3 md:px-4 py-3 flex flex-col justify-between">
         <div>
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground">
+              <h3 className="font-semibold text-[13px] md:text-sm leading-snug line-clamp-2 text-foreground">
                 {novel.title}
               </h3>
 
@@ -245,7 +247,7 @@ export function RankingCard({
             />
           </div>
 
-          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
+          <div className="flex items-center gap-1.5 mt-1.5 text-[11px] md:text-xs text-muted-foreground flex-wrap">
             <span>{novel.author}</span>
             <span className="opacity-40">·</span>
             <span className="text-primary/80">{novel.genre}</span>
@@ -255,7 +257,7 @@ export function RankingCard({
         </div>
 
         {/* 하단 지표 */}
-        <div className="flex items-center gap-3 mt-2 flex-wrap">
+        <div className="flex items-center gap-2 md:gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
 
           <span
@@ -295,7 +297,7 @@ export function RankingCard({
       </div>
 
       {/* 우측: 증감률 */}
-      <div className="flex-shrink-0 flex items-center pr-4">
+      <div className="flex-shrink-0 flex items-center pr-3 md:pr-4">
         <div className={cn("text-right", viewsUp ? "text-up" : "text-down")}>
           <div className="font-mono text-xs font-bold">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
