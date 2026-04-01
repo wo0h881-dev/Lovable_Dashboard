@@ -342,7 +342,10 @@ function GoalModal({
 
     const goal: ReadingGoal = {
       id: base?.id ?? `goal_${Date.now()}`,
-      novelId: novel?.id ?? base?.novelId ?? "",
+      novelId:
+  novel
+    ? `${novel.title}::${novel.author}::${novel.platform}`
+    : base?.novelId ?? "",
       title: novel?.title ?? base?.title ?? "",
       author: novel?.author ?? base?.author ?? "",
       publisher: novel?.publisher ?? base?.publisher ?? "",
