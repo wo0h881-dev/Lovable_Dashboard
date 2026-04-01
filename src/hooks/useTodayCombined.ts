@@ -12,6 +12,9 @@ const PROMO_API_KAKAO = "/api/promotions/kakao-today";
 const PROMO_API_NAVER = "/api/promotions/naver-today";
 const PROMO_API_RIDI = "/api/promotions/ridi-today";
 
+console.log("PROMO MAP SIZE", platform, map.size);
+console.log("MERGE CHECK", n.title, promo);
+
 type PromotionPayload = {
   date: string;
   platform: Platform;
