@@ -498,28 +498,36 @@ export function useTodayCombined() {
         setLatestDate(mostRecentDate);
 
         const novels: Novel[] = rows
-          .filter((r) => r.날짜 === mostRecentDate)
-          .map((row, idx) => {
-            const n = mapRowToNovel(row, idx);
-            const key = `${n.platform}::${n.title.trim()}`;
+  .filter((r) => r.날짜 === mostRecentDate)
+  .map((row, idx) => {
+    const n = mapRowToNovel(row, idx);
+    const key = `${n.platform}::${n.title.trim()}`;
 
-            const promo =
-              n.platform === "kakao"
-                ? kakaoPromoMap.get(key)
-                : n.platform === "naver"
-                  ? naverPromoMap.get(key)
-                  : ridiPromoMap.get(key);
+    const promo =
+      n.platform === "kakao"
+        ? kakaoPromoMap.get(key)
+        : n.platform === "naver"
+          ? naverPromoMap.get(key)
+          : ridiPromoMap.get(key);
 
-            if (promo) {
-              n.promotion = {
-                ...(n.promotion ?? {}),
-                ...promo,
-              };
-            }
+    if (n.platform === "ridi") {
+      console.log("RIDI KEY CHECK", {
+        title: n.title,
+        key,
+        hasPromo: !!promo,
+        promo,
+      });
+    }
 
-            return n;
-          });
+    if (promo) {
+      n.promotion = {
+        ...(n.promotion ?? {}),
+        ...promo,
+      };
+    }
 
+    return n;
+  });
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
           ...n,
