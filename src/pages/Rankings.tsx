@@ -115,7 +115,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
 
   if (novel.platform === "kakao") {
     if (promo.timeFreeType === "threeHour") {
-      return { label: "3다무", icon: "none", className };
+      return { label: "3다무", icon: "clock", className };
     }
     if (promo.timeFreeType === "waitFree") {
       return { label: "기다무", icon: "clock", className };
@@ -124,7 +124,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
 
   if (novel.platform === "naver") {
     if (tag === "타임딜") {
-      return { label: "타임딜", icon: "none", className };
+      return { label: "타임딜", icon: "clock", className };
     }
     if (promo.timeFreeType === "waitFree") {
       return { label: "기다무", icon: "clock", className };
@@ -139,7 +139,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
       if (/화무/.test(ridiFreeLabel)) {
         return { label: ridiFreeLabel, icon: "ticket", className };
       }
-      return { label: ridiFreeLabel, icon: "none", className };
+      return { label: ridiFreeLabel, icon: "ticket", className };
     }
 
     if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
@@ -429,7 +429,7 @@ export default function RankingsPage() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: i * 0.02 }}
                   >
-                    <td className="py-2.5 px-3">
+                    <td className="py-2.5 px-3 flex-nowrap whitespace-nowrap">
                       <PlatformBadge platform={n.platform} />
                     </td>
 
