@@ -123,6 +123,24 @@ function TruncatedTitle({
   );
 }
 
+function formatKoreanCompactNumber(value: number | null | undefined): string {
+  if (value == null || !Number.isFinite(value)) return "-";
+
+  const n = Number(value);
+
+  if (n >= 100_000_000) {
+    const eok = n / 100_000_000;
+    return `${eok.toFixed(eok >= 10 ? 0 : 1).replace(/\.0$/, "")}억`;
+  }
+
+  if (n >= 10_000) {
+    const man = n / 10_000;
+    return `${man.toFixed(man >= 100 ? 0 : 1).replace(/\.0$/, "")}만`;
+  }
+
+  return n.toLocaleString("ko-KR");
+}
+
 function CombinedTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
@@ -137,7 +155,7 @@ function CombinedTooltip({ active, payload, label }: any) {
           <span style={{ color: p.color }} className="font-mono font-semibold">
             {p.name === "rank"
               ? `순위 #${p.value}위`
-              : `조회 ${Number(p.value).toLocaleString()}`}
+              : `조회 ${formatKoreanCompactNumber(Number(p.value))}`}
           </span>
         </div>
       ))}
@@ -766,13 +784,7 @@ export function NovelDetailDrawer({
                           axisLine={false}
                           tickLine={false}
                           domain={viewsDomain}
-                          tickFormatter={(v) =>
-                            v >= 100_000_000
-                              ? `${(v / 100_000_000).toFixed(1)}억`
-                              : v >= 10_000
-                                ? `${(v / 10_000).toFixed(0)}만`
-                                : String(v)
-                          }
+                          tickFormatter={(v) => formatKoreanCompactNumber(Number(v))}
                         />
                         <Tooltip content={<CombinedTooltip />} />
                         <Bar
