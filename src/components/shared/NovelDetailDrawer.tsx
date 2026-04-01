@@ -2,13 +2,30 @@
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  X, TrendingUp, Star, MessageCircle, BookOpen, Calendar,
-  Zap, ArrowUp, ArrowDown, Maximize2, Minimize2, Clock,
-  BookMarked, Ticket,
+  X,
+  TrendingUp,
+  Star,
+  MessageCircle,
+  BookOpen,
+  Calendar,
+  Zap,
+  ArrowUp,
+  ArrowDown,
+  Maximize2,
+  Minimize2,
+  Clock,
+  BookMarked,
+  Ticket,
 } from "lucide-react";
 import {
-  ComposedChart, Line, Bar, XAxis, YAxis, Tooltip,
-  ResponsiveContainer, CartesianGrid,
+  ComposedChart,
+  Line,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelCover } from "@/components/shared/NovelCover";
@@ -22,38 +39,40 @@ interface Props {
   latestDate?: string;
   allNovels?: Novel[];
   onSelectNovel?: (novel: Novel) => void;
-  onAddToGoals?: (novel: Novel) => void; // 독서목표 추가용
+  onAddToGoals?: (novel: Novel) => void;
 }
 
-// ── 플랫폼별 프로모션 스타일 ─────────────────────────────
 function getPromoStyle(platform: string) {
-  if (platform === "naver") return {
-    sectionBg: "bg-naver/8",
-    bannerBg: "bg-naver/10",
-    barGradient: "from-naver to-naver/60",
-    iconColor: "text-naver",
-    titleColor: "text-naver dark:text-green-300",
-    badgeBg: "bg-naver/15",
-    badgeText: "text-naver",
-    badgeBorder: "border-naver/30",
-    promotionBg: "bg-red-500/15",
-    promotionText: "text-red-500",
-    promotionBorder: "border-red-500/25",
-  };
-  if (platform === "ridi") return {
-    sectionBg: "bg-ridi/8",
-    bannerBg: "bg-ridi/10",
-    barGradient: "from-ridi to-ridi/60",
-    iconColor: "text-ridi",
-    titleColor: "text-ridi dark:text-blue-300",
-    badgeBg: "bg-ridi/15",
-    badgeText: "text-ridi",
-    badgeBorder: "border-ridi/30",
-    promotionBg: "bg-red-500/15",
-    promotionText: "text-red-500",
-    promotionBorder: "border-red-500/25",
-  };
-  // kakao (default - 기존 그대로 유지)
+  if (platform === "naver") {
+    return {
+      sectionBg: "bg-naver/8",
+      bannerBg: "bg-naver/10",
+      barGradient: "from-naver to-naver/60",
+      iconColor: "text-naver",
+      titleColor: "text-naver dark:text-green-300",
+      badgeBg: "bg-naver/15",
+      badgeText: "text-naver",
+      badgeBorder: "border-naver/30",
+      promotionBg: "bg-red-500/15",
+      promotionText: "text-red-500",
+      promotionBorder: "border-red-500/25",
+    };
+  }
+  if (platform === "ridi") {
+    return {
+      sectionBg: "bg-ridi/8",
+      bannerBg: "bg-ridi/10",
+      barGradient: "from-ridi to-ridi/60",
+      iconColor: "text-ridi",
+      titleColor: "text-ridi dark:text-blue-300",
+      badgeBg: "bg-ridi/15",
+      badgeText: "text-ridi",
+      badgeBorder: "border-ridi/30",
+      promotionBg: "bg-red-500/15",
+      promotionText: "text-red-500",
+      promotionBorder: "border-red-500/25",
+    };
+  }
   return {
     sectionBg: "bg-amber-500/8",
     bannerBg: "bg-amber-500/10",
@@ -69,7 +88,13 @@ function getPromoStyle(platform: string) {
   };
 }
 
-function SectionHeader({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+function SectionHeader({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ElementType;
+  label: string;
+}) {
   return (
     <h3 className="text-[11px] font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-1.5">
       <Icon size={13} />
@@ -78,10 +103,22 @@ function SectionHeader({ icon: Icon, label }: { icon: React.ElementType; label: 
   );
 }
 
-function TruncatedTitle({ title, maxLen, className = "" }: { title: string; maxLen: number; className?: string }) {
+function TruncatedTitle({
+  title,
+  maxLen,
+  className = "",
+}: {
+  title: string;
+  maxLen: number;
+  className?: string;
+}) {
   const isTruncated = title.length > maxLen;
   return (
-    <span className={className} title={isTruncated ? title : undefined} style={{ cursor: isTruncated ? "help" : undefined }}>
+    <span
+      className={className}
+      title={isTruncated ? title : undefined}
+      style={{ cursor: isTruncated ? "help" : undefined }}
+    >
       {isTruncated ? title.slice(0, maxLen) + "…" : title}
     </span>
   );
@@ -94,9 +131,14 @@ function CombinedTooltip({ active, payload, label }: any) {
       <p className="text-muted-foreground font-mono mb-1">{label}</p>
       {payload.map((p: any) => (
         <div key={p.name} className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full shrink-0" style={{ background: p.color }} />
+          <span
+            className="w-2 h-2 rounded-full shrink-0"
+            style={{ background: p.color }}
+          />
           <span style={{ color: p.color }} className="font-mono font-semibold">
-            {p.name === "rank" ? `순위 #${p.value}위` : `조회 ${Number(p.value).toLocaleString()}`}
+            {p.name === "rank"
+              ? `순위 #${p.value}위`
+              : `조회 ${Number(p.value).toLocaleString()}`}
           </span>
         </div>
       ))}
@@ -110,7 +152,8 @@ function parseViewStr(v: string | number | null | undefined): number | null {
   const s = String(v).trim();
   if (!s || s === "-") return null;
   const regex = /([\d.,]+)\s*억|([\d.,]+)\s*만/g;
-  let total = 0; let m;
+  let total = 0;
+  let m;
   while ((m = regex.exec(s)) !== null) {
     if (m[1]) total += parseFloat(m[1].replace(/,/g, "")) * 100_000_000;
     if (m[2]) total += parseFloat(m[2].replace(/,/g, "")) * 10_000;
@@ -132,11 +175,16 @@ type PromoDetailItem = {
   icon: "clock" | "ticket" | "zap";
 };
 
+type RidiInfoItem = {
+  label: string;
+  title: string;
+  subtitle?: string;
+};
+
 function normalizeNaverTag(tag?: string | null): string | null {
   if (!tag) return null;
   const raw = String(tag).trim();
   if (!raw) return null;
-
   if (raw === "매일10시무료") return "매일 10시 무료";
   return raw;
 }
@@ -153,11 +201,9 @@ function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
     if (promo.timeFreeType === "waitFree") {
       badges.push({ label: "기다무", icon: "clock" });
     }
-
     if (tag === "타임딜") {
       badges.push({ label: "타임딜", icon: "none" });
     }
-
     return badges;
   }
 
@@ -165,15 +211,12 @@ function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
     if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
       badges.push({ label: "리다무", icon: "clock" });
     }
-
     if (promo.ridiFreeLabel) {
       badges.push({ label: promo.ridiFreeLabel, icon: "ticket" });
     }
-
     return badges;
   }
 
-  // kakao 기존 유지
   if (promo.timeFreeType === "threeHour") {
     badges.push({ label: "3다무", icon: "clock" });
   } else if (promo.timeFreeType === "waitFree") {
@@ -188,7 +231,6 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
 
   const promo = novel.promotion;
 
-  // ── 카카오는 기존 유지 ─────────────────────────────
   if (novel.platform === "kakao") {
     const items: PromoDetailItem[] = [];
 
@@ -209,7 +251,6 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
     return items;
   }
 
-  // ── 네이버 상세 강화 ─────────────────────────────
   if (novel.platform === "naver") {
     const items: PromoDetailItem[] = [];
     const tag = String(promo.tag ?? "").trim();
@@ -236,15 +277,17 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
 
       items.push({
         title: detail,
-        subtitle: tag === "타임딜" ? "기간 한정 무료 회차 혜택" : "무료 회차 혜택 적용 중",
+        subtitle:
+          tag === "타임딜" ? "기간 한정 무료 회차 혜택" : "무료 회차 혜택 적용 중",
         icon: "ticket",
       });
     } else if (tag === "타임딜") {
       items.push({
         title: "타임딜",
-        subtitle: typeof promo.daysLeft === "number" && promo.daysLeft >= 0
-          ? `${promo.daysLeft}일 남음`
-          : "기간 한정 혜택 진행 중",
+        subtitle:
+          typeof promo.daysLeft === "number" && promo.daysLeft >= 0
+            ? `${promo.daysLeft}일 남음`
+            : "기간 한정 혜택 진행 중",
         icon: "zap",
       });
     }
@@ -252,14 +295,13 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
     return items;
   }
 
-  // ── 리디 현재 데이터 기준 최소 개선 ─────────────────
   if (novel.platform === "ridi") {
     const items: PromoDetailItem[] = [];
 
     if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
       items.push({
         title: "리다무",
-        subtitle: "기다리면 무료 혜택 적용 중",
+        subtitle: promo.ridiWaitFreeText || "기다리면 무료 혜택 적용 중",
         icon: "clock",
       });
     }
@@ -284,6 +326,71 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
   return [];
 }
 
+function getRidiAdditionalInfo(novel: Novel | null): RidiInfoItem[] {
+  if (!novel?.promotion || novel.platform !== "ridi") return [];
+
+  const promo: any = novel.promotion;
+  const items: RidiInfoItem[] = [];
+
+  if (promo.serialSchedule) {
+    items.push({
+      label: "연재",
+      title: promo.serialSchedule,
+    });
+  }
+
+  if (Array.isArray(promo.notices) && promo.notices.length > 0) {
+    promo.notices.forEach((notice: any) => {
+      const title = String(notice?.title ?? "").trim();
+      if (!title) return;
+      items.push({
+        label: "공지",
+        title,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.benefits) && promo.benefits.length > 0) {
+    promo.benefits.forEach((benefit: any) => {
+      const title = String(benefit?.title ?? "").trim();
+      const subtitle = String(benefit?.subtitle ?? "").trim();
+      if (!title) return;
+      items.push({
+        label: "혜택",
+        title,
+        subtitle: subtitle || undefined,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.eventBanners) && promo.eventBanners.length > 0) {
+    promo.eventBanners.forEach((event: any) => {
+      const title = String(event?.title ?? "").trim();
+      if (!title) return;
+      items.push({
+        label: "이벤트",
+        title,
+      });
+    });
+  }
+
+  if (promo.exclusiveText) {
+    items.push({
+      label: "독점",
+      title: String(promo.exclusiveText).trim(),
+    });
+  }
+
+  if (promo.ridiWaitFreeText) {
+    items.push({
+      label: "리다무",
+      title: String(promo.ridiWaitFreeText).trim(),
+    });
+  }
+
+  return items;
+}
+
 function PromoIcon({
   icon,
   className,
@@ -299,19 +406,39 @@ function PromoIcon({
   return null;
 }
 
-export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], onSelectNovel, onAddToGoals }: Props) {
+function getRidiLabelClass(label: string) {
+  if (label === "연재") return "bg-sky-500/12 text-sky-500";
+  if (label === "공지") return "bg-rose-500/12 text-rose-500";
+  if (label === "혜택") return "bg-emerald-500/12 text-emerald-500";
+  if (label === "이벤트") return "bg-violet-500/12 text-violet-500";
+  if (label === "독점") return "bg-muted text-foreground";
+  if (label === "리다무") return "bg-ridi/15 text-ridi";
+  return "bg-muted text-foreground";
+}
+
+export function NovelDetailDrawer({
+  novel,
+  onClose,
+  latestDate,
+  allNovels = [],
+  onSelectNovel,
+  onAddToGoals,
+}: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const stats = useMemo(() => (novel ? computeNovelStats(novel) : null), [novel]);
 
-  // 플랫폼별 프로모션 스타일
-  const promoStyle = useMemo(() => getPromoStyle(novel?.platform ?? "kakao"), [novel?.platform]);
+  const promoStyle = useMemo(
+    () => getPromoStyle(novel?.platform ?? "kakao"),
+    [novel?.platform],
+  );
 
   const dedupedRankHistory = useMemo(() => {
     if (!novel?.rankHistory) return [];
     const seen = new Map<string, number | null>();
     for (const r of novel.rankHistory) {
-      if (!seen.has(r.date) || (seen.get(r.date) === null && r.rank !== null))
+      if (!seen.has(r.date) || (seen.get(r.date) === null && r.rank !== null)) {
         seen.set(r.date, r.rank);
+      }
     }
     return Array.from(seen.entries())
       .map(([date, rank]) => ({ date, rank }))
@@ -331,16 +458,25 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
   }, [novel, dedupedRankHistory]);
 
   const viewsDomain = useMemo(() => {
-    const vals = combinedChartData.map((d) => d.views).filter((v): v is number => v !== null && v > 0);
+    const vals = combinedChartData
+      .map((d) => d.views)
+      .filter((v): v is number => v !== null && v > 0);
+
     if (vals.length === 0) return ["auto", "auto"] as const;
+
     const min = Math.min(...vals);
     const max = Math.max(...vals);
     const padding = (max - min) * 0.05 || max * 0.02;
-    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [number, number];
+    return [Math.max(0, Math.floor(min - padding)), Math.ceil(max + padding)] as [
+      number,
+      number,
+    ];
   }, [combinedChartData]);
 
   const rankAxisWidth = useMemo(() => {
-    const maxRank = Math.max(...dedupedRankHistory.map((r) => r.rank ?? 0).filter((r) => r > 0));
+    const maxRank = Math.max(
+      ...dedupedRankHistory.map((r) => r.rank ?? 0).filter((r) => r > 0),
+    );
     if (maxRank >= 100) return 36;
     if (maxRank >= 10) return 30;
     return 24;
@@ -359,25 +495,45 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
     const events: { date: string; type: "in" | "out" | "peak"; label: string }[] = [];
     let prevRank: number | null | undefined = undefined;
     let isFirstEntry = true;
+
     for (const entry of dedupedRankHistory) {
       const curr = entry.rank;
       if (prevRank === undefined) {
-        if (curr !== null) { events.push({ date: entry.date, type: "in", label: "첫 차트 진입" }); isFirstEntry = false; }
+        if (curr !== null) {
+          events.push({ date: entry.date, type: "in", label: "첫 차트 진입" });
+          isFirstEntry = false;
+        }
       } else if (prevRank === null && curr !== null) {
-        events.push({ date: entry.date, type: "in", label: isFirstEntry ? "첫 차트 진입" : "차트 재진입" });
+        events.push({
+          date: entry.date,
+          type: "in",
+          label: isFirstEntry ? "첫 차트 진입" : "차트 재진입",
+        });
         isFirstEntry = false;
       } else if (prevRank !== null && curr === null) {
         events.push({ date: entry.date, type: "out", label: "차트 이탈" });
       }
       prevRank = curr;
     }
+
     if (stats?.bestRank) {
       const peakEntry = dedupedRankHistory.find((r) => r.rank === stats.bestRank);
-      if (peakEntry) events.push({ date: peakEntry.date, type: "peak", label: `최고 순위 #${stats.bestRank}위 달성` });
+      if (peakEntry) {
+        events.push({
+          date: peakEntry.date,
+          type: "peak",
+          label: `최고 순위 #${stats.bestRank}위 달성`,
+        });
+      }
     }
-    if (events.length === 0 && novel.firstAppeared)
+
+    if (events.length === 0 && novel.firstAppeared) {
       events.push({ date: novel.firstAppeared, type: "in", label: "첫 차트 진입" });
-    return events.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+
+    return events.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    );
   }, [novel, dedupedRankHistory, stats]);
 
   const isCurrentlyCharted = useMemo(() => {
@@ -392,15 +548,14 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
 
   const topPromoBadges = useMemo(() => getTopPromoBadges(novel), [novel]);
   const promoDetailItems = useMemo(() => getPlatformPromoDetails(novel), [novel]);
+  const ridiAdditionalInfo = useMemo(() => getRidiAdditionalInfo(novel), [novel]);
 
-  // PROMOTION 뱃지
   const hasPromotion =
-    topPromoBadges.length > 0 ||
-    !!novel?.promotion?.eventBanners?.length;
+    topPromoBadges.length > 0 || !!novel?.promotion?.eventBanners?.length;
 
-  // 프로모션 섹션 표시 여부
   const hasPromotionSection =
     promoDetailItems.length > 0 ||
+    ridiAdditionalInfo.length > 0 ||
     !!novel?.promotion?.eventBanners?.length ||
     !!novel?.promotion?.notices?.length;
 
@@ -411,20 +566,25 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
       {novel && stats && (
         <>
           <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/60 z-50 backdrop-blur-sm"
             onClick={onClose}
           />
           <motion.div
-            initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 220 }}
             className={`fixed right-0 top-0 bottom-0 w-full ${drawerWidth} z-50 overflow-y-auto border-l border-border shadow-2xl bg-surface text-foreground transition-all duration-300`}
           >
-            {/* 헤더 */}
             <div className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 border-b border-border bg-surface/90 backdrop-blur-md">
               <div className="flex items-center gap-2">
                 <PlatformBadge platform={novel.platform} size="md" />
-                <span className="text-xs font-bold text-muted-foreground tracking-wide">작품 분석 리포트</span>
+                <span className="text-xs font-bold text-muted-foreground tracking-wide">
+                  작품 분석 리포트
+                </span>
               </div>
               <div className="flex items-center gap-1">
                 {onAddToGoals && (
@@ -454,13 +614,18 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
             </div>
 
             <div className={`p-5 space-y-7 ${isExpanded ? "max-w-2xl mx-auto" : ""}`}>
-              {/* 커버 & 제목 */}
               <div className="flex gap-4">
-                <NovelCover novel={novel} size="lg" className="shadow-2xl shrink-0 ring-1 ring-border rounded-xl" />
+                <NovelCover
+                  novel={novel}
+                  size="lg"
+                  className="shadow-2xl shrink-0 ring-1 ring-border rounded-xl"
+                />
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {hasPromotion && (
-                      <span className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.promotionBg} ${promoStyle.promotionText} ${promoStyle.promotionBorder}`}>
+                      <span
+                        className={`text-[10px] font-black px-1.5 py-0.5 rounded border inline-flex items-center gap-1 ${promoStyle.promotionBg} ${promoStyle.promotionText} ${promoStyle.promotionBorder}`}
+                      >
                         <Zap size={9} />
                         PROMOTION
                       </span>
@@ -477,7 +642,10 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                     ))}
                   </div>
 
-                  <h2 className="font-bold text-base leading-snug line-clamp-2 mb-1.5 text-foreground" title={novel.title}>
+                  <h2
+                    className="font-bold text-base leading-snug line-clamp-2 mb-1.5 text-foreground"
+                    title={novel.title}
+                  >
                     {novel.title}
                   </h2>
 
@@ -501,44 +669,95 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 </div>
               </div>
 
-              {/* 핵심 지표 4개 */}
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { label: novel.platform === "ridi" ? "오늘 평가수" : "오늘 조회수", value: formatViews(novel.platform, novel.todayViews), icon: TrendingUp, color: "text-emerald-500" },
-                  { label: "댓글 수", value: Number(novel.platform === "ridi" ? 0 : novel.commentCount || 0).toLocaleString(), icon: MessageCircle, color: "text-sky-500" },
-                  { label: "총 회차", value: `${novel.episodeCount}화`, icon: BookOpen, color: "text-violet-500" },
-                  { label: "연속 차트인", value: `${stats.currentStreakDays}일`, icon: Calendar, color: "text-orange-500" },
+                  {
+                    label: novel.platform === "ridi" ? "오늘 평가수" : "오늘 조회수",
+                    value: formatViews(novel.platform, novel.todayViews),
+                    icon: TrendingUp,
+                    color: "text-emerald-500",
+                  },
+                  {
+                    label: "댓글 수",
+                    value: Number(
+                      novel.platform === "ridi" ? 0 : novel.commentCount || 0,
+                    ).toLocaleString(),
+                    icon: MessageCircle,
+                    color: "text-sky-500",
+                  },
+                  {
+                    label: "총 회차",
+                    value: `${novel.episodeCount}화`,
+                    icon: BookOpen,
+                    color: "text-violet-500",
+                  },
+                  {
+                    label: "연속 차트인",
+                    value: `${stats.currentStreakDays}일`,
+                    icon: Calendar,
+                    color: "text-orange-500",
+                  },
                 ].map((item) => (
-                  <div key={item.label} className="bg-surface-elevated rounded-xl p-3.5 border border-border">
+                  <div
+                    key={item.label}
+                    className="bg-surface-elevated rounded-xl p-3.5 border border-border"
+                  >
                     <div className="flex items-center gap-1.5 mb-2">
                       <item.icon size={11} className={item.color} />
-                      <span className="text-[10px] text-muted-foreground font-semibold tracking-wide uppercase">{item.label}</span>
+                      <span className="text-[10px] text-muted-foreground font-semibold tracking-wide uppercase">
+                        {item.label}
+                      </span>
                     </div>
-                    <div className="font-mono text-base font-extrabold text-foreground">{item.value}</div>
+                    <div className="font-mono text-base font-extrabold text-foreground">
+                      {item.value}
+                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* 통합 차트 */}
               {combinedChartData.length > 0 && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <SectionHeader icon={TrendingUp} label="순위 & 조회 추이" />
                     <div className="flex items-center gap-3 text-[10px]">
                       <span className="flex items-center gap-1.5 text-sky-500">
-                        <span className="w-4 h-0.5 bg-sky-500 inline-block rounded" />순위
+                        <span className="w-4 h-0.5 bg-sky-500 inline-block rounded" />
+                        순위
                       </span>
                       <span className="flex items-center gap-1.5 text-emerald-500">
-                        <span className="w-3 h-2.5 bg-emerald-500/40 inline-block rounded-sm border border-emerald-500/50" />조회수
+                        <span className="w-3 h-2.5 bg-emerald-500/40 inline-block rounded-sm border border-emerald-500/50" />
+                        조회수
                       </span>
                     </div>
                   </div>
                   <div className="bg-surface-elevated rounded-xl p-4 border border-border h-[210px]">
                     <ResponsiveContainer width="100%" height="100%">
-                      <ComposedChart data={combinedChartData} margin={{ top: 4, right: 4, bottom: 0, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="date" tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} interval="preserveStartEnd" />
-                        <YAxis yAxisId="rank" reversed domain={[1, "auto"]} tick={{ fontSize: 9, fill: "#38bdf8" }} width={rankAxisWidth} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}위`} />
+                      <ComposedChart
+                        data={combinedChartData}
+                        margin={{ top: 4, right: 4, bottom: 0, left: 0 }}
+                      >
+                        <CartesianGrid
+                          strokeDasharray="3 3"
+                          vertical={false}
+                          stroke="hsl(var(--border))"
+                        />
+                        <XAxis
+                          dataKey="date"
+                          tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                          axisLine={false}
+                          tickLine={false}
+                          interval="preserveStartEnd"
+                        />
+                        <YAxis
+                          yAxisId="rank"
+                          reversed
+                          domain={[1, "auto"]}
+                          tick={{ fontSize: 9, fill: "#38bdf8" }}
+                          width={rankAxisWidth}
+                          axisLine={false}
+                          tickLine={false}
+                          tickFormatter={(v) => `${v}위`}
+                        />
                         <YAxis
                           yAxisId="views"
                           orientation="right"
@@ -547,23 +766,59 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                           axisLine={false}
                           tickLine={false}
                           domain={viewsDomain}
-                          tickFormatter={(v) => v >= 100_000_000 ? `${(v / 100_000_000).toFixed(1)}억` : v >= 10_000 ? `${(v / 10_000).toFixed(0)}만` : String(v)}
+                          tickFormatter={(v) =>
+                            v >= 100_000_000
+                              ? `${(v / 100_000_000).toFixed(1)}억`
+                              : v >= 10_000
+                              ? `${(v / 10_000).toFixed(0)}만`
+                              : String(v)
+                          }
                         />
                         <Tooltip content={<CombinedTooltip />} />
-                        <Bar yAxisId="views" dataKey="views" fill="#10b981" fillOpacity={0.35} stroke="#10b981" strokeOpacity={0.5} strokeWidth={1} radius={[3, 3, 0, 0]} name="views" />
-                        <Line yAxisId="rank" type="monotone" dataKey="rank" stroke="#38bdf8" strokeWidth={2.5} dot={{ r: 3, fill: "#38bdf8", stroke: "hsl(var(--surface))", strokeWidth: 2 }} activeDot={{ r: 5, fill: "#38bdf8", stroke: "hsl(var(--surface))", strokeWidth: 2 }} name="rank" connectNulls />
+                        <Bar
+                          yAxisId="views"
+                          dataKey="views"
+                          fill="#10b981"
+                          fillOpacity={0.35}
+                          stroke="#10b981"
+                          strokeOpacity={0.5}
+                          strokeWidth={1}
+                          radius={[3, 3, 0, 0]}
+                          name="views"
+                        />
+                        <Line
+                          yAxisId="rank"
+                          type="monotone"
+                          dataKey="rank"
+                          stroke="#38bdf8"
+                          strokeWidth={2.5}
+                          dot={{
+                            r: 3,
+                            fill: "#38bdf8",
+                            stroke: "hsl(var(--surface))",
+                            strokeWidth: 2,
+                          }}
+                          activeDot={{
+                            r: 5,
+                            fill: "#38bdf8",
+                            stroke: "hsl(var(--surface))",
+                            strokeWidth: 2,
+                          }}
+                          name="rank"
+                          connectNulls
+                        />
                       </ComposedChart>
                     </ResponsiveContainer>
                   </div>
                 </div>
               )}
 
-              {/* ── 프로모션/소식 (플랫폼별 색상 적용) ── */}
               {hasPromotionSection && (
                 <div className="space-y-3">
                   <SectionHeader icon={Zap} label="프로모션 / 소식" />
-                  <div className={`rounded-xl overflow-hidden border border-border space-y-px ${promoStyle.sectionBg}`}>
-                    {/* 플랫폼별 상세 프로모션 */}
+                  <div
+                    className={`rounded-xl overflow-hidden border border-border space-y-px ${promoStyle.sectionBg}`}
+                  >
                     {promoDetailItems.length > 0 && (
                       <div className="space-y-px">
                         {promoDetailItems.map((item, i) => (
@@ -571,8 +826,14 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                             key={`${item.title}-${i}`}
                             className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}
                           >
-                            <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
-                            <PromoIcon icon={item.icon} size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
+                            <div
+                              className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                            />
+                            <PromoIcon
+                              icon={item.icon}
+                              size={14}
+                              className={`${promoStyle.iconColor} shrink-0 ml-1`}
+                            />
                             <div className="flex-1">
                               <p className={`text-xs font-extrabold ${promoStyle.titleColor}`}>
                                 {item.title}
@@ -588,97 +849,221 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                       </div>
                     )}
 
-                    {/* 이벤트 배너 */}
-                    {novel.promotion?.eventBanners && novel.promotion.eventBanners.length > 0 && (
+                    {novel.platform === "ridi" && ridiAdditionalInfo.length > 0 && (
                       <div className="space-y-px">
-                        {novel.promotion.eventBanners.map((b, i) => (
-                          <div key={i} className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}>
-                            <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`} />
-                            <Zap size={14} className={`${promoStyle.iconColor} shrink-0 ml-1`} />
+                        {ridiAdditionalInfo.map((item, i) => (
+                          <div
+                            key={`${item.label}-${item.title}-${i}`}
+                            className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
+                          >
+                            <div
+                              className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                            />
+                            <div className="ml-1 mt-0.5 shrink-0">
+                              <span
+                                className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold ${getRidiLabelClass(
+                                  item.label,
+                                )}`}
+                              >
+                                {item.label}
+                              </span>
+                            </div>
                             <div className="flex-1 min-w-0">
-                              <p className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}>{b.title}</p>
-                              {b.subtitle && <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{b.subtitle}</p>}
+                              <p className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}>
+                                {item.title}
+                              </p>
+                              {item.subtitle && (
+                                <p className="text-[11px] text-muted-foreground mt-1 leading-tight">
+                                  {item.subtitle}
+                                </p>
+                              )}
                             </div>
                           </div>
                         ))}
                       </div>
                     )}
 
-                    {/* 공지 리스트 */}
-                    {novel.promotion?.notices && novel.promotion.notices.length > 0 && (
-                      <div className="max-h-44 overflow-y-auto divide-y divide-border">
-                        {novel.promotion.notices.map((notice, idx) => (
-                          <div key={idx} className="px-4 py-3 hover:bg-surface transition-colors">
-                            <p className="text-xs font-bold text-foreground leading-snug">{notice.body || notice.title}</p>
-                            <div className="flex items-center gap-2 mt-1.5">
-                              <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}>
-                                {notice.title}
-                              </span>
-                              {notice.date && <span className="text-[10px] text-muted-foreground">{notice.date}</span>}
+                    {novel.platform !== "ridi" &&
+                      novel.promotion?.eventBanners &&
+                      novel.promotion.eventBanners.length > 0 && (
+                        <div className="space-y-px">
+                          {novel.promotion.eventBanners.map((b: any, i: number) => (
+                            <div
+                              key={i}
+                              className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}
+                            >
+                              <div
+                                className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                              />
+                              <Zap
+                                size={14}
+                                className={`${promoStyle.iconColor} shrink-0 ml-1`}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <p
+                                  className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
+                                >
+                                  {b.title}
+                                </p>
+                                {b.subtitle && (
+                                  <p className="text-[11px] text-muted-foreground mt-0.5 leading-tight">
+                                    {b.subtitle}
+                                  </p>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          ))}
+                        </div>
+                      )}
+
+                    {novel.platform !== "ridi" &&
+                      novel.promotion?.notices &&
+                      novel.promotion.notices.length > 0 && (
+                        <div className="max-h-44 overflow-y-auto divide-y divide-border">
+                          {novel.promotion.notices.map((notice: any, idx: number) => (
+                            <div
+                              key={idx}
+                              className="px-4 py-3 hover:bg-surface transition-colors"
+                            >
+                              <p className="text-xs font-bold text-foreground leading-snug">
+                                {notice.body || notice.title}
+                              </p>
+                              <div className="flex items-center gap-2 mt-1.5">
+                                <span
+                                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}
+                                >
+                                  {notice.label || notice.title}
+                                </span>
+                                {notice.date && (
+                                  <span className="text-[10px] text-muted-foreground">
+                                    {notice.date}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                   </div>
                 </div>
               )}
 
-              {/* 타임라인 */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <SectionHeader icon={Calendar} label="차트 진입/이탈 타임라인" />
                   <div className="flex items-center gap-2 text-[10px]">
-                    <span className="flex items-center gap-1 text-emerald-500"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />진입</span>
-                    <span className="flex items-center gap-1 text-rose-500"><span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />이탈</span>
-                    <span className="flex items-center gap-1 text-amber-500"><span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />최고순위</span>
+                    <span className="flex items-center gap-1 text-emerald-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
+                      진입
+                    </span>
+                    <span className="flex items-center gap-1 text-rose-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />
+                      이탈
+                    </span>
+                    <span className="flex items-center gap-1 text-amber-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />
+                      최고순위
+                    </span>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-4 gap-2">
                   {[
-                    { label: "최고 순위", value: stats.bestRank ? `#${stats.bestRank}위` : "-", color: "text-amber-500" },
-                    { label: "최저 순위", value: stats.worstRank ? `#${stats.worstRank}위` : "-", color: "text-muted-foreground" },
-                    { label: "총 차트인", value: `${stats.chartInCount}회`, color: "text-primary" },
-                    { label: "연속 진입", value: `${stats.currentStreakDays}일`, color: "text-emerald-500" },
+                    {
+                      label: "최고 순위",
+                      value: stats.bestRank ? `#${stats.bestRank}위` : "-",
+                      color: "text-amber-500",
+                    },
+                    {
+                      label: "최저 순위",
+                      value: stats.worstRank ? `#${stats.worstRank}위` : "-",
+                      color: "text-muted-foreground",
+                    },
+                    {
+                      label: "총 차트인",
+                      value: `${stats.chartInCount}회`,
+                      color: "text-primary",
+                    },
+                    {
+                      label: "연속 진입",
+                      value: `${stats.currentStreakDays}일`,
+                      color: "text-emerald-500",
+                    },
                   ].map((item) => (
-                    <div key={item.label} className="bg-surface-elevated rounded-lg p-2 border border-border text-center">
-                      <p className="text-[9px] text-muted-foreground mb-1 leading-tight">{item.label}</p>
-                      <p className={`font-mono text-xs font-extrabold ${item.color}`}>{item.value}</p>
+                    <div
+                      key={item.label}
+                      className="bg-surface-elevated rounded-lg p-2 border border-border text-center"
+                    >
+                      <p className="text-[9px] text-muted-foreground mb-1 leading-tight">
+                        {item.label}
+                      </p>
+                      <p className={`font-mono text-xs font-extrabold ${item.color}`}>
+                        {item.value}
+                      </p>
                     </div>
                   ))}
                 </div>
 
                 <div className="bg-surface-elevated rounded-xl border border-border p-4">
                   {timelineEvents.length === 0 ? (
-                    <div className="text-center text-[11px] text-muted-foreground py-4">타임라인 데이터가 없습니다</div>
+                    <div className="text-center text-[11px] text-muted-foreground py-4">
+                      타임라인 데이터가 없습니다
+                    </div>
                   ) : (
                     <div className="relative pl-5">
                       <div className="absolute left-[7px] top-1 bottom-1 w-px bg-border" />
                       <div className="space-y-4">
                         {timelineEvents.map((event, idx) => {
-                          const dotColor = event.type === "in" ? "bg-emerald-500" : event.type === "out" ? "bg-rose-500" : "bg-amber-500";
-                          const Icon = event.type === "in" ? ArrowUp : event.type === "out" ? ArrowDown : Star;
+                          const dotColor =
+                            event.type === "in"
+                              ? "bg-emerald-500"
+                              : event.type === "out"
+                              ? "bg-rose-500"
+                              : "bg-amber-500";
+                          const Icon =
+                            event.type === "in"
+                              ? ArrowUp
+                              : event.type === "out"
+                              ? ArrowDown
+                              : Star;
+
                           return (
                             <div key={idx} className="flex items-start gap-3 relative">
-                              <div className={`absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full ${dotColor} flex items-center justify-center ring-2 ring-surface-elevated`}>
+                              <div
+                                className={`absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full ${dotColor} flex items-center justify-center ring-2 ring-surface-elevated`}
+                              >
                                 <Icon size={7} className="text-white" />
                               </div>
                               <div className="flex-1 flex items-center justify-between">
-                                <span className={`text-xs font-semibold ${event.type === "out" ? "text-rose-500" : "text-foreground"}`}>{event.label}</span>
-                                <span className="font-mono text-[10px] text-muted-foreground">{event.date}</span>
+                                <span
+                                  className={`text-xs font-semibold ${
+                                    event.type === "out"
+                                      ? "text-rose-500"
+                                      : "text-foreground"
+                                  }`}
+                                >
+                                  {event.label}
+                                </span>
+                                <span className="font-mono text-[10px] text-muted-foreground">
+                                  {event.date}
+                                </span>
                               </div>
                             </div>
                           );
                         })}
+
                         {isCurrentlyCharted ? (
                           <div className="flex items-start gap-3 relative">
                             <div className="absolute -left-5 top-0.5 w-3.5 h-3.5 rounded-full bg-primary flex items-center justify-center ring-2 ring-surface-elevated animate-pulse">
                               <span className="w-1.5 h-1.5 rounded-full bg-white" />
                             </div>
                             <div className="flex-1 flex items-center justify-between">
-                              <span className="text-xs font-semibold text-primary">현재 #{novel.todayRank}위 차트인 중</span>
-                              <span className="font-mono text-[10px] text-muted-foreground">{latestDate || "오늘"}</span>
+                              <span className="text-xs font-semibold text-primary">
+                                현재 #{novel.todayRank}위 차트인 중
+                              </span>
+                              <span className="font-mono text-[10px] text-muted-foreground">
+                                {latestDate || "오늘"}
+                              </span>
                             </div>
                           </div>
                         ) : (
@@ -687,8 +1072,12 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                               <ArrowDown size={7} className="text-muted-foreground" />
                             </div>
                             <div className="flex-1 flex items-center justify-between">
-                              <span className="text-xs font-semibold text-muted-foreground">현재 차트 아웃</span>
-                              <span className="font-mono text-[10px] text-muted-foreground">{latestDate || "오늘"}</span>
+                              <span className="text-xs font-semibold text-muted-foreground">
+                                현재 차트 아웃
+                              </span>
+                              <span className="font-mono text-[10px] text-muted-foreground">
+                                {latestDate || "오늘"}
+                              </span>
                             </div>
                           </div>
                         )}
@@ -698,10 +1087,12 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                 </div>
               </div>
 
-              {/* 경쟁작 비교 */}
               {competitors.length > 0 && (
                 <div className="space-y-3">
-                  <SectionHeader icon={TrendingUp} label={`장르 경쟁작 비교 (${novel.genre})`} />
+                  <SectionHeader
+                    icon={TrendingUp}
+                    label={`장르 경쟁작 비교 (${novel.genre})`}
+                  />
                   <div className="rounded-xl border border-border overflow-hidden text-xs">
                     <div className="grid grid-cols-[1fr_44px_60px_44px] bg-surface-elevated px-3 py-2 text-[10px] text-muted-foreground font-semibold uppercase tracking-wide border-b border-border">
                       <span>작품</span>
@@ -714,30 +1105,47 @@ export function NovelDetailDrawer({ novel, onClose, latestDate, allNovels = [], 
                         <span className="w-1 h-4 bg-primary rounded-full shrink-0" />
                         <TruncatedTitle title={novel.title} maxLen={10} />
                       </span>
-                      <span className="text-right font-mono font-bold text-primary">#{novel.todayRank}</span>
-                      <span className="text-right font-mono text-foreground text-[11px]">{formatViews(novel.platform, novel.todayViews)}</span>
-                      <span className="text-right font-mono text-emerald-500 font-bold">{novel.consecutiveDays}일</span>
+                      <span className="text-right font-mono font-bold text-primary">
+                        #{novel.todayRank}
+                      </span>
+                      <span className="text-right font-mono text-foreground text-[11px]">
+                        {formatViews(novel.platform, novel.todayViews)}
+                      </span>
+                      <span className="text-right font-mono text-emerald-500 font-bold">
+                        {novel.consecutiveDays}일
+                      </span>
                     </div>
                     {competitors.map((c, idx) => (
                       <div
                         key={c.id}
-                        className={`grid grid-cols-[1fr_44px_60px_44px] px-3 py-2.5 items-center cursor-pointer ${idx < competitors.length - 1 ? "border-b border-border" : ""} hover:bg-surface-elevated transition-colors`}
+                        className={`grid grid-cols-[1fr_44px_60px_44px] px-3 py-2.5 items-center cursor-pointer ${
+                          idx < competitors.length - 1 ? "border-b border-border" : ""
+                        } hover:bg-surface-elevated transition-colors`}
                         onClick={() => onSelectNovel?.(c)}
                         title={`${c.title} 상세보기`}
                       >
                         <span className="truncate pr-2">
-                          <TruncatedTitle title={c.title} maxLen={10} className="text-sky-500 hover:text-sky-400" />
+                          <TruncatedTitle
+                            title={c.title}
+                            maxLen={10}
+                            className="text-sky-500 hover:text-sky-400"
+                          />
                         </span>
-                        <span className="text-right font-mono text-muted-foreground">#{c.todayRank}</span>
-                        <span className="text-right font-mono text-muted-foreground text-[11px]">{formatViews(c.platform, c.todayViews)}</span>
-                        <span className="text-right font-mono text-muted-foreground">{c.consecutiveDays}일</span>
+                        <span className="text-right font-mono text-muted-foreground">
+                          #{c.todayRank}
+                        </span>
+                        <span className="text-right font-mono text-muted-foreground text-[11px]">
+                          {formatViews(c.platform, c.todayViews)}
+                        </span>
+                        <span className="text-right font-mono text-muted-foreground">
+                          {c.consecutiveDays}일
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* 푸터 */}
               <div className="bg-surface-elevated rounded-lg px-3 py-2.5 text-[10px] text-muted-foreground flex justify-between border border-border">
                 <span>데이터 수집: Google Apps Script</span>
                 <span>업데이트: {latestDate || "-"}</span>
