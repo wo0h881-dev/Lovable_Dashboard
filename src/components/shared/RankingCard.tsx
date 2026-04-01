@@ -5,8 +5,6 @@ import {
   Star,
   BookOpen,
   Clock,
-  Ticket,
-  CalendarDays,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PlatformBadge } from "./PlatformBadge";
@@ -37,7 +35,6 @@ function getPromoStyle(platform: Platform) {
       border: "border-ridi/30",
     };
   }
-  // kakao (default)
   return {
     bg: "bg-amber-400/20",
     text: "text-amber-600",
@@ -48,18 +45,17 @@ function getPromoStyle(platform: Platform) {
 function getPrimaryPromoLabel(novel: Novel): string | null {
   const t = novel.promotion?.timeFreeType;
 
-  // 카카오 기존 구조 유지
   if (t === "threeHour") return "3다무";
-  if (t === "waitFree") return "기다무";
+  if (t === "waitFree") {
+    if (novel.platform === "ridi") return "리다무";
+    return "기다무";
+  }
   if (t === "pass") return "패스";
 
-  // 리디 보조 필드 대응
   if (novel.platform === "ridi") {
-    if (novel.promotion?.ridiFreeLabel) return novel.promotion.ridiFreeLabel;
-    if (novel.promotion?.ridiWaitFree) return "기다리면 무료";
+    if (novel.promotion?.ridiWaitFree) return "리다무";
   }
 
-  // 네이버/리디 tag 대응
   if (novel.promotion?.tag) return novel.promotion.tag;
 
   return null;
@@ -67,36 +63,57 @@ function getPrimaryPromoLabel(novel: Novel): string | null {
 
 function getSecondaryPromoLabel(novel: Novel): string | null {
   const freeEpisodes = novel.promotion?.freeEpisodes;
-  const daysLeft = novel.promotion?.daysLeft;
 
   if (typeof freeEpisodes === "number" && freeEpisodes > 0) {
     return `${freeEpisodes}화 무료`;
   }
 
-  if (typeof daysLeft === "number" && daysLeft >= 0) {
-    return `${daysLeft}일 남음`;
+  if (novel.platform === "ridi" && novel.promotion?.ridiFreeLabel) {
+    return novel.promotion.ridiFreeLabel;
   }
 
   return null;
+}
+
+function getPromoInlineText(novel: Novel): string | null {
+  const parts: string[] = [];
+  const primaryPromoLabel = getPrimaryPromoLabel(novel);
+  const secondaryPromoLabel = getSecondaryPromoLabel(novel);
+  const daysLeft = novel.promotion?.daysLeft;
+
+  if (primaryPromoLabel) parts.push(primaryPromoLabel);
+
+  if (secondaryPromoLabel && secondaryPromoLabel !== primaryPromoLabel) {
+    parts.push(secondaryPromoLabel);
+  }
+
+  if (typeof daysLeft === "number" && daysLeft >= 0) {
+    parts.push(`${daysLeft}일 남음`);
+  }
+
+  if (parts.length === 0) return null;
+  return parts.join(" ");
 }
 
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
   const eok = 100_000_000;
   const man = 10_000;
+
   if (n >= eok) return `${(n / eok).toFixed(1).replace(/\.0$/, "")}억`;
   if (n >= man) {
     const manVal = n / man;
     if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
     return `${Math.round(manVal).toLocaleString("ko-KR")}만`;
   }
+
   return n.toLocaleString("ko-KR");
 }
 
 function formatViews(platform: Platform, views: number): string {
   const v = Number(views ?? 0);
   if (!Number.isFinite(v) || v <= 0) return "-";
-  if (platform === "ridi") return v.toLocaleString("ko-KR") + " 평가";
+  if (platform === "ridi") return `${v.toLocaleString("ko-KR")} 평가`;
   return toKoreanUnit(v);
 }
 
@@ -110,20 +127,28 @@ function formatComments(value: string | number | null | undefined): string {
     const s = String(value).trim();
     if (!s) return "-";
     if (/^\d{1,3}(,\d{3})*$/.test(s)) n = Number(s.replace(/,/g, ""));
-    else if (s.endsWith("억")) n = (Number(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
-    else if (s.endsWith("만")) n = (Number(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
-    else n = Number(s.replace(/,/g, ""));
+    else if (s.endsWith("억")) {
+      n = (Number(s.replace("억", "").replace(/,/g, "")) || 0) * 100_000_000;
+    } else if (s.endsWith("만")) {
+      n = (Number(s.replace("만", "").replace(/,/g, "")) || 0) * 10_000;
+    } else {
+      n = Number(s.replace(/,/g, ""));
+    }
   }
 
   if (!Number.isFinite(n) || n <= 0) return "-";
   return toKoreanUnit(n);
 }
 
-export function RankingCard({ novel, rank, onClick, variant = "default" }: Props) {
+export function RankingCard({
+  novel,
+  rank,
+  onClick,
+  variant = "default",
+}: Props) {
   const viewsUp = novel.viewsChangePct > 0;
   const promoStyle = getPromoStyle(novel.platform);
-  const primaryPromoLabel = getPrimaryPromoLabel(novel);
-  const secondaryPromoLabel = getSecondaryPromoLabel(novel);
+  const promoInlineText = getPromoInlineText(novel);
 
   return (
     <motion.div
@@ -169,44 +194,52 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               </h3>
 
               {/* 오늘 순위 */}
-<div className="flex items-center gap-1.5 mt-1">
-  {novel.todayRank != null && (
-    <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
-      <span className="text-[9px] opacity-70">TODAY</span>
-      #{novel.todayRank}위
-    </span>
-  )}
-</div>
+              <div className="flex items-center gap-1.5 mt-1">
+                {novel.todayRank != null && (
+                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25 whitespace-nowrap">
+                    <span className="text-[9px] opacity-70">TODAY</span>
+                    #{novel.todayRank}위
+                  </span>
+                )}
+              </div>
 
-{/* 🔥 프로모션 한 줄 */}
-{(primaryPromoLabel || secondaryPromoLabel || novel.promotion?.daysLeft != null) && (
-  <div className="mt-1">
-    <span
-      className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap",
-        promoStyle.bg,
-        promoStyle.text,
-        promoStyle.border,
-      )}
-    >
-      <Clock size={9} />
+              {/* 프로모션 한 줄 */}
+              {promoInlineText && (
+                <div className="mt-1 overflow-x-auto">
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
+                      promoStyle.bg,
+                      promoStyle.text,
+                      promoStyle.border,
+                    )}
+                  >
+                    <Clock size={9} />
+                    {promoInlineText}
+                  </span>
+                </div>
+              )}
+            </div>
 
-      {/* 기다무 */}
-      {primaryPromoLabel && primaryPromoLabel}
+            <PlatformBadge
+              platform={novel.platform}
+              className="flex-shrink-0 mt-0.5"
+            />
+          </div>
 
-      {/* 25화 무료 */}
-      {secondaryPromoLabel && ` ${secondaryPromoLabel}`}
-
-      {/* 55일 남음 */}
-      {novel.promotion?.daysLeft != null &&
-        ` ${novel.promotion.daysLeft}일 남음`}
-    </span>
-  </div>
-)}
+          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
+            <span>{novel.author}</span>
+            <span className="opacity-40">·</span>
+            <span className="text-primary/80">{novel.genre}</span>
+            <span className="opacity-40">·</span>
+            <span>{novel.publisher}</span>
+          </div>
+        </div>
 
         {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
           <RankChange novel={novel} />
+
           <span
             className={cn(
               "font-mono text-xs font-semibold",
@@ -226,7 +259,9 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground">
                 <MessageCircle size={10} />
                 <span className="font-mono">
-                  {novel.platform === "ridi" ? "-" : formatComments(novel.commentCount)}
+                  {novel.platform === "ridi"
+                    ? "-"
+                    : formatComments(novel.commentCount)}
                 </span>
               </span>
 
@@ -247,7 +282,9 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
           <div className="font-mono text-xs font-bold">
             {viewsUp ? "▲" : "▼"} {Math.abs(novel.viewsChangePct).toFixed(1)}%
           </div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">전일 대비</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">
+            전일 대비
+          </div>
         </div>
       </div>
     </motion.div>
