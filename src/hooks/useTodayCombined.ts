@@ -342,7 +342,6 @@ async function fetchPromotionMap(
     map.set(key, item.promotion);
   }
 
-  console.log("PROMO MAP SIZE", platform, map.size);
   return map;
 }
 
@@ -509,15 +508,6 @@ export function useTodayCombined() {
         : n.platform === "naver"
           ? naverPromoMap.get(key)
           : ridiPromoMap.get(key);
-
-    if (n.platform === "ridi") {
-      console.log("RIDI KEY CHECK", {
-        title: n.title,
-        key,
-        hasPromo: !!promo,
-        promo,
-      });
-    }
 
     if (promo) {
       n.promotion = {
