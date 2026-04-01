@@ -168,90 +168,41 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                 {novel.title}
               </h3>
 
-              {/* 오늘 순위 + 프로모션 뱃지 */}
-              <div className="flex items-center gap-1.5 mt-1 flex-nowrap whitespace-nowrap">
-                {novel.todayRank != null && (
-                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
-                    <span className="text-[9px] opacity-70">TODAY</span>
-                    #{novel.todayRank}위
-                  </span>
-                )}
+              {/* 오늘 순위 */}
+<div className="flex items-center gap-1.5 mt-1">
+  {novel.todayRank != null && (
+    <span className="inline-flex items-center gap-1 font-mono text-[11px] font-black px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/25">
+      <span className="text-[9px] opacity-70">TODAY</span>
+      #{novel.todayRank}위
+    </span>
+  )}
+</div>
 
-                {primaryPromoLabel && (
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap shrink-0",
-                      promoStyle.bg,
-                      promoStyle.text,
-                      promoStyle.border,
-                    )}
-                  >
-                    <Clock size={9} />
-                    {primaryPromoLabel}
-                  </span>
-                )}
+{/* 🔥 프로모션 한 줄 */}
+{(primaryPromoLabel || secondaryPromoLabel || novel.promotion?.daysLeft != null) && (
+  <div className="mt-1">
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap",
+        promoStyle.bg,
+        promoStyle.text,
+        promoStyle.border,
+      )}
+    >
+      <Clock size={9} />
 
-                {!primaryPromoLabel && secondaryPromoLabel && (
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap shrink-0",
-                      promoStyle.bg,
-                      promoStyle.text,
-                      promoStyle.border,
-                    )}
-                  >
-                    <Ticket size={9} />
-                    {secondaryPromoLabel}
-                  </span>
-                )}
-              </div>
+      {/* 기다무 */}
+      {primaryPromoLabel && primaryPromoLabel}
 
-              {/* 추가 프로모션 정보 */}
-              {(secondaryPromoLabel && primaryPromoLabel) || novel.promotion?.daysLeft != null ? (
-                <div className="flex items-center gap-1.5 mt-1 flex-nowrap whitespace-nowrap">
-                  {secondaryPromoLabel && primaryPromoLabel && (
-                    <span
-                      className={cn(
-                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
-                        promoStyle.bg,
-                        promoStyle.text,
-                        promoStyle.border,
-                      )}
-                    >
-                      <Ticket size={9} />
-                      {secondaryPromoLabel}
-                    </span>
-                  )}
+      {/* 25화 무료 */}
+      {secondaryPromoLabel && ` ${secondaryPromoLabel}`}
 
-                  {novel.promotion?.daysLeft != null &&
-                    !(secondaryPromoLabel === `${novel.promotion.daysLeft}일 남음`) && (
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
-                          promoStyle.bg,
-                          promoStyle.text,
-                          promoStyle.border,
-                        )}
-                      >
-                        <CalendarDays size={9} />
-                        {novel.promotion.daysLeft}일 남음
-                      </span>
-                    )}
-                </div>
-              ) : null}
-            </div>
-
-            <PlatformBadge platform={novel.platform} className="flex-shrink-0 mt-0.5" />
-          </div>
-
-          <div className="flex items-center gap-1.5 mt-1.5 text-xs text-muted-foreground flex-wrap">
-            <span>{novel.author}</span>
-            <span className="opacity-40">·</span>
-            <span className="text-primary/80">{novel.genre}</span>
-            <span className="opacity-40">·</span>
-            <span>{novel.publisher}</span>
-          </div>
-        </div>
+      {/* 55일 남음 */}
+      {novel.promotion?.daysLeft != null &&
+        ` ${novel.promotion.daysLeft}일 남음`}
+    </span>
+  </div>
+)}
 
         {/* 하단 지표 */}
         <div className="flex items-center gap-3 mt-2 flex-wrap">
