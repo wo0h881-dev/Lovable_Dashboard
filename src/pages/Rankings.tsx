@@ -115,7 +115,7 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
 
   if (novel.platform === "kakao") {
     if (promo.timeFreeType === "threeHour") {
-      return { label: "3다무", icon: "none", className };
+      return { label: "3다무", icon: "clock", className };
     }
     if (promo.timeFreeType === "waitFree") {
       return { label: "기다무", icon: "clock", className };
@@ -448,7 +448,7 @@ export default function RankingsPage() {
                           {promoBadge && (
                             <span
                               className={cn(
-                                "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow",
+                                "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow whitespace-nowrap",
                                 promoBadge.className,
                               )}
                             >
