@@ -233,7 +233,6 @@ function getTopPromoBadges(novel: Novel | null): PromoTopBadge[] {
 
 function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
   if (!novel?.promotion) return [];
-
   const promo: any = novel.promotion;
 
   if (novel.platform === "kakao") {
@@ -333,11 +332,10 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
 
 function getRidiInfoCards(novel: Novel | null): RidiInfoCardItem[] {
   if (!novel?.promotion || novel.platform !== "ridi") return [];
-
   const promo: any = novel.promotion;
   const items: RidiInfoCardItem[] = [];
 
-  if (Array.isArray(promo.benefits) && promo.benefits.length > 0) {
+  if (Array.isArray(promo.benefits)) {
     promo.benefits.forEach((benefit: any) => {
       const title = String(benefit?.title ?? "").trim();
       const subtitle = String(benefit?.subtitle ?? "").trim();
@@ -351,7 +349,7 @@ function getRidiInfoCards(novel: Novel | null): RidiInfoCardItem[] {
     });
   }
 
-  if (Array.isArray(promo.eventBanners) && promo.eventBanners.length > 0) {
+  if (Array.isArray(promo.eventBanners)) {
     promo.eventBanners.forEach((event: any) => {
       const title = String(event?.title ?? "").trim();
       if (!title) return;
@@ -363,33 +361,27 @@ function getRidiInfoCards(novel: Novel | null): RidiInfoCardItem[] {
     });
   }
 
-  if (promo.exclusiveText) {
+  if (promo.exclusiveText && String(promo.exclusiveText).trim()) {
     items.push({
       label: "독점",
       title: String(promo.exclusiveText).trim(),
     });
   }
 
-  if (promo.ridiWaitFreeText) {
-    items.push({
-      label: "리다무",
-      title: String(promo.ridiWaitFreeText).trim(),
-    });
-  }
-
+  // 리다무 카드형은 상단 프로모션 카드에서 이미 노출되므로 여기선 중복 방지
   return items;
 }
 
 function getRidiSerialItems(novel: Novel | null): RidiListItem[] {
   if (!novel?.promotion || novel.platform !== "ridi") return [];
-
   const promo: any = novel.promotion;
   const items: RidiListItem[] = [];
 
-  if (promo.serialSchedule) {
+  const serial = String(promo.serialSchedule ?? "").trim();
+  if (serial) {
     items.push({
       label: "연재",
-      title: String(promo.serialSchedule).trim(),
+      title: serial,
     });
   }
 
@@ -398,13 +390,15 @@ function getRidiSerialItems(novel: Novel | null): RidiListItem[] {
 
 function getRidiNoticeItems(novel: Novel | null): RidiListItem[] {
   if (!novel?.promotion || novel.platform !== "ridi") return [];
-
   const promo: any = novel.promotion;
   const items: RidiListItem[] = [];
 
-  if (Array.isArray(promo.notices) && promo.notices.length > 0) {
+  if (Array.isArray(promo.notices)) {
     promo.notices.forEach((notice: any) => {
-      const title = String(notice?.title ?? "").trim();
+      const title =
+        String(notice?.title ?? "").trim() ||
+        String(notice?.body ?? "").trim();
+
       if (!title) return;
 
       items.push({
@@ -436,7 +430,6 @@ function getRidiLabelClass(label: string) {
   if (label === "혜택") return "bg-emerald-500/12 text-emerald-500";
   if (label === "이벤트") return "bg-violet-500/12 text-violet-500";
   if (label === "독점") return "bg-muted text-foreground";
-  if (label === "리다무") return "bg-ridi/15 text-ridi";
   return "bg-muted text-foreground";
 }
 
