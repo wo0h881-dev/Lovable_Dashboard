@@ -54,6 +54,13 @@ export function Header({ dateRange, platform, onDateRangeChange, onPlatformChang
         </div>
       </div>
 
+      <button
+  onClick={() => setSidebarMode("expanded")}
+  className="p-2 rounded-lg hover:bg-surface-elevated"
+>
+  <Menu size={18} />
+</button>
+
       {/* 우측: 필터 + 테마 토글 */}
       <div className="flex items-center gap-2">
         {/* Date filter */}
