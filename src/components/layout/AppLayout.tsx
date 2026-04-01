@@ -1,9 +1,9 @@
-// src/components/layout/AppLayout.tsx
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header, type DateRange, type PlatformFilter } from "./Header";
-import { Sidebar } from "./Sidebar";
+import { Sidebar, type SidebarMode } from "./Sidebar";
 import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { cn } from "@/lib/utils";
 
 interface AppLayoutProps {
   isDark?: boolean;
@@ -11,11 +11,10 @@ interface AppLayoutProps {
 }
 
 export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarMode, setSidebarMode] = useState<SidebarMode>("expanded");
   const [dateRange, setDateRange] = useState<DateRange>("today");
   const [platform, setPlatform] = useState<PlatformFilter>("all");
 
-  // 최신 업데이트 날짜를 레이아웃에서 가져와 모든 페이지에 제공
   const { latestDate } = useTodayCombined();
 
   return (
@@ -28,13 +27,20 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
         isDark={isDark}
         onToggleTheme={onToggleTheme}
         latestDate={latestDate}
+        onOpenSidebar={() => setSidebarMode("expanded")}
       />
-      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(p => !p)} />
+
+      <Sidebar mode={sidebarMode} onChangeMode={setSidebarMode} />
+
       <main
-        className="pt-14 transition-all duration-200"
-        style={{ marginLeft: sidebarOpen ? 220 : 64 }}
+        className={cn(
+          "pt-14 transition-all duration-200",
+          sidebarMode === "expanded" && "lg:ml-[220px]",
+          sidebarMode === "collapsed" && "lg:ml-16",
+          sidebarMode === "hidden" && "lg:ml-0",
+        )}
       >
-        <div className="p-6">
+        <div className="p-3 md:p-6">
           <Outlet context={{ dateRange, platform, latestDate }} />
         </div>
       </main>
