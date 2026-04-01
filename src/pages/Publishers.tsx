@@ -33,7 +33,9 @@ const PUB_COLORS = [
 
 function toKoreanUnit(n: number): string {
   if (!Number.isFinite(n) || n <= 0) return "-";
-  if (n >= 100_000_000) return `${(n / 100_000_000).toFixed(1).replace(/\.0$/, "")}억`;
+  if (n >= 100_000_000) {
+    return `${(n / 100_000_000).toFixed(1).replace(/\.0$/, "")}억`;
+  }
   if (n >= 10_000) {
     const manVal = n / 10_000;
     if (manVal < 100) return `${manVal.toFixed(1).replace(/\.0$/, "")}만`;
@@ -99,7 +101,9 @@ export default function PublishersPage() {
         .filter((r): r is number => r != null && r > 0);
 
       entry.avgRank =
-        ranks.length > 0 ? ranks.reduce((a, b) => a + b, 0) / ranks.length : 0;
+        ranks.length > 0
+          ? ranks.reduce((a, b) => a + b, 0) / ranks.length
+          : 0;
     }
 
     return Array.from(map.values()).sort((a, b) => b.novels.length - a.novels.length);
@@ -107,7 +111,7 @@ export default function PublishersPage() {
 
   const pubColorMap = useMemo(() => {
     return Object.fromEntries(
-      publisherStats.map((p, i) => [p.name, PUB_COLORS[i % PUB_COLORS.length]])
+      publisherStats.map((p, i) => [p.name, PUB_COLORS[i % PUB_COLORS.length]]),
     );
   }, [publisherStats]);
 
@@ -129,16 +133,18 @@ export default function PublishersPage() {
   const activePub = selectedPub || publisherStats[0]?.name || "";
   const pubData = publisherStats.find((p) => p.name === activePub);
   const pubNovels = (pubData?.novels ?? []).sort(
-    (a, b) => (a.todayRank ?? 999) - (b.todayRank ?? 999)
+    (a, b) => (a.todayRank ?? 999) - (b.todayRank ?? 999),
   );
 
   const filteredPubs = publisherStats.filter((p) => !search || p.name.includes(search));
 
   if (isLoading) return <LoadingScreen />;
-  if (error) return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
+  if (error) {
+    return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
+  }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-5 md:space-y-6 animate-fade-in">
       <div>
         <h1 className="text-xl font-black tracking-tight">출판사</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
@@ -146,30 +152,38 @@ export default function PublishersPage() {
         </p>
       </div>
 
-      {/* 버블 차트 추가 */}
+      {/* 버블 차트 */}
       <div className="surface-card">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
           <h2 className="text-sm font-bold">출판사 포트폴리오 버블 차트</h2>
           <div className="text-xs text-muted-foreground">
             X축: 작품 수 · Y축: 평균 순위 · 버블 크기: 급상승 + 신작 반응
           </div>
         </div>
 
-        <ResponsiveContainer width="100%" height={340}>
-          <ScatterChart margin={{ top: 12, right: 24, bottom: 12, left: 12 }}>
+        <ResponsiveContainer width="100%" height={260}>
+          <ScatterChart margin={{ top: 12, right: 16, bottom: 12, left: 8 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
             <XAxis
               type="number"
               dataKey="x"
               name="작품 수"
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+              tick={{
+                fontSize: 10,
+                fill: "hsl(var(--muted-foreground))",
+                fontFamily: "Roboto Mono",
+              }}
             />
             <YAxis
               type="number"
               dataKey="y"
               name="평균 순위"
               reversed
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))", fontFamily: "Roboto Mono" }}
+              tick={{
+                fontSize: 10,
+                fill: "hsl(var(--muted-foreground))",
+                fontFamily: "Roboto Mono",
+              }}
               tickFormatter={(v) => `#${Number(v).toFixed(0)}`}
             />
             <ZAxis type="number" dataKey="z" range={[80, 700]} />
@@ -188,8 +202,12 @@ export default function PublishersPage() {
                   <div className="bg-surface border border-border rounded-lg p-3 text-xs space-y-1">
                     <div className="font-semibold">{d.name}</div>
                     <div className="text-muted-foreground">작품 수: {d.x}편</div>
-                    <div className="text-muted-foreground">평균 순위: #{Number(d.y).toFixed(1)}위</div>
-                    <div className="text-muted-foreground">총 조회수/평가수: {toKoreanUnit(d.totalViews)}</div>
+                    <div className="text-muted-foreground">
+                      평균 순위: #{Number(d.y).toFixed(1)}위
+                    </div>
+                    <div className="text-muted-foreground">
+                      총 조회수/평가수: {toKoreanUnit(d.totalViews)}
+                    </div>
                     <div className="text-muted-foreground">급상승작: {d.trendHits}편</div>
                     <div className="text-muted-foreground">신작: {d.newCount}편</div>
                   </div>
@@ -208,16 +226,16 @@ export default function PublishersPage() {
           </ScatterChart>
         </ResponsiveContainer>
 
-        <div className="flex flex-wrap gap-2 mt-3">
+        <div className="flex gap-2 mt-3 overflow-x-auto whitespace-nowrap pb-1">
           {publisherStats.slice(0, 10).map((p) => (
             <button
               key={p.name}
               onClick={() => setSelectedPub(p.name)}
               className={cn(
-                "flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border transition-colors",
+                "flex items-center gap-1 text-[10px] px-2 py-1 rounded-full border transition-colors shrink-0",
                 activePub === p.name
                   ? "bg-primary/10 text-primary border-primary/20"
-                  : "bg-surface-elevated text-muted-foreground border-border hover:text-foreground"
+                  : "bg-surface-elevated text-muted-foreground border-border hover:text-foreground",
               )}
             >
               <span
@@ -230,7 +248,7 @@ export default function PublishersPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-5 md:gap-6">
         {/* 출판사 목록 */}
         <div className="surface-card space-y-3">
           <div className="relative">
@@ -242,11 +260,11 @@ export default function PublishersPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="출판사 검색…"
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+              className="w-full pl-8 pr-3 py-2 md:py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             />
           </div>
 
-          <div className="space-y-1 max-h-[600px] overflow-y-auto">
+          <div className="space-y-1 max-h-[420px] xl:max-h-[600px] overflow-y-auto">
             {filteredPubs.map((p) => (
               <button
                 key={p.name}
@@ -255,21 +273,29 @@ export default function PublishersPage() {
                   "w-full text-left px-3 py-2.5 rounded-lg transition-colors",
                   activePub === p.name
                     ? "bg-primary/10 text-primary"
-                    : "hover:bg-surface-elevated text-muted-foreground hover:text-foreground"
+                    : "hover:bg-surface-elevated text-muted-foreground hover:text-foreground",
                 )}
               >
                 <div className="text-sm font-semibold">{p.name}</div>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <span className="font-mono text-xs text-muted-foreground">{p.novels.length}편</span>
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {p.novels.length}편
+                  </span>
                   <div className="flex items-center gap-1">
                     {p.naverCount > 0 && (
-                      <span className="text-[9px] font-bold text-naver">N{p.naverCount}</span>
+                      <span className="text-[9px] font-bold text-naver">
+                        N{p.naverCount}
+                      </span>
                     )}
                     {p.kakaoCount > 0 && (
-                      <span className="text-[9px] font-bold text-kakao">K{p.kakaoCount}</span>
+                      <span className="text-[9px] font-bold text-kakao">
+                        K{p.kakaoCount}
+                      </span>
                     )}
                     {p.ridiCount > 0 && (
-                      <span className="text-[9px] font-bold text-ridi">R{p.ridiCount}</span>
+                      <span className="text-[9px] font-bold text-ridi">
+                        R{p.ridiCount}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -291,7 +317,12 @@ export default function PublishersPage() {
                 ].map(({ label, value, color }) => (
                   <div key={label} className="kpi-card">
                     <div className="text-xs text-muted-foreground mb-1">{label}</div>
-                    <div className={cn("font-mono text-2xl font-bold", color || "text-foreground")}>
+                    <div
+                      className={cn(
+                        "font-mono text-xl md:text-2xl font-bold",
+                        color || "text-foreground",
+                      )}
+                    >
                       {value}
                     </div>
                   </div>
@@ -323,83 +354,119 @@ export default function PublishersPage() {
                 ].map(({ label, value, color }) => (
                   <div key={label} className="kpi-card">
                     <div className="text-xs text-muted-foreground mb-1">{label}</div>
-                    <div className={cn("font-mono text-xl font-bold", color)}>{value}</div>
+                    <div className={cn("font-mono text-lg md:text-xl font-bold", color)}>
+                      {value}
+                    </div>
                   </div>
                 ))}
               </div>
 
               <div className="surface-card overflow-hidden p-0">
-                <div className="px-5 py-4 border-b border-border">
+                <div className="px-4 md:px-5 py-4 border-b border-border">
                   <h2 className="text-sm font-bold">{pubData.name} 플랫폼 분포</h2>
                 </div>
 
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-border">
-                      {["플랫폼", "작품 수", "점유율", "평균 순위", "총 조회수/평가수"].map((h) => (
-                        <th
-                          key={h}
-                          className="py-3 px-5 text-left text-muted-foreground font-medium"
-                        >
-                          {h}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { name: "네이버", count: pubData.naverCount, color: "text-naver", platform: "naver" as const },
-                      { name: "카카오", count: pubData.kakaoCount, color: "text-kakao", platform: "kakao" as const },
-                      { name: "리디", count: pubData.ridiCount, color: "text-ridi", platform: "ridi" as const },
-                    ].map((row) => {
-                      const platformNovels = pubData.novels.filter((n) => n.platform === row.platform);
-                      const platformViews = platformNovels.reduce((s, n) => s + (n.todayViews || 0), 0);
-                      const platformRanks = platformNovels
-                        .map((n) => n.todayRank)
-                        .filter((r): r is number => r != null && r > 0);
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs min-w-[640px]">
+                    <thead>
+                      <tr className="border-b border-border">
+                        {["플랫폼", "작품 수", "점유율", "평균 순위", "총 조회수/평가수"].map(
+                          (h) => (
+                            <th
+                              key={h}
+                              className="py-3 px-4 md:px-5 text-left text-muted-foreground font-medium"
+                            >
+                              {h}
+                            </th>
+                          ),
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        {
+                          name: "네이버",
+                          count: pubData.naverCount,
+                          color: "text-naver",
+                          platform: "naver" as const,
+                        },
+                        {
+                          name: "카카오",
+                          count: pubData.kakaoCount,
+                          color: "text-kakao",
+                          platform: "kakao" as const,
+                        },
+                        {
+                          name: "리디",
+                          count: pubData.ridiCount,
+                          color: "text-ridi",
+                          platform: "ridi" as const,
+                        },
+                      ].map((row) => {
+                        const platformNovels = pubData.novels.filter(
+                          (n) => n.platform === row.platform,
+                        );
+                        const platformViews = platformNovels.reduce(
+                          (s, n) => s + (n.todayViews || 0),
+                          0,
+                        );
+                        const platformRanks = platformNovels
+                          .map((n) => n.todayRank)
+                          .filter((r): r is number => r != null && r > 0);
 
-                      const platformAvgRank =
-                        platformRanks.length > 0
-                          ? (platformRanks.reduce((a, b) => a + b, 0) / platformRanks.length).toFixed(1)
-                          : "-";
+                        const platformAvgRank =
+                          platformRanks.length > 0
+                            ? (
+                                platformRanks.reduce((a, b) => a + b, 0) /
+                                platformRanks.length
+                              ).toFixed(1)
+                            : "-";
 
-                      return (
-                        <tr key={row.name} className="border-b border-border hover:bg-surface-elevated">
-                          <td className={cn("py-3 px-5 font-semibold", row.color)}>{row.name}</td>
-                          <td className="py-3 px-5 font-mono font-bold">{row.count}</td>
-                          <td className="py-3 px-5">
-                            <div className="flex items-center gap-2">
-                              <div className="flex-1 h-1.5 bg-surface-elevated rounded-full max-w-24">
-                                <div
-                                  className="h-full rounded-full bg-primary"
-                                  style={{
-                                    width: `${
-                                      pubData.novels.length > 0
-                                        ? Math.round((row.count / pubData.novels.length) * 100)
-                                        : 0
-                                    }%`,
-                                  }}
-                                />
+                        return (
+                          <tr
+                            key={row.name}
+                            className="border-b border-border hover:bg-surface-elevated"
+                          >
+                            <td className={cn("py-3 px-4 md:px-5 font-semibold", row.color)}>
+                              {row.name}
+                            </td>
+                            <td className="py-3 px-4 md:px-5 font-mono font-bold">
+                              {row.count}
+                            </td>
+                            <td className="py-3 px-4 md:px-5">
+                              <div className="flex items-center gap-2">
+                                <div className="flex-1 h-1.5 bg-surface-elevated rounded-full max-w-24">
+                                  <div
+                                    className="h-full rounded-full bg-primary"
+                                    style={{
+                                      width: `${
+                                        pubData.novels.length > 0
+                                          ? Math.round((row.count / pubData.novels.length) * 100)
+                                          : 0
+                                      }%`,
+                                    }}
+                                  />
+                                </div>
+                                <span className="font-mono text-xs">
+                                  {pubData.novels.length > 0
+                                    ? Math.round((row.count / pubData.novels.length) * 100)
+                                    : 0}
+                                  %
+                                </span>
                               </div>
-                              <span className="font-mono text-xs">
-                                {pubData.novels.length > 0
-                                  ? Math.round((row.count / pubData.novels.length) * 100)
-                                  : 0}
-                                %
-                              </span>
-                            </div>
-                          </td>
-                          <td className="py-3 px-5 font-mono text-muted-foreground">
-                            {platformAvgRank !== "-" ? `#${platformAvgRank}위` : "-"}
-                          </td>
-                          <td className="py-3 px-5 font-mono text-emerald-500">
-                            {platformViews > 0 ? toKoreanUnit(platformViews) : "-"}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                            </td>
+                            <td className="py-3 px-4 md:px-5 font-mono text-muted-foreground">
+                              {platformAvgRank !== "-" ? `#${platformAvgRank}위` : "-"}
+                            </td>
+                            <td className="py-3 px-4 md:px-5 font-mono text-emerald-500">
+                              {platformViews > 0 ? toKoreanUnit(platformViews) : "-"}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
 
               {pubData.novels.length > 0 && (
@@ -410,13 +477,13 @@ export default function PublishersPage() {
                       pubData.novels.reduce<Record<string, number>>((acc, n) => {
                         acc[n.genre] = (acc[n.genre] || 0) + 1;
                         return acc;
-                      }, {})
+                      }, {}),
                     )
                       .sort((a, b) => b[1] - a[1])
                       .map(([genre, count]) => (
                         <span
                           key={genre}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-elevated border border-border"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-surface-elevated border border-border whitespace-nowrap"
                         >
                           <span className="text-primary">{genre}</span>
                           <span className="font-mono text-muted-foreground">{count}</span>
