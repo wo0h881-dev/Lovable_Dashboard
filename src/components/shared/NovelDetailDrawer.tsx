@@ -1,4 +1,3 @@
-// src/components/shared/NovelDetailDrawer.tsx
 import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -175,81 +174,10 @@ type PromoDetailItem = {
   icon: "clock" | "ticket" | "zap";
 };
 
-const ridiInfoLines = useMemo(() => getRidiInfoLines(novel), [novel]);
-
 type RidiInfoLine = {
   label: string;
   title: string;
 };
-
-function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
-  if (!novel?.promotion || novel.platform !== "ridi") return [];
-
-  const promo: any = novel.promotion;
-  const lines: RidiInfoLine[] = [];
-
-  if (promo.serialSchedule) {
-    lines.push({
-      label: "연재",
-      title: promo.serialSchedule,
-    });
-  }
-
-  if (Array.isArray(promo.notices)) {
-    promo.notices.forEach((notice: any) => {
-      const text = String(notice?.title || notice?.body || "").trim();
-      if (!text) return;
-
-      lines.push({
-        label: notice?.label || "공지",
-        title: text,
-      });
-    });
-  }
-
-  if (Array.isArray(promo.eventBanners)) {
-    promo.eventBanners.forEach((event: any) => {
-      const text = String(event?.title || "").trim();
-      if (!text) return;
-
-      lines.push({
-        label: "이벤트",
-        title: text,
-      });
-    });
-  }
-
-  if (Array.isArray(promo.benefits)) {
-    promo.benefits.forEach((benefit: any) => {
-      const title = String(benefit?.title || "").trim();
-      const subtitle = String(benefit?.subtitle || "").trim();
-      const text = subtitle ? `${title} · ${subtitle}` : title;
-      if (!text) return;
-
-      lines.push({
-        label: benefit?.label || "혜택",
-        title: text,
-      });
-    });
-  }
-
-  if (promo.exclusiveText) {
-    lines.push({
-      label: "독점",
-      title: promo.exclusiveText,
-    });
-  }
-
-  // 중복 방지
-  const seen = new Set<string>();
-  return lines.filter((line) => {
-    const key = `${line.label}::${line.title}`;
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
 
 function normalizeNaverTag(tag?: string | null): string | null {
   if (!tag) return null;
@@ -364,46 +292,108 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
     return items;
   }
 
- // 위쪽 기존 kakao/naver 분기 그대로 두고, ridi 부분만 교체
+  if (novel.platform === "ridi") {
+    const items: PromoDetailItem[] = [];
 
-if (novel.platform === "ridi") {
-  const items: PromoDetailItem[] = [];
+    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+      items.push({
+        title: "리다무",
+        subtitle: promo.ridiWaitFreeText || "기다리면 무료 혜택 적용 중",
+        icon: "clock",
+      });
+    }
 
-  // 1) 리다무
-  if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
-    items.push({
-      title: "리다무",
-      // ridiWaitFreeText가 있으면 그대로, 없으면 기본 문구
-      subtitle: promo.ridiWaitFreeText || "기다리면 무료 혜택 적용 중",
-      icon: "clock",
-    });
+    if (promo.ridiFreeLabel) {
+      items.push({
+        title: promo.ridiFreeLabel,
+        subtitle: "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    } else if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
+      items.push({
+        title: `${promo.freeEpisodes}화 무료`,
+        subtitle: "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    } else if (typeof promo.tag === "string" && promo.tag.includes("무료")) {
+      items.push({
+        title: promo.tag,
+        subtitle: "무료 회차 혜택 적용 중",
+        icon: "ticket",
+      });
+    }
+
+    return items;
   }
-
-  // 2) 무료 회차 (우선순위: ridiFreeLabel > freeEpisodes > tag에서 '무료' 추출)
-  if (promo.ridiFreeLabel) {
-    items.push({
-      title: promo.ridiFreeLabel,             // "25화 무료"
-      subtitle: "무료 회차 혜택 적용 중",
-      icon: "ticket",
-    });
-  } else if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
-    items.push({
-      title: `${promo.freeEpisodes}화 무료`,  // 25화 무료
-      subtitle: "무료 회차 혜택 적용 중",
-      icon: "ticket",
-    });
-  } else if (typeof promo.tag === "string" && promo.tag.includes("무료")) {
-    items.push({
-      title: promo.tag,                        // "리다무 25화 무료"
-      subtitle: "무료 회차 혜택 적용 중",
-      icon: "ticket",
-    });
-  }
-
-  return items;
-}
 
   return [];
+}
+
+function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
+  if (!novel?.promotion || novel.platform !== "ridi") return [];
+
+  const promo: any = novel.promotion;
+  const lines: RidiInfoLine[] = [];
+
+  if (promo.serialSchedule) {
+    lines.push({
+      label: "연재",
+      title: promo.serialSchedule,
+    });
+  }
+
+  if (Array.isArray(promo.notices)) {
+    promo.notices.forEach((notice: any) => {
+      const text = String(notice?.title || notice?.body || "").trim();
+      if (!text) return;
+
+      lines.push({
+        label: String(notice?.label || "공지").trim() || "공지",
+        title: text,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.eventBanners)) {
+    promo.eventBanners.forEach((event: any) => {
+      const text = String(event?.title || "").trim();
+      if (!text) return;
+
+      lines.push({
+        label: "이벤트",
+        title: text,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.benefits)) {
+    promo.benefits.forEach((benefit: any) => {
+      const title = String(benefit?.title || "").trim();
+      const subtitle = String(benefit?.subtitle || "").trim();
+      const text = subtitle ? `${title} · ${subtitle}` : title;
+      if (!text) return;
+
+      lines.push({
+        label: String(benefit?.label || "혜택").trim() || "혜택",
+        title: text,
+      });
+    });
+  }
+
+  if (promo.exclusiveText) {
+    lines.push({
+      label: "독점",
+      title: String(promo.exclusiveText).trim(),
+    });
+  }
+
+  const seen = new Set<string>();
+  return lines.filter((line) => {
+    const key = `${line.label}::${line.title}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function PromoIcon({
@@ -553,11 +543,12 @@ export function NovelDetailDrawer({
 
   const topPromoBadges = useMemo(() => getTopPromoBadges(novel), [novel]);
   const promoDetailItems = useMemo(() => getPlatformPromoDetails(novel), [novel]);
+  const ridiInfoLines = useMemo(() => getRidiInfoLines(novel), [novel]);
 
   const hasPromotion =
     topPromoBadges.length > 0 || !!(novel as any)?.promotion?.eventBanners?.length;
 
-    const hasPromotionSection =
+  const hasPromotionSection =
     promoDetailItems.length > 0 ||
     (novel?.platform === "ridi"
       ? ridiInfoLines.length > 0
@@ -779,8 +770,8 @@ export function NovelDetailDrawer({
                             v >= 100_000_000
                               ? `${(v / 100_000_000).toFixed(1)}억`
                               : v >= 10_000
-                              ? `${(v / 10_000).toFixed(0)}만`
-                              : String(v)
+                                ? `${(v / 10_000).toFixed(0)}만`
+                                : String(v)
                           }
                         />
                         <Tooltip content={<CombinedTooltip />} />
@@ -828,7 +819,7 @@ export function NovelDetailDrawer({
                   <div
                     className={`rounded-xl overflow-hidden border border-border space-y-px ${promoStyle.sectionBg}`}
                   >
-                    {promoDetailItems.length > 0 && (
+                    {novel.platform !== "ridi" && promoDetailItems.length > 0 && (
                       <div className="space-y-px">
                         {promoDetailItems.map((item, i) => (
                           <div
@@ -857,9 +848,8 @@ export function NovelDetailDrawer({
                         ))}
                       </div>
                     )}
-                    
 
-                                        {novel.platform === "ridi" && (
+                    {novel.platform === "ridi" && (
                       <>
                         {promoDetailItems.length > 0 && (
                           <div className="space-y-px">
@@ -1050,14 +1040,14 @@ export function NovelDetailDrawer({
                             event.type === "in"
                               ? "bg-emerald-500"
                               : event.type === "out"
-                              ? "bg-rose-500"
-                              : "bg-amber-500";
+                                ? "bg-rose-500"
+                                : "bg-amber-500";
                           const Icon =
                             event.type === "in"
                               ? ArrowUp
                               : event.type === "out"
-                              ? ArrowDown
-                              : Star;
+                                ? ArrowDown
+                                : Star;
 
                           return (
                             <div key={idx} className="flex items-start gap-3 relative">
