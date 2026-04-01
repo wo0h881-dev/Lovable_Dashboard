@@ -182,9 +182,11 @@ function normalizePromotion(
       parsed.timeFreeType === "pass"
         ? parsed.timeFreeType
         : undefined,
+
     tag: typeof parsed.tag === "string" ? parsed.tag.trim() || undefined : undefined,
     freeEpisodes: toOptionalNumber(parsed.freeEpisodes),
     daysLeft: toOptionalNumber(parsed.daysLeft),
+
     eventBanners: Array.isArray(parsed.eventBanners)
       ? parsed.eventBanners
           .filter(
@@ -193,11 +195,17 @@ function normalizePromotion(
               typeof b === "object" &&
               (typeof b.title === "string" || typeof b.subtitle === "string"),
           )
-          .map((b: any) => ({
-            title: String(b.title ?? "").trim(),
-            subtitle: String(b.subtitle ?? "").trim(),
-          }))
+          .map((b: any) => {
+            const title = String(b.title ?? "").trim();
+            const subtitle = String(b.subtitle ?? "").trim();
+            return {
+              title,
+              subtitle: subtitle || undefined,
+            };
+          })
+          .filter((b: any) => b.title || b.subtitle)
       : undefined,
+
     notices: Array.isArray(parsed.notices)
       ? parsed.notices
           .filter(
@@ -206,14 +214,61 @@ function normalizePromotion(
               typeof n === "object" &&
               (typeof n.title === "string" || typeof n.body === "string"),
           )
-          .map((n: any) => ({
-            title: String(n.title ?? "").trim(),
-            body: String(n.body ?? "").trim(),
-            date: n.date ? String(n.date).trim() : undefined,
-          }))
+          .map((n: any) => {
+            const label = String(n.label ?? "").trim();
+            const title = String(n.title ?? "").trim();
+            const body = String(n.body ?? "").trim();
+
+            return {
+              label: label || undefined,
+              title: title || body || "",
+              body: body || undefined,
+              date: n.date ? String(n.date).trim() : undefined,
+            };
+          })
+          .filter((n: any) => n.title)
       : undefined,
+
+    benefits: Array.isArray(parsed.benefits)
+      ? parsed.benefits
+          .filter(
+            (b: any) =>
+              b &&
+              typeof b === "object" &&
+              (typeof b.title === "string" || typeof b.subtitle === "string"),
+          )
+          .map((b: any) => {
+            const label = String(b.label ?? "").trim();
+            const title = String(b.title ?? "").trim();
+            const subtitle = String(b.subtitle ?? "").trim();
+
+            return {
+              label: label || undefined,
+              title,
+              subtitle: subtitle || undefined,
+            };
+          })
+          .filter((b: any) => b.title)
+      : undefined,
+
+    serialSchedule:
+      typeof parsed.serialSchedule === "string"
+        ? parsed.serialSchedule.trim() || undefined
+        : undefined,
+
+    exclusiveText:
+      typeof parsed.exclusiveText === "string"
+        ? parsed.exclusiveText.trim() || undefined
+        : undefined,
+
+    ridiWaitFreeText:
+      typeof parsed.ridiWaitFreeText === "string"
+        ? parsed.ridiWaitFreeText.trim() || undefined
+        : undefined,
+
     ridiWaitFree:
       typeof parsed.ridiWaitFree === "boolean" ? parsed.ridiWaitFree : undefined,
+
     ridiFreeLabel:
       parsed.ridiFreeLabel == null
         ? parsed.ridiFreeLabel
