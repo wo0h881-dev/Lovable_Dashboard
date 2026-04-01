@@ -23,6 +23,8 @@ import {
   Building2,
   Sparkles,
   Star,
+  Clock,
+  Ticket,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Novel } from "@/data/mockData";
@@ -86,10 +88,64 @@ function StatCard({
   );
 }
 
-function getTimeFreeLabel(novel: Novel): string | null {
-  const type = novel.promotion?.timeFreeType;
-  if (type === "waitFree") return "기다무";
-  if (type === "threeHour") return "3다무";
+type PromoBadge = {
+  label: string;
+  icon: "clock" | "ticket" | "none";
+  className: string;
+} | null;
+
+function getPromoBadgeClass(platform: Novel["platform"]): string {
+  if (platform === "naver") return "bg-naver text-black";
+  if (platform === "ridi") return "bg-ridi text-white";
+  return "bg-kakao text-black";
+}
+
+function getOverviewPromoBadge(novel: Novel): PromoBadge {
+  const promo = novel.promotion;
+  if (!promo) return null;
+
+  const className = getPromoBadgeClass(novel.platform);
+  const tag = promo.tag?.trim();
+  const ridiFreeLabel = promo.ridiFreeLabel?.trim();
+
+  if (novel.platform === "kakao") {
+    if (promo.timeFreeType === "threeHour") {
+      return { label: "3다무", icon: "clock", className };
+    }
+    if (promo.timeFreeType === "waitFree") {
+      return { label: "기다무", icon: "clock", className };
+    }
+  }
+
+  if (novel.platform === "naver") {
+    if (tag === "타임딜") {
+      return { label: "타임딜", icon: "none", className };
+    }
+    if (promo.timeFreeType === "waitFree") {
+      return { label: "기다무", icon: "clock", className };
+    }
+    if (tag === "기다무" || tag === "기다리면 무료") {
+      return { label: "기다무", icon: "clock", className };
+    }
+  }
+
+  if (novel.platform === "ridi") {
+    if (ridiFreeLabel) {
+      if (/화무|무료/.test(ridiFreeLabel)) {
+        return { label: ridiFreeLabel, icon: "ticket", className };
+      }
+      return { label: ridiFreeLabel, icon: "none", className };
+    }
+
+    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+      return { label: "리다무", icon: "clock", className };
+    }
+
+    if (tag === "리다무" || tag === "기다리면 무료") {
+      return { label: "리다무", icon: "clock", className };
+    }
+  }
+
   return null;
 }
 
@@ -138,7 +194,7 @@ function RankingColumn({
 
       <div className="space-y-1">
         {data.slice(0, 10).map((novel, idx) => {
-          const timeFreeLabel = getTimeFreeLabel(novel);
+          const promoBadge = getOverviewPromoBadge(novel);
           const badges = getAnalysisBadges(novel);
 
           const primaryLabel =
@@ -168,12 +224,18 @@ function RankingColumn({
                   size="sm"
                   className="rounded shadow-sm shrink-0 w-8 h-10"
                 />
-                {timeFreeLabel && (
-                  <span className="absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold bg-amber-400 text-black leading-none shadow">
-                    <Zap size={8} />
-                    {timeFreeLabel}
-                  </span>
-                )}
+                {promoBadge && (
+  <span
+    className={cn(
+      "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow whitespace-nowrap",
+      promoBadge.className,
+    )}
+  >
+    {promoBadge.icon === "clock" && <Clock size={8} />}
+    {promoBadge.icon === "ticket" && <Ticket size={8} />}
+    {promoBadge.label}
+  </span>
+)}
               </div>
 
               <div className="flex-1 min-w-0">
