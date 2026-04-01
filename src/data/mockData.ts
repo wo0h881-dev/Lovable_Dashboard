@@ -1,5 +1,6 @@
 // src/data/mockData.ts
 
+
 export type Platform = "naver" | "kakao" | "ridi";
 
 export type Genre =
@@ -13,29 +14,39 @@ export type Genre =
   | "역사/시대물"
   | "기타";
 
-// 1) 공지 타입은 그대로 사용
 export interface PromotionNotice {
-  title: string;  // "안내"
-  body: string;   // "외전 오픈 안내(3/22)" 같은 본문
+  label?: string;
+  title: string;
+  body?: string;
   date?: string;
 }
 
-// 2) PromotionInfo 하나로 통합
+export interface PromotionBenefit {
+  label?: string;
+  title: string;
+  subtitle?: string;
+}
+
+export interface PromotionBanner {
+  title: string;
+  subtitle?: string;
+}
+
 export interface PromotionInfo {
-  // 공통 프로모션 타입
   timeFreeType?: "none" | "waitFree" | "threeHour" | "pass";
   tag?: string;
   freeEpisodes?: number | null;
   daysLeft?: number | null;
 
-  // 배너 / 공지
-  eventBanners?: {
-    title: string;
-    subtitle: string;
-  }[];
+  eventBanners?: PromotionBanner[];
   notices?: PromotionNotice[];
 
-  // 리디 전용
+  // 리디 확장
+  benefits?: PromotionBenefit[];
+  serialSchedule?: string;
+  exclusiveText?: string;
+  ridiWaitFreeText?: string;
+
   ridiWaitFree?: boolean;
   ridiFreeLabel?: string | null;
 }
