@@ -175,6 +175,82 @@ type PromoDetailItem = {
   icon: "clock" | "ticket" | "zap";
 };
 
+const ridiInfoLines = useMemo(() => getRidiInfoLines(novel), [novel]);
+
+type RidiInfoLine = {
+  label: string;
+  title: string;
+};
+
+function getRidiInfoLines(novel: Novel | null): RidiInfoLine[] {
+  if (!novel?.promotion || novel.platform !== "ridi") return [];
+
+  const promo: any = novel.promotion;
+  const lines: RidiInfoLine[] = [];
+
+  if (promo.serialSchedule) {
+    lines.push({
+      label: "연재",
+      title: promo.serialSchedule,
+    });
+  }
+
+  if (Array.isArray(promo.notices)) {
+    promo.notices.forEach((notice: any) => {
+      const text = String(notice?.title || notice?.body || "").trim();
+      if (!text) return;
+
+      lines.push({
+        label: notice?.label || "공지",
+        title: text,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.eventBanners)) {
+    promo.eventBanners.forEach((event: any) => {
+      const text = String(event?.title || "").trim();
+      if (!text) return;
+
+      lines.push({
+        label: "이벤트",
+        title: text,
+      });
+    });
+  }
+
+  if (Array.isArray(promo.benefits)) {
+    promo.benefits.forEach((benefit: any) => {
+      const title = String(benefit?.title || "").trim();
+      const subtitle = String(benefit?.subtitle || "").trim();
+      const text = subtitle ? `${title} · ${subtitle}` : title;
+      if (!text) return;
+
+      lines.push({
+        label: benefit?.label || "혜택",
+        title: text,
+      });
+    });
+  }
+
+  if (promo.exclusiveText) {
+    lines.push({
+      label: "독점",
+      title: promo.exclusiveText,
+    });
+  }
+
+  // 중복 방지
+  const seen = new Set<string>();
+  return lines.filter((line) => {
+    const key = `${line.label}::${line.title}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+
 function normalizeNaverTag(tag?: string | null): string | null {
   if (!tag) return null;
   const raw = String(tag).trim();
@@ -481,14 +557,16 @@ export function NovelDetailDrawer({
   const hasPromotion =
     topPromoBadges.length > 0 || !!(novel as any)?.promotion?.eventBanners?.length;
 
-  const hasPromotionSection =
+    const hasPromotionSection =
     promoDetailItems.length > 0 ||
-    !!(novel as any)?.promotion?.benefits?.length ||
-    !!(novel as any)?.promotion?.eventBanners?.length ||
-    !!(novel as any)?.promotion?.exclusiveText ||
-    !!(novel as any)?.promotion?.ridiWaitFreeText ||
-    !!(novel as any)?.promotion?.serialSchedule ||
-    !!(novel as any)?.promotion?.notices?.length;
+    (novel?.platform === "ridi"
+      ? ridiInfoLines.length > 0
+      : !!(novel as any)?.promotion?.benefits?.length ||
+        !!(novel as any)?.promotion?.eventBanners?.length ||
+        !!(novel as any)?.promotion?.exclusiveText ||
+        !!(novel as any)?.promotion?.ridiWaitFreeText ||
+        !!(novel as any)?.promotion?.serialSchedule ||
+        !!(novel as any)?.promotion?.notices?.length);
 
   const drawerWidth = isExpanded ? "max-w-3xl" : "max-w-md";
 
@@ -781,142 +859,57 @@ export function NovelDetailDrawer({
                     )}
                     
 
-                    {novel.platform === "ridi" && (
+                                        {novel.platform === "ridi" && (
                       <>
-                        {/* 카드형: 혜택 / 이벤트 / 독점 / 리다무 */}
-                        {(
-                          ((novel.promotion as any)?.benefits?.length ?? 0) > 0 ||
-                          ((novel.promotion as any)?.eventBanners?.length ?? 0) > 0 ||
-                          !!(novel.promotion as any)?.exclusiveText ||
-                          !!(novel.promotion as any)?.ridiWaitFreeText
-                        ) && (
+                        {promoDetailItems.length > 0 && (
                           <div className="space-y-px">
-                            {((novel.promotion as any)?.benefits ?? []).map(
-                              (benefit: any, i: number) => (
-                                <div
-                                  key={`benefit-${i}`}
-                                  className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
-                                >
-                                  <div
-                                    className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
-                                  />
-                                  <div className="ml-1 mt-0.5 shrink-0">
-                                    <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-emerald-500/12 text-emerald-500">
-                                      혜택
-                                    </span>
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p
-                                      className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
-                                    >
-                                      {benefit.title}
-                                    </p>
-                                    {benefit.subtitle && (
-                                      <p className="text-[11px] text-muted-foreground mt-1 leading-tight">
-                                        {benefit.subtitle}
-                                      </p>
-                                    )}
-                                  </div>
-                                </div>
-                              ),
-                            )}
-
-                            {((novel.promotion as any)?.eventBanners ?? []).map(
-                              (event: any, i: number) => (
-                                <div
-                                  key={`event-${i}`}
-                                  className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
-                                >
-                                  <div
-                                    className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
-                                  />
-                                  <div className="ml-1 mt-0.5 shrink-0">
-                                    <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-violet-500/12 text-violet-500">
-                                      이벤트
-                                    </span>
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <p
-                                      className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
-                                    >
-                                      {event.title}
-                                    </p>
-                                  </div>
-                                </div>
-                              ),
-                            )}
-
-                            {!!(novel.promotion as any)?.exclusiveText && (
+                            {promoDetailItems.map((item, i) => (
                               <div
-                                className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
+                                key={`ridi-promo-detail-${item.title}-${i}`}
+                                className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-center gap-3 border-b border-border last:border-0`}
                               >
                                 <div
                                   className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
                                 />
-                                <div className="ml-1 mt-0.5 shrink-0">
-                                  <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-muted text-foreground">
-                                    독점
-                                  </span>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p
-                                    className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
-                                  >
-                                    {(novel.promotion as any).exclusiveText}
-                                  </p>
-                                </div>
-                              </div>
-                            )}
-
-                            {!!(novel.promotion as any)?.ridiWaitFreeText && (
-                              <div
-                                className={`relative overflow-hidden ${promoStyle.bannerBg} px-4 py-3 flex items-start gap-3 border-b border-border last:border-0`}
-                              >
-                                <div
-                                  className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${promoStyle.barGradient}`}
+                                <PromoIcon
+                                  icon={item.icon}
+                                  size={14}
+                                  className={`${promoStyle.iconColor} shrink-0 ml-1`}
                                 />
-                                <div className="ml-1 mt-0.5 shrink-0">
-                                  <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold bg-ridi/15 text-ridi">
-                                    리다무
-                                  </span>
-                                </div>
                                 <div className="flex-1 min-w-0">
-                                  <p
-                                    className={`text-xs font-extrabold ${promoStyle.titleColor} leading-tight`}
-                                  >
-                                    {(novel.promotion as any).ridiWaitFreeText}
+                                  <p className={`text-xs font-extrabold ${promoStyle.titleColor}`}>
+                                    {item.title}
                                   </p>
+                                  {item.subtitle && (
+                                    <p className="text-[11px] text-muted-foreground mt-0.5">
+                                      {item.subtitle}
+                                    </p>
+                                  )}
                                 </div>
                               </div>
-                            )}
+                            ))}
                           </div>
                         )}
 
-                        {/* 리스트형: 연재 / 공지 */}
-                        {(!!(novel.promotion as any)?.serialSchedule ||
-                          ((novel.promotion as any)?.notices?.length ?? 0) > 0) && (
-                          <div className="max-h-44 overflow-y-auto divide-y divide-border">
-                            {!!(novel.promotion as any)?.serialSchedule && (
-                              <div className="px-4 py-3 hover:bg-surface transition-colors">
-                                <p className="text-xs font-bold text-foreground leading-snug">
-                                  {(novel.promotion as any).serialSchedule}
-                                </p>
-                                <div className="flex items-center gap-2 mt-1.5">
-                                  <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-sky-500/12 text-sky-500">
-                                    연재
+                        {ridiInfoLines.length > 0 && (
+                          <div className="max-h-56 overflow-y-auto divide-y divide-border">
+                            {ridiInfoLines.map((line, idx) => (
+                              <div
+                                key={`ridi-line-${line.label}-${idx}`}
+                                className="px-4 py-3 hover:bg-surface transition-colors"
+                              >
+                                <div className="flex items-start gap-2">
+                                  <span
+                                    className={`shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded ${promoStyle.badgeBg} ${promoStyle.badgeText}`}
+                                  >
+                                    {line.label}
                                   </span>
+                                  <p className="text-xs font-bold text-foreground leading-snug break-words">
+                                    {line.title}
+                                  </p>
                                 </div>
                               </div>
-                            )}
-
-                            {((novel.promotion as any)?.notices ?? []).map((notice: any, idx: number) => (
-  <div key={`notice-${idx}`} className="px-4 py-3 hover:bg-surface transition-colors">
-    <p className="text-xs font-bold text-foreground leading-snug">
-      {(notice.label || "공지") + " " + (notice.title || notice.body)}
-    </p>
-                                </div>
-                              ),
-                            )}
+                            ))}
                           </div>
                         )}
                       </>
