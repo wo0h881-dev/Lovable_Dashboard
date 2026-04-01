@@ -288,33 +288,44 @@ function getPlatformPromoDetails(novel: Novel | null): PromoDetailItem[] {
     return items;
   }
 
-  if (novel.platform === "ridi") {
-    const items: PromoDetailItem[] = [];
+ // 위쪽 기존 kakao/naver 분기 그대로 두고, ridi 부분만 교체
 
-    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
-      items.push({
-        title: "리다무",
-        subtitle: promo.ridiWaitFreeText || "기다리면 무료 혜택 적용 중",
-        icon: "clock",
-      });
-    }
+if (novel.platform === "ridi") {
+  const items: PromoDetailItem[] = [];
 
-    if (promo.ridiFreeLabel) {
-      items.push({
-        title: promo.ridiFreeLabel,
-        subtitle: "무료 회차 혜택 적용 중",
-        icon: "ticket",
-      });
-    } else if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
-      items.push({
-        title: `${promo.freeEpisodes}화 무료`,
-        subtitle: "무료 회차 혜택 적용 중",
-        icon: "ticket",
-      });
-    }
-
-    return items;
+  // 1) 리다무
+  if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+    items.push({
+      title: "리다무",
+      // ridiWaitFreeText가 있으면 그대로, 없으면 기본 문구
+      subtitle: promo.ridiWaitFreeText || "기다리면 무료 혜택 적용 중",
+      icon: "clock",
+    });
   }
+
+  // 2) 무료 회차 (우선순위: ridiFreeLabel > freeEpisodes > tag에서 '무료' 추출)
+  if (promo.ridiFreeLabel) {
+    items.push({
+      title: promo.ridiFreeLabel,             // "25화 무료"
+      subtitle: "무료 회차 혜택 적용 중",
+      icon: "ticket",
+    });
+  } else if (typeof promo.freeEpisodes === "number" && promo.freeEpisodes > 0) {
+    items.push({
+      title: `${promo.freeEpisodes}화 무료`,  // 25화 무료
+      subtitle: "무료 회차 혜택 적용 중",
+      icon: "ticket",
+    });
+  } else if (typeof promo.tag === "string" && promo.tag.includes("무료")) {
+    items.push({
+      title: promo.tag,                        // "리다무 25화 무료"
+      subtitle: "무료 회차 혜택 적용 중",
+      icon: "ticket",
+    });
+  }
+
+  return items;
+}
 
   return [];
 }
@@ -768,6 +779,7 @@ export function NovelDetailDrawer({
                         ))}
                       </div>
                     )}
+                    
 
                     {novel.platform === "ridi" && (
                       <>
