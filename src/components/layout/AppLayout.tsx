@@ -17,9 +17,12 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
 
   const { latestDate } = useTodayCombined();
 
+  const handleToggleSidebar = () => {
+    setSidebarMode((prev) => (prev === "hidden" ? "expanded" : "hidden"));
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      {/* ✅ Header */}
       <Header
         dateRange={dateRange}
         platform={platform}
@@ -28,19 +31,17 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
         isDark={isDark}
         onToggleTheme={onToggleTheme}
         latestDate={latestDate}
-        onOpenSidebar={() => setSidebarMode("expanded")} // ⭐ 핵심
+        onToggleSidebar={handleToggleSidebar}
       />
 
-      {/* ✅ Sidebar */}
       <Sidebar mode={sidebarMode} onChangeMode={setSidebarMode} />
 
-      {/* ✅ Main */}
       <main
         className={cn(
           "pt-14 transition-all duration-200",
           sidebarMode === "expanded" && "lg:ml-[220px]",
           sidebarMode === "collapsed" && "lg:ml-16",
-          sidebarMode === "hidden" && "lg:ml-0"
+          sidebarMode === "hidden" && "lg:ml-0",
         )}
       >
         <div className="p-3 md:p-6">
