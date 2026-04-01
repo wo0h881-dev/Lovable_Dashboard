@@ -645,7 +645,7 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "10화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
+        "serialSchedule": "매주 월,화,수,목,금,토,일 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -707,7 +707,7 @@
       "title": "은행원도 용꿈을 꾸나요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "tag": "Up 리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -744,7 +744,7 @@
       "title": "은행원도 용꿈을 꾸나요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "tag": "Up 리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -781,7 +781,7 @@
       "title": "명문고 EX급 조연의 리플레이",
       "promotion": {
         "timeFreeType": "none",
-        "tag": "Up 22화 무료",
+        "tag": "22화 무료",
         "freeEpisodes": 22,
         "daysLeft": null,
         "eventBanners": [
@@ -790,6 +790,10 @@
           }
         ],
         "notices": [
+          {
+            "label": "공지",
+            "title": "4월 1일 휴재 안내"
+          },
           {
             "label": "공지",
             "title": "도서 파일 교체 안내 (2026-03-31)"
@@ -1127,7 +1131,7 @@
       "title": "<공작을 살린 남자>",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 5화 무료",
+        "tag": "리다무 5화 무료",
         "freeEpisodes": 5,
         "daysLeft": null,
         "eventBanners": [
@@ -1313,7 +1317,12 @@
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
-        "notices": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-01)"
+          }
+        ],
         "benefits": [
           {
             "label": "혜택",
