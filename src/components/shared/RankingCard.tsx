@@ -180,7 +180,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                 {primaryPromoLabel && (
                   <span
                     className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border",
+                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap shrink-0",
                       promoStyle.bg,
                       promoStyle.text,
                       promoStyle.border,
@@ -194,7 +194,7 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
                 {!primaryPromoLabel && secondaryPromoLabel && (
                   <span
                     className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border",
+                      "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap shrink-0",
                       promoStyle.bg,
                       promoStyle.text,
                       promoStyle.border,
@@ -208,11 +208,11 @@ export function RankingCard({ novel, rank, onClick, variant = "default" }: Props
 
               {/* 추가 프로모션 정보 */}
               {(secondaryPromoLabel && primaryPromoLabel) || novel.promotion?.daysLeft != null ? (
-                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                <div className="flex items-center gap-1.5 mt-1 flex-nowrap whitespace-nowrap">
                   {secondaryPromoLabel && primaryPromoLabel && (
                     <span
                       className={cn(
-                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border",
+                        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold border whitespace-nowrap shrink-0",
                         promoStyle.bg,
                         promoStyle.text,
                         promoStyle.border,
