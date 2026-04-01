@@ -24,20 +24,19 @@
           },
           {
             "label": "공지",
-            "title": "<숫것> 시리즈는 론칭 기념 4월 1일(수)부터 4월 3일(금)까지 6시간마다 1화 무료 이벤트가 진행됩니다. 작품 이용에 참고 부탁드립니다."
-          },
-          {
-            "label": "공지",
             "title": "연참 안내 (4/1~4/10)"
-          },
+          }
+        ],
+        "benefits": [
           {
-            "label": "공지",
-            "title": "<숫것>은 론칭을 기념하여 4월 10일(금)까지 매일 연재됩니다. 독자님들의 많은 관심 부탁드립니다."
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
           }
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "6시간 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -58,9 +57,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매일 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -83,9 +89,16 @@
             "title": "도서 파일 교체 안내 (2026-03-19)"
           }
         ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재 / 오전 7시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -108,9 +121,16 @@
             "title": "도서 파일 교체 안내 (2026-03-18)"
           }
         ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -128,9 +148,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,수,목,금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -151,9 +178,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "15화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": null
       }
@@ -171,9 +205,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 / 오전 7시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -191,9 +232,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매일 오전 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -211,9 +259,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 / 오전 7시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -231,9 +286,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": null
       }
@@ -251,9 +313,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "월, 화, 수, 목, 금 오후 6시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -271,9 +340,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "5화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -291,9 +367,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 수, 목, 금, 토 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -319,9 +402,16 @@
             "title": "도서 파일 교체 안내 (2026-03-24)"
           }
         ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재 / 오후 6시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -339,9 +429,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -359,9 +456,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -382,15 +486,18 @@
           {
             "label": "공지",
             "title": "연재 주기 안내"
-          },
+          }
+        ],
+        "benefits": [
           {
-            "label": "공지",
-            "title": "본 시리즈는 수, 목, 금요일 오후 4시 연재됩니다. 2026년 03월 03일 부터 매주 화, 수, 목요일 오후 4시로 변경됩니다. 도서 이용에 참고 부탁드립니다."
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
           }
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화,수,목 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -408,9 +515,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 수, 목, 금, 토 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -434,16 +548,19 @@
           },
           {
             "label": "공지",
-            "title": "<너희들의 것>은 론칭 기념으로 한 달간(3/1 ~ 4/3)까지 매일 연재 예정입니다. 이용에 참고 바랍니다."
-          },
-          {
-            "label": "공지",
             "title": "도서 파일 교체 안내 (2026-03-25)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
           }
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -461,9 +578,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -481,9 +605,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 오전 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -504,9 +635,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "10화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -524,9 +662,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,수,목,금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -544,9 +689,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 / 오전 7시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -573,10 +725,6 @@
           },
           {
             "label": "공지",
-            "title": "본 작품은 15세 미만의 청소년이 열람하기에 부적절한 내용을 포함하고 있습니다. 보호자의 지도 하에 작품을 감상해 주시기 바랍니다."
-          },
-          {
-            "label": "공지",
             "title": "도서 파일 수정 안내 (2026-03-25)"
           },
           {
@@ -584,9 +732,10 @@
             "title": "도서 파일 교체 안내 (2026-03-16)"
           }
         ],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 (월, 수, 금) 18시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -613,10 +762,6 @@
           },
           {
             "label": "공지",
-            "title": "본 작품은 15세 미만의 청소년이 열람하기에 부적절한 내용을 포함하고 있습니다. 보호자의 지도 하에 작품을 감상해 주시기 바랍니다."
-          },
-          {
-            "label": "공지",
             "title": "도서 파일 수정 안내 (2026-03-25)"
           },
           {
@@ -624,9 +769,10 @@
             "title": "도서 파일 교체 안내 (2026-03-16)"
           }
         ],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 (월, 수, 금) 18시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -653,6 +799,7 @@
             "title": "도서 파일 교체 안내 (2026-03-10)"
           }
         ],
+        "benefits": [],
         "ridiWaitFree": false,
         "ridiFreeLabel": "22화 무료",
         "ridiWaitFreeText": null,
@@ -682,9 +829,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -702,9 +850,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월~금 연재",
         "exclusiveText": null
       }
@@ -733,9 +882,10 @@
             "title": "도서 파일 교체 안내 (2026-03-12)"
           }
         ],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월~금 주 5회 오후 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -761,9 +911,10 @@
             "title": "도서 파일 교체 안내 (2026-03-16)"
           }
         ],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 (월, 화, 수, 목, 금) 19시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -784,9 +935,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -807,6 +959,7 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": false,
         "ridiFreeLabel": "25화 무료",
         "ridiWaitFreeText": null,
@@ -827,9 +980,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": null
       }
@@ -853,9 +1007,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,수,목,금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -873,9 +1028,10 @@
           }
         ],
         "notices": [],
+        "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": null
       }
@@ -893,9 +1049,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -916,9 +1079,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -939,9 +1109,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 수, 목, 금 / 오후 6시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -962,9 +1139,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "5화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 목, 토 / 19시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -987,9 +1171,16 @@
             "title": "도서 파일 교체 안내 (2026-03-19)"
           }
         ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 오전 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1010,9 +1201,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,토,일 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1030,9 +1228,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화~금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1055,9 +1260,16 @@
             "title": "도서 파일 교체 안내 (2026-03-06)"
           }
         ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1075,9 +1287,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1095,9 +1314,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월/화/수/목/금 오전 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -1106,7 +1332,7 @@
       "title": "마교 교주를 애지중지 키웠다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 4화 무료",
+        "tag": "리다무 4화 무료",
         "freeEpisodes": 4,
         "daysLeft": null,
         "eventBanners": [
@@ -1115,9 +1341,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "4화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 토 오후 4시",
         "exclusiveText": null
       }
@@ -1135,9 +1368,16 @@
           }
         ],
         "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일 마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 오후 6시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
