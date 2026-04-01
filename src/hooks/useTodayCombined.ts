@@ -325,6 +325,74 @@ function normalizePromotion(
   return hasValue ? normalized : undefined;
 }
 
+function mergeNoticeArrays(
+  base?: PromotionInfo["notices"],
+  incoming?: PromotionInfo["notices"],
+): PromotionInfo["notices"] {
+  const merged = [...(base ?? []), ...(incoming ?? [])]
+    .filter((item) => item && (item.title || item.body))
+    .map((item) => ({
+      label: item.label,
+      title: item.title || item.body || "",
+      body: item.body,
+      date: item.date,
+    }));
+
+  if (merged.length === 0) return undefined;
+
+  const seen = new Set<string>();
+  return merged.filter((item) => {
+    const key = `${item.label ?? ""}::${item.title ?? ""}::${item.body ?? ""}::${item.date ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function mergeBannerArrays(
+  base?: PromotionInfo["eventBanners"],
+  incoming?: PromotionInfo["eventBanners"],
+): PromotionInfo["eventBanners"] {
+  const merged = [...(base ?? []), ...(incoming ?? [])]
+    .filter((item) => item && (item.title || item.subtitle))
+    .map((item) => ({
+      title: item.title || "",
+      subtitle: item.subtitle,
+    }));
+
+  if (merged.length === 0) return undefined;
+
+  const seen = new Set<string>();
+  return merged.filter((item) => {
+    const key = `${item.title ?? ""}::${item.subtitle ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function mergeBenefitArrays(
+  base?: PromotionInfo["benefits"],
+  incoming?: PromotionInfo["benefits"],
+): PromotionInfo["benefits"] {
+  const merged = [...(base ?? []), ...(incoming ?? [])]
+    .filter((item) => item && item.title)
+    .map((item) => ({
+      label: item.label,
+      title: item.title,
+      subtitle: item.subtitle,
+    }));
+
+  if (merged.length === 0) return undefined;
+
+  const seen = new Set<string>();
+  return merged.filter((item) => {
+    const key = `${item.label ?? ""}::${item.title ?? ""}::${item.subtitle ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
 
 function mergeRidiPromotion(
   base?: PromotionInfo,
@@ -337,42 +405,26 @@ function mergeRidiPromotion(
   return {
     ...base,
     ...incoming,
+    timeFreeType: incoming.timeFreeType || base.timeFreeType,
+    tag: incoming.tag || base.tag,
+    freeEpisodes:
+      incoming.freeEpisodes !== undefined ? incoming.freeEpisodes : base.freeEpisodes,
+    daysLeft: incoming.daysLeft !== undefined ? incoming.daysLeft : base.daysLeft,
 
-    // 배열은 incoming이 비어있으면 base 유지
-    eventBanners:
-      Array.isArray(incoming.eventBanners) && incoming.eventBanners.length > 0
-        ? incoming.eventBanners
-        : base.eventBanners,
+    eventBanners: mergeBannerArrays(base.eventBanners, incoming.eventBanners),
+    notices: mergeNoticeArrays(base.notices, incoming.notices),
+    benefits: mergeBenefitArrays(base.benefits, incoming.benefits),
 
-    notices:
-      Array.isArray(incoming.notices) && incoming.notices.length > 0
-        ? incoming.notices
-        : base.notices,
-
-    benefits:
-      Array.isArray(incoming.benefits) && incoming.benefits.length > 0
-        ? incoming.benefits
-        : base.benefits,
-
-    // 문자열은 incoming이 비어있으면 base 유지
     serialSchedule: incoming.serialSchedule || base.serialSchedule,
     exclusiveText: incoming.exclusiveText || base.exclusiveText,
     ridiWaitFreeText: incoming.ridiWaitFreeText || base.ridiWaitFreeText,
 
-    // null/undefined 구분해서 유지
-    freeEpisodes:
-      incoming.freeEpisodes !== undefined ? incoming.freeEpisodes : base.freeEpisodes,
-    daysLeft: incoming.daysLeft !== undefined ? incoming.daysLeft : base.daysLeft,
     ridiWaitFree:
       incoming.ridiWaitFree !== undefined ? incoming.ridiWaitFree : base.ridiWaitFree,
     ridiFreeLabel:
       incoming.ridiFreeLabel !== undefined ? incoming.ridiFreeLabel : base.ridiFreeLabel,
-
-    timeFreeType: incoming.timeFreeType || base.timeFreeType,
-    tag: incoming.tag || base.tag,
   };
 }
-
 
 async function fetchPromotionMap(
   url: string,
@@ -546,32 +598,32 @@ export function useTodayCombined() {
         setLatestDate(mostRecentDate);
 
         const novels: Novel[] = rows
-  .filter((r) => r.날짜 === mostRecentDate)
-  .map((row, idx) => {
-    const n = mapRowToNovel(row, idx);
-    const key = `${n.platform}::${n.title.trim()}`;
+          .filter((r) => r.날짜 === mostRecentDate)
+          .map((row, idx) => {
+            const n = mapRowToNovel(row, idx);
+            const key = `${n.platform}::${n.title.trim()}`;
 
-    const promo =
-      n.platform === "kakao"
-        ? kakaoPromoMap.get(key)
-        : n.platform === "naver"
-          ? naverPromoMap.get(key)
-          : ridiPromoMap.get(key);
+            const promo =
+              n.platform === "kakao"
+                ? kakaoPromoMap.get(key)
+                : n.platform === "naver"
+                  ? naverPromoMap.get(key)
+                  : ridiPromoMap.get(key);
 
-    if (promo) {
-      if (n.platform === "ridi") {
-        n.promotion = mergeRidiPromotion(n.promotion, promo);
-      } else {
-        n.promotion = {
-          ...(n.promotion ?? {}),
-          ...promo,
-        };
-      }
-    }
+            if (promo) {
+              if (n.platform === "ridi") {
+                n.promotion = mergeRidiPromotion(n.promotion, promo);
+              } else {
+                n.promotion = {
+                  ...(n.promotion ?? {}),
+                  ...promo,
+                };
+              }
+            }
 
-    return n;
-  });
-        
+            return n;
+          });
+
         const stats = getPlatformMaxStats(novels as unknown as UnifiedNovel[]);
         const scoredNovels: ScoredNovel[] = novels.map((n) => ({
           ...n,
