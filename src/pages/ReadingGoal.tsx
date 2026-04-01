@@ -391,7 +391,7 @@ function GoalModal({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-surface border border-border rounded-2xl p-6 w-full max-w-md shadow-2xl"
+        className="bg-surface border border-border rounded-2xl p-4 md:p-6 w-full max-w-md shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-5">
@@ -429,7 +429,7 @@ function GoalModal({
                 key={key}
                 onClick={() => setStatus(key)}
                 className={cn(
-                  "flex flex-col items-center gap-1 py-2 px-1 rounded-lg text-[10px] font-semibold border transition-colors",
+                  "flex flex-col items-center gap-1 py-2.5 md:py-2 px-1 rounded-lg text-[10px] font-semibold border transition-colors",
                   status === key
                     ? `${cfg.bg} ${cfg.color} border-current/30`
                     : "border-border text-muted-foreground hover:bg-surface-elevated"
@@ -455,7 +455,7 @@ function GoalModal({
               onChange={(e) =>
                 setCurrentEpisode(parseOptionalNumber(e.target.value, { min: 0, max: ep }))
               }
-              className="w-24 px-2.5 py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="w-24 px-2.5 py-2 md:py-1.5 text-xs rounded-lg bg-surface-elevated border border-border text-foreground font-mono focus:outline-none focus:ring-1 focus:ring-primary [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <span className="text-xs text-muted-foreground">/ {ep}화</span>
             <div className="flex-1 h-1.5 bg-surface-elevated rounded-full overflow-hidden">
@@ -554,7 +554,7 @@ function GoalModal({
 
         <button
           onClick={handleSave}
-          className="w-full py-2.5 bg-primary text-primary-foreground text-sm font-bold rounded-xl hover:opacity-90 transition-opacity"
+          className="w-full py-3 md:py-2.5 bg-primary text-primary-foreground text-sm font-bold rounded-xl hover:opacity-90 transition-opacity"
         >
           {base ? "수정 완료" : "책장에 추가"}
         </button>
@@ -592,10 +592,10 @@ function GoalCard({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      className="surface-card border border-border cursor-pointer"
+      className="surface-card border border-border cursor-pointer p-3 md:p-4"
       onClick={onEdit}
     >
-      <div className="flex gap-3">
+      <div className="flex gap-3 items-start"
         <div className="shrink-0 relative">
           {goal.thumbnailUrl ? (
             <img
@@ -617,7 +617,7 @@ function GoalCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <div className="min-w-0">
-              <h3 className="text-sm font-bold text-foreground line-clamp-1">
+              <h3 className="text-[13px] md:text-sm font-bold text-foreground line-clamp-1">
                 {goal.title}
               </h3>
               <p className="text-[10px] text-muted-foreground">
@@ -625,7 +625,7 @@ function GoalCard({
               </p>
             </div>
 
-            <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
               <StatusDropdown status={goal.status} onChange={onChangeStatus} />
               <button
                 onClick={onDelete}
@@ -915,7 +915,7 @@ export default function ReadingGoalsPage() {
           { label: "완독", value: stats.done, color: "text-emerald-500", icon: CheckCircle2 },
           { label: "읽고 싶어요", value: stats.want, color: "text-sky-500", icon: BookMarked },
         ].map(({ label, value, color, icon: Icon }) => (
-          <div key={label} className="kpi-card flex items-center gap-3">
+          <div key={label} className="kpi-card flex items-center gap-3 p-3 md:p-4">
             <Icon size={18} className={color} />
             <div>
               <p className="text-[10px] text-muted-foreground">{label}</p>
@@ -995,7 +995,7 @@ export default function ReadingGoalsPage() {
                         setSearchResults([]);
                         setShowTrendList(false);
                       }}
-                      className="flex items-center gap-3 px-3 py-2.5 hover:bg-surface-elevated transition-colors cursor-pointer"
+                      className="flex items-center gap-3 px-3 py-3 md:py-2.5 hover:bg-surface-elevated transition-colors cursor-pointer"
                     >
                       {!search.trim() && showTrendList && (
                         <div className="w-6 shrink-0 text-center">
@@ -1006,7 +1006,7 @@ export default function ReadingGoalsPage() {
                       <NovelCover novel={n} size="sm" />
 
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-foreground line-clamp-1">
+                        <p className="text-[13px] md:text-xs font-semibold text-foreground line-clamp-1">
                           {n.title}
                         </p>
                         <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
@@ -1036,7 +1036,7 @@ export default function ReadingGoalsPage() {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 flex-wrap">
+      <div className="flex items-center gap-2 overflow-x-auto whitespace-nowrap pb-1">
         {([
           { key: "all", label: "전체", count: goals.length },
           { key: "reading", label: "읽는 중", count: stats.reading },
@@ -1049,7 +1049,7 @@ export default function ReadingGoalsPage() {
               key={key}
               onClick={() => setFilterStatus(key)}
               className={cn(
-                "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5",
+                "px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-1.5 shrink-0",
                 filterStatus === key
                   ? "bg-primary text-primary-foreground"
                   : "bg-surface border border-border text-muted-foreground hover:text-foreground"
