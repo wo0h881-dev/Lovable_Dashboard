@@ -195,24 +195,34 @@ const falling = useMemo(() =>
             </span>
           </div>
           <div className="space-y-1">
-            {genreNovels.slice(0, 10).map((n, i) => (
-              <div
-                key={n.id}
-                className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
-                onClick={() => setSelectedNovel(n)}
-              >
-                <span className="font-mono text-sm font-bold text-muted-foreground w-5 text-right shrink-0">
-                  {i + 1}
-                </span>
-                <PlatformBadge platform={n.platform} />
-                <span className="flex-1 text-xs font-medium line-clamp-1 min-w-0">{n.title}</span>
-                <span className="font-mono text-[10px] text-muted-foreground shrink-0 hidden sm:block">{n.author}</span>
-                <RankChange novel={n} />
-                <span className="font-mono text-xs font-semibold shrink-0">
-                  {formatViews(n.platform, n.todayViews)}
-                </span>
-              </div>
-            ))}
+            {genreNovels.slice(0, 10).map((n) => (
+  <div
+    key={n.id}
+    className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-surface-elevated cursor-pointer transition-colors"
+    onClick={() => setSelectedNovel(n)}
+  >
+    <div className="flex items-center gap-2 shrink-0 min-w-0">
+      <PlatformBadge platform={n.platform} />
+      <span className="font-mono text-sm font-bold text-muted-foreground shrink-0">
+        {n.todayRank ?? "-"}
+      </span>
+    </div>
+
+    <span className="flex-1 text-xs font-medium line-clamp-1 min-w-0">
+      {n.title}
+    </span>
+
+    <span className="font-mono text-[10px] text-muted-foreground shrink-0 hidden sm:block">
+      {n.author}
+    </span>
+
+    <RankChange novel={n} />
+
+    <span className="font-mono text-xs font-semibold shrink-0">
+      {formatViews(n.platform, n.todayViews)}
+    </span>
+  </div>
+))}
             {genreNovels.length === 0 && (
               <p className="text-xs text-muted-foreground text-center py-6">해당 장르 작품 없음</p>
             )}
