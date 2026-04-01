@@ -622,10 +622,9 @@ export function useTodayCombined() {
       }
     }
 
-    if (n.platform === "ridi" && n.title.includes("은행원도 용꿈을 꾸나요")) {
-  console.log("RIDI ROW PROMOTION", row.promotion);
-  console.log("RIDI MAP PROMOTION", promo);
-  console.log("RIDI FINAL PROMOTION", n.promotion);
+   if (n.platform === "ridi" && n.title.includes("은행원도 용꿈을 꾸나요")) {
+  console.log("RIDI MAP PROMOTION FULL", JSON.stringify(promo, null, 2));
+  console.log("RIDI MAP NOTICES FULL", JSON.stringify(promo?.notices, null, 2));
 }
 
     return n;
