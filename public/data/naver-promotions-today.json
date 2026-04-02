@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-01",
+  "date": "2026-04-02",
   "platform": "naver",
   "items": [
     {
@@ -8,18 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 138,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 26,
+        "daysLeft": 137,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +19,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 43,
+        "daysLeft": 42,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전능의 뇌를 얻었다",
+      "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 55,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 25,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "북부 전선에서 국밥으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -53,6 +53,50 @@
         "tag": "시리즈 에디션",
         "freeEpisodes": 25,
         "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 뇌를 얻었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 54,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "사짜 무당이 죽을 날을 알려줌",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 77,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 감정사가 그리스에서 복원을 너무 잘함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "현질무신 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 167,
         "eventBanners": [],
         "notices": []
       }
@@ -74,18 +118,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 9,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "현질무신 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 168,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
@@ -96,40 +129,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "사짜 무당이 죽을 날을 알려줌",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "마탑 천재가 물리학을 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 80,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "L급 마기 청소부로 각성하자 통장이 터졌다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
@@ -140,40 +140,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 64,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "불로불사로 산다는 것은",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 179,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "스캔들 메이커가 돌아왔다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 144,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "귀환했더니 한의사가 너무 쉽다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 63,
         "eventBanners": [],
         "notices": []
       }
@@ -184,18 +151,62 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 145,
+        "daysLeft": 144,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "퇴사한 매니저가 천재 프로듀서였다",
+      "title": "스캔들 메이커가 돌아왔다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 143,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "마탑 천재가 물리학을 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 79,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "귀환했더니 한의사가 너무 쉽다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "L급 마기 청소부로 각성하자 통장이 터졌다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 용병은 다 계획이 있다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 38,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +217,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 39,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "양치기 마법사",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 26,
-        "daysLeft": 117,
+        "daysLeft": 38,
         "eventBanners": [],
         "notices": []
       }
