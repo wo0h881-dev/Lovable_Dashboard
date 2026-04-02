@@ -683,6 +683,7 @@ function GoalCard({
               <button
   onClick={(e) => {
     e.stopPropagation();
+    console.log("노션 버튼 클릭");
     onSendToNotion();
   }}
   className="text-[10px] font-bold text-indigo-600 px-2 py-1 rounded bg-indigo-50 hover:bg-indigo-100 transition-colors"
@@ -748,20 +749,33 @@ function GoalCard({
   );
 }
 
+
 async function sendGoalToNotion(goal: ReadingGoal) {
-  const res = await fetch("https://lovable-notion-connect.wo0h881.workers.dev/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(goal),
-  });
+  try {
+    console.log("노션 전송 시작", goal);
 
-  if (!res.ok) {
-    throw new Error("노션 전송 실패");
+    const res = await fetch("https://lovable-notion-connect.wo0h881.workers.dev/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(goal),
+    });
+
+    const text = await res.text();
+    console.log("Worker 응답 상태:", res.status);
+    console.log("Worker 응답 본문:", text);
+
+    if (!res.ok) {
+      alert(`노션 전송 실패: ${res.status}\n${text}`);
+      return;
+    }
+
+    alert("노션으로 보냄!");
+  } catch (error) {
+    console.error("노션 전송 에러", error);
+    alert(`노션 전송 중 오류 발생: ${error instanceof Error ? error.message : String(error)}`);
   }
-
-  alert("노션으로 보냄!");
 }
 
 export default function ReadingGoalsPage() {
