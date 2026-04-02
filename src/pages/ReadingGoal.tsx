@@ -569,6 +569,7 @@ function GoalCard({
   onDelete,
   onUpdateEpisode,
   onChangeStatus,
+  onSendToNotion,
 }: {
   goal: ReadingGoal;
   onEdit: () => void;
@@ -750,7 +751,10 @@ function GoalCard({
 }
 
 
-async function sendGoalToNotion(goal: ReadingGoal) {
+
+export default function ReadingGoalsPage() {
+
+  async function sendGoalToNotion(goal: ReadingGoal) {
   try {
     console.log("노션 전송 시작", goal);
 
@@ -777,8 +781,7 @@ async function sendGoalToNotion(goal: ReadingGoal) {
     alert(`노션 전송 중 오류 발생: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
-
-export default function ReadingGoalsPage() {
+  
   const { data: sourceData, latestDate } = useTodayCombined();
   const novels: Novel[] = sourceData ?? [];
 
