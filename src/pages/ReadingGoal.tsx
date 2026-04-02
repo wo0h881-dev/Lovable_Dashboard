@@ -575,6 +575,7 @@ function GoalCard({
   onDelete: () => void;
   onUpdateEpisode: (ep: number) => void;
   onChangeStatus: (status: ReadingStatus) => void;
+  onSendToNotion: () => void
 }) {
   const { remaining, progress, daysNeeded, dailyNeeded } = calcStats(goal);
   const [showEpEdit, setShowEpEdit] = useState(false);
@@ -679,6 +680,15 @@ function GoalCard({
 
           {canShowProgressUpdate && (
             <div className="mt-2 flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+              <button
+  onClick={(e) => {
+    e.stopPropagation();
+    onSendToNotion();
+  }}
+  className="text-[10px] font-bold text-indigo-600 px-2 py-1 rounded bg-indigo-50 hover:bg-indigo-100 transition-colors"
+>
+  노션으로 보내기
+</button>
               {showEpEdit ? (
                 <>
                   <input
@@ -737,6 +747,22 @@ function GoalCard({
     </motion.div>
   );
 }
+
+
+export default function ReadingGoalsPage() {
+
+  async function sendGoalToNotion(goal: ReadingGoal) {
+    await fetch("https://lovable-notion-connect.wo0h881.workers.dev/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(goal),
+    });
+
+    alert("노션으로 보냄!");
+  }
+
 
 export default function ReadingGoalsPage() {
   const { data: sourceData, latestDate } = useTodayCombined();
@@ -1080,6 +1106,7 @@ export default function ReadingGoalsPage() {
                 onDelete={() => deleteGoal(goal.id)}
                 onUpdateEpisode={(ep) => updateEpisode(goal.id, ep)}
                 onChangeStatus={(status) => updateGoalStatus(goal.id, status)}
+                onSendToNotion={() => sendGoalToNotion(goal)}
               />
             ))}
           </AnimatePresence>
