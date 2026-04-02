@@ -748,21 +748,21 @@ function GoalCard({
   );
 }
 
+async function sendGoalToNotion(goal: ReadingGoal) {
+  const res = await fetch("https://lovable-notion-connect.wo0h881.workers.dev/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(goal),
+  });
 
-export default function ReadingGoalsPage() {
-
-  async function sendGoalToNotion(goal: ReadingGoal) {
-    await fetch("https://lovable-notion-connect.wo0h881.workers.dev/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(goal),
-    });
-
-    alert("노션으로 보냄!");
+  if (!res.ok) {
+    throw new Error("노션 전송 실패");
   }
 
+  alert("노션으로 보냄!");
+}
 
 export default function ReadingGoalsPage() {
   const { data: sourceData, latestDate } = useTodayCombined();
