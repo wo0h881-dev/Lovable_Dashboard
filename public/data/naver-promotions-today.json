@@ -1,14 +1,14 @@
 {
-  "date": "2026-04-02",
+  "date": "2026-04-03",
   "platform": "naver",
   "items": [
     {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "title": "악당의 경영학 [독점]",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "timeFreeType": "threeHour",
+        "tag": "타임딜 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 137,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +19,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 42,
+        "daysLeft": 41,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 136,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +41,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 25,
+        "daysLeft": 24,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "북부 전선에서 국밥으로 살아남기 [독점]",
+      "title": "우리는 모두 거짓말을 해 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 150,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "돈은 많은데 아무도 나를 모름",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "스캔들 메이커가 돌아왔다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "freeEpisodes": 5,
+        "daysLeft": 142,
         "eventBanners": [],
         "notices": []
       }
@@ -58,12 +91,23 @@
       }
     },
     {
+      "title": "북부 전선에서 국밥으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "전능의 뇌를 얻었다",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 54,
+        "daysLeft": 53,
         "eventBanners": [],
         "notices": []
       }
@@ -74,18 +118,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 감정사가 그리스에서 복원을 너무 잘함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
@@ -96,7 +129,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 167,
+        "daysLeft": 166,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 감정사가 그리스에서 복원을 너무 잘함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -113,12 +157,34 @@
       }
     },
     {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 14,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 변호사는 대박 갈비집 아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 53,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "좌천당했더니 돈이 미쳤다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 8,
+        "daysLeft": 7,
         "eventBanners": [],
         "notices": []
       }
@@ -129,18 +195,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "하남자의 탑 공략법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 63,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
@@ -151,73 +206,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 144,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "스캔들 메이커가 돌아왔다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
         "daysLeft": 143,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "마탑 천재가 물리학을 숨김",
+      "title": "전능 AI와 함께 수능날로 회귀했다.",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 79,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "귀환했더니 한의사가 너무 쉽다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 8,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "L급 마기 청소부로 각성하자 통장이 터졌다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 8,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀한 용병은 다 계획이 있다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 38,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "악당들의 후원자가 되었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 38,
+        "daysLeft": 55,
         "eventBanners": [],
         "notices": []
       }
