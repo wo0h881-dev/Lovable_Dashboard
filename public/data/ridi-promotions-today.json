@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-03",
+  "date": "2026-04-04",
   "platform": "ridi",
   "items": [
     {
@@ -9,19 +9,8 @@
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "[전원 40% 포인트백] 가김 <숫것> 론칭!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
-          {
-            "label": "공지",
-            "title": "론칭 기념 6시간마다 무료 안내 (4/1~4/3)"
-          },
           {
             "label": "공지",
             "title": "연참 안내 (4/1~4/10)"
@@ -36,7 +25,7 @@
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -51,9 +40,6 @@
         "eventBanners": [
           {
             "title": "[3일씩 릴레이] 전원 60% 포백 받고 애착 관계 형성 완료! (1회차)"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -75,14 +61,10 @@
       "title": "유유상종",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
@@ -107,14 +89,10 @@
       "title": "졸업은 해야지",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
@@ -142,19 +120,8 @@
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "[전원 40% 포인트백] 가김 <숫것> 론칭!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
-          {
-            "label": "공지",
-            "title": "론칭 기념 6시간마다 무료 안내 (4/1~4/3)"
-          },
           {
             "label": "공지",
             "title": "연참 안내 (4/1~4/10)"
@@ -169,7 +136,7 @@
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -178,15 +145,12 @@
       "title": "류안",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[3일씩 릴레이] 전원 60% 포백 받고 애착 관계 형성 완료! (1회차)"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -205,18 +169,93 @@
       }
     },
     {
+      "title": "나의 품에서 꽃이 되길",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 10화 무료",
+        "freeEpisodes": 10,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "[전원 증정] 온누리 <나의 품에서 꽃이 되길> 완결 기념 10화 무료!"
+          }
+        ],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "10화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": null,
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "닳고 달은 아저씨",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-03-23)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": null,
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "조폭 아저씨 (삽화본)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매일 오전 7시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "Gray",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[3일씩 릴레이] 전원 60% 포백 받고 애착 관계 형성 완료! (1회차)"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -235,63 +274,6 @@
       }
     },
     {
-      "title": "조폭 아저씨 (삽화본)",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 1장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매일 오전 7시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "나의 품에서 꽃이 되길",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
-        "freeEpisodes": 10,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "[전원 증정] 온누리 <나의 품에서 꽃이 되길> 완결 기념 10화 무료!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 1장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "10화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
       "title": "개같은 아저씨",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -301,9 +283,6 @@
         "eventBanners": [
           {
             "title": "👉지금 이 작품! 웹툰 론칭! 15화 무료X전원 포인트💓"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -322,44 +301,13 @@
       }
     },
     {
-      "title": "VVIP",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 1장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "제물이 될지어다",
+      "title": "진흙 속에 피는 연꽃",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -371,7 +319,7 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
+        "serialSchedule": "월, 화, 수, 목, 금 오후 6시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -382,11 +330,7 @@
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -406,15 +350,12 @@
       "title": "아네트",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "✨ 3시간마다 여기에 누워 보세요 🛏️🛏️🛏️"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -433,54 +374,14 @@
       }
     },
     {
-      "title": "페레니케",
+      "title": "너희들의 것",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
-          {
-            "label": "공지",
-            "title": "연재 주기 안내"
-          }
-        ],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 화,수,목 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "너희들의 것",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "[매일 연재 일정 안내(3/1~4/3)]"
-          },
           {
             "label": "공지",
             "title": "도서 파일 교체 안내 (2026-03-25)"
@@ -510,9 +411,6 @@
         "eventBanners": [
           {
             "title": "✨ 3시간마다 여기에 누워 보세요 🛏️🛏️🛏️"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -531,17 +429,40 @@
       }
     },
     {
-      "title": "디어 마이 매드 허니(Dear My Mad Honey)",
+      "title": "막내 황녀님이 그 작자와 결혼한다니!",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
+        "tag": "Up 리다무 10화 무료",
+        "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "[최대 100%] 슬로프 <막내 황녀님이 그 작자와 결혼한다니!> 론칭"
           }
         ],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "10화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매일 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "디어 마이 매드 허니(Dear My Mad Honey)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -558,18 +479,23 @@
       }
     },
     {
-      "title": "흠결 없는 불행",
+      "title": "이혼을 앞둔 남편이 일곱 살이 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "✨ 3시간마다 여기에 누워 보세요 🛏️🛏️🛏️"
           }
         ],
-        "notices": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "15세 이용가 안내"
+          }
+        ],
         "benefits": [
           {
             "label": "혜택",
@@ -579,8 +505,8 @@
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 오전 7시 연재",
+        "ridiWaitFreeText": "3시간마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -594,9 +520,6 @@
         "eventBanners": [
           {
             "title": "[전원 포인트백] 디키탈리스 <초록 풋보리 추신을 엮어> 론칭"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [
@@ -620,17 +543,107 @@
       }
     },
     {
-      "title": "황금 악마",
+      "title": "흠결 없는 불행",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월, 화, 수, 목, 금 오전 7시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "페레니케",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "연재 주기 안내"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 화,수,목 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "남편을 정부로 들였다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "[추첨 포인트] 온낙원 <남편을 정부로 들였다> 완결"
+          },
+          {
+            "title": "✨ 3시간마다 여기에 누워 보세요 🛏️🛏️🛏️"
           }
         ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-03-31)"
+          },
+          {
+            "label": "공지",
+            "title": "완결 및 외전 연재 안내"
+          },
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-03-30)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "3시간마다 1편 기다리면 무료",
+        "serialSchedule": null,
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "황금 악마",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
@@ -652,94 +665,10 @@
       }
     },
     {
-      "title": "괴괴한 마물 남편",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월,화,수,목,금",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "저택에서 하는 술래잡기",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 / 오전 7시",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "아기새 카페 타이쿤",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨ 3시간마다 여기에 누워 보세요 🛏️🛏️🛏️"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "3시간마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
       "title": "세상은 조상(신)님이 구해주시냐",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -748,36 +677,6 @@
           },
           {
             "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
-        "exclusiveText": null
-      }
-    },
-    {
-      "title": "세상은 조상(신)님이 구해주시냐",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "즉시 50% 포인트백! RIDI ONLY <세상은 조상(신)님이 구해주시냐> 론칭"
-          },
-          {
-            "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -793,15 +692,12 @@
       "title": "은행원도 용꿈을 꾸나요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [
@@ -827,26 +723,23 @@
       }
     },
     {
-      "title": "영광의 해일로",
+      "title": "백작가의 망나니가 되었다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "timeFreeType": "none",
+        "tag": "25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "✨매일매일 10원 볼륨 업✨ 판타지 팝업스토어 OPEN"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
         "benefits": [],
-        "ridiWaitFree": true,
+        "ridiWaitFree": false,
         "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
+        "ridiWaitFreeText": null,
+        "serialSchedule": "매주 월, 수, 금 연재",
         "exclusiveText": null
       }
     },
@@ -854,14 +747,10 @@
       "title": "명문고 EX급 조연의 리플레이",
       "promotion": {
         "timeFreeType": "none",
-        "tag": "Up 22화 무료",
+        "tag": "22화 무료",
         "freeEpisodes": 22,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
@@ -881,137 +770,6 @@
       }
     },
     {
-      "title": "금손 아빠가 되었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월~금 연재",
-        "exclusiveText": null
-      }
-    },
-    {
-      "title": "내 눈에만 범인이 보임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨매일매일 10원 볼륨 업✨ 판타지 팝업스토어 OPEN"
-          },
-          {
-            "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "이 소설은 내 소설이 아니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨매일매일 10원 볼륨 업✨ 판타지 팝업스토어 OPEN"
-          },
-          {
-            "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "도서 파일 교체 안내 (2026-03-12)"
-          }
-        ],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월~금 주 5회 오후 7시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "아포칼립스엔 고인물이 필요해요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "리다무 15화 무료",
-        "freeEpisodes": 15,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "[10원 소장+전원 5,000P] <아포칼립스엔 고인물이 필요해요> 론칭"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 5장 증정",
-            "subtitle": "사용기한 3일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "15화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
-        "exclusiveText": null
-      }
-    },
-    {
-      "title": "리레볼루션(RE:REVOLUTION)",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 26화 무료",
-        "freeEpisodes": 26,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "26화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 화~금 / 오후 6시",
-        "exclusiveText": null
-      }
-    },
-    {
       "title": "신회귀자를 위한 지침",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -1026,7 +784,7 @@
             "title": "Next Fantasy, RIDI ONLY 판타지"
           },
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "[100% 당첨] 누구나 매일 1,000포인트 드리는 랜덤티켓!"
           }
         ],
         "notices": [
@@ -1044,18 +802,147 @@
       }
     },
     {
-      "title": "악역 소장은 육아 중!",
+      "title": "금손 아빠가 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월~금 연재",
+        "exclusiveText": null
+      }
+    },
+    {
+      "title": "내 눈에만 범인이 보임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "✨매일매일 10원 볼륨 업✨ 판타지 팝업스토어 OPEN"
+          },
+          {
+            "title": "Next Fantasy, RIDI ONLY 판타지"
+          }
+        ],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "이 소설은 내 소설이 아니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "✨매일매일 10원 볼륨 업✨ 판타지 팝업스토어 OPEN"
+          },
+          {
+            "title": "Next Fantasy, RIDI ONLY 판타지"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-03-12)"
+          }
+        ],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월~금 주 5회 오후 7시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "세상은 조상(신)님이 구해주시냐",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "즉시 50% 포인트백! RIDI ONLY <세상은 조상(신)님이 구해주시냐> 론칭"
+          },
+          {
+            "title": "Next Fantasy, RIDI ONLY 판타지"
+          }
+        ],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
+        "exclusiveText": null
+      }
+    },
+    {
+      "title": "리레볼루션(RE:REVOLUTION)",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 26화 무료",
+        "freeEpisodes": 26,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "26화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 화~금 / 오후 6시",
+        "exclusiveText": null
+      }
+    },
+    {
+      "title": "내 무협 주인공이 나를 싫어한다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "Next Fantasy, RIDI ONLY 판타지"
-          },
+          }
+        ],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "악역 소장은 육아 중!",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "Next Fantasy, RIDI ONLY 판타지"
           }
         ],
         "notices": [
@@ -1082,9 +969,6 @@
         "eventBanners": [
           {
             "title": "[첫날 60%] 해단 <러브 베놈> 출간!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [
@@ -1111,15 +995,12 @@
       "title": "천운",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[전원 1만P] 포인트 피크닉! 무료 준비 완료!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -1141,15 +1022,12 @@
       "title": "절친X교환",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[전원 1만P] 포인트 피크닉! 무료 준비 완료!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [],
@@ -1171,15 +1049,12 @@
       "title": "디플라워 미 이프 유 캔(Deflower Me If You Can)",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[전원 1만P] 포인트 피크닉! 무료 준비 완료!"
-          },
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
         "notices": [
@@ -1211,7 +1086,7 @@
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+            "title": "[전원 랜티] 독자님 천직은? 댓글 Artist...☆"
           }
         ],
         "notices": [
@@ -1235,44 +1110,13 @@
       }
     },
     {
-      "title": "터닝(Turning)",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "리다무 5화 무료",
-        "freeEpisodes": 5,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "5화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 화, 목, 토 / 19시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
       "title": "공의 형이 된다는 건",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -1295,11 +1139,7 @@
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -1319,14 +1159,10 @@
       "title": "거짓말쟁이 패러독스",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -1346,14 +1182,10 @@
       "title": "황제의 총애",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
@@ -1378,14 +1210,10 @@
       "title": "내려앉은 밤",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [],
         "benefits": [
           {
@@ -1402,17 +1230,41 @@
       }
     },
     {
+      "title": "조연을 위한 회귀 지침서",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 4화 무료",
+        "freeEpisodes": 4,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "15세 이용가 안내"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "4화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월, 수, 금 오후 2시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "킵 고잉 크레이지 (Keep Going Crazy)",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
-          }
-        ],
+        "eventBanners": [],
         "notices": [
           {
             "label": "공지",
