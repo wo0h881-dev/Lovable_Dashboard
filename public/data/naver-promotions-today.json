@@ -1,14 +1,25 @@
 {
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "platform": "naver",
   "items": [
     {
-      "title": "절대회귀 [독점]",
+      "title": "사천당가의 폭군은 무신이 되었다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 21,
+        "daysLeft": 85,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사에서 건물주인 걸 안 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -18,8 +29,8 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 133,
+        "freeEpisodes": 25,
+        "daysLeft": 132,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +41,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 38,
+        "daysLeft": 37,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무협에서 작가로 살아남는 법 [독점]",
+      "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 20,
         "eventBanners": [],
         "notices": []
       }
@@ -52,18 +63,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 2,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위기감지 능력을 알았더니 돈이 미쳤다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
@@ -80,45 +80,34 @@
       }
     },
     {
+      "title": "위기감지 능력을 알았더니 돈이 미쳤다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "군필 여배우가 전투력을 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "스캔들 메이커가 돌아왔다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 139,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "캐릭터 흡수로 지구권력급 헌터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "현질무신 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 163,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "돈은 많은데 아무도 나를 모름",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 138,
         "eventBanners": [],
         "notices": []
       }
@@ -129,18 +118,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 50,
+        "daysLeft": 49,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "권고사직 후 S급이 몰려듦",
+      "title": "현질무신 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 162,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무협에서 작가로 살아남는 법 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -151,7 +151,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "캐릭터 흡수로 지구권력급 헌터",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "반강제적 제국주의자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 14,
         "eventBanners": [],
         "notices": []
       }
@@ -162,18 +184,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 3,
-        "daysLeft": 99,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "사짜 무당이 죽을 날을 알려줌",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 73,
+        "daysLeft": 98,
         "eventBanners": [],
         "notices": []
       }
@@ -184,18 +195,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 140,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위대한 혈통을 각성했다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 100,
-        "daysLeft": 4,
+        "daysLeft": 139,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +206,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 80,
+        "daysLeft": 79,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "월클들이 집착하는 2회차 천재 미드필더",
+      "title": "돈은 많은데 아무도 나를 모름",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
