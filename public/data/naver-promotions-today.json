@@ -1,47 +1,25 @@
 {
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "platform": "naver",
   "items": [
-    {
-      "title": "회사에서 건물주인 걸 안 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
     {
       "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 19,
+        "daysLeft": 18,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
+      "title": "회사에서 건물주인 걸 안 숨김",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 36,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "천하제일인을 주웠다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 85,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
@@ -52,18 +30,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 131,
+        "daysLeft": 130,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "사천당가의 폭군은 무신이 되었다 [독점]",
+      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 35,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 100,
         "eventBanners": [],
         "notices": []
       }
@@ -80,23 +69,23 @@
       }
     },
     {
-      "title": "호구 [독점]",
+      "title": "악당의 경영학 [독점]",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 4,
-        "daysLeft": 150,
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "악당의 경영학 [독점]",
+      "title": "호구 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": null,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 4,
+        "daysLeft": 149,
         "eventBanners": [],
         "notices": []
       }
@@ -107,29 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 48,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "군필 여배우가 전투력을 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위기감지 능력을 알았더니 돈이 미쳤다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 47,
         "eventBanners": [],
         "notices": []
       }
@@ -140,18 +107,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 161,
+        "daysLeft": 160,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "스캔들 메이커가 돌아왔다 [독점]",
+      "title": "위기감지 능력을 알았더니 돈이 미쳤다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "물거품이 되기 전에 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 5,
-        "daysLeft": 137,
+        "daysLeft": 68,
         "eventBanners": [],
         "notices": []
       }
@@ -162,18 +140,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "캐릭터 흡수로 지구권력급 헌터",
+      "title": "사천당가의 폭군은 무신이 되었다 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "군필 여배우가 전투력을 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
@@ -184,40 +173,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 138,
+        "daysLeft": 137,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "남편 도둑 [독점]",
+      "title": "스캔들 메이커가 돌아왔다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 3,
-        "daysLeft": 97,
+        "freeEpisodes": 5,
+        "daysLeft": 136,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "사짜 무당이 죽을 날을 알려줌",
+      "title": "물려받은 반찬가게에 거물들이 몰려온다",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 71,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "반강제적 제국주의자",
+      "title": "캐릭터 흡수로 지구권력급 헌터",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "양치기 마법사",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 13,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 26,
+        "daysLeft": 109,
         "eventBanners": [],
         "notices": []
       }
