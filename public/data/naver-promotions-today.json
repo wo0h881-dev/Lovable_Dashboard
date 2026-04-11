@@ -1,14 +1,47 @@
 {
-  "date": "2026-04-10",
+  "date": "2026-04-11",
   "platform": "naver",
   "items": [
+    {
+      "title": "검술 천재는 마법이 너무 쉽다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 85,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
     {
       "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 17,
+        "daysLeft": 16,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "능력을 흡수했더니 천재로 착각당했다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 129,
+        "daysLeft": 128,
         "eventBanners": [],
         "notices": []
       }
@@ -30,7 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 81,
+        "daysLeft": 80,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +74,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 34,
+        "daysLeft": 33,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "EX급 농사 스킬인데 무림 최강들이 내게 집착한..",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
@@ -52,18 +96,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 99,
+        "daysLeft": 98,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무신급 점소이가 되었다 [독점]",
+      "title": "물거품이 되기 전에 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 48,
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 66,
         "eventBanners": [],
         "notices": []
       }
@@ -80,12 +124,12 @@
       }
     },
     {
-      "title": "스캔들 메이커가 돌아왔다 [독점]",
+      "title": "40대 김 과장 유일한 마법사가 되었다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 135,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
@@ -96,7 +140,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 46,
+        "daysLeft": 45,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무신급 점소이가 되었다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 47,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "스캔들 메이커가 돌아왔다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 134,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 6,
         "eventBanners": [],
         "notices": []
       }
@@ -113,67 +190,23 @@
       }
     },
     {
-      "title": "회사원이 부업을 잘함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "비자발적 종신 독재자",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
       "title": "현질무신 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 159,
+        "daysLeft": 158,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "하남자의 탑 공략법",
+      "title": "더 위치 [독점]",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 7,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "물거품이 되기 전에 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 5,
-        "daysLeft": 67,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "재해급 각성자가 된 쌍둥이 아빠",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 20,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -184,40 +217,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 136,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "물려받은 반찬가게에 거물들이 몰려온다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "군필 여배우가 전투력을 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 81,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위기감지 능력을 알았더니 돈이 미쳤다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 7,
+        "daysLeft": 135,
         "eventBanners": [],
         "notices": []
       }
