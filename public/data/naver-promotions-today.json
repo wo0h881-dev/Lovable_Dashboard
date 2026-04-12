@@ -1,25 +1,14 @@
 {
-  "date": "2026-04-11",
+  "date": "2026-04-12",
   "platform": "naver",
   "items": [
-    {
-      "title": "검술 천재는 마법이 너무 쉽다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 85,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
     {
       "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 16,
+        "daysLeft": 15,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +19,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "능력을 흡수했더니 천재로 착각당했다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -52,40 +30,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 128,
+        "daysLeft": 127,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "회사에서 건물주인 걸 안 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 80,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 33,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "EX급 농사 스킬인데 무림 최강들이 내게 집착한..",
+      "title": "능력을 흡수했더니 천재로 착각당했다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -96,18 +52,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 98,
+        "daysLeft": 97,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "물거품이 되기 전에 [독점]",
+      "title": "EX급 농사 스킬인데 무림 최강들이 내게 집착한..",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 32,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사에서 건물주인 걸 안 숨김",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
-        "freeEpisodes": 5,
-        "daysLeft": 66,
+        "freeEpisodes": 25,
+        "daysLeft": 79,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "달동네 천재 작가",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 100,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -124,12 +113,34 @@
       }
     },
     {
-      "title": "40대 김 과장 유일한 마법사가 되었다",
+      "title": "검술 천재는 마법이 너무 쉽다 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 혀를 얻었다",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 100,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "물거품이 되기 전에 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 65,
         "eventBanners": [],
         "notices": []
       }
@@ -140,18 +151,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 45,
+        "daysLeft": 44,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무신급 점소이가 되었다 [독점]",
+      "title": "비서 자격 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 47,
+        "freeEpisodes": 5,
+        "daysLeft": 106,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "40대 김 과장 유일한 마법사가 되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -162,62 +184,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 134,
+        "daysLeft": 133,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "하남자의 탑 공략법",
+      "title": "남편 도둑 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 6,
+        "freeEpisodes": 3,
+        "daysLeft": 93,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "악당의 경영학 [독점]",
-      "promotion": {
-        "timeFreeType": "pass",
-        "tag": "시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "현질무신 [독점]",
+      "title": "무신급 점소이가 되었다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 158,
+        "daysLeft": 46,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "더 위치 [독점]",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 20,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "화산귀환 [독점]",
+      "title": "다 해 주는 검사님 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 135,
+        "freeEpisodes": 5,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
