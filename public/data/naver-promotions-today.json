@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-12",
+  "date": "2026-04-13",
   "platform": "naver",
   "items": [
     {
@@ -8,18 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 15,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 14,
         "eventBanners": [],
         "notices": []
       }
@@ -30,29 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 127,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "능력을 흡수했더니 천재로 착각당했다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "공작님의 아이만 필요합니다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 97,
+        "daysLeft": 126,
         "eventBanners": [],
         "notices": []
       }
@@ -63,7 +30,40 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "능력을 흡수했더니 천재로 착각당했다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 96,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -74,29 +74,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 32,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사에서 건물주인 걸 안 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 79,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "달동네 천재 작가",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "프로모션",
-        "freeEpisodes": 100,
-        "daysLeft": null,
+        "daysLeft": 31,
         "eventBanners": [],
         "notices": []
       }
@@ -113,67 +91,12 @@
       }
     },
     {
-      "title": "검술 천재는 마법이 너무 쉽다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 84,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전능의 혀를 얻었다",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "프로모션",
-        "freeEpisodes": 100,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "물거품이 되기 전에 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 5,
-        "daysLeft": 65,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전능의 뇌를 얻었다",
+      "title": "회사에서 건물주인 걸 안 숨김",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 44,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "비서 자격 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 106,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "40대 김 과장 유일한 마법사가 되었다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 78,
         "eventBanners": [],
         "notices": []
       }
@@ -184,6 +107,72 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
+        "daysLeft": 132,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 뇌를 얻었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 43,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "약먹는 천재마법사",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "광고보고무료",
+        "freeEpisodes": 100,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "물려받은 반찬가게에 거물들이 몰려온다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 80,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "물거품이 되기 전에 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 64,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "화산귀환 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
         "daysLeft": 133,
         "eventBanners": [],
         "notices": []
@@ -195,7 +184,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 3,
-        "daysLeft": 93,
+        "daysLeft": 92,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "현질무신 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 156,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +206,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 46,
+        "daysLeft": 45,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "다 해 주는 검사님 [독점]",
+      "title": "극단적 연애사 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 77,
+        "daysLeft": 124,
         "eventBanners": [],
         "notices": []
       }
