@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "platform": "kakao",
   "items": [
     {
@@ -20,21 +20,13 @@
       }
     },
     {
-      "title": "탑의 지하 1층을 상속받았다",
+      "title": "탑 아이돌 삼촌이 넷이나 생김",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
-            "title": "탑의 지하 1층을 상…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "탑 아이돌 삼촌이 넷…",
+            "subtitle": "시즌1 완결! 지금 정주행"
           }
         ],
         "notices": []
@@ -48,6 +40,36 @@
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "탑의 지하 1층을 상속받았다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "탑의 지하 1층을 상…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "어느 날 엄마를 주웠다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "취향 저격",
+            "subtitle": "모두에게 캐시 선물"
           }
         ],
         "notices": []
@@ -80,6 +102,49 @@
       }
     },
     {
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "마법명가 데릴사위는…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생한 암살자는 검술 천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "마법명가 차남으로 살아남는 법",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -91,19 +156,6 @@
           {
             "title": "여의주 하드모드 이벤트",
             "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -131,22 +183,9 @@
       }
     },
     {
-      "title": "악당을 납치한 5살 스파이입니다",
+      "title": "은해상단 막내아들",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "환생한 암살자는 검술 천재",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -168,31 +207,17 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "한의사, 무림에서 돌아왔습니다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "마법명가 데릴사위는 초월급 소드마스터",
-      "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           },
           {
-            "title": "마법명가 데릴사위는…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -212,15 +237,16 @@
       }
     },
     {
-      "title": "나는 이 빙의를 끝내려 한다",
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
       "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "완결 이벤트",
-            "subtitle": "전원 캐시 선물"
-          }
-        ],
         "notices": []
       }
     },
@@ -238,31 +264,13 @@
       }
     },
     {
-      "title": "탑 아이돌 삼촌이 넷이나 생김",
+      "title": "아빠를 교체하는 법",
       "promotion": {
         "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "한의사, 무림에서 돌아왔습니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
