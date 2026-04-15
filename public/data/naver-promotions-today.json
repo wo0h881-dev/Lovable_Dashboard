@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-14",
+  "date": "2026-04-15",
   "platform": "naver",
   "items": [
     {
@@ -8,7 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 30,
+        "daysLeft": 29,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +30,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 125,
+        "daysLeft": 124,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "재벌 후계자는 망하고 싶어",
+      "title": "EX급 농사 스킬인데 무림 최강들이 내게 집착한..",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 84,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
@@ -58,34 +58,23 @@
       }
     },
     {
+      "title": "성기사단의 가이드 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 150,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "능력을 흡수했더니 천재로 착각당했다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 10,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "EX급 농사 스킬인데 무림 최강들이 내게 집착한..",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
@@ -102,45 +91,23 @@
       }
     },
     {
-      "title": "달동네 천재 작가",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "프로모션",
-        "freeEpisodes": 100,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "검은머리 미 CIA 요원 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "공작님의 아이만 필요합니다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 95,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사에서 건물주인 걸 안 숨김",
+      "title": "재벌 후계자는 망하고 싶어",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 77,
+        "daysLeft": 83,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
@@ -151,7 +118,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 42,
+        "daysLeft": 41,
         "eventBanners": [],
         "notices": []
       }
@@ -162,18 +129,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 3,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "호구 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 4,
-        "daysLeft": 144,
+        "daysLeft": 2,
         "eventBanners": [],
         "notices": []
       }
@@ -184,18 +140,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 132,
+        "daysLeft": 131,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "현질무신 [독점]",
+      "title": "공작님의 아이만 필요합니다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 94,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "검은머리 미 CIA 요원 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사에서 건물주인 걸 안 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 155,
+        "daysLeft": 76,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "물려받은 반찬가게에 거물들이 몰려온다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 78,
         "eventBanners": [],
         "notices": []
       }
@@ -206,7 +195,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 44,
+        "daysLeft": 43,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "별똥별에 소원 빌었더니 돈이 미쳤다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }

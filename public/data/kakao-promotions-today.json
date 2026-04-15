@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-14",
+  "date": "2026-04-15",
   "platform": "kakao",
   "items": [
     {
@@ -20,19 +20,6 @@
       }
     },
     {
-      "title": "탑 아이돌 삼촌이 넷이나 생김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "탑 아이돌 삼촌이 넷…",
-            "subtitle": "시즌1 완결! 지금 정주행"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -40,23 +27,6 @@
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "탑의 지하 1층을 상속받았다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "탑의 지하 1층을 상…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -76,12 +46,12 @@
       }
     },
     {
-      "title": "악녀가 정체를 숨겼더니 다들 착각함",
+      "title": "대학원생은 교수님을 암살하고 싶어",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "악녀가 정체를 숨겼더…",
+            "title": "대학원생은 교수님을…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -89,13 +59,13 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "룬의 아이들",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "웹소설 컴백 기념!",
+            "subtitle": "무료 UP + 전원 캐시"
           }
         ],
         "notices": []
@@ -115,17 +85,26 @@
       }
     },
     {
-      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "title": "탑 아이돌 삼촌이 넷이나 생김",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
+            "title": "탑 아이돌 삼촌이 넷…",
+            "subtitle": "시즌1 완결! 지금 정주행"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
           {
-            "title": "마법명가 데릴사위는…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -145,17 +124,17 @@
       }
     },
     {
-      "title": "마법명가 차남으로 살아남는 법",
+      "title": "탑의 지하 1층을 상속받았다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "마법명가 차남으로 살…",
-            "subtitle": "복귀 기념 캐시 이벤트!"
+            "title": "탑의 지하 1층을 상…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -207,17 +186,17 @@
       }
     },
     {
-      "title": "한의사, 무림에서 돌아왔습니다",
+      "title": "마법명가 차남으로 살아남는 법",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "마법명가 차남으로 살…",
+            "subtitle": "복귀 기념 캐시 이벤트!"
           },
           {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
@@ -244,9 +223,19 @@
       }
     },
     {
-      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
+      "title": "마법명가 데릴사위는 초월급 소드마스터",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "마법명가 데릴사위는…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": []
       }
     },
@@ -264,13 +253,30 @@
       }
     },
     {
-      "title": "아빠를 교체하는 법",
+      "title": "한의사, 무림에서 돌아왔습니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "악녀가 정체를 숨겼더니 다들 착각함",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "악녀가 정체를 숨겼더…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
