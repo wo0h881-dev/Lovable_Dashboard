@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-15",
+  "date": "2026-04-16",
   "platform": "naver",
   "items": [
     {
@@ -8,29 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 29,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 124,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +19,40 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 123,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 93,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "빚을 져서라도 세상은 구해야 할 거 아니야 [독..",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 28,
         "eventBanners": [],
         "notices": []
       }
@@ -58,23 +69,12 @@
       }
     },
     {
-      "title": "성기사단의 가이드 [독점]",
+      "title": "화산귀환 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 5,
-        "daysLeft": 150,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "능력을 흡수했더니 천재로 착각당했다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 130,
         "eventBanners": [],
         "notices": []
       }
@@ -91,23 +91,34 @@
       }
     },
     {
-      "title": "재벌 후계자는 망하고 싶어",
+      "title": "능력을 흡수했더니 천재로 착각당했다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
+      "title": "성기사단의 가이드 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 5,
+        "daysLeft": 149,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "귀환한 만렙 서포터는 천재 감정사",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -118,7 +129,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 41,
+        "daysLeft": 40,
         "eventBanners": [],
         "notices": []
       }
@@ -129,51 +140,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "화산귀환 [독점]",
+      "title": "재벌 후계자는 망하고 싶어",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 131,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "숨 막힐 정도로 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 5,
-        "daysLeft": 94,
+        "daysLeft": 68,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "검은머리 미 CIA 요원 [독점]",
+      "title": "쉽다, 쓰레기 산에서 비트코인 십만 개 수집합니..",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 3,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사에서 건물주인 걸 안 숨김",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 76,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
@@ -184,29 +184,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "무신급 점소이가 되었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 43,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "별똥별에 소원 빌었더니 돈이 미쳤다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
@@ -217,6 +195,28 @@
         "timeFreeType": "none",
         "tag": "광고보고무료",
         "freeEpisodes": 100,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무신급 점소이가 되었다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 42,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "더 위치 [독점]",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [],
         "notices": []
