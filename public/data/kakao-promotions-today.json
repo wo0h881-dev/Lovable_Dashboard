@@ -1,7 +1,28 @@
 {
-  "date": "2026-04-16",
+  "date": "2026-04-17",
   "platform": "kakao",
   "items": [
+    {
+      "title": "죽었어야 할 남편이 돌아왔다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "30시간 한정 모두에게",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "죽었어야 할 남편이…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
+          }
+        ],
+        "notices": []
+      }
+    },
     {
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
@@ -33,23 +54,6 @@
       }
     },
     {
-      "title": "오빠의 친구에게",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "오빠의 친구에게",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -59,6 +63,13 @@
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "일격필살의 소드마스터",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -76,37 +87,58 @@
       }
     },
     {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "title": "오빠의 친구에게",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "title": "오빠의 친구에게",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "어느 날 엄마를 주웠다",
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "탑의 지하 1층을 상속받았다",
+      "title": "마법명가 차남으로 살아남는 법",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "탑의 지하 1층을 상…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "마법명가 차남으로 살…",
+            "subtitle": "복귀 기념 캐시 이벤트!"
           },
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
@@ -134,7 +166,7 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
@@ -154,7 +186,40 @@
       }
     },
     {
-      "title": "1년차 만렙 매니저",
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 검귀는 재앙급 이단심문관",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "회귀한 검귀는 재앙급…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "힘숨찐 어린이가 아빠를 찾습니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "한의사, 무림에서 돌아왔습니다",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
@@ -184,30 +249,6 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "마법명가 차남으로 살아남는 법",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "마법명가 차남으로 살…",
-            "subtitle": "복귀 기념 캐시 이벤트!"
-          },
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "마법명가 데릴사위는 초월급 소드마스터",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -221,52 +262,15 @@
       }
     },
     {
-      "title": "룬의 아이들",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "웹소설 컴백 기념!",
-            "subtitle": "무료 UP + 전원 캐시"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "한의사, 무림에서 돌아왔습니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "탑 아이돌 삼촌이 넷이나 생김",
+      "title": "아빠를 교체하는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "탑 아이돌 삼촌이 넷…",
-            "subtitle": "시즌1 완결! 지금 정주행"
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "힘숨찐 어린이가 아빠를 찾습니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "notices": []
       }
     }
