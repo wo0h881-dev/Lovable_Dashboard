@@ -1,7 +1,24 @@
 {
-  "date": "2026-04-17",
+  "date": "2026-04-18",
   "platform": "kakao",
   "items": [
+    {
+      "title": "우리 호텔 정상 영업합니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "게임을 시작하시겠습니까",
+            "subtitle": "지금 체크인하기"
+          },
+          {
+            "title": "정식 론칭 기념!",
+            "subtitle": "특별한 이벤트 준비했어요"
+          }
+        ],
+        "notices": []
+      }
+    },
     {
       "title": "죽었어야 할 남편이 돌아왔다",
       "promotion": {
@@ -18,19 +35,6 @@
           {
             "title": "하트를 받으시겠습니까?",
             "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "마법학교 마법사로 살아가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -54,13 +58,26 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "육아 예능 찍는 막내님은 사랑스러워",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -69,52 +86,22 @@
     {
       "title": "일격필살의 소드마스터",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "환생한 암살자는 검술 천재",
-      "promotion": {
         "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
         "notices": []
       }
     },
     {
-      "title": "오빠의 친구에게",
+      "title": "스무 살, 쿼터백들",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "오빠의 친구에게",
+            "title": "스무 살, 쿼터백들",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
             "title": "하트를 받으시겠습니까?",
             "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "1년차 만렙 매니저",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -128,17 +115,26 @@
       }
     },
     {
-      "title": "마법명가 차남으로 살아남는 법",
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "마법명가 차남으로 살…",
-            "subtitle": "복귀 기념 캐시 이벤트!"
-          },
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -166,45 +162,29 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "초심 잃은 아이돌을 위한 회귀 백서",
+      "title": "오빠의 친구에게",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "오빠의 친구에게",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "title": "창궁운천",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀한 검귀는 재앙급 이단심문관",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "회귀한 검귀는 재앙급…",
+            "title": "창궁운천",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -236,7 +216,37 @@
       }
     },
     {
-      "title": "의원, 다시 살다",
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 검귀는 재앙급 이단심문관",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "회귀한 검귀는 재앙급…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -249,28 +259,9 @@
       }
     },
     {
-      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "title": "전생검신",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "아빠를 교체하는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
         "notices": []
       }
     }
