@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-18",
+  "date": "2026-04-19",
   "platform": "kakao",
   "items": [
     {
@@ -25,10 +25,6 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "30시간 한정 모두에게",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
             "title": "죽었어야 할 남편이…",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
@@ -41,17 +37,17 @@
       }
     },
     {
-      "title": "나 혼자 EX급 소환수",
+      "title": "치킨좌의 게임은 현실이 된다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "이달의 신작 EVENT",
-            "subtitle": "전원 캐시 선물 보기 >"
+            "title": "치킨좌의 게임은 현실…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
           }
         ],
         "notices": []
@@ -71,13 +67,13 @@
       }
     },
     {
-      "title": "육아 예능 찍는 막내님은 사랑스러워",
+      "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
@@ -91,17 +87,30 @@
       }
     },
     {
-      "title": "스무 살, 쿼터백들",
+      "title": "육아 예능 찍는 막내님은 사랑스러워",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "메크로맨서가 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스무 살, 쿼터백들",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물!"
           },
           {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
+            "title": "메크로맨서가 되었다",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -115,6 +124,19 @@
       }
     },
     {
+      "title": "환생한 암살자는 검술 천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -122,19 +144,6 @@
           {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -162,36 +171,6 @@
       }
     },
     {
-      "title": "오빠의 친구에게",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "오빠의 친구에게",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "창궁운천",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "창궁운천",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "힘숨찐 어린이가 아빠를 찾습니다",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -199,47 +178,13 @@
       }
     },
     {
-      "title": "한의사, 무림에서 돌아왔습니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "1년차 만렙 매니저",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀한 검귀는 재앙급 이단심문관",
+      "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "회귀한 검귀는 재앙급…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -259,9 +204,49 @@
       }
     },
     {
+      "title": "룬의 아이들",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "웹소설 컴백 기념!",
+            "subtitle": "무료 UP + 전원 캐시"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
       "title": "전생검신",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "군의관이 계약직 대공비를 너무 잘함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "신마대제",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     }
