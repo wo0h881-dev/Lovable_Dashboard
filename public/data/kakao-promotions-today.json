@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-19",
+  "date": "2026-04-20",
   "platform": "kakao",
   "items": [
     {
@@ -20,40 +20,6 @@
       }
     },
     {
-      "title": "죽었어야 할 남편이 돌아왔다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "죽었어야 할 남편이…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "치킨좌의 게임은 현실이 된다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "치킨좌의 게임은 현실…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -61,6 +27,36 @@
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "내가 버린 아내",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "내가 버린 아내",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "메크로맨서가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물!"
+          },
+          {
+            "title": "메크로맨서가 되었다",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -87,39 +83,32 @@
       }
     },
     {
-      "title": "육아 예능 찍는 막내님은 사랑스러워",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "메크로맨서가 되었다",
+      "title": "죽었어야 할 남편이 돌아왔다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물!"
+            "title": "죽었어야 할 남편이…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
-            "title": "메크로맨서가 되었다",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     },
@@ -137,6 +126,23 @@
       }
     },
     {
+      "title": "치킨좌의 게임은 현실이 된다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "치킨좌의 게임은 현실…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -144,6 +150,80 @@
           {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "한의사, 무림에서 돌아왔습니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "육아 예능 찍는 막내님은 사랑스러워",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -171,82 +251,26 @@
       }
     },
     {
+      "title": "마법명가 차남으로 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "마법명가 차남으로 살…",
+            "subtitle": "복귀 기념 캐시 이벤트!"
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "힘숨찐 어린이가 아빠를 찾습니다",
       "promotion": {
         "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "룬의 아이들",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "웹소설 컴백 기념!",
-            "subtitle": "무료 UP + 전원 캐시"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "전생검신",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "군의관이 계약직 대공비를 너무 잘함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "신마대제",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
         "notices": []
       }
     }
