@@ -1,12 +1,12 @@
 {
-  "date": "2026-04-22",
+  "date": "2026-04-23",
   "platform": "ridi",
   "items": [
     {
       "title": "꽃집 아가씨와 갱스터",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
@@ -98,33 +98,6 @@
       }
     },
     {
-      "title": "졸업은 해야지",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "리다무 10화 무료",
-        "freeEpisodes": 10,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 1장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "10화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 목, 금 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
       "title": "유유상종",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -164,9 +137,6 @@
           },
           {
             "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
-          },
-          {
-            "title": "[100% 당첨] 누구나 매일 1,000포인트 드리는 랜덤티켓!"
           }
         ],
         "notices": [],
@@ -191,8 +161,17 @@
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
+        "eventBanners": [
+          {
+            "title": "[전원 증정] 베지터블 <룰 브레이커(Rule Breaker)> ⏰1시간마다 1화 무료!⏰"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "1시간마다 1화 무료 안내 (4/23)"
+          }
+        ],
         "benefits": [
           {
             "label": "혜택",
@@ -202,7 +181,7 @@
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1시간마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,수,목,금",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -236,6 +215,38 @@
         "ridiFreeLabel": "10화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월,화,수,목,금",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "꽃집 아가씨와 갱스터",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "[전원 증정] 반나나 <꽃집 아가씨와 갱스터> 론칭!"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "론칭 기념 6시간마다 무료 안내 (4/22~4/24)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 1장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "serialSchedule": null,
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -290,16 +301,13 @@
       }
     },
     {
-      "title": "계약의 온도",
+      "title": "졸업은 해야지",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 10화 무료",
+        "tag": "Up 리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
-          {
-            "title": "[전원 랜덤티켓] 외전 공개❤️"
-          },
           {
             "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
           }
@@ -315,20 +323,20 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "10화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
-        "exclusiveText": null
+        "serialSchedule": "매주 월, 화, 목, 금 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
     {
-      "title": "낙양동 정심프라자",
+      "title": "유어 네임(YOUR NAME)",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 10화 무료",
+        "tag": "Up 리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "[전원 랜덤티켓] 외전 공개❤️"
+            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
           }
         ],
         "notices": [],
@@ -342,7 +350,7 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "10화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
+        "serialSchedule": "매주 월, 화, 수, 목, 금 18시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -406,6 +414,41 @@
       }
     },
     {
+      "title": "30호: 다크 서머",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 20화 무료",
+        "freeEpisodes": 20,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "[전원 포인트백] 4월 외전 업데이트"
+          },
+          {
+            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-03-25)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "20화 무료",
+        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "serialSchedule": null,
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "아네트",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -461,38 +504,6 @@
       }
     },
     {
-      "title": "초록 풋보리 추신을 엮어",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 20화 무료",
-        "freeEpisodes": 20,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
-          }
-        ],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "론칭 기념 매일 연재 안내 (4/1~4/30)"
-          }
-        ],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "20화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월,화,수,목,금,토,일 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
       "title": "겨울성에 봄비 일면",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -525,6 +536,61 @@
       }
     },
     {
+      "title": "주제를 아는 결혼",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 수,목,금,토 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "초록 풋보리 추신을 엮어",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 20화 무료",
+        "freeEpisodes": 20,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "론칭 기념 매일 연재 안내 (4/1~4/30)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "20화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월,화,수,목,금,토,일 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "디어 마이 매드 허니(Dear My Mad Honey)",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -549,6 +615,33 @@
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "개 같은 나의 NPC",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "[전원 포인트백] 4월 외전 업데이트"
+          }
+        ],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "serialSchedule": null,
+        "exclusiveText": null
       }
     },
     {
@@ -602,108 +695,6 @@
         "ridiFreeLabel": "20화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매일 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "바텐더는 건들지 말 것",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "안개를 삼킨 나비",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "리다무 20화 무료",
-        "freeEpisodes": 20,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "✨전원 최대 50% 포인트백✨ 로로판 교양서"
-          }
-        ],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "20화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": null,
-        "exclusiveText": null
-      }
-    },
-    {
-      "title": "아기새 카페 타이쿤",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 화, 수, 목, 금 (오후 12시)",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "미궁이 된 회사에서 죽어 나가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "즉시 50% 포인트백! RIDI ONLY <미궁이 된 회사에서 죽어 나가는 법> 론칭"
-          },
-          {
-            "title": "Next Fantasy, RIDI ONLY 판타지"
-          }
-        ],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "15세 이용가 안내"
-          }
-        ],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -793,6 +784,52 @@
       }
     },
     {
+      "title": "백작가의 망나니가 되었다",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [],
+        "ridiWaitFree": false,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": null,
+        "serialSchedule": "매주 월, 수, 금 연재",
+        "exclusiveText": null
+      }
+    },
+    {
+      "title": "미궁이 된 회사에서 죽어 나가는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "즉시 50% 포인트백! RIDI ONLY <미궁이 된 회사에서 죽어 나가는 법> 론칭"
+          },
+          {
+            "title": "Next Fantasy, RIDI ONLY 판타지"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "15세 이용가 안내"
+          }
+        ],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "금손 아빠가 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -807,27 +844,6 @@
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월~금 연재",
         "exclusiveText": null
-      }
-    },
-    {
-      "title": "이 소설은 내 소설이 아니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [
-          {
-            "title": "Next Fantasy, RIDI ONLY 판타지"
-          }
-        ],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월~금 주 5회 오후 7시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
     {
@@ -852,7 +868,7 @@
       }
     },
     {
-      "title": "데뷔부터 바로잡는 밴드생활",
+      "title": "이 소설은 내 소설이 아니다",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "Up 리다무 25화 무료",
@@ -868,7 +884,37 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월,화,수,목,금 연재",
+        "serialSchedule": "매주 월~금 주 5회 오후 7시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "어느 날, 탑이 무너지기 시작했다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 25화 무료",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "Next Fantasy, RIDI ONLY 판타지"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-17)"
+          },
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-15)"
+          }
+        ],
+        "benefits": [],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "25화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -899,24 +945,7 @@
       }
     },
     {
-      "title": "백작가의 망나니가 되었다",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "Up 25화 무료",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
-        "benefits": [],
-        "ridiWaitFree": false,
-        "ridiFreeLabel": "25화 무료",
-        "ridiWaitFreeText": null,
-        "serialSchedule": "매주 월, 수, 금 연재",
-        "exclusiveText": null
-      }
-    },
-    {
-      "title": "세상은 조상(신)님이 구해주시냐",
+      "title": "데뷔부터 바로잡는 밴드생활",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "Up 리다무 25화 무료",
@@ -932,12 +961,12 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 (월, 화, 수, 목, 금) 18시",
+        "serialSchedule": "매주 월,화,수,목,금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
     {
-      "title": "어느 날, 탑이 무너지기 시작했다",
+      "title": "세상은 조상(신)님이 구해주시냐",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "Up 리다무 25화 무료",
@@ -948,16 +977,7 @@
             "title": "Next Fantasy, RIDI ONLY 판타지"
           }
         ],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "도서 파일 교체 안내 (2026-04-17)"
-          },
-          {
-            "label": "공지",
-            "title": "도서 파일 교체 안내 (2026-04-15)"
-          }
-        ],
+        "notices": [],
         "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "25화 무료",
@@ -1018,6 +1038,29 @@
       }
     },
     {
+      "title": "착각으로 구원하라",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 수,목,금,토,일 11시",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
       "title": "절친X교환",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -1042,6 +1085,66 @@
         "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 화, 수, 목, 금 / 오후 6시 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "어쩌다 메리지",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 3화 무료",
+        "freeEpisodes": 3,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "4월 14일 ~ 4월 24일 매일 출간 안내 공지"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "3화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
+        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
+      }
+    },
+    {
+      "title": "풀칠 ; 내 가이드 입에 풀칠하기",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "Up 리다무 20화 무료",
+        "freeEpisodes": 20,
+        "daysLeft": null,
+        "eventBanners": [
+          {
+            "title": "[전원 포인트] 리디 BL 핵심 정리!"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-20)"
+          }
+        ],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 3장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
+        "ridiWaitFree": true,
+        "ridiFreeLabel": "20화 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
+        "serialSchedule": "매주 수, 목, 금, 토, 일 오전 7시",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
@@ -1086,10 +1189,10 @@
       }
     },
     {
-      "title": "꽃길 깔아 주는 선배",
+      "title": "공의 형이 된다는 건",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 3화 무료",
+        "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [],
@@ -1104,22 +1207,22 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월,화,토,일 연재",
+        "serialSchedule": "매주 수,목,금,토,일 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
     {
-      "title": "어쩌다 메리지",
+      "title": "조연을 위한 회귀 지침서",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
+        "tag": "리다무 4화 무료",
+        "freeEpisodes": 4,
         "daysLeft": null,
         "eventBanners": [],
         "notices": [
           {
             "label": "공지",
-            "title": "4월 14일 ~ 4월 24일 매일 출간 안내 공지"
+            "title": "15세 이용가 안내"
           }
         ],
         "benefits": [
@@ -1130,21 +1233,30 @@
           }
         ],
         "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
+        "ridiFreeLabel": "4화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
+        "serialSchedule": "매주 월, 수, 금 오후 2시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
     {
-      "title": "터닝(Turning)",
+      "title": "베이비 스캔들",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 5화 무료",
-        "freeEpisodes": 5,
+        "tag": "Up 리다무 10화 무료",
+        "freeEpisodes": 10,
         "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
+        "eventBanners": [
+          {
+            "title": "[최대 100%] 소금케이크 <베이비 스캔들> 출간!"
+          }
+        ],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-22)"
+          }
+        ],
         "benefits": [
           {
             "label": "혜택",
@@ -1153,30 +1265,7 @@
           }
         ],
         "ridiWaitFree": true,
-        "ridiFreeLabel": "5화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 화, 목, 토 / 19시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "내려앉은 밤",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
+        "ridiFreeLabel": "10화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
@@ -1225,62 +1314,6 @@
         "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 월/화/수/목/금(주5일) 오전 7시",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "킵 고잉 크레이지 (Keep Going Crazy)",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "도서 파일 교체 안내 (2026-04-01)"
-          }
-        ],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월/화/수/목/금 오전 7시 연재",
-        "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
-      }
-    },
-    {
-      "title": "괴담에게 이름을 주지 마세요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
-        "freeEpisodes": 3,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "4월 16일 ~ 4월 24일 매일 출간 안내 공지"
-          }
-        ],
-        "benefits": [
-          {
-            "label": "혜택",
-            "title": "무료이용권 3장 증정",
-            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
-          }
-        ],
-        "ridiWaitFree": true,
-        "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월/화/수/목/금 오전 7시 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     }
