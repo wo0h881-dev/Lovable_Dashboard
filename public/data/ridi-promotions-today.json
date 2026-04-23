@@ -731,7 +731,7 @@
       "title": "은행원도 용꿈을 꾸나요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -933,6 +933,10 @@
         "notices": [
           {
             "label": "공지",
+            "title": "도서 파일 교체 안내 (2026-04-23)"
+          },
+          {
+            "label": "공지",
             "title": "도서 파일 교체 안내 (2026-04-21)"
           }
         ],
@@ -987,19 +991,14 @@
       }
     },
     {
-      "title": "어쩌다 메리지",
+      "title": "천운",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [],
-        "notices": [
-          {
-            "label": "공지",
-            "title": "4월 14일 ~ 4월 24일 매일 출간 안내 공지"
-          }
-        ],
+        "notices": [],
         "benefits": [
           {
             "label": "혜택",
@@ -1010,7 +1009,7 @@
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
-        "serialSchedule": "매주 월, 화, 수, 목, 금 연재",
+        "serialSchedule": "매주 화, 수, 목, 금 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
     },
