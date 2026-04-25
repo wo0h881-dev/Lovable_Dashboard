@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-24",
+  "date": "2026-04-25",
   "platform": "naver",
   "items": [
     {
@@ -8,7 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 5,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 122,
+        "daysLeft": 121,
         "eventBanners": [],
         "notices": []
       }
@@ -30,7 +30,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 115,
+        "daysLeft": 114,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "코인부자 청년가장의 힐링 라이프",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전역했더니 저작권료가 쏟아짐",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "반강제적 제국주의자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -41,29 +74,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 77,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무한 전능의 힘을 얻었다",
+      "title": "결혼당하고 인생이 터졌다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 7,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "초월자들의 창고지기가 되었다",
+      "title": "선협에서 기연 뽑는 미친놈이 되었다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 7,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "방출당한 S급 각성자의 힐링 라이프",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
@@ -80,34 +124,56 @@
       }
     },
     {
-      "title": "검귀가 환생함",
+      "title": "무한 전능의 힘을 얻었다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 81,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 6,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "천재 생명공학자인줄 모르고 미국이 추방함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "EX급 사제인줄 모르고 해고당함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "초월자들의 창고지기가 되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 6,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "영혼을 보는 변호사 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 85,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "미움받는 악역 성녀의 은밀한 침실 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 5,
-        "daysLeft": 150,
+        "freeEpisodes": 50,
+        "daysLeft": 178,
         "eventBanners": [],
         "notices": []
       }
@@ -118,106 +184,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 32,
+        "daysLeft": 31,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "마도서를 줍다 마법사가 되다",
+      "title": "검귀가 환생함",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 1,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "변경백의 10클래스 망나니 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 83,
+        "daysLeft": 80,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "하남자의 탑 공략법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 41,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "스캔들 메이커가 돌아왔다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 121,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "스킬 복사로 날로 먹는다",
+      "title": "미국 깡촌의 보물 사냥꾼",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 7,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "A.I. 닥터 [독점]",
-      "promotion": {
-        "timeFreeType": "pass",
-        "tag": "광고보고무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "화산귀환 특별 외전 [독점]",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "프로모션",
-        "freeEpisodes": 5,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "락희(樂熙) [독점]",
+      "title": "결혼 반격 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 7,
-        "daysLeft": 122,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "빌런인 줄 알았는데 축구 천재였다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 7,
+        "freeEpisodes": 4,
+        "daysLeft": 147,
         "eventBanners": [],
         "notices": []
       }

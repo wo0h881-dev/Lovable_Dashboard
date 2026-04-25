@@ -1,27 +1,14 @@
 {
-  "date": "2026-04-24",
+  "date": "2026-04-25",
   "platform": "kakao",
   "items": [
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "붕어빵으로 S급 헌터 꼬시는 방법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "샛별 아기님은 가족이 갖고 싶어요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "샛별 아기님은 가족이…",
+            "title": "붕어빵으로 S급 헌터…",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
@@ -54,20 +41,30 @@
       }
     },
     {
-      "title": "나 혼자 EX급 소환수",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "샛별 아기님은 가족이 갖고 싶어요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "샛별 아기님은 가족이…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "올데이캐시!",
+            "subtitle": "주말에만 드리는 선물"
           }
         ],
         "notices": []
@@ -93,44 +90,27 @@
           {
             "title": "게임을 시작하시겠습니까",
             "subtitle": "지금 체크인하기"
-          },
-          {
-            "title": "정식 론칭 기념!",
-            "subtitle": "특별한 이벤트 준비했어요"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "악녀실격",
+      "title": "미국 씹어먹는 천재 타자",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "올데이캐시!",
-            "subtitle": "주말에만 드리는 선물"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
           },
           {
-            "title": "악녀실격",
+            "title": "미국 씹어먹는 천재…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "시한부 천재 배우는 회귀했다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
+          },
           {
             "title": "올데이캐시!",
             "subtitle": "주말에만 드리는 선물"
-          },
-          {
-            "title": "시한부 천재 배우는…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
             "title": "여의주 좀 주워주세용",
@@ -141,16 +121,9 @@
       }
     },
     {
-      "title": "일격필살의 소드마스터",
+      "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -193,9 +166,44 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
+      "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "일격필살의 소드마스터",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "죽었어야 할 남편이 돌아왔다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "시한부 천재 배우는 회귀했다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "올데이캐시!",
+            "subtitle": "주말에만 드리는 선물"
+          },
+          {
+            "title": "시한부 천재 배우는…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
         "notices": []
       }
     },
@@ -213,7 +221,20 @@
       }
     },
     {
-      "title": "메크로맨서가 되었다",
+      "title": "망나니 PD 아이돌로 살아남기",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "화려한 굿즈 라인업",
+            "subtitle": "더 던 컴백 기념"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "악녀실격",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -222,11 +243,7 @@
             "subtitle": "주말에만 드리는 선물"
           },
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          },
-          {
-            "title": "메크로맨서가 되었다",
+            "title": "악녀실격",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -234,10 +251,14 @@
       }
     },
     {
-      "title": "멸망한 세계의 4급 인간",
+      "title": "너에게 빼앗을 왕관",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
+          {
+            "title": "🐣웹덕이 키우기🐣",
+            "subtitle": "웹덕이의 주인이 되어주세요"
+          },
           {
             "title": "4월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
@@ -247,10 +268,18 @@
       }
     },
     {
-      "title": "아빠를 교체하는 법",
+      "title": "1조원 못 모으면 회귀 종료돼 ",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "랭바서 톄제 작가의",
+            "subtitle": "따끈따끈 신작 보러가기"
+          },
+          {
+            "title": "초신작 아카이빙",
+            "subtitle": "모두에게 캐시 선물"
+          },
           {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
@@ -260,35 +289,16 @@
       }
     },
     {
-      "title": "환생한 암살자는 검술 천재",
+      "title": "힘숨찐 어린이가 아빠를 찾습니다",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
     {
-      "title": "네크로맨서 학교의 소환천재",
+      "title": "힘을 숨기고 즐기는 평화로운 하녀 생활",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "1년차 만렙 매니저",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
+        "timeFreeType": "threeHour",
         "notices": []
       }
     }
