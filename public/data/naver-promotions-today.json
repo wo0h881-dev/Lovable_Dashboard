@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-25",
+  "date": "2026-04-26",
   "platform": "naver",
   "items": [
     {
@@ -8,7 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 4,
+        "daysLeft": 3,
         "eventBanners": [],
         "notices": []
       }
@@ -19,18 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 121,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 114,
+        "daysLeft": 120,
         "eventBanners": [],
         "notices": []
       }
@@ -41,40 +30,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전역했더니 저작권료가 쏟아짐",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "반강제적 제국주의자",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "눈떠보니 의료재벌 침술명의가 되었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 76,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -85,29 +41,62 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "선협에서 기연 뽑는 미친놈이 되었다",
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 113,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "방출당한 S급 각성자의 힐링 라이프",
+      "title": "반강제적 제국주의자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시골 촌놈이 노래를 너무 잘함 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전역했더니 저작권료가 쏟아짐",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "눈떠보니 의료재벌 침술명의가 되었다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 75,
         "eventBanners": [],
         "notices": []
       }
@@ -124,78 +113,23 @@
       }
     },
     {
-      "title": "무한 전능의 힘을 얻었다",
+      "title": "선협에서 기연 뽑는 미친놈이 되었다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 6,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "천재 생명공학자인줄 모르고 미국이 추방함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "EX급 사제인줄 모르고 해고당함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "초월자들의 창고지기가 되었다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 6,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "영혼을 보는 변호사 [독점]",
+      "title": "공작님의 아이만 필요합니다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 178,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전능의 뇌를 얻었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 31,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "검귀가 환생함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 80,
+        "freeEpisodes": 5,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +140,84 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "결혼 반격 [독점]",
+      "title": "애증의 간극 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 4,
-        "daysLeft": 147,
+        "freeEpisodes": 6,
+        "daysLeft": 77,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 생명공학자인줄 모르고 미국이 추방함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무한 전능의 힘을 얻었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "어린 아내와 밤마다 [선공개]",
+      "promotion": {
+        "timeFreeType": "pass",
+        "tag": "프리패스",
+        "freeEpisodes": 25,
+        "daysLeft": 6,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 뇌를 얻었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 30,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "검귀가 환생함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 79,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "EX급 사제인줄 모르고 해고당함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
