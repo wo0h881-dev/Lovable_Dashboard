@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-27",
+  "date": "2026-04-28",
   "platform": "naver",
   "items": [
     {
@@ -8,7 +8,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
@@ -19,18 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 119,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "결혼당하고 인생이 터졌다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 118,
         "eventBanners": [],
         "notices": []
       }
@@ -41,18 +30,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 112,
+        "daysLeft": 111,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "주인공의 히로인을 주웠다 [독점]",
+      "title": "즉사기 들고 무림에 떨어지다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "변경백의 10클래스 망나니 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 79,
         "eventBanners": [],
         "notices": []
       }
@@ -63,51 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 100,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "코인부자 청년가장의 힐링 라이프",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "반강제적 제국주의자",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 3,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전역했더니 저작권료가 쏟아짐",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "선협에서 기연 뽑는 미친놈이 되었다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -124,12 +80,34 @@
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "결혼당하고 인생이 터졌다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "반강제적 제국주의자",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 82,
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 2,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "코인부자 청년가장의 힐링 라이프",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -140,29 +118,73 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 74,
+        "daysLeft": 73,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "어린 아내와 밤마다 [선공개]",
+      "title": "선협에서 기연 뽑는 미친놈이 되었다",
       "promotion": {
-        "timeFreeType": "pass",
-        "tag": "프리패스",
-        "freeEpisodes": 25,
-        "daysLeft": 5,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "변경백의 10클래스 망나니 [독점]",
+      "title": "주인공의 히로인을 주웠다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 80,
+        "daysLeft": 83,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전역했더니 저작권료가 쏟아짐",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 81,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "잘생겨졌더니 드디어 천재배우랍니다 제가",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "미국 깡촌의 보물 사냥꾼",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -179,45 +201,23 @@
       }
     },
     {
-      "title": "미국 깡촌의 보물 사냥꾼",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "잘생겨졌더니 드디어 천재배우랍니다 제가",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "창조신으로 각성했다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
       "title": "하남자의 탑 공략법",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 38,
+        "daysLeft": 37,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "방출당한 S급 각성자의 힐링 라이프",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }

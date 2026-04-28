@@ -1,7 +1,24 @@
 {
-  "date": "2026-04-27",
+  "date": "2026-04-28",
   "platform": "kakao",
   "items": [
+    {
+      "title": "미국 씹어먹는 천재 타자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "미국 씹어먹는 천재…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
+        "notices": []
+      }
+    },
     {
       "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
@@ -37,30 +54,26 @@
       }
     },
     {
-      "title": "미국 씹어먹는 천재 타자",
+      "title": "백호 가문의 아기 솜뭉치",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "미국 씹어먹는 천재…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
+            "title": "웹툰 선공개 EVENT",
+            "subtitle": "최대 1만 캐시 선물!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "나 혼자 EX급 소환수",
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -80,28 +93,26 @@
       }
     },
     {
-      "title": "이 황제는 결혼 사기를 칩니다",
+      "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "소환물 인기작 모음!",
+            "subtitle": "감상하면 최대 5천 캐시!"
+          }
+        ],
         "notices": []
       }
     },
     {
-      "title": "우리 호텔 정상 영업합니다",
+      "title": "어림없는 연애",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "우호정이 궁금하다면?",
-            "subtitle": "댓글 남겨주세요!"
-          },
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          },
-          {
-            "title": "게임을 시작하시겠습니까",
-            "subtitle": "지금 체크인하기"
+            "title": "어림없는 연애",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -115,42 +126,70 @@
       }
     },
     {
-      "title": "환생한 암살자는 검술 천재",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "이 가문은 막내가 살립니다",
+      "title": "일격필살의 소드마스터",
       "promotion": {
         "timeFreeType": "threeHour",
         "notices": []
       }
     },
     {
-      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "title": "우리 호텔 정상 영업합니다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
             "title": "여의주 좀 주워주세용",
             "subtitle": "인기작 보면 캐시 드려용!"
+          },
+          {
+            "title": "게임을 시작하시겠습니까",
+            "subtitle": "지금 체크인하기"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이 황제는 결혼 사기를 칩니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "네크로맨서 학교의 소환천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "소환물 인기작 모음!",
+            "subtitle": "감상하면 최대 5천 캐시!"
+          },
+          {
+            "title": "4월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -176,9 +215,9 @@
       }
     },
     {
-      "title": "전설급 영웅은 아카데미 우등생",
+      "title": "국정원 요원 천재배우로 환생",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "4월의 스탬프 투어!",
@@ -189,21 +228,27 @@
       }
     },
     {
-      "title": "일격필살의 소드마스터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
+      "title": "환생한 암살자는 검술 천재",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "의원, 다시 살다",
+      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -212,43 +257,6 @@
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "네크로맨서 학교의 소환천재",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "망나니 PD 아이돌로 살아남기",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "화려한 굿즈 라인업",
-            "subtitle": "더 던 컴백 기념"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀자 멱살 잡고 데뷔합니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
         "notices": []
       }
     }
