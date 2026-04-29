@@ -1,36 +1,19 @@
 {
-  "date": "2026-04-28",
+  "date": "2026-04-29",
   "platform": "kakao",
   "items": [
     {
-      "title": "미국 씹어먹는 천재 타자",
+      "title": "복수의 여왕",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "미국 씹어먹는 천재…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "고립된 후작 영애는…",
-            "subtitle": "2부 복귀 전 정주행!"
-          },
-          {
-            "title": "초신작 아카이빙",
+            "title": "초신작 오픈런",
             "subtitle": "모두에게 캐시 선물"
+          },
+          {
+            "title": "복수의 여왕",
+            "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
             "title": "카카오페이지 초신작",
@@ -67,6 +50,40 @@
       }
     },
     {
+      "title": "미국 씹어먹는 천재 타자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "미국 씹어먹는 천재…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "고립된 후작 영애는…",
+            "subtitle": "2부 복귀 전 정주행!"
+          },
+          {
+            "title": "초신작 아카이빙",
+            "subtitle": "모두에게 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -74,6 +91,26 @@
           {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "일격필살의 소드마스터",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "우리 호텔 정상 영업합니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "게임을 시작하시겠습니까",
+            "subtitle": "지금 체크인하기"
           }
         ],
         "notices": []
@@ -93,6 +130,30 @@
       }
     },
     {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "OTT 씹어먹는 천재 디렉터",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 아카이빙",
+            "subtitle": "모두에게 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -102,70 +163,6 @@
             "subtitle": "감상하면 최대 5천 캐시!"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "어림없는 연애",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "어림없는 연애",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "일격필살의 소드마스터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "우리 호텔 정상 영업합니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          },
-          {
-            "title": "게임을 시작하시겠습니까",
-            "subtitle": "지금 체크인하기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "이 황제는 결혼 사기를 칩니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -187,6 +184,13 @@
       }
     },
     {
+      "title": "환생한 암살자는 검술 천재",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
       "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -194,30 +198,9 @@
       }
     },
     {
-      "title": "OTT 씹어먹는 천재 디렉터",
+      "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          },
-          {
-            "title": "초신작 아카이빙",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "국정원 요원 천재배우로 환생",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "4월의 스탬프 투어!",
@@ -228,20 +211,26 @@
       }
     },
     {
-      "title": "환생한 암살자는 검술 천재",
+      "title": "자동 루팅 범위가 너무 넓음",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "총 2.4억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     },
     {
-      "title": "마법명가 데릴사위는 초월급 소드마스터",
+      "title": "아빠를 교체하는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -257,6 +246,13 @@
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "힘숨찐 어린이가 아빠를 찾습니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     }
