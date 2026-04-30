@@ -8,7 +8,6 @@ import {
   type UnifiedNovel,
 } from "@/lib/rankingScore";
 
-const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL as string;
 const PROMO_API_KAKAO = "/api/promotions/kakao-today";
 const PROMO_API_NAVER = "/api/promotions/naver-today";
 const PROMO_API_RIDI = "/api/promotions/ridi-today";
@@ -452,10 +451,6 @@ async function fetchPromotionMap(
 }
 
 async function fetchTodayCombinedRaw(): Promise<TodayCombinedRawData> {
-  if (!APPS_SCRIPT_URL) {
-    throw new Error("VITE_APPS_SCRIPT_URL 미설정");
-  }
-
   const [rowsRes, kakaoPromoMap, naverPromoMap, ridiPromoMap] =
     await Promise.all([
       fetch("/api/rankings?action=getTodayCombined"),
@@ -469,9 +464,27 @@ async function fetchTodayCombinedRaw(): Promise<TodayCombinedRawData> {
   }
 
   const rows = (await rowsRes.json()) as TodayCombinedRow[];
-  const dates = Array.from(new Set(rows.map((r) => r.날짜).filter(Boolean))).sort().reverse();
+  const dates = getAvailableDates(rows);
 
   return { rows, kakaoPromoMap, naverPromoMap, ridiPromoMap, dates };
+}
+
+function getAvailableDates(rows: TodayCombinedRow[]): string[] {
+  const dates = new Set<string>();
+
+  for (const row of rows) {
+    if (row.날짜) dates.add(row.날짜);
+
+    for (const history of row.rankHistory ?? []) {
+      if (history?.date) dates.add(history.date);
+    }
+
+    for (const history of row.viewsHistory ?? []) {
+      if (history?.date) dates.add(history.date);
+    }
+  }
+
+  return Array.from(dates).sort().reverse();
 }
 
 function getDateLimit(dateRange: DateRange): number {
@@ -494,6 +507,16 @@ function getLatestRow(rows: TodayCombinedRow[]): TodayCombinedRow {
     if (dateDiff !== 0) return dateDiff;
     return (parseInt(String(a.오늘순위), 10) || 999) - (parseInt(String(b.오늘순위), 10) || 999);
   })[0];
+}
+
+function rowHasSelectedDate(row: TodayCombinedRow, selectedDateSet: Set<string>): boolean {
+  if (row.날짜 && selectedDateSet.has(row.날짜)) return true;
+  if ((row.rankHistory ?? []).some((history) => history?.date && selectedDateSet.has(history.date))) {
+    return true;
+  }
+  return (row.viewsHistory ?? []).some(
+    (history) => history?.date && selectedDateSet.has(history.date),
+  );
 }
 
 function mergePromotionForNovel(
@@ -619,6 +642,11 @@ function mapRowToNovel(
       : prevViewsNumber > 0
         ? (rangeViewsChange / prevViewsNumber) * 100
         : 0;
+  const firstRank = rankHistory.find((h) => h.rank !== null)?.rank ?? null;
+  const latestRank =
+    [...rankHistory].reverse().find((h) => h.rank !== null)?.rank ?? todayRank;
+  const rangeRankChange =
+    firstRank !== null && latestRank !== null ? firstRank - latestRank : rankChange;
 
   return {
     id: `${platform}-${row.제목}-${todayRank}`,
@@ -629,8 +657,8 @@ function mapRowToNovel(
     platform,
     thumbnailUrl: row.썸네일 && row.썸네일 !== "-" ? row.썸네일 : undefined,
     todayRank,
-    prevRank: row.전일순위 === "NEW" ? null : parseInt(String(row.전일순위), 10),
-    rankChange,
+    prevRank: firstRank,
+    rankChange: rangeRankChange,
     isNew,
     isReEntry,
     todayViews: lastViews,
@@ -669,7 +697,7 @@ function buildScoredNovels(
   const groupedRows = new Map<string, TodayCombinedRow[]>();
 
   for (const row of rawData.rows) {
-    if (!selectedDateSet.has(row.날짜)) continue;
+    if (!rowHasSelectedDate(row, selectedDateSet)) continue;
     const key = getIdentity(row);
     const group = groupedRows.get(key);
     if (group) group.push(row);
