@@ -458,7 +458,7 @@ async function fetchTodayCombinedRaw(): Promise<TodayCombinedRawData> {
 
   const [rowsRes, kakaoPromoMap, naverPromoMap, ridiPromoMap] =
     await Promise.all([
-      fetch(`${APPS_SCRIPT_URL}?action=getTodayCombined`),
+      fetch("/api/rankings?action=getTodayCombined"),
       fetchPromotionMap(PROMO_API_KAKAO, "kakao"),
       fetchPromotionMap(PROMO_API_NAVER, "naver"),
       fetchPromotionMap(PROMO_API_RIDI, "ridi"),
