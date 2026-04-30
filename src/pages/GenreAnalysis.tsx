@@ -15,7 +15,8 @@ import { RankingCard } from "@/components/shared/RankingCard";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { RankChange } from "@/components/shared/RankChange";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import { formatViews, type Novel, type Genre } from "@/data/mockData";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 
@@ -41,7 +42,9 @@ const genreColors: Record<string, string> = {
 };
 
 export default function GenrePage() {
-  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined(dateRange);
   const [selectedGenre, setSelectedGenre] = useState<Genre | "전체">("전체");
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
@@ -110,7 +113,7 @@ export default function GenrePage() {
       <div>
         <h1 className="text-xl font-black tracking-tight">장르 분석</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {latestDate} 기준 · 총 {novels.length}개 작품
+          {latestDate} 기준 · {periodLabel} · 총 {novels.length}개 작품
         </p>
       </div>
 

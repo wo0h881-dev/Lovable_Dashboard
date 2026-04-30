@@ -15,7 +15,8 @@ import { RankChange } from "@/components/shared/RankChange";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { type Novel, type Platform, type Genre } from "@/data/mockData";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import {
   computeUnifiedScore,
   computeTrendScore,
@@ -155,6 +156,8 @@ function getRankingPromoBadge(novel: Novel): PromoBadge {
 }
 
 export default function RankingsPage() {
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
   const [platform, setPlatform] = useState<PlatformTab>("all");
   const [genre, setGenre] = useState<Genre | "전체">("전체");
   const [showNew, setShowNew] = useState(false);
@@ -169,7 +172,7 @@ export default function RankingsPage() {
     isLoading,
     error,
     latestDate,
-  } = useTodayCombined();
+  } = useTodayCombined(dateRange);
 
   const sourceNovels: Novel[] =
     combinedNovels && combinedNovels.length > 0 ? combinedNovels : [];
@@ -228,7 +231,7 @@ export default function RankingsPage() {
       <div>
         <h1 className="text-xl font-black tracking-tight">순위표</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          플랫폼 · 장르별 상세 랭킹
+          {periodLabel} 기준 · 플랫폼 · 장르별 상세 랭킹
         </p>
         {isLoading && (
           <p className="text-[10px] text-muted-foreground mt-0.5">

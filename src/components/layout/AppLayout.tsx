@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Header, type DateRange, type PlatformFilter } from "./Header";
+import { Header } from "./Header";
 import { Sidebar, type SidebarMode } from "./Sidebar";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { useTodayCombined, type DateRange } from "@/hooks/useTodayCombined";
 import { cn } from "@/lib/utils";
 
 interface AppLayoutProps {
@@ -13,7 +13,6 @@ interface AppLayoutProps {
 export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
   const [sidebarMode, setSidebarMode] = useState<SidebarMode>("expanded");
   const [dateRange, setDateRange] = useState<DateRange>("today");
-  const [platform, setPlatform] = useState<PlatformFilter>("all");
 
   const { latestDate } = useTodayCombined();
 
@@ -25,9 +24,7 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
     <div className="min-h-screen bg-background">
       <Header
         dateRange={dateRange}
-        platform={platform}
         onDateRangeChange={setDateRange}
-        onPlatformChange={setPlatform}
         isDark={isDark}
         onToggleTheme={onToggleTheme}
         latestDate={latestDate}
@@ -45,7 +42,7 @@ export function AppLayout({ isDark, onToggleTheme }: AppLayoutProps) {
         )}
       >
         <div className="p-3 md:p-6">
-          <Outlet context={{ dateRange, platform, latestDate }} />
+          <Outlet context={{ dateRange, latestDate }} />
         </div>
       </main>
     </div>

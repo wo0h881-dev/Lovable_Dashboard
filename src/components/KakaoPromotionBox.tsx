@@ -7,17 +7,18 @@ interface Props {
 export function KakaoPromotionBox({ promotion }: Props) {
   if (!promotion) return null;
 
-  const { eventTitle, eventSubtitle, notices } = promotion;
+  const mainBanner = promotion.eventBanners?.[0];
+  const notices = promotion.notices;
 
-  if (!eventTitle && !notices?.length) return null;
+  if (!mainBanner && !notices?.length) return null;
 
   return (
     <div className="mt-4 space-y-3">
-      {eventTitle && (
+      {mainBanner && (
         <div className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-2 text-xs text-white">
-          <div className="font-semibold">{eventTitle}</div>
-          {eventSubtitle && (
-            <div className="opacity-80">{eventSubtitle}</div>
+          <div className="font-semibold">{mainBanner.title}</div>
+          {mainBanner.subtitle && (
+            <div className="opacity-80">{mainBanner.subtitle}</div>
           )}
         </div>
       )}

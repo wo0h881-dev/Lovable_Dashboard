@@ -27,7 +27,8 @@ import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import { type Novel } from "@/data/mockData";
 import { computeNovelStats } from "@/lib/novelStats";
 
@@ -673,7 +674,9 @@ function FixedTrendDetailPanel({
 }
 
 export default function TrendsPage() {
-  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined(dateRange);
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Novel[]>([]);
   const [drawerNovel, setDrawerNovel] = useState<Novel | null>(null);
@@ -775,7 +778,7 @@ export default function TrendsPage() {
       <div>
         <h1 className="text-xl font-black tracking-tight">트렌드</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {latestDate} 기준 · 작품별 순위/조회수 추이 및 트렌드 분석
+          {latestDate} 기준 · {periodLabel} · 작품별 순위/조회수 추이 및 트렌드 분석
         </p>
       </div>
 

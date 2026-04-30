@@ -475,7 +475,7 @@ export function NovelDetailDrawer({
       .map((d) => d.views)
       .filter((v): v is number => v !== null && v > 0);
 
-    if (vals.length === 0) return ["auto", "auto"] as const;
+    if (vals.length === 0) return ["auto", "auto"] as [string, string];
 
     const min = Math.min(...vals);
     const max = Math.max(...vals);

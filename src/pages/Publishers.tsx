@@ -14,7 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 import { RankingCard } from "@/components/shared/RankingCard";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import { LoadingScreen } from "@/components/shared/LoadingScreen";
 import { type Novel } from "@/data/mockData";
 
@@ -45,7 +46,9 @@ function toKoreanUnit(n: number): string {
 }
 
 export default function PublishersPage() {
-  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined(dateRange);
   const [search, setSearch] = useState("");
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
@@ -148,7 +151,7 @@ export default function PublishersPage() {
       <div>
         <h1 className="text-xl font-black tracking-tight">출판사</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {latestDate} 기준 · 총 {publisherStats.length}개 출판사
+          {latestDate} 기준 · {periodLabel} · 총 {publisherStats.length}개 출판사
         </p>
       </div>
 

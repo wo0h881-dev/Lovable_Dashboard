@@ -1,4 +1,4 @@
-import { Calendar, ChevronDown, Filter, Sun, Moon, Menu } from "lucide-react";
+import { Calendar, ChevronDown, Sun, Moon, Menu } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,46 +6,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-export type DateRange = "today" | "7d" | "30d";
-export type PlatformFilter = "all" | "naver" | "kakao" | "ridi";
+import { dateRangeLabels, type DateRange } from "@/hooks/useTodayCombined";
 
 interface Props {
   dateRange: DateRange;
-  platform: PlatformFilter;
   onDateRangeChange: (v: DateRange) => void;
-  onPlatformChange: (v: PlatformFilter) => void;
   isDark?: boolean;
   onToggleTheme?: () => void;
   latestDate?: string;
   onToggleSidebar?: () => void;
 }
 
-const dateLabels: Record<DateRange, string> = {
-  today: "오늘",
-  "7d": "최근 7일",
-  "30d": "최근 30일",
-};
-
-const platformLabels: Record<PlatformFilter, string> = {
-  all: "전체",
-  naver: "네이버",
-  kakao: "카카오",
-  ridi: "리디",
-};
-
-const platformColors: Record<PlatformFilter, string> = {
-  all: "text-foreground",
-  naver: "text-naver",
-  kakao: "text-kakao",
-  ridi: "text-ridi",
-};
-
 export function Header({
   dateRange,
-  platform,
   onDateRangeChange,
-  onPlatformChange,
   isDark,
   onToggleTheme,
   latestDate,
@@ -96,13 +70,13 @@ export function Header({
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors text-foreground">
               <Calendar size={13} className="text-muted-foreground shrink-0" />
-              <span className="hidden sm:inline">{dateLabels[dateRange]}</span>
-              <span className="sm:hidden">오늘</span>
+              <span className="hidden sm:inline">{dateRangeLabels[dateRange]}</span>
+              <span className="sm:hidden">{dateRangeLabels[dateRange]}</span>
               <ChevronDown size={12} className="text-muted-foreground shrink-0" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-surface border-border">
-            {(Object.keys(dateLabels) as DateRange[]).map((k) => (
+            {(Object.keys(dateRangeLabels) as DateRange[]).map((k) => (
               <DropdownMenuItem
                 key={k}
                 onClick={() => onDateRangeChange(k)}
@@ -111,35 +85,7 @@ export function Header({
                   dateRange === k && "text-primary font-semibold",
                 )}
               >
-                {dateLabels[k]}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-1.5 px-2.5 md:px-3 py-1.5 rounded-lg text-xs font-medium border border-border bg-surface hover:bg-surface-elevated transition-colors">
-              <Filter size={13} className="text-muted-foreground shrink-0" />
-              <span className={cn(platformColors[platform], "hidden sm:inline")}>
-                {platformLabels[platform]}
-              </span>
-              <span className={cn(platformColors[platform], "sm:hidden")}>전체</span>
-              <ChevronDown size={12} className="text-muted-foreground shrink-0" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-surface border-border">
-            {(Object.keys(platformLabels) as PlatformFilter[]).map((k) => (
-              <DropdownMenuItem
-                key={k}
-                onClick={() => onPlatformChange(k)}
-                className={cn(
-                  "text-xs cursor-pointer",
-                  platformColors[k],
-                  platform === k && "font-semibold",
-                )}
-              >
-                {platformLabels[k]}
+                {dateRangeLabels[k]}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

@@ -16,7 +16,8 @@ import {
   Edit2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { type Novel } from "@/data/mockData";
@@ -782,7 +783,9 @@ export default function ReadingGoalsPage() {
   }
 }
   
-  const { data: sourceData, latestDate } = useTodayCombined();
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
+  const { data: sourceData, latestDate } = useTodayCombined(dateRange);
   const novels: Novel[] = sourceData ?? [];
 
   const [goals, setGoals] = useState<ReadingGoal[]>(loadGoals);
@@ -947,7 +950,7 @@ export default function ReadingGoalsPage() {
       <div>
         <h1 className="text-xl font-black tracking-tight">독서 목표</h1>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {latestDate} 기준 · 나만의 책장 & 독서 계획
+          {latestDate} 기준 · {periodLabel} · 나만의 책장 & 독서 계획
         </p>
       </div>
 

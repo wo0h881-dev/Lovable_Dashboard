@@ -28,7 +28,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Novel } from "@/data/mockData";
-import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { dateRangeLabels, useTodayCombined } from "@/hooks/useTodayCombined";
+import { useDashboardDateRange } from "@/hooks/useDashboardDateRange";
 import { NovelCover } from "@/components/shared/NovelCover";
 import { PlatformBadge } from "@/components/shared/PlatformBadge";
 import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
@@ -425,7 +426,9 @@ type PublisherStats = {
 };
 
 export default function OverviewPage() {
-  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
+  const dateRange = useDashboardDateRange();
+  const periodLabel = dateRangeLabels[dateRange];
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined(dateRange);
   const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
 
   const {
@@ -680,7 +683,7 @@ export default function OverviewPage() {
             MARKET OVERVIEW
           </h1>
           <p className="text-xs md:text-sm text-muted-foreground mt-1 font-medium">
-            {latestDate} 기준 실시간 통합 대시보드
+            {latestDate} 기준 · {periodLabel} 통합 대시보드
           </p>
         </div>
       </header>
