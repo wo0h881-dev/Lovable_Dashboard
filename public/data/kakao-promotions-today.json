@@ -1,5 +1,5 @@
 {
-  "date": "2026-04-30",
+  "date": "2026-05-01",
   "platform": "kakao",
   "items": [
     {
@@ -15,6 +15,36 @@
             "title": "복수의 여왕",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생엔 남편 말고 오스카상이요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "이번 생엔 남편 말고…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "악당 아기님이 예언을 함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
           {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
@@ -45,29 +75,38 @@
       }
     },
     {
-      "title": "이번 생엔 남편 말고 오스카상이요",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
-            "title": "이번 생엔 남편 말고…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "4월의 스탬프 투어!",
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
@@ -101,10 +140,54 @@
       }
     },
     {
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
       "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
+          {
+            "title": "소환물 인기작 모음!",
+            "subtitle": "감상하면 최대 5천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "일격필살의 소드마스터",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "네크로맨서 학교의 소환천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
           {
             "title": "소환물 인기작 모음!",
             "subtitle": "감상하면 최대 5천 캐시!"
@@ -123,58 +206,8 @@
             "subtitle": "2부 복귀 전 정주행!"
           },
           {
-            "title": "초신작 아카이빙",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -194,30 +227,6 @@
       }
     },
     {
-      "title": "네크로맨서 학교의 소환천재",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
-          },
-          {
-            "title": "4월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "일격필살의 소드마스터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
       "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -229,10 +238,6 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
-          {
-            "title": "초신작 아카이빙",
-            "subtitle": "모두에게 캐시 선물"
-          },
           {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
@@ -249,20 +254,7 @@
       }
     },
     {
-      "title": "자동 루팅 범위가 너무 넓음",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "총 2.4억 뷰!",
-            "subtitle": "열람하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "아빠를 교체하는 법",
+      "title": "잊혀진 들판",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
