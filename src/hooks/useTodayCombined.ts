@@ -44,6 +44,10 @@ interface TodayCombinedRow {
   평점?: string | number;
   댓글수?: string | number;
   총회차수?: string | number;
+  comments?: string | number;
+  commentCount?: string | number;
+  totalEpisodes?: string | number;
+  episodeCount?: string | number;
   promotion?: PromotionInfo | string | null;
   rankHistory?: { date: string; rank: number | null }[];
   viewsHistory?: { date: string; views: string | number }[];
@@ -135,6 +139,20 @@ function parseCommentCount(raw: unknown): number {
     return Math.round((parseFloat(s.replace("만", "")) || 0) * 10_000);
   }
   return parseInt(s.replace(/,/g, ""), 10) || 0;
+}
+
+function firstPresent(...values: unknown[]): unknown {
+  return values.find((value) => {
+    if (value === null || value === undefined) return false;
+    const text = String(value).trim();
+    return text !== "" && text !== "-" && text !== "#ERROR!";
+  });
+}
+
+function parseEpisodeCount(raw: unknown): number {
+  const value = firstPresent(raw);
+  if (value === undefined) return 0;
+  return parseInt(String(value).match(/\d[\d,]*/)?.[0]?.replace(/,/g, "") || "0", 10);
 }
 
 function parseRankChange(label: string) {
@@ -665,8 +683,8 @@ function mapRowToNovel(
     viewsChange: rangeViewsChange,
     viewsChangePct: rangeViewsChangePct,
     rating: parseFloat(String(row.평점)) || 0,
-    commentCount: parseCommentCount(row.댓글수),
-    episodeCount: parseInt(String(row.총회차수).match(/\d+/)?.[0] || "0", 10),
+    commentCount: parseCommentCount(firstPresent(row.댓글수, row.comments, row.commentCount)),
+    episodeCount: parseEpisodeCount(firstPresent(row.총회차수, row.totalEpisodes, row.episodeCount)),
     firstAppeared,
     coverGradient:
       platform === "naver"

@@ -507,7 +507,7 @@ export default function RankingsPage() {
                     </td>
 
                     <td className="py-2.5 px-3 font-mono text-muted-foreground">
-                      {n.platform === "ridi" ? "-" : formatComments(n.commentCount)}
+                      {formatComments(n.commentCount)}
                     </td>
 
                     <td className="py-2.5 px-3 font-mono text-muted-foreground">

@@ -278,9 +278,7 @@ export function RankingCard({
               <span className="flex items-center gap-0.5 text-xs text-muted-foreground whitespace-nowrap">
                 <MessageCircle size={10} />
                 <span className="font-mono">
-                  {novel.platform === "ridi"
-                    ? "-"
-                    : formatComments(novel.commentCount)}
+                  {formatComments(novel.commentCount)}
                 </span>
               </span>
 

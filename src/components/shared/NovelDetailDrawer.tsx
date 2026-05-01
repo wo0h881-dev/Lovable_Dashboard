@@ -697,15 +697,15 @@ export function NovelDetailDrawer({
                   },
                   {
                     label: "댓글 수",
-                    value: Number(
-                      novel.platform === "ridi" ? 0 : (novel as any).commentCount || 0,
-                    ).toLocaleString(),
+                    value: formatKoreanCompactNumber((novel as any).commentCount || 0),
                     icon: MessageCircle,
                     color: "text-sky-500",
                   },
                   {
                     label: "총 회차",
-                    value: `${(novel as any).episodeCount}화`,
+                    value: (novel as any).episodeCount
+                      ? `${Number((novel as any).episodeCount).toLocaleString("ko-KR")}화`
+                      : "-",
                     icon: BookOpen,
                     color: "text-violet-500",
                   },
