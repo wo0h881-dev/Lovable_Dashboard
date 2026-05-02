@@ -155,8 +155,51 @@ function parseEpisodeCount(raw: unknown): number {
   return parseInt(String(value).match(/\d[\d,]*/)?.[0]?.replace(/,/g, "") || "0", 10);
 }
 
-function parseRankChange(label: string) {
-  const s = (label || "").trim();
+function parseRankValue(value: unknown): number | null {
+  const raw = firstPresent(value);
+  if (raw === undefined) return null;
+  const n = parseInt(String(raw).match(/\d[\d,]*/)?.[0]?.replace(/,/g, "") || "", 10);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+function getRowValue(row: TodayCombinedRow, keys: string[]): unknown {
+  return firstPresent(...keys.map((key) => row[key]));
+}
+
+function getRankChangeValue(row: TodayCombinedRow): unknown {
+  return getRowValue(row, [
+    "순위변화",
+    "순위 변화",
+    "순위변동",
+    "순위 변동",
+    "등락",
+    "전일대비",
+    "전일 대비",
+    "rankChange",
+    "rank_change",
+    "rankDelta",
+    "rank_delta",
+  ]);
+}
+
+function getPreviousRankValue(row: TodayCombinedRow): unknown {
+  return getRowValue(row, [
+    "전일순위",
+    "전일 순위",
+    "어제순위",
+    "어제 순위",
+    "prevRank",
+    "previousRank",
+    "previous_rank",
+  ]);
+}
+
+function parseRankChange(label: unknown) {
+  if (typeof label === "number" && Number.isFinite(label)) {
+    return { rankChange: label, isNew: false, isReEntry: false };
+  }
+
+  const s = String(label || "").trim();
   if (s === "NEW") {
     return { rankChange: null, isNew: true, isReEntry: false };
   }
@@ -166,16 +209,25 @@ function parseRankChange(label: string) {
   if (s === "유지") {
     return { rankChange: 0, isNew: false, isReEntry: false };
   }
-  if (s.startsWith("▲")) {
+  if (/^[+-]?\d+$/.test(s)) {
     return {
-      rankChange: parseInt(s.replace("▲", ""), 10) || null,
+      rankChange: parseInt(s, 10),
       isNew: false,
       isReEntry: false,
     };
   }
-  if (s.startsWith("▼")) {
+
+  const amount = parseInt(s.match(/\d[\d,]*/)?.[0]?.replace(/,/g, "") || "", 10);
+  if (s.startsWith("▲") || s.includes("상승") || s.toLowerCase().includes("up")) {
     return {
-      rankChange: -(parseInt(s.replace("▼", ""), 10) || 0),
+      rankChange: Number.isFinite(amount) ? amount : null,
+      isNew: false,
+      isReEntry: false,
+    };
+  }
+  if (s.startsWith("▼") || s.includes("하락") || s.toLowerCase().includes("down")) {
+    return {
+      rankChange: Number.isFinite(amount) ? -amount : null,
       isNew: false,
       isReEntry: false,
     };
@@ -568,7 +620,8 @@ function mapRowToNovel(
 ): Novel {
   const platform = toPlatform(row.출처);
   const todayRank = parseInt(String(row.오늘순위), 10) || index + 1;
-  const { rankChange, isNew, isReEntry } = parseRankChange(row.순위변화);
+  const { rankChange, isNew, isReEntry } = parseRankChange(getRankChangeValue(row));
+  const previousRankFromSheet = parseRankValue(getPreviousRankValue(row));
   const todayViewsNumber = parseViewsToNumber(row.오늘조회수);
   const prevViewsNumber = parseViewsToNumber(row.전일조회수);
 
@@ -663,8 +716,12 @@ function mapRowToNovel(
   const firstRank = rankHistory.find((h) => h.rank !== null)?.rank ?? null;
   const latestRank =
     [...rankHistory].reverse().find((h) => h.rank !== null)?.rank ?? todayRank;
+  const isSingleDateRange = selectedDateSet.size <= 1;
   const rangeRankChange =
-    firstRank !== null && latestRank !== null ? firstRank - latestRank : rankChange;
+    !isSingleDateRange && firstRank !== null && latestRank !== null
+      ? firstRank - latestRank
+      : rankChange;
+  const prevRank = isSingleDateRange ? previousRankFromSheet : firstRank;
 
   return {
     id: `${platform}-${row.제목}-${todayRank}`,
@@ -675,7 +732,7 @@ function mapRowToNovel(
     platform,
     thumbnailUrl: row.썸네일 && row.썸네일 !== "-" ? row.썸네일 : undefined,
     todayRank,
-    prevRank: firstRank,
+    prevRank,
     rankChange: rangeRankChange,
     isNew,
     isReEntry,
