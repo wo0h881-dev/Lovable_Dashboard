@@ -1,40 +1,40 @@
 {
-  "date": "2026-05-01",
+  "date": "2026-05-02",
   "platform": "kakao",
   "items": [
     {
-      "title": "복수의 여왕",
+      "title": "백호 가문의 아기 솜뭉치",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
+            "title": "백호 가문의 아기 솜…",
+            "subtitle": "외전 론칭 기념 이벤트!"
           },
           {
-            "title": "복수의 여왕",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "웹툰 선공개 EVENT",
+            "subtitle": "최대 1만 캐시 선물!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "이번 생엔 남편 말고 오스카상이요",
+      "title": "재해를 먹는 마법사",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
           },
           {
-            "title": "이번 생엔 남편 말고…",
+            "title": "재해를 먹는 마법사",
             "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -54,27 +54,6 @@
       }
     },
     {
-      "title": "재해를 먹는 마법사",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
-            "title": "재해를 먹는 마법사",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -88,13 +67,64 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "복수의 여왕",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "복수의 여왕",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생엔 남편 말고 오스카상이요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "이번 생엔 남편 말고…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님 대신 꽃 피워드립니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "공작님 대신 꽃 피워…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 투수 아빠는 딸을 위해 던진다 ",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "천재 투수 아빠는 딸…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -108,32 +138,6 @@
           {
             "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "백호 가문의 아기 솜뭉치",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "웹툰 선공개 EVENT",
-            "subtitle": "최대 1만 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "미국 씹어먹는 천재 타자",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "미국 씹어먹는 천재…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -160,6 +164,19 @@
       }
     },
     {
+      "title": "미국 씹어먹는 천재 타자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "미국 씹어먹는 천재…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "나 혼자 EX급 소환수",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -167,47 +184,6 @@
           {
             "title": "소환물 인기작 모음!",
             "subtitle": "감상하면 최대 5천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "일격필살의 소드마스터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "네크로맨서 학교의 소환천재",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          },
-          {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "고립된 후작 영애는…",
-            "subtitle": "2부 복귀 전 정주행!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -227,16 +203,9 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
+      "title": "천마등선",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "OTT 씹어먹는 천재 디렉터",
-      "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "카카오페이지 초신작",
@@ -247,20 +216,67 @@
       }
     },
     {
-      "title": "환생한 암살자는 검술 천재",
+      "title": "너에게 빼앗을 왕관",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "일격필살의 소드마스터",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "잊혀진 들판",
+      "title": "자동 루팅 범위가 너무 넓음",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "총 2.4억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "고립된 후작 영애는…",
+            "subtitle": "2부 복귀 전 정주행!"
+          },
+          {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "국정원 요원 천재배우로 환생",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
