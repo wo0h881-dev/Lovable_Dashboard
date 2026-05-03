@@ -1,25 +1,25 @@
 {
-  "date": "2026-05-02",
+  "date": "2026-05-03",
   "platform": "naver",
   "items": [
-    {
-      "title": "내 코인 2,000,000％ 폭등, 이혼부터 합니다!",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
     {
       "title": "화산귀환 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 114,
+        "daysLeft": 113,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "내 코인 2,000,000％ 폭등, 이혼부터 합니다!",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -30,7 +30,18 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 4,
+        "daysLeft": 3,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 마취과 의사는 모든 것이 쉽다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 67,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 107,
+        "daysLeft": 106,
         "eventBanners": [],
         "notices": []
       }
@@ -52,18 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 80,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "이세계서 유부남된 썰",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 79,
         "eventBanners": [],
         "notices": []
       }
@@ -74,7 +74,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 77,
+        "daysLeft": 76,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "이세계서 유부남된 썰",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
@@ -84,7 +95,62 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 43,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "오늘만 사는 기사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 81,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "야생에서 갤러리를 얻었다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 53,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "재벌집 맏며느리 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
         "freeEpisodes": 100,
+        "daysLeft": 2,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "은퇴한 용병의 영지가 커짐",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "비서 자격 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 20,
         "daysLeft": null,
         "eventBanners": [],
         "notices": []
@@ -96,62 +162,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 3,
-        "daysLeft": 149,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "은퇴한 용병의 영지가 커짐",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "재벌집 맏며느리 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 100,
-        "daysLeft": 3,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "오늘만 사는 기사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 82,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전능의 뇌를 얻었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 24,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "야생에서 갤러리를 얻었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 54,
+        "daysLeft": 148,
         "eventBanners": [],
         "notices": []
       }
@@ -162,51 +173,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 170,
+        "daysLeft": 169,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "탈모약 개발했더니 백악관에서 전화옴",
+      "title": "건물주 되어서 취미 생활하는데, 돈이 미침",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 13,
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 25,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "감사팀장이 일을 너무 잘함 [독점]",
+      "title": "버린 밤의 기억 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "하남자의 탑 공략법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 33,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 유물 감정사로 착각 당했다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
+        "freeEpisodes": 5,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
@@ -217,7 +206,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 82,
+        "daysLeft": 81,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 뇌를 얻었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 23,
         "eventBanners": [],
         "notices": []
       }
