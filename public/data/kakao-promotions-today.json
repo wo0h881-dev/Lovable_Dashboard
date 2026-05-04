@@ -1,5 +1,5 @@
 {
-  "date": "2026-05-03",
+  "date": "2026-05-04",
   "platform": "kakao",
   "items": [
     {
@@ -8,25 +8,8 @@
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "웹툰 오픈런 EVENT",
-            "subtitle": "지금 보면 전원 캐시!"
-          },
-          {
             "title": "백호 가문의 아기 솜…",
             "subtitle": "외전 론칭 기념 이벤트!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "반찬 팔면서 선업 쌓으래",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "반찬 팔면서 선업 쌓…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -38,8 +21,42 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
+            "title": "요람부터 극락까지",
+            "subtitle": "열람하면 최대 1만 캐시!"
+          },
+          {
             "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "윗집 오빠의 야밤 연락",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "윗집 오빠의 야밤 연락",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "내가 키운 검들이 너무 강함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "내가 키운 검들이 너…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -51,67 +68,8 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
             "title": "천재 투수 아빠는 딸…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "복수의 여왕",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "복수의 여왕",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "재해를 먹는 마법사",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "재해를 먹는 마법사",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "악당 아기님이 예언을 함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -144,72 +102,72 @@
       }
     },
     {
-      "title": "불탄 사막의 모래술사",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생엔 남편 말고 오스카상이요",
+      "title": "재해를 먹는 마법사",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "이번 생엔 남편 말고…",
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "재해를 먹는 마법사",
             "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "룬의 아이들",
+      "title": "복수의 여왕",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "미궁탐험 101",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "복수의 여왕",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "천마등선",
+      "title": "악당 아기님이 예언을 함",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "누군가 내 몸에 빙의했다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "복작복작 EVENT",
+            "subtitle": "복귀 기념, 모두에게 선물"
+          },
+          {
+            "title": "누군가 내 몸에 빙의…",
+            "subtitle": "외전 보고 캐시 받자!"
           }
         ],
         "notices": []
@@ -237,14 +195,58 @@
       }
     },
     {
-      "title": "천재 대장장이의 게임",
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "우리 호텔 정상 영업합니다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "우리 호텔 정상 영업…",
+            "subtitle": "Q&A 공개 이벤트!"
+          },
+          {
+            "title": "게임을 시작하시겠습니까",
+            "subtitle": "지금 체크인하기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "네크로맨서 학교의 소환천재",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "천재 대장장이의 게임",
-            "subtitle": "완결 기념 캐시 이벤트!"
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           },
+          {
+            "title": "소환물 인기작 모음!",
+            "subtitle": "감상하면 최대 5천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
           {
             "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
@@ -254,33 +256,39 @@
       }
     },
     {
-      "title": "적룡무제",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "데뷔 못 하면 죽는 병 걸림",
+      "title": "초심 잃은 아이돌을 위한 회귀 백서",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "카운트다운 시작!",
-            "subtitle": "정주행 캐시선물+전편 무료"
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "나 혼자 EX급 소환수",
+      "title": "천마등선",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "미궁탐험 101",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
