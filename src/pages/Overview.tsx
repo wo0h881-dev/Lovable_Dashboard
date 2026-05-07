@@ -1,455 +1,890 @@
+// src/pages/Overview.tsx
+import { useMemo, useState } from "react";
 import {
-  AlertTriangle,
-  BarChart3,
-  BookOpenCheck,
-  BriefcaseBusiness,
-  Building2,
-  ChevronLeft,
-  ChevronRight,
-  Eye,
-  Flame,
-  Lightbulb,
-  Medal,
-  Sparkles,
-  Target,
-  TrendingUp,
-} from "lucide-react";
-import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  BarChart,
   Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
+import {
+  BookOpen,
+  Zap,
+  RefreshCw,
+  LogIn,
+  Trophy,
+  TrendingUp,
+  Building2,
+  Sparkles,
+  Star,
+  Clock,
+  Ticket,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { type Novel } from "@/data/mockData";
+import { useTodayCombined } from "@/hooks/useTodayCombined";
+import { NovelCover } from "@/components/shared/NovelCover";
+import { PlatformBadge } from "@/components/shared/PlatformBadge";
+import { NovelDetailDrawer } from "@/components/shared/NovelDetailDrawer";
+import { LoadingScreen } from "@/components/shared/LoadingScreen";
+import {
+  computeUnifiedScore,
+  computeTrendScore,
+  getPlatformMaxStats,
+  type UnifiedNovel,
+  attachRidiInnerRank,
+} from "@/lib/rankingScore";
+
+const PLATFORM_COLORS: Record<string, string> = {
+  naver: "#20C997",
+  kakao: "#FACC15",
+  ridi: "#5B74FF",
+  etc: "#94A3B8",
+};
+
+type InsightItem = {
+  title: string;
+  body: string;
+};
+
+type PromoBadge = {
+  label: string;
+  icon: "clock" | "ticket" | "none";
+  className: string;
+} | null;
+
+function InsightCard({ item }: { item: InsightItem }) {
+  return (
+    <div className="bg-surface-elevated border border-border/40 rounded-xl p-3 md:p-3">
+      <p className="text-xs font-bold text-foreground">{item.title}</p>
+      <p className="text-[11px] text-muted-foreground mt-1 leading-relaxed">
+        {item.body}
+      </p>
+    </div>
   );
 }
 
-function carouselLabel(novel: Novel) {
-  if ((novel.consecutiveDays || 0) >= 14) return "장기차트인";
-  if (novel.isNew) return "오늘의 분석";
-  if ((novel.viewsChangePct || 0) >= 15) return "급상승 후보";
-  if (novel.isReEntry) return "재진입 후보";
-  return "분석 후보";
-}
-
-function topEntry(map: Record<string, number>) {
-  return Object.entries(map).sort((a, b) => b[1] - a[1])[0];
-}
-      };
-    })
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 5);
-    .slice(0, 10);
-}
-
-function MetricPill({ label, value, icon }: { label: string; value: string; icon: ReactNode }) {
-function MetricPill({
+function StatCard({
+  icon,
   label,
   value,
-  icon,
-  tone,
+  color,
 }: {
+  icon: React.ReactNode;
   label: string;
   value: string;
-  icon: ReactNode;
-  tone: string;
+  color: string;
 }) {
   return (
-    <div className="min-w-0 rounded-2xl border border-white/70 bg-white/75 px-3.5 py-2.5 shadow-sm backdrop-blur">
-      <div className="flex items-center gap-2 text-[11px] font-bold uppercase text-slate-500">
+    <div className="surface-card p-3 md:p-4 flex flex-col items-center gap-1 border border-border/40">
+      <div className={cn("p-2 rounded-full bg-surface-elevated mb-1", color)}>
         {icon}
-        <span className={cn("grid h-7 w-7 place-items-center rounded-xl", tone)}>{icon}</span>
-        <span className="truncate">{label}</span>
       </div>
-      <p className="mt-1 truncate text-sm font-extrabold tracking-tight text-slate-950 md:text-base">{value}</p>
-
-function SignalLine({ icon, title, body }: { icon: ReactNode; title: string; body: string }) {
-  return (
-    <div className="grid gap-3 border-t border-slate-200 py-4 sm:grid-cols-[150px_minmax(0,1fr)]">
-    <div className="grid gap-3 border-t border-slate-200 py-4 sm:grid-cols-[120px_minmax(0,1fr)]">
-      <div className="flex items-center gap-2 text-xs font-black text-slate-950">
-        <span className="grid h-8 w-8 place-items-center rounded-2xl bg-slate-100 text-slate-600">{icon}</span>
-        {title}
+      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+        {label}
+      </p>
+      <p className="text-lg md:text-xl font-black">{value}</p>
+    </div>
   );
 }
 
-function PriorityCard({ novel, onSelect }: { novel: Novel; onSelect: (novel: Novel) => void }) {
-function CarouselCover({
-  novel,
-  active,
-  side,
-  onClick,
+function getPromoBadgeClass(platform: Novel["platform"]): string {
+  if (platform === "naver") return "bg-naver text-black";
+  if (platform === "ridi") return "bg-ridi text-white";
+  return "bg-kakao text-black";
+}
+
+function getOverviewPromoBadge(novel: Novel): PromoBadge {
+  const promo = novel.promotion;
+  if (!promo) return null;
+
+  const className = getPromoBadgeClass(novel.platform);
+  const tag = promo.tag?.trim();
+  const ridiFreeLabel = promo.ridiFreeLabel?.trim();
+
+  if (novel.platform === "kakao") {
+    if (promo.timeFreeType === "threeHour") {
+      return { label: "3다무", icon: "clock", className };
+    }
+    if (promo.timeFreeType === "waitFree") {
+      return { label: "기다무", icon: "clock", className };
+    }
+  }
+
+  if (novel.platform === "naver") {
+    if (tag === "타임딜") {
+      return { label: "타임딜", icon: "none", className };
+    }
+    if (promo.timeFreeType === "waitFree") {
+      return { label: "기다무", icon: "clock", className };
+    }
+    if (tag === "기다무" || tag === "기다리면 무료") {
+      return { label: "기다무", icon: "clock", className };
+    }
+  }
+
+  if (novel.platform === "ridi") {
+    if (ridiFreeLabel) {
+      if (/화무|무료/.test(ridiFreeLabel)) {
+        return { label: ridiFreeLabel, icon: "ticket", className };
+      }
+      return { label: ridiFreeLabel, icon: "none", className };
+    }
+
+    if (promo.ridiWaitFree || promo.timeFreeType === "waitFree") {
+      return { label: "리다무", icon: "clock", className };
+    }
+
+    if (tag === "리다무" || tag === "기다리면 무료") {
+      return { label: "리다무", icon: "clock", className };
+    }
+  }
+
+  return null;
+}
+
+function getAnalysisBadges(novel: Novel): string[] {
+  const badges: string[] = [];
+  if (novel.isNew) badges.push("NEW");
+  if (novel.isReEntry) badges.push("RE-ENTRY");
+  if (novel.promotion?.timeFreeType && novel.promotion.timeFreeType !== "none") {
+    badges.push("PROMOTION");
+  }
+  if ((novel.viewsChangePct || 0) >= 20 && !novel.promotion?.timeFreeType) {
+    badges.push("VIRAL");
+  }
+  if ((novel.consecutiveDays || 0) >= 14) {
+    badges.push("STEADY");
+  }
+  return badges.slice(0, 3);
+}
+
+function normalizeBannerText(text?: string | null) {
+  return (text ?? "")
+    .toLowerCase()
+    .replace(/\.\.\.|…/g, "")
+    .replace(/\s+/g, "")
+    .replace(/[!！?？.,·•[\](){}<>《》"'`~:;|/\\+-]/g, "")
+    .trim();
+}
+
+function buildBannerFrequencyMaps(sourceData: Novel[]) {
+  const globalMap = new Map<string, number>();
+  const platformMap = new Map<string, number>();
+
+  sourceData.forEach((novel) => {
+    const banners = novel.promotion?.eventBanners ?? [];
+
+    banners.forEach((banner) => {
+      const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+      const normalized = normalizeBannerText(text);
+      if (!normalized) return;
+
+      globalMap.set(normalized, (globalMap.get(normalized) ?? 0) + 1);
+
+      const platformKey = `${novel.platform}::${normalized}`;
+      platformMap.set(platformKey, (platformMap.get(platformKey) ?? 0) + 1);
+    });
+  });
+
+  return { globalMap, platformMap };
+}
+
+function isRepeatedBanner(
+  novel: Novel,
+  banner: { title?: string; subtitle?: string },
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+  const normalized = normalizeBannerText(text);
+  if (!normalized) return false;
+
+  const globalCount = globalMap.get(normalized) ?? 0;
+  const platformCount =
+    platformMap.get(`${novel.platform}::${normalized}`) ?? 0;
+
+  return platformCount >= 2 || globalCount >= 3;
+}
+
+function bannerMatchesNovelTitle(bannerText: string, novelTitle: string) {
+  const banner = normalizeBannerText(bannerText);
+  const title = normalizeBannerText(novelTitle);
+
+  if (!banner || !title) return false;
+
+  if (banner.includes(title) || title.includes(banner)) return true;
+
+  const minPrefix = Math.min(
+    Math.max(6, Math.floor(title.length * 0.45)),
+    title.length,
+  );
+  const titlePrefix = title.slice(0, minPrefix);
+
+  if (titlePrefix && banner.includes(titlePrefix)) return true;
+
+  const bannerPrefix = banner.slice(0, minPrefix);
+  if (bannerPrefix && title.includes(bannerPrefix)) return true;
+
+  return false;
+}
+
+function hasConservativePromoBanner(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const banners = novel.promotion?.eventBanners ?? [];
+  if (banners.length === 0) return false;
+
+  return banners.some((banner) => {
+    const text = `${banner.title ?? ""} ${banner.subtitle ?? ""}`.trim();
+    if (!text) return false;
+
+    if (isRepeatedBanner(novel, banner, globalMap, platformMap)) {
+      return false;
+    }
+
+    return bannerMatchesNovelTitle(text, novel.title);
+  });
+}
+
+function isConservativeMeaningfulPromo(
+  novel: Novel,
+  globalMap: Map<string, number>,
+  platformMap: Map<string, number>,
+) {
+  const p = novel.promotion;
+  if (!p) return false;
+
+  if (novel.platform === "naver") {
+    return p.tag?.trim() === "타임딜";
+  }
+
+  if (novel.platform === "kakao" || novel.platform === "ridi") {
+    return hasConservativePromoBanner(novel, globalMap, platformMap);
+  }
+
+  return false;
+}
+
+function RankingColumn({
+  title,
+  subtitle,
+  icon,
+  data,
+  mode,
+  onSelect,
 }: {
-  novel: Novel;
-  active?: boolean;
-  side?: "left" | "right";
-  onClick: () => void;
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  data: Novel[];
+  mode: "overall" | "trend" | "publisher" | "new";
+  onSelect?: (novel: Novel) => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(novel)}
-      className="group min-w-0 rounded-2xl border border-white/70 bg-white/75 p-4 text-left shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
-      onClick={onClick}
-      className={cn(
-        "group relative shrink-0 transition duration-300",
-        active ? "z-10 w-[140px] md:w-[170px]" : "w-[92px] opacity-75 md:w-[120px]",
-        side === "left" && "-rotate-6",
-        side === "right" && "rotate-6",
-      )}
-    >
-      <p className="line-clamp-2 min-h-[38px] text-[13px] font-extrabold leading-snug text-slate-950">
-        {getAnalysisReason(novel)}
-      </p>
-      <div className="mt-4 flex gap-3">
-        <NovelCover novel={novel} size="sm" className="h-16 w-12 rounded-xl object-cover" />
-        <div className="min-w-0 flex-1">
-          <p className="line-clamp-1 text-xs font-extrabold text-slate-800 group-hover:text-slate-950">{novel.title}</p>
-          <p className="mt-1 truncate text-[11px] text-slate-500">{novel.publisher}</p>
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-            <PlatformBadge platform={novel.platform as any} size="sm" />
-            <span className="rounded-full bg-lime-200 px-2 py-0.5 text-[11px] font-black text-slate-900">
-              {formatPct(novel.viewsChangePct)}
-            </span>
+    <div className="surface-card border border-border/50 shadow-sm">
+      <div className="flex flex-col mb-4 md:mb-5">
+        <div className="flex items-center gap-2">
+          {icon}
+          <h2 className="font-extrabold text-base md:text-lg tracking-tight">{title}</h2>
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-0.5 ml-7 font-medium uppercase">
+          {subtitle}
+        </p>
+      </div>
+
+      <div className="space-y-1">
+        {data.slice(0, 10).map((novel, idx) => {
+          const promoBadge = getOverviewPromoBadge(novel);
+          const badges = getAnalysisBadges(novel);
+
+          const primaryLabel =
+            mode === "publisher" ? (novel.publisher || "-") : novel.title;
+
+          return (
+            <div
+              key={`${mode}-${novel.id}-${idx}`}
+              onClick={() => onSelect?.(novel)}
+              className={cn(
+                "flex items-center gap-3 py-2 px-2 rounded-lg transition-colors",
+                onSelect ? "hover:bg-surface-elevated cursor-pointer group" : "cursor-default",
+              )}
+            >
+              <span
+                className={cn(
+                  "w-5 text-center font-mono font-black text-sm shrink-0",
+                  idx < 3 ? "text-primary" : "text-muted-foreground/40",
+                )}
+              >
+                {idx + 1}
+              </span>
+
+              <div className="relative shrink-0">
+                <NovelCover
+                  novel={novel}
+                  size="sm"
+                  className="rounded shadow-sm shrink-0 w-8 h-10"
+                />
+                {promoBadge && (
+                  <span
+                    className={cn(
+                      "absolute -bottom-1 -right-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded text-[9px] font-bold leading-none shadow whitespace-nowrap",
+                      promoBadge.className,
+                    )}
+                  >
+                    {promoBadge.icon === "clock" && <Clock size={8} />}
+                    {promoBadge.icon === "ticket" && <Ticket size={8} />}
+                    {promoBadge.label}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <h3 className="text-[13px] md:text-sm font-bold truncate group-hover:text-primary transition-colors">
+                  {primaryLabel}
+                </h3>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <PlatformBadge platform={novel.platform as any} size="sm" />
+                  {mode === "publisher" ? (
+                    <span className="text-[10px] text-muted-foreground truncate">
+                      {novel.title}
+                    </span>
+                  ) : (
+                    <span className="text-[10px] text-muted-foreground truncate">
+                      {novel.author}
+                    </span>
+                  )}
+                  {badges.slice(0, 2).map((badge) => (
+                    <span
+                      key={badge}
+                      className="text-[9px] px-1.5 py-0.5 rounded-full bg-surface-elevated border border-border/40 text-muted-foreground font-bold whitespace-nowrap"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-right shrink-0">
+                {mode === "overall" && (
+                  <div className="flex items-center gap-0.5 text-amber-500 font-mono text-xs font-bold justify-end">
+                    <Star size={10} fill="currentColor" />
+                    {novel.rating.toFixed(1)}
+                  </div>
+                )}
+                {mode === "trend" && (
+                  <div
+                    className={cn(
+                      "text-xs font-mono font-black",
+                      (novel.viewsChangePct || 0) >= 0 ? "text-up" : "text-down",
+                    )}
+                  >
+                    {(novel.viewsChangePct || 0) >= 0 ? "+" : ""}
+                    {(novel.viewsChangePct || 0).toFixed(1)}%
+                  </div>
+                )}
+                {mode === "publisher" && (
+                  <div className="text-xs font-mono font-bold text-primary/90">
+                    #{novel.todayRank ?? "-"}
+                  </div>
+                )}
+                {mode === "new" && (
+                  <div className="text-xs font-mono font-black text-emerald-400">
+                    NEW
+                  </div>
+                )}
+                {mode !== "publisher" && (
+                  <div className="text-[10px] text-muted-foreground mt-0.5 hidden sm:block">
+                    {novel.publisher}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+type PublisherStats = {
+  count: number;
+  totalViews: number;
+  bestRank: number;
+  sumRank: number;
+  trendHits: number;
+  bestNovel: Novel | null;
+};
+
+export default function OverviewPage() {
+  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined();
+  const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
+
+  const {
+    overallTop10,
+    trendTop10,
+    publisherTop10,
+    newTop10,
+    stats,
+    platformData,
+    genreStackedData,
+    overviewInsights,
+    overallLeader,
+    trendLeader,
+  } = useMemo(() => {
+    if (!sourceData || sourceData.length === 0) {
+      return {
+        overallTop10: [] as Novel[],
+        trendTop10: [] as Novel[],
+        publisherTop10: [] as Novel[],
+        newTop10: [] as Novel[],
+        stats: { total: 0, new: 0, changed: 0, reEntry: 0 },
+        platformData: [] as { name: string; value: number; key: string }[],
+        genreStackedData: [] as any[],
+        overviewInsights: [] as InsightItem[],
+        overallLeader: "kakao",
+        trendLeader: "kakao",
+      };
+    }
+
+    const maxStats = getPlatformMaxStats(sourceData as UnifiedNovel[]);
+    const { globalMap: bannerGlobalMap, platformMap: bannerPlatformMap } =
+      buildBannerFrequencyMaps(sourceData);
+
+    const enrichedData = attachRidiInnerRank(
+      sourceData as UnifiedNovel[],
+      maxStats.maxCommentsByPlatform,
+      maxStats.maxDeltaByPlatform,
+    ) as Novel[];
+
+    const overall = [...enrichedData]
+      .sort((a, b) => {
+        const scoreA = computeUnifiedScore(
+          a as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform,
+        );
+        const scoreB = computeUnifiedScore(
+          b as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform,
+        );
+        return scoreB - scoreA;
+      })
+      .slice(0, 10);
+
+    const trend = [...enrichedData]
+      .sort((a, b) => {
+        const scoreA = computeTrendScore(
+          a as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform,
+        );
+        const scoreB = computeTrendScore(
+          b as UnifiedNovel,
+          maxStats.maxViewsByPlatform,
+          maxStats.maxCommentsByPlatform,
+          maxStats.maxDeltaByPlatform,
+        );
+        return scoreB - scoreA;
+      })
+      .slice(0, 10);
+
+    const newTop = [...enrichedData]
+      .filter((n) => n.isNew)
+      .sort((a, b) => (b.viewsChangePct || 0) - (a.viewsChangePct || 0))
+      .slice(0, 10);
+
+    const publisherMap = new Map<string, PublisherStats>();
+    const trendIds = new Set(trend.map((n) => n.id));
+
+    enrichedData.forEach((n) => {
+      const key = n.publisher || "-";
+      const prev: PublisherStats =
+        publisherMap.get(key) || {
+          count: 0,
+          totalViews: 0,
+          bestRank: 999,
+          sumRank: 0,
+          trendHits: 0,
+          bestNovel: null,
+        };
+
+      const rank = typeof n.todayRank === "number" ? n.todayRank : 999;
+
+      prev.count += 1;
+      prev.totalViews += Number(n.todayViews || 0);
+      prev.sumRank += rank;
+      if (trendIds.has(n.id)) prev.trendHits += 1;
+
+      if (rank < prev.bestRank) {
+        prev.bestRank = rank;
+        prev.bestNovel = n;
+      }
+
+      publisherMap.set(key, prev);
+    });
+
+    const publisherScores = [...publisherMap.entries()]
+      .map(([publisher, s]) => {
+        const avgRank = s.count > 0 ? s.sumRank / s.count : 999;
+
+        const volumeScore =
+          Math.log10(s.totalViews + 1) * 25 + s.count * 4;
+
+        const qualityScore =
+          (s.bestRank < 999 ? 80 - s.bestRank : 0) +
+          (avgRank < 999 ? 60 - Math.min(avgRank, 60) : 0);
+
+        const trendScore = s.trendHits * 30;
+
+        const score = volumeScore + qualityScore + trendScore;
+
+        return { publisher, score, stats: s };
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
+
+    const topPublisher = publisherScores[0];
+    const leadingPublisher = topPublisher?.publisher || "-";
+    const leadingStats = topPublisher?.stats;
+    const leadingAvgRank =
+      leadingStats && leadingStats.count > 0
+        ? leadingStats.sumRank / leadingStats.count
+        : null;
+
+    const publisherTop10: Novel[] = publisherScores
+      .map((p) => p.stats.bestNovel)
+      .filter((n): n is Novel => !!n);
+
+    const total = sourceData.length;
+    const newCount = sourceData.filter((n) => n.isNew).length;
+    const reEntryCount = sourceData.filter((n) => n.isReEntry).length;
+    const changedCount = sourceData.filter((n) => (n.rankChange || 0) !== 0).length;
+
+    const pMap: Record<string, number> = {};
+    sourceData.forEach((n) => {
+      pMap[n.platform] = (pMap[n.platform] || 0) + 1;
+    });
+    const pData = Object.entries(pMap).map(([name, value]) => ({
+      name: name.toUpperCase(),
+      value,
+      key: name,
+    }));
+
+    const gMap: Record<string, any> = {};
+    sourceData.forEach((n) => {
+      if (!gMap[n.genre]) {
+        gMap[n.genre] = { name: n.genre, naver: 0, kakao: 0, ridi: 0, total: 0 };
+      }
+      gMap[n.genre][n.platform] += 1;
+      gMap[n.genre].total += 1;
+    });
+    const gData = Object.values(gMap)
+      .sort((a: any, b: any) => b.total - a.total)
+      .slice(0, 8);
+
+    const promoCount = sourceData.filter((n) =>
+      isConservativeMeaningfulPromo(
+        n,
+        bannerGlobalMap,
+        bannerPlatformMap,
+      ),
+    ).length;
+
+    const viralCount = sourceData.filter(
+      (n) =>
+        (n.viewsChangePct || 0) >= 20 &&
+        (!n.promotion || n.promotion.timeFreeType === "none"),
+    ).length;
+
+    const overallPlatformMap: Record<string, number> = {};
+    overall.forEach((n) => {
+      overallPlatformMap[n.platform] =
+        (overallPlatformMap[n.platform] || 0) + 1;
+    });
+    const overallLeader =
+      Object.entries(overallPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
+      "kakao";
+
+    const trendPlatformMap: Record<string, number> = {};
+    trend.forEach((n) => {
+      trendPlatformMap[n.platform] =
+        (trendPlatformMap[n.platform] || 0) + 1;
+    });
+    const trendLeader =
+      Object.entries(trendPlatformMap).sort((a, b) => b[1] - a[1])[0]?.[0] ??
+      "kakao";
+
+    const overviewInsights: InsightItem[] = [
+      {
+        title: "시장 중심축",
+        body: `종합 인기 TOP 10에서는 ${overallLeader.toUpperCase()} 플랫폼이, 실시간 트렌드 TOP 10에서는 ${trendLeader.toUpperCase()} 플랫폼이 주도권을 잡고 있어요.`,
+      },
+      {
+        title: "프로모션 영향",
+        body: `공용 배너와 시간제 무료를 제외하고, 작품별 개별 이벤트 프로모션이 확인된 작품은 총 ${promoCount}개예요.`,
+      },
+      {
+        title: "바이럴 움직임",
+        body: `프로모션 없이도 조회수가 20% 이상 급등한 작품이 ${viralCount}개 감지돼, 후기·입소문 중심의 상승도 동시에 나타나고 있어요.`,
+      },
+      {
+        title: "출판사 포인트",
+        body:
+          leadingStats && leadingAvgRank !== null
+            ? `${leadingPublisher}는 총 ${leadingStats.count}편, 평균 순위 ${leadingAvgRank.toFixed(
+                1,
+              )}위, 트렌드 TOP10 진입 ${leadingStats.trendHits}회로 오늘 가장 강한 존재감을 보이고 있어요.`
+            : "오늘은 특정 출판사가 두드러지게 앞서는 패턴이 뚜렷하지 않아요.",
+      },
+    ];
+
+    return {
+      overallTop10: overall,
+      trendTop10: trend,
+      publisherTop10,
+      newTop10: newTop,
+      stats: { total, new: newCount, changed: changedCount, reEntry: reEntryCount },
+      platformData: pData,
+      genreStackedData: gData,
+      overviewInsights,
+      overallLeader,
+      trendLeader,
+    };
+  }, [sourceData]);
+
+  const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
+
+  if (isLoading) return <LoadingScreen />;
+  if (error) {
+    return <div className="p-8 text-center text-red-500 font-bold">{error}</div>;
+  }
+
+  return (
+    <div className="space-y-6 md:space-y-8 animate-fade-in pb-10 md:pb-12">
+      <header className="flex flex-col gap-2 md:flex-row md:justify-between md:items-end">
+        <div>
+          <h1 className="text-xl md:text-2xl font-black tracking-tight text-foreground italic">
+            MARKET OVERVIEW
+          </h1>
+          <p className="text-xs md:text-sm text-muted-foreground mt-1 font-medium">
+            {latestDate} 기준 실시간 통합 대시보드
+          </p>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <StatCard
+          icon={<BookOpen size={18} />}
+          label="분석 작품"
+          value={`${stats.total}개`}
+          color="text-blue-500"
+        />
+        <StatCard
+          icon={<Zap size={18} />}
+          label="오늘의 신작"
+          value={`${stats.new}개`}
+          color="text-amber-500"
+        />
+        <StatCard
+          icon={<RefreshCw size={18} />}
+          label="순위 변동"
+          value={`${stats.changed}개`}
+          color="text-emerald-500"
+        />
+        <StatCard
+          icon={<LogIn size={18} />}
+          label="차트 재진입"
+          value={`${stats.reEntry}개`}
+          color="text-purple-500"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-4 md:gap-6">
+        <div className="surface-card border border-border/40 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles size={16} className="text-primary" />
+            <h3 className="text-sm font-bold">오늘의 인사이트 자동요약</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {overviewInsights.map((item) => (
+              <InsightCard key={item.title} item={item} />
+            ))}
+          </div>
+        </div>
+
+        <div className="surface-card border border-border/40 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp size={16} className="text-primary" />
+            <h3 className="text-sm font-bold">오버뷰 빠른요약</h3>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                플랫폼 강세
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                종합 TOP10은 {overallLeader.toUpperCase()}, 트렌드 TOP10은{" "}
+                {trendLeader.toUpperCase()} 중심이에요.
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                주도 장르
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                {genreStackedData[0]?.name ?? "-"}
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                출판사 포인트
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                {publisherTop10[0]?.publisher ?? "-"}
+              </p>
+            </div>
+            <div className="bg-surface-elevated border border-border/40 rounded-xl p-3">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                신작 반응
+              </p>
+              <p className="font-semibold mt-2 text-foreground">
+                상위 {newTop10.length}작품 집계
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <NovelCover novel={novel} size="lg" className="aspect-[3/4] w-full rounded-2xl object-cover shadow-xl ring-1 ring-white/60" />
-      <span className="absolute left-3 right-3 top-3 rounded-full bg-white/85 px-2 py-1 text-center text-[10px] font-black text-slate-900 shadow-sm">
-        {carouselLabel(novel)}
-      </span>
-    </button>
+
+      <div className="surface-card border border-border/40 shadow-sm">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6">
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
+              플랫폼별 작품 점유율
+            </h3>
+            <div className="h-[220px] md:h-[280px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={platformData}
+                    innerRadius={48}
+                    outerRadius={76}
+                    paddingAngle={8}
+                    dataKey="value"
+                  >
+                    {platformData.map((entry) => (
+                      <Cell
+                        key={entry.key}
+                        fill={PLATFORM_COLORS[entry.key] || "#94A3B8"}
+                      />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" iconType="circle" />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="min-w-0">
+            <h3 className="text-sm font-bold mb-4 flex items-center gap-2">
+              장르별 플랫폼 상세 분포
+            </h3>
+            <div className="h-[240px] md:h-[280px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={genreStackedData} layout="vertical">
+                  <CartesianGrid
+                    stroke="rgba(255,255,255,0.05)"
+                    horizontal={false}
+                  />
+                  <XAxis type="number" hide />
+                  <YAxis
+                    dataKey="name"
+                    type="category"
+                    width={72}
+                    tick={{ fontSize: 11, fontWeight: "bold" }}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="naver"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.naver}
+                    radius={[0, 0, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="kakao"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.kakao}
+                    radius={[0, 0, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="ridi"
+                    stackId="a"
+                    fill={PLATFORM_COLORS.ridi}
+                    radius={[0, 6, 6, 0]}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-6">
+        <RankingColumn
+          title="종합 인기 TOP 10"
+          subtitle="체급 및 시장 점유율 기반 대작 랭킹"
+          icon={<Trophy className="text-amber-500" size={20} />}
+          data={overallTop10}
+          mode="overall"
+          onSelect={setSelectedNovel}
+        />
+        <RankingColumn
+          title="실시간 트렌드 TOP 10"
+          subtitle="조회수 급증 및 화제성 중심 랭킹"
+          icon={<TrendingUp className="text-blue-500" size={20} />}
+          data={trendTop10}
+          mode="trend"
+          onSelect={setSelectedNovel}
+        />
+        <RankingColumn
+          title="출판사 TOP 10"
+          subtitle="출판사별 대표작(현재 최고 순위 기준)"
+          icon={<Building2 className="text-violet-500" size={20} />}
+          data={publisherTop10}
+          mode="publisher"
+          onSelect={setSelectedNovel}
+        />
+        <RankingColumn
+          title="신작 TOP 10"
+          subtitle="초기 반응이 빠른 신작 랭킹"
+          icon={<Sparkles className="text-emerald-500" size={20} />}
+          data={newTop10}
+          mode="new"
+          onSelect={setSelectedNovel}
+        />
+      </div>
+
+      <NovelDetailDrawer
+        novel={selectedNovel}
+        onClose={() => setSelectedNovel(null)}
+        latestDate={latestDate}
+        allNovels={sourceNovels}
+        onSelectNovel={setSelectedNovel}
+      />
+    </div>
   );
 }
-
-function PublisherSupportPanel({ items }: { items: PublisherInsight[] }) {
-  return (
-    <section className="rounded-[28px] border border-white/70 bg-white/60 p-5 shadow-sm backdrop-blur">
-    <section className="rounded-[28px] border border-white/70 bg-white/75 p-5 shadow-sm backdrop-blur">
-      <div className="mb-4 flex items-center justify-between gap-3">
-        <div>
-          <p className="text-xs font-extrabold uppercase text-slate-500">Publisher Support</p>
-      </div>
-      <div className="space-y-3">
-        {items.slice(0, 4).map((item) => (
-          <div key={item.name} className="rounded-2xl border border-slate-200/70 bg-white/70 p-4">
-          <div key={item.name} className="rounded-2xl border border-slate-200/70 bg-slate-50 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <h3 className="truncate text-sm font-extrabold text-slate-950">{item.name}</h3>
-
-function RelatedSignals({ novels, onSelect }: { novels: Novel[]; onSelect: (novel: Novel) => void }) {
-  return (
-    <section className="rounded-[26px] bg-[#f2554b] px-5 py-6 text-white shadow-sm">
-      <div className="mb-6 flex items-center justify-center gap-5">
-        <div className="hidden h-px flex-1 bg-white/70 sm:block" />
-        <h2 className="text-center text-base font-extrabold uppercase tracking-[0.18em]">Related Signals</h2>
-        <div className="hidden h-px flex-1 bg-white/70 sm:block" />
-    <section className="rounded-[28px] border border-white/70 bg-white/75 p-5 shadow-sm backdrop-blur">
-      <div className="mb-5 flex items-center justify-between gap-3">
-        <h2 className="text-lg font-extrabold tracking-tight text-slate-950">Related Signals</h2>
-        <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-400">signal works</span>
-      </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-6">
-        {novels.slice(0, 6).map((novel) => (
-          <button key={novel.id} type="button" onClick={() => onSelect(novel)} className="group min-w-0 text-center">
-            <NovelCover novel={novel} size="md" className="mx-auto aspect-[3/4] w-full max-w-[110px] rounded-xl object-cover shadow-md" />
-            <div className="mt-3 flex justify-center gap-1 text-[10px] text-white">★ ★ ★</div>
-            <p className="mt-1 line-clamp-2 min-h-[32px] text-[11px] font-extrabold leading-tight group-hover:underline">{novel.title}</p>
-            <p className="mt-1 text-[10px] font-semibold opacity-80">{novel.todayRank ? `#${novel.todayRank}` : "분석"}</p>
-          <button
-            key={novel.id}
-            type="button"
-            onClick={() => onSelect(novel)}
-            className="group min-w-0 rounded-2xl border border-slate-200 bg-slate-50 p-3 text-center transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
-          >
-            <NovelCover novel={novel} size="md" className="mx-auto aspect-[3/4] w-full max-w-[96px] rounded-xl object-cover shadow-md" />
-            <p className="mt-3 line-clamp-2 min-h-[34px] text-xs font-extrabold leading-tight text-slate-950 group-hover:underline">
-              {novel.title}
-            </p>
-            <p className="mt-1 truncate text-[11px] font-semibold text-slate-500">
-              {carouselLabel(novel)} · {platformLabel(novel.platform)}
-            </p>
-            <p className="mt-2 line-clamp-4 min-h-[62px] text-left text-[11px] leading-relaxed text-slate-600">
-              {getAnalysisReason(novel)}
-            </p>
-            <span className="mt-3 inline-flex rounded-full bg-slate-200 px-2 py-1 text-[10px] font-black text-slate-700">
-              취업 활용
-            </span>
-          </button>
-        ))}
-      </div>
-
-function MiniRankList({ title, data, onSelect }: { title: string; data: Novel[]; onSelect: (novel: Novel) => void }) {
-  return (
-    <div className="rounded-2xl border border-white/70 bg-white/70 p-4 shadow-sm backdrop-blur">
-    <div className="rounded-2xl border border-white/70 bg-white/75 p-4 shadow-sm backdrop-blur">
-      <h3 className="mb-3 text-sm font-extrabold text-slate-950">{title}</h3>
-      <div className="space-y-2">
-        {data.slice(0, 5).map((novel, index) => (
-        {data.slice(0, 10).map((novel, index) => (
-          <button
-            key={`${title}-${novel.id}`}
-            type="button"
-            onClick={() => onSelect(novel)}
-            className="flex w-full items-center gap-3 rounded-xl p-2 text-left hover:bg-slate-100/80"
-            className="flex w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 p-2 text-left hover:bg-white"
-          >
-            <span className="w-5 text-center font-mono text-xs font-extrabold text-slate-500">{index + 1}</span>
-            <NovelCover novel={novel} size="sm" className="h-11 w-9 rounded-lg object-cover" />
-  const periodLabel = dateRangeLabels[dateRange];
-  const { data: sourceData, isLoading, error, latestDate } = useTodayCombined(dateRange);
-  const [selectedNovel, setSelectedNovel] = useState<Novel | null>(null);
-  const [carouselIndex, setCarouselIndex] = useState(1);
-
-  const derived = useMemo(() => {
-    if (!sourceData || sourceData.length === 0) {
-        publisherTop10: [] as Novel[],
-        newTop10: [] as Novel[],
-        analysisPriority: [] as Novel[],
-        carouselNovels: [] as Novel[],
-        todayFocus: null as Novel | null,
-        publisherInsights: [] as PublisherInsight[],
-        platformData: [] as { name: string; value: number; key: string }[],
-      .slice(0, 10);
-
-    const analysisPriority = [...enriched].sort((a, b) => getAnalysisScore(b) - getAnalysisScore(a)).slice(0, 6);
-    const steadyPick = [...enriched]
-      .filter((novel) => (novel.consecutiveDays || 0) >= 14)
-      .sort((a, b) => (b.consecutiveDays || 0) - (a.consecutiveDays || 0))[0];
-    const risingPick = trendTop10.find((novel) => (novel.viewsChangePct || 0) >= 15 && novel.id !== analysisPriority[0]?.id);
-    const carouselNovels = [steadyPick, analysisPriority[0], risingPick]
-      .filter((novel): novel is Novel => Boolean(novel))
-      .filter((novel, index, array) => array.findIndex((item) => item.id === novel.id) === index);
-
-    const newTop10 = [...enriched].filter((novel) => novel.isNew).sort((a, b) => getAnalysisScore(b) - getAnalysisScore(a)).slice(0, 10);
-    const publisherInsights = buildPublisherInsights(enriched, trendTop10);
-    const publisherTop10 = publisherInsights.map((item) => item.bestNovel).filter((novel): novel is Novel => Boolean(novel));
-      publisherTop10,
-      newTop10,
-      analysisPriority,
-      carouselNovels,
-      todayFocus: analysisPriority[0] ?? overallTop10[0] ?? null,
-      publisherInsights,
-      platformData: Object.entries(platformCounts).map(([name, value]) => ({ name: platformLabel(name), value, key: name })),
-  if (isLoading) return <LoadingScreen />;
-  if (error) return <div className="p-8 text-center font-bold text-red-500">{error}</div>;
-
-  const focus = derived.todayFocus;
-  const carouselNovels = derived.carouselNovels.length > 0 ? derived.carouselNovels : derived.todayFocus ? [derived.todayFocus] : [];
-  const safeIndex = carouselNovels.length > 0 ? ((carouselIndex % carouselNovels.length) + carouselNovels.length) % carouselNovels.length : 0;
-  const focus = carouselNovels[safeIndex] ?? derived.todayFocus;
-  const leftCarouselNovel = carouselNovels[(safeIndex - 1 + carouselNovels.length) % carouselNovels.length] ?? focus;
-  const rightCarouselNovel = carouselNovels[(safeIndex + 1) % carouselNovels.length] ?? focus;
-  const sourceNovels: Novel[] = sourceData && sourceData.length > 0 ? sourceData : [];
-  const topPublisher = derived.publisherInsights[0];
-
-  return (
-    <div className="-m-6 min-h-screen bg-[#eef1ed] p-5 text-slate-950 md:p-7">
-      <div className="mx-auto max-w-[1240px] space-y-6">
-        <header className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-500">Web Novel Analysis</p>
-            <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 md:text-3xl">웹소설 분석</h1>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
-              {latestDate || "오늘"} 기준 · {periodLabel} 데이터로 작품 반응을 먼저 보고, 출판사는 보조 신호로 확인합니다.
-            </p>
-          </div>
-        <header>
-          <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-500">Web Novel Analysis</p>
-          <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 md:text-3xl">웹소설 분석</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
-            {latestDate || "오늘"} 기준 · {periodLabel} 데이터로 작품 반응을 먼저 보고, 출판사는 보조 신호로 확인합니다.
-          </p>
-        </header>
-
-        <section className="grid grid-cols-2 gap-3 md:grid-cols-5">
-          <MetricPill icon={<Target size={14} />} label="오늘의 분석 대상" value={focus?.title ?? "-"} />
-          <MetricPill icon={<Flame size={14} />} label="급상승 작품" value={`${derived.stats.rising}개`} />
-          <MetricPill icon={<Sparkles size={14} />} label="신작 반응" value={`${derived.stats.newCount}개`} />
-          <MetricPill icon={<Medal size={14} />} label="장기 차트인" value={`${derived.stats.steady}개`} />
-          <MetricPill icon={<Building2 size={14} />} label="주목 출판사" value={topPublisher?.name ?? "-"} />
-          <MetricPill icon={<Target size={14} />} label="오늘의 분석 대상" value={focus?.title ?? "-"} tone="bg-violet-100 text-violet-700" />
-          <MetricPill icon={<Flame size={14} />} label="급상승 작품" value={`${derived.stats.rising}개`} tone="bg-orange-100 text-orange-700" />
-          <MetricPill icon={<Sparkles size={14} />} label="신작 반응" value={`${derived.stats.newCount}개`} tone="bg-cyan-100 text-cyan-700" />
-          <MetricPill icon={<Medal size={14} />} label="장기 차트인" value={`${derived.stats.steady}개`} tone="bg-emerald-100 text-emerald-700" />
-          <MetricPill icon={<Building2 size={14} />} label="주목 출판사" value={topPublisher?.name ?? "-"} tone="bg-slate-200 text-slate-800" />
-        </section>
-
-        {focus && (
-          <section className="overflow-hidden rounded-[28px] border border-white/70 bg-white/60 shadow-sm backdrop-blur">
-            <div className="grid min-h-[300px] lg:grid-cols-[minmax(0,1fr)_320px]">
-          <section className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(340px,0.95fr)]">
-            <div className="relative min-h-[340px] self-start overflow-hidden rounded-[28px] border border-white/70 bg-[radial-gradient(circle_at_74%_22%,rgba(222,255,93,0.72),transparent_24%),linear-gradient(135deg,#d9eade_0%,#eef0eb_52%,#dce5ef_100%)] p-6 shadow-sm">
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-700">Today Focus Carousel</p>
-              <button
-                type="button"
-                aria-label="이전 작품"
-                onClick={() => setCarouselIndex((value) => value - 1)}
-                className="absolute left-4 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-slate-900 shadow-md hover:bg-white"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <div className="flex h-[270px] items-center justify-center gap-4 px-10">
-                {leftCarouselNovel && <CarouselCover novel={leftCarouselNovel} side="left" onClick={() => setCarouselIndex((value) => value - 1)} />}
-                <CarouselCover novel={focus} active onClick={() => setSelectedNovel(focus)} />
-                {rightCarouselNovel && <CarouselCover novel={rightCarouselNovel} side="right" onClick={() => setCarouselIndex((value) => value + 1)} />}
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedNovel(focus)}
-                className="relative min-h-[300px] overflow-hidden p-5 text-left md:p-7"
-                aria-label="다음 작품"
-                onClick={() => setCarouselIndex((value) => value + 1)}
-                className="absolute right-4 top-1/2 z-20 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-slate-900 shadow-md hover:bg-white"
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_16%,rgba(222,255,93,0.75),transparent_22%),linear-gradient(135deg,#d7e8dd_0%,#eef0eb_50%,#dde4ed_100%)]" />
-                <div className="absolute -bottom-20 -right-12 h-64 w-64 rounded-full bg-slate-950/10 blur-3xl" />
-                <div className="relative z-10 flex h-full flex-col justify-between gap-6">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-slate-700">Today Focus</p>
-                      <h2 className="mt-3 max-w-3xl text-2xl font-extrabold leading-tight tracking-tight text-slate-950 md:text-3xl">
-                        {focus.title}
-                      </h2>
-                      <p className="mt-3 text-sm font-semibold text-slate-600">
-                        {focus.author} · {focus.publisher}
-                      </p>
-                    </div>
-                    <PlatformBadge platform={focus.platform as any} size="md" />
-                  </div>
-                  <div className="grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
-                    <div className="rounded-2xl bg-white/78 p-3 shadow-sm">
-                      <p className="text-[11px] font-bold text-slate-500">현재 순위</p>
-                      <p className="mt-1 font-mono text-xl font-extrabold">#{focus.todayRank ?? "-"}</p>
-                    </div>
-                    <div className="rounded-2xl bg-white/78 p-3 shadow-sm">
-                      <p className="text-[11px] font-bold text-slate-500">순위 변화</p>
-                      <div className="mt-1"><RankChange novel={focus} /></div>
-                    </div>
-                    <div className="rounded-2xl bg-white/78 p-3 shadow-sm">
-                      <p className="text-[11px] font-bold text-slate-500">조회 변화</p>
-                      <p className={cn("mt-1 font-mono text-xl font-extrabold", (focus.viewsChangePct || 0) >= 0 ? "text-blue-700" : "text-rose-600")}>
-                        {formatPct(focus.viewsChangePct)}
-                      </p>
-                    </div>
-                    <div className="rounded-2xl bg-white/78 p-3 shadow-sm">
-                      <p className="text-[11px] font-bold text-slate-500">프로모션</p>
-                      <p className="mt-1 truncate text-sm font-extrabold">{promotionLabel(focus)}</p>
-                    </div>
-                  </div>
-                </div>
-                <ChevronRight size={18} />
-              </button>
-              <div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2">
-                {carouselNovels.map((novel, index) => (
-                  <button
-                    key={novel.id}
-                    type="button"
-                    aria-label={`${index + 1}번 작품 보기`}
-                    onClick={() => setCarouselIndex(index)}
-                    className={cn("h-2 rounded-full transition-all", index === safeIndex ? "w-6 bg-slate-950" : "w-2 bg-slate-300")}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-sm backdrop-blur">
-              <PlatformBadge platform={focus.platform as any} size="md" />
-              <h2 className="mt-4 line-clamp-2 text-2xl font-extrabold tracking-tight text-slate-950 md:text-3xl">{focus.title}</h2>
-              <p className="mt-2 text-sm font-semibold text-slate-500">{focus.author} · {focus.publisher} · {focus.genre}</p>
-
-              <aside className="hidden flex-col justify-between border-t border-white/80 bg-white/78 p-5 lg:flex lg:border-l lg:border-t-0">
-                <div>
-                  <NovelCover novel={focus} size="lg" className="mx-auto aspect-[3/4] w-full max-w-[180px] rounded-3xl object-cover shadow-lg" />
-                  <div className="mt-4 text-center">
-                    <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-400">Main Target</p>
-                    <h3 className="mt-2 line-clamp-2 text-lg font-extrabold text-slate-950">{focus.title}</h3>
-                    <p className="mt-2 text-sm font-medium text-slate-500">{focus.genre} · {toKoreanUnit(focus.todayViews)}</p>
-                  </div>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-[11px] font-bold text-slate-500">현재 순위</p>
-                  <p className="mt-1 font-mono text-xl font-extrabold">#{focus.todayRank ?? "-"}</p>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-[11px] font-bold text-slate-500">순위 변화</p>
-                  <div className="mt-1"><RankChange novel={focus} /></div>
-                </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-[11px] font-bold text-slate-500">조회 변화</p>
-                  <p className={cn("mt-1 font-mono text-xl font-extrabold", (focus.viewsChangePct || 0) >= 0 ? "text-blue-700" : "text-rose-600")}>
-                    {formatPct(focus.viewsChangePct)}
-                  </p>
-                </div>
-              </aside>
-            </div>
-                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                  <p className="text-[11px] font-bold text-slate-500">프로모션</p>
-                  <p className="mt-1 truncate text-sm font-extrabold">{promotionLabel(focus)}</p>
-                </div>
-              </div>
-
-            <div className="grid border-t border-slate-200 bg-white/82 px-5 md:px-7 lg:grid-cols-[minmax(0,1fr)_320px]">
-              <div className="py-2">
-              <div className="mt-5">
-                <SignalLine icon={<Flame size={16} />} title="급상승 이유" body={getAnalysisReason(focus)} />
-                <SignalLine icon={<Lightbulb size={16} />} title="PD 관점" body={getPdPerspective(focus)} />
-                <SignalLine icon={<BriefcaseBusiness size={16} />} title="취업 활용 포인트" body={getCareerAngle(focus)} />
-              </div>
-              <div className="border-t border-slate-200 py-5 lg:border-l lg:border-t-0 lg:pl-6">
-                <p className="text-xs font-extrabold uppercase text-slate-500">Publisher Note</p>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  {topPublisher?.strength ?? "출판사 보조 분석은 작품 반응을 해석하기 위한 참고 신호입니다."}
-                </p>
-                <SignalLine icon={<BriefcaseBusiness size={16} />} title="취업 활용" body={getCareerAngle(focus)} />
-              </div>
-            </div>
-          </section>
-        )}
-
-        <section>
-          <div className="mb-4 flex items-center gap-2">
-            <BookOpenCheck size={18} className="text-slate-700" />
-            <h2 className="text-lg font-extrabold tracking-tight text-slate-950">분석 우선 작품</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {derived.analysisPriority.map((novel) => (
-              <PriorityCard key={novel.id} novel={novel} onSelect={setSelectedNovel} />
-            ))}
-          </div>
-        </section>
-
-        <RelatedSignals novels={derived.analysisPriority} onSelect={setSelectedNovel} />
-
-        <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_390px]">
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            <div className="rounded-[26px] border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
-              <div className="mb-4 flex items-center gap-2">
-        <section className="grid grid-cols-1 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_390px]">
-          <div className="grid self-start grid-cols-1 items-start gap-5 lg:grid-cols-2">
-            <div className="self-start rounded-[26px] border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
-              <div className="mb-3 flex items-center gap-2">
-                <Eye size={18} className="text-slate-700" />
-                <h2 className="text-base font-extrabold text-slate-950">플랫폼 분포</h2>
-              </div>
-              <div className="h-[280px]">
-              <div className="h-[230px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie data={derived.platformData} innerRadius={58} outerRadius={88} paddingAngle={7} dataKey="value">
-                    <Pie data={derived.platformData} innerRadius={50} outerRadius={78} paddingAngle={7} dataKey="value">
-                      {derived.platformData.map((entry) => (
-                        <Cell key={entry.key} fill={PLATFORM_COLORS[entry.key] || PLATFORM_COLORS.etc} />
-                      ))}
-              </div>
-            </div>
-
-            <div className="rounded-[26px] border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
-              <div className="mb-4 flex items-center gap-2">
-            <div className="self-start rounded-[26px] border border-white/70 bg-white/70 p-5 shadow-sm backdrop-blur">
-              <div className="mb-3 flex items-center gap-2">
-                <BarChart3 size={18} className="text-slate-700" />
-                <h2 className="text-base font-extrabold text-slate-950">장르별 플랫폼 분포</h2>
-              </div>
-              <div className="h-[280px]">
-              <div className="h-[230px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={derived.genreStackedData} layout="vertical">
-                    <CartesianGrid stroke="rgba(148,163,184,0.18)" horizontal={false} />
