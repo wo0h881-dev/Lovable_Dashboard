@@ -1,62 +1,27 @@
 {
-  "date": "2026-05-06",
+  "date": "2026-05-28",
   "platform": "kakao",
   "items": [
     {
-      "title": "잊혀진 들판",
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "<잊혀진 들판> 웹툰",
-            "subtitle": "한정판 선물 드려요!"
+            "title": "복작복작 EVENT",
+            "subtitle": "복귀 기념, 모두에게 선물"
+          },
+          {
+            "title": "고립된 후작 영애는…",
+            "subtitle": "2부 론칭 기념 이벤트!"
+          },
+          {
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
           },
           {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "백호 가문의 아기 솜뭉치",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "백호 가문의 아기 솜…",
-            "subtitle": "외전 론칭 기념 이벤트!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "마법학교 마법사로 살아가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "요람부터 극락까지",
-            "subtitle": "열람하면 최대 1만 캐시!"
-          },
-          {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "내가 키운 검들이 너무 강함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "내가 키운 검들이 너…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -68,6 +33,14 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
+            "title": "총 5.6억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          },
+          {
+            "title": "웹툰 론칭 티저",
+            "subtitle": "지금 확인하세요!"
+          },
+          {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
           }
@@ -76,13 +49,74 @@
       }
     },
     {
-      "title": "육아물 악녀가 인성을 안 숨김",
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "우검쟁패",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "육아물 악녀가 인성을…",
+            "title": "초신작 오픈런",
+            "subtitle": "모두에게 캐시 선물"
+          },
+          {
+            "title": "우검쟁패",
             "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "마법학교 마법사로 살아가는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "어린 신인데 키워주시죠",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "5월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -94,6 +128,10 @@
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
+            "title": "의원, 다시 살다",
+            "subtitle": "3억 뷰 기념 이벤트!"
+          },
+          {
             "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
@@ -102,12 +140,19 @@
       }
     },
     {
-      "title": "궁극의 오빠",
+      "title": "흑화한 SSS급 서포터의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "부러진 가지에 꽃이 피어도",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "궁극의 오빠",
+            "title": "부러진 가지에 꽃이…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -115,9 +160,23 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "국정원 요원 천재배우로 환생",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "5월의 스탬프 투어!",
@@ -141,146 +200,71 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "내일이 없는 시한부 공주라서요",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
     {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "우리 호텔 정상 영업합니다",
+      "title": "복수의 여왕",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "우리 호텔 정상 영업…",
-            "subtitle": "Q&A 공개 이벤트!"
+            "title": "복수의 여왕",
+            "subtitle": "이오렛과 네 명의 기사"
           },
           {
-            "title": "게임을 시작하시겠습니까",
-            "subtitle": "지금 체크인하기"
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "네크로맨서 학교의 소환천재",
+      "title": "방출 뒤 역대급 파이어볼러",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "방출 뒤 역대급 파이…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "흑백무제",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
+          {
+            "title": "🐣웹덕이 키우기🐣",
+            "subtitle": "웹덕이의 주인이 되어주세요"
+          },
           {
             "title": "5월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          },
-          {
-            "title": "소환물 인기작 모음!",
-            "subtitle": "감상하면 최대 5천 캐시!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "미궁탐험 101",
+      "title": "군림천하",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "누군가 내 몸에 빙의했다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "복작복작 EVENT",
-            "subtitle": "복귀 기념, 모두에게 선물"
-          },
-          {
-            "title": "누군가 내 몸에 빙의…",
-            "subtitle": "외전 보고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천마등선",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "재해를 먹는 마법사",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "재해를 먹는 마법사",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "불탄 사막의 모래술사",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "5월 이달의 신작",
-            "subtitle": "지금 보면 바로 캐시 선물"
-          },
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "OTT 씹어먹는 천재 디렉터",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "title": "군림천하",
+            "subtitle": "1000화 돌파 기념!"
           }
         ],
         "notices": []
