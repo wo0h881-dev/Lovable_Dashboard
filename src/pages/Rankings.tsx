@@ -198,8 +198,12 @@ export default function RankingsPage() {
     .sort((a, b) => {
       if (sortKey === "rank") {
         if (platform !== "all") {
-          return (a.todayRank ?? 999) - (b.todayRank ?? 999);
+          if (platform === "ridi") {
+          return (a.ridiInnerRank ?? 999) - (b.ridiInnerRank ?? 999);
         }
+
+        return (a.todayRank ?? 999) - (b.todayRank ?? 999);
+      }   
 
         const scorer = mode === "overall" ? computeUnifiedScore : computeTrendScore;
         const scoreA = scorer(
