@@ -1,16 +1,33 @@
 {
-  "date": "2026-05-28",
+  "date": "2026-05-29",
   "platform": "kakao",
   "items": [
+    {
+      "title": "우검쟁패",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 오픈런",
+            "subtitle": "모두에게 캐시 선물"
+          },
+          {
+            "title": "우검쟁패",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
     {
       "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
-          {
-            "title": "복작복작 EVENT",
-            "subtitle": "복귀 기념, 모두에게 선물"
-          },
           {
             "title": "고립된 후작 영애는…",
             "subtitle": "2부 론칭 기념 이벤트!"
@@ -41,21 +58,13 @@
       }
     },
     {
-      "title": "우검쟁패",
+      "title": "시한부 상속녀로 살아남기",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
-            "title": "우검쟁패",
+            "title": "시한부 상속녀로 살아…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -66,6 +75,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "TIMETABLE 공개",
+            "subtitle": "지금 확인하기"
+          },
           {
             "title": "총 5.6억 뷰!",
             "subtitle": "열람하고 캐시 받자!"
@@ -96,26 +109,6 @@
       }
     },
     {
-      "title": "부러진 가지에 꽃이 피어도",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "부러진 가지에 꽃이…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "데뷔 못 하면 죽는 병 걸림",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
       "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -133,23 +126,9 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "어린 신인데 키워주시죠",
+      "title": "백작가의 망나니가 되었다",
       "promotion": {
         "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "흑화한 SSS급 서포터의 회귀",
-      "promotion": {
-        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -167,15 +146,29 @@
       }
     },
     {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "title": "부러진 가지에 꽃이 피어도",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "웹툰 1화 선공개",
-            "subtitle": "선공개 확인하고 선물받자!"
+            "title": "부러진 가지에 꽃이…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "흑화한 SSS급 서포터의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -206,7 +199,28 @@
       }
     },
     {
-      "title": "국정원 요원 천재배우로 환생",
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "내일이 없는 시한부 공주라서요",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "흑백무제",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
@@ -219,50 +233,22 @@
       }
     },
     {
-      "title": "불탄 사막의 모래술사",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "불사모 노블코믹 이벤트",
-            "subtitle": "3다무+무료UP+캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "복수의 여왕",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "복수의 여왕",
-            "subtitle": "이오렛과 네 명의 기사"
-          },
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "우리 호텔 정상 영업합니다",
+      "title": "환생한 암살자는 검술 천재",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "적룡무제",
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
         "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "웹툰 1화 선공개",
+            "subtitle": "선공개 확인하고 선물받자!"
+          }
+        ],
         "notices": []
       }
     }
