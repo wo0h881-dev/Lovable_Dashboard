@@ -1,7 +1,66 @@
 {
-  "date": "2026-05-29",
+  "date": "2026-05-30",
   "platform": "kakao",
   "items": [
+    {
+      "title": "그녀에겐 뭔가 특별한 것이 있다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월 초신작 오픈런",
+            "subtitle": "전원 캐시 선물 받기 >"
+          },
+          {
+            "title": "그녀에겐 뭔가 특별한…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "괴담에 떨어져도 출근을 해야 하는구나",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "TIMETABLE 공개",
+            "subtitle": "지금 확인하기"
+          },
+          {
+            "title": "총 5.6억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          },
+          {
+            "title": "웹툰 론칭 티저",
+            "subtitle": "지금 확인하세요!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
     {
       "title": "우검쟁패",
       "promotion": {
@@ -45,19 +104,6 @@
       }
     },
     {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "시한부 상속녀로 살아남기",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -65,31 +111,6 @@
           {
             "title": "시한부 상속녀로 살아…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "괴담에 떨어져도 출근을 해야 하는구나",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "TIMETABLE 공개",
-            "subtitle": "지금 확인하기"
-          },
-          {
-            "title": "총 5.6억 뷰!",
-            "subtitle": "열람하고 캐시 받자!"
-          },
-          {
-            "title": "웹툰 론칭 티저",
-            "subtitle": "지금 확인하세요!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -126,22 +147,47 @@
       }
     },
     {
-      "title": "백작가의 망나니가 되었다",
+      "title": "흑화한 SSS급 서포터의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
       "promotion": {
         "timeFreeType": "threeHour",
         "notices": []
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "OTT 씹어먹는 천재 디렉터",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "초신작",
+            "subtitle": "정주행 캐시 선물"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "어린 신인데 키워주시죠",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "내일이 없는 시한부 공주라서요",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -159,40 +205,39 @@
       }
     },
     {
-      "title": "흑화한 SSS급 서포터의 회귀",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "데뷔 못 하면 죽는 병 걸림",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "초심 잃은 아이돌을 위한 회귀 백서",
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "웹툰 1화 선공개",
+            "subtitle": "선공개 확인하고 선물받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "1년차 만렙 매니저",
+      "title": "복수하는 김에 재벌도 되겠습니다",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "복수하는 김에 재벌도…",
+            "subtitle": "500화 기념 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천마등선",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -206,29 +251,9 @@
       }
     },
     {
-      "title": "내일이 없는 시한부 공주라서요",
+      "title": "적룡무제",
       "promotion": {
         "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "흑백무제",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
         "notices": []
       }
     },
@@ -236,19 +261,6 @@
       "title": "환생한 암살자는 검술 천재",
       "promotion": {
         "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "웹툰 1화 선공개",
-            "subtitle": "선공개 확인하고 선물받자!"
-          }
-        ],
         "notices": []
       }
     }
