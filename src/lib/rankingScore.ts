@@ -94,7 +94,10 @@ export function computeUnifiedScore(
 
   const viewRatio = p === "ridi" || maxV <= 0 ? 0 : n.todayViews / maxV;
   const deltaRatio = maxD > 0 ? Math.max(0, n.viewsChangePct || 0) / maxD : 0;
-  const commentRatio = maxC > 0 ? n.commentCount / maxC : 0;
+  const commentRatio =
+  maxC > 0
+    ? Math.log10((n.commentCount || 0) + 1) / Math.log10(maxC + 1)
+    : 0;
   const pw = platformWeight(p);
 
   const normalizedRating = p === "ridi" ? n.rating * 2 : n.rating;
@@ -103,13 +106,14 @@ export function computeUnifiedScore(
   if (p === "ridi") {
     /**
      * [종합 인기 - 리디] 
-     * 누적 평가수(0.6)를 메인으로, 오늘 순위(0.15)는 참고만 합니다.
+     * 실제 댓글수는 플랫폼별 규모 차이가 커서 보조지표로만 반영합니다.
+     * 오늘 순위를 메인으로 두고, 댓글수/상승세/평점은 보정값으로 사용합니다.
      */
     return (
-      rs * 0.15 +           // 오늘 순위 비중 축소
-      commentRatio * 0.6 +  // 🚀 누적 평가수(체급) 비중 극대화
-      deltaRatio * 0.05 +   // 오늘 기세는 거의 무시
-      (pw * 0.1 + ratingBonus * 1.0) 
+      rs * 0.45 +           // 오늘 순위 비중 축소
+      commentRatio * 0.15 +  // 🚀 누적 평가수(체급) 비중 극대화
+      deltaRatio * 0.15 +   // 오늘 기세는 거의 무시
+      pw * 0.10
     );
   }
 
@@ -145,10 +149,12 @@ export function computeTrendScore(
 
   const viewRatio = maxV <= 0 ? 0 : n.todayViews / maxV;
   const deltaRatio = maxD > 0 ? Math.max(0, n.viewsChangePct || 0) / maxD : 0;
-  const commentRatio = maxC > 0 ? n.commentCount / maxC : 0;
-
+  const commentRatio =
+  maxC > 0
+    ? Math.log10((n.commentCount || 0) + 1) / Math.log10(maxC + 1)
+    : 0;
   if (p === "ridi") {
-    return rs * 0.4 + deltaRatio * 0.35 + commentRatio * 0.25;
+    return rs * 0.45 + deltaRatio * 0.40 + commentRatio * 0.15;
   }
 
   return (
