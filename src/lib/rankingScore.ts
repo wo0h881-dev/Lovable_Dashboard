@@ -86,7 +86,7 @@ export function computeUnifiedScore(
 ): number {
   const p = n.platform as Platform;
   const effectiveRank = p === "ridi" && n.ridiInnerRank ? n.ridiInnerRank : n.todayRank;
-  const rs = rankToScore(effectiveRank);
+  const rs = rankToScore(effectiveRank) / 20;
 
   const maxV = maxViewsByPlatform[p] || 0;
   const maxC = maxCommentsByPlatform[p] || 0;
@@ -113,6 +113,7 @@ export function computeUnifiedScore(
       rs * 0.45 +           // 오늘 순위 비중 축소
       commentRatio * 0.15 +  // 🚀 누적 평가수(체급) 비중 극대화
       deltaRatio * 0.15 +   // 오늘 기세는 거의 무시
+      ratingBonus * 0.15 +
       pw * 0.10
     );
   }
@@ -141,8 +142,7 @@ export function computeTrendScore(
 ): number {
   const p = n.platform as Platform;
   const effectiveRank = p === "ridi" && n.ridiInnerRank ? n.ridiInnerRank : n.todayRank;
-  const rs = rankToScore(effectiveRank);
-
+  const rs = rankToScore(effectiveRank) / 20;
   const maxV = maxViewsByPlatform[p] || 0;
   const maxC = maxCommentsByPlatform[p] || 0;
   const maxD = maxDeltaByPlatform[p] || 0;
