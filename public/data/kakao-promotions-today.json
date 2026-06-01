@@ -3,22 +3,57 @@
   "platform": "kakao",
   "items": [
     {
-      "title": "주작 가문의 작은 아기뱀",
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
+            "title": "웹툰 론칭 기념!",
+            "subtitle": "전원 캐시 선물 보기 >"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "title": "그녀에겐 뭔가 특별한 것이 있다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
+          },
+          {
+            "title": "그녀에겐 뭔가 특별한…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "우검쟁패",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
+          },
+          {
+            "title": "우검쟁패",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
         "notices": []
       }
     },
@@ -27,6 +62,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "고◼️은 파일 발견",
+            "subtitle": "해제하시겠습니까?"
+          },
           {
             "title": "백◼️헌 파일",
             "subtitle": "복구 대기 중"
@@ -56,42 +95,13 @@
       }
     },
     {
-      "title": "우검쟁패",
+      "title": "주작 가문의 작은 아기뱀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
-            "title": "우검쟁패",
+            "title": "주작 가문의 작은 아…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "그녀에겐 뭔가 특별한 것이 있다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월 초신작 오픈런",
-            "subtitle": "전원 캐시 선물 받기 >"
-          },
-          {
-            "title": "그녀에겐 뭔가 특별한…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -116,8 +126,8 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "고립된 후작 영애는…",
-            "subtitle": "2부 론칭 기념 이벤트!"
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
           },
           {
             "title": "카카오페이지 초신작",
@@ -143,14 +153,20 @@
     {
       "title": "데뷔 못 하면 죽는 병 걸림",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     },
@@ -162,7 +178,7 @@
       }
     },
     {
-      "title": "흑백무제",
+      "title": "신마대제",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
@@ -182,19 +198,42 @@
           {
             "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          },
-          {
-            "title": "의원, 다시 살다",
-            "subtitle": "3억 뷰 기념 이벤트!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "신마대제",
+      "title": "우리 호텔 정상 영업합니다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "흑백무제",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "국정원 요원 천재배우로 환생",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
             "title": "6월의 스탬프 투어!",
@@ -212,65 +251,26 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "국정원 요원 천재배우로 환생",
+      "title": "불탄 사막의 모래술사",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "불사모 노블코믹 이벤트",
+            "subtitle": "3다무+무료UP+캐시!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "망나니 병원장으로 살아남기",
+      "title": "계약 남편이 이혼을 요구한다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "망나니 병원장으로 살…",
+            "title": "계약 남편이 이혼을…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천마등선",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "복수하는 김에 재벌도 되겠습니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "복수하는 김에 재벌도…",
-            "subtitle": "500화 기념 캐시 선물!"
           }
         ],
         "notices": []

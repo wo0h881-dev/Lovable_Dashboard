@@ -1,12 +1,12 @@
 {
-  "date": "2026-06-01",
+  "date": "2026-06-02",
   "platform": "ridi",
   "items": [
     {
       "title": "하나의 더치",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
@@ -44,7 +44,7 @@
       "title": "하나의 더치",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
@@ -149,9 +149,6 @@
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "[6시간마다 무료] 임은성 <순정과 과보호의 역학관계> 매일 2연참!"
-          },
-          {
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
@@ -165,7 +162,7 @@
         ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "3화 무료",
-        "ridiWaitFreeText": "6시간마다 1편 기다리면 무료",
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": "매주 목, 금, 토, 일, 월 연재",
         "exclusiveText": "독점 작품 감상은 [RIDI ONLY 작품관]"
       }
@@ -239,9 +236,6 @@
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "[100% 당첨] 누구나 매일 1,000포인트 드리는 랜덤티켓!"
-          },
-          {
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
@@ -269,7 +263,7 @@
       "title": "졸업은 해야지",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 3화 무료",
+        "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
@@ -385,7 +379,7 @@
       "title": "한여름의 섬 피오라로 오세요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 3화 무료",
+        "tag": "Up 리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
@@ -412,16 +406,10 @@
       "title": "오월의 정원에서",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 20화 무료",
-        "freeEpisodes": 20,
+        "tag": "리다무 3화 무료",
+        "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
-          {
-            "title": "[웹소설xe북] 웹툰 론칭! 서담연 <오월의 정원에서>"
-          },
-          {
-            "title": "RIDI ONLY 론칭🪴 4화 무료 + 전원 포인트백✨"
-          },
           {
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
@@ -435,7 +423,7 @@
           }
         ],
         "ridiWaitFree": true,
-        "ridiFreeLabel": "20화 무료",
+        "ridiFreeLabel": "3화 무료",
         "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": null
@@ -445,12 +433,12 @@
       "title": "엘레인과 데커드",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 10화 무료",
+        "tag": "리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "✨오늘만 88% 포인트백✨ 김빠 <엘레인과 데커드> 론칭"
+            "title": "[전원 포인트백] 김빠 <엘레인과 데커드> 론칭"
           },
           {
             "title": "[FIRST 신작] 매주 최대 5,000 포인트!"
@@ -505,7 +493,7 @@
       "title": "사파 수장의 애첩은 매일 밤",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 3화 무료",
+        "tag": "리다무 3화 무료",
         "freeEpisodes": 3,
         "daysLeft": null,
         "eventBanners": [
@@ -586,15 +574,12 @@
       "title": "약탈자들",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 5화 무료",
+        "tag": "Up 리다무 5화 무료",
         "freeEpisodes": 5,
         "daysLeft": null,
         "eventBanners": [
           {
             "title": "[최대 1,000 포인트] FIRST 신작 타임라인"
-          },
-          {
-            "title": "[100% 당첨] 누구나 매일 1,000포인트 드리는 랜덤티켓!"
           },
           {
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
@@ -679,12 +664,22 @@
         "tag": "리다무 6화 무료",
         "freeEpisodes": 6,
         "daysLeft": null,
-        "eventBanners": [],
+        "eventBanners": [
+          {
+            "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
+          }
+        ],
         "notices": [],
-        "benefits": [],
+        "benefits": [
+          {
+            "label": "혜택",
+            "title": "무료이용권 2장 증정",
+            "subtitle": "사용기한 30일, 1인 1회 발급 가능, 90일 대여"
+          }
+        ],
         "ridiWaitFree": true,
         "ridiFreeLabel": "6화 무료",
-        "ridiWaitFreeText": null,
+        "ridiWaitFreeText": "1일마다 1편 기다리면 무료",
         "serialSchedule": null,
         "exclusiveText": null
       }
@@ -720,12 +715,12 @@
       "title": "플레이어가 접속했습니다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "오늘만 88% 포인트백! RIDI ONLY <플레이어가 접속했습니다> 론칭"
+            "title": "즉시 50% 포인트백! RIDI ONLY <플레이어가 접속했습니다> 론칭"
           },
           {
             "title": "[FIRST 신작] 매주 최대 5,000 포인트!"
@@ -750,7 +745,7 @@
       "title": "은행원도 용꿈을 꾸나요",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "tag": "Up 리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -783,7 +778,7 @@
       "title": "신회귀자를 위한 지침",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 100화 무료",
+        "tag": "리다무 100화 무료",
         "freeEpisodes": 100,
         "daysLeft": null,
         "eventBanners": [
@@ -810,7 +805,7 @@
       "title": "명문고 EX급 조연의 리플레이",
       "promotion": {
         "timeFreeType": "none",
-        "tag": "22화 무료",
+        "tag": "Up 22화 무료",
         "freeEpisodes": 22,
         "daysLeft": null,
         "eventBanners": [
@@ -840,7 +835,7 @@
       "title": "미궁이 된 회사에서 죽어 나가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "tag": "Up 리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -897,12 +892,12 @@
       "title": "플레이어가 접속했습니다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "Up 리다무 25화 무료",
+        "tag": "리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
           {
-            "title": "오늘만 88% 포인트백! RIDI ONLY <플레이어가 접속했습니다> 론칭"
+            "title": "즉시 50% 포인트백! RIDI ONLY <플레이어가 접속했습니다> 론칭"
           },
           {
             "title": "[FIRST 신작] 매주 최대 5,000 포인트!"
@@ -927,7 +922,7 @@
       "title": "이 소설은 내 소설이 아니다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 100화 무료",
+        "tag": "Up 리다무 100화 무료",
         "freeEpisodes": 100,
         "daysLeft": null,
         "eventBanners": [
@@ -971,7 +966,7 @@
       "title": "내 눈에만 범인이 보임",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 25화 무료",
+        "tag": "Up 리다무 25화 무료",
         "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [
@@ -1000,7 +995,7 @@
       "title": "금손 아빠가 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 100화 무료",
+        "tag": "Up 리다무 100화 무료",
         "freeEpisodes": 100,
         "daysLeft": null,
         "eventBanners": [
@@ -1011,7 +1006,12 @@
             "title": "단 3일! 캐시 충전시 포인트 두배 적립!"
           }
         ],
-        "notices": [],
+        "notices": [
+          {
+            "label": "공지",
+            "title": "6월 2일부터 약 4주간 휴재 안내"
+          }
+        ],
         "benefits": [],
         "ridiWaitFree": true,
         "ridiFreeLabel": "100화 무료",
@@ -1048,7 +1048,7 @@
       "title": "내 무협 주인공이 나를 싫어한다",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 100화 무료",
+        "tag": "Up 리다무 100화 무료",
         "freeEpisodes": 100,
         "daysLeft": null,
         "eventBanners": [
@@ -1326,7 +1326,7 @@
       "title": "총총",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "리다무 10화 무료",
+        "tag": "Up 리다무 10화 무료",
         "freeEpisodes": 10,
         "daysLeft": null,
         "eventBanners": [

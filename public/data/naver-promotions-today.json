@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-01",
+  "date": "2026-06-02",
   "platform": "naver",
   "items": [
     {
@@ -8,7 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -30,7 +30,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 100,
-        "daysLeft": 5,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +41,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 154,
+        "daysLeft": 153,
         "eventBanners": [],
         "notices": []
       }
@@ -52,7 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 18,
+        "daysLeft": 17,
         "eventBanners": [],
         "notices": []
       }
@@ -63,7 +63,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -74,7 +74,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 77,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
@@ -85,7 +85,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 4,
+        "daysLeft": 3,
         "eventBanners": [],
         "notices": []
       }
@@ -96,7 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 3,
+        "daysLeft": 2,
         "eventBanners": [],
         "notices": []
       }
@@ -118,7 +118,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
@@ -140,7 +140,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 52,
+        "daysLeft": 51,
         "eventBanners": [],
         "notices": []
       }
@@ -162,7 +162,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 52,
+        "daysLeft": 51,
         "eventBanners": [],
         "notices": []
       }
@@ -173,7 +173,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 98,
+        "daysLeft": 97,
         "eventBanners": [],
         "notices": []
       }
@@ -184,7 +184,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 4,
-        "daysLeft": 76,
+        "daysLeft": 75,
         "eventBanners": [],
         "notices": []
       }
@@ -195,7 +195,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -206,7 +206,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 11,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -217,7 +217,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 26,
+        "daysLeft": 25,
         "eventBanners": [],
         "notices": []
       }
