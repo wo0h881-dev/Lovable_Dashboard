@@ -110,11 +110,11 @@ export function computeUnifiedScore(
      * 오늘 순위를 메인으로 두고, 댓글수/상승세/평점은 보정값으로 사용합니다.
      */
     return (
-      rs * 0.45 +           // 오늘 순위 비중 축소
+      rs * 0.25 +           // 오늘 순위 비중 축소
       commentRatio * 0.15 +  // 🚀 누적 평가수(체급) 비중 극대화
       deltaRatio * 0.15 +   // 오늘 기세는 거의 무시
-      ratingBonus * 0.15 +
-      pw * 0.10
+      ratingBonus * 0.10 +
+      pw * 0.05
     );
   }
 
@@ -158,8 +158,8 @@ export function computeTrendScore(
   }
 
   return (
-    rs * 0.4 +
-    deltaRatio * 0.35 +
+    rs * 0.3 +
+    deltaRatio * 0.45 +
     viewRatio * 0.15 +
     commentRatio * 0.1
   );
