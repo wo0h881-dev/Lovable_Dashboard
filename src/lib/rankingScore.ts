@@ -101,17 +101,14 @@ export function computeUnifiedScore(
   const ratingBonus = (normalizedRating / 10) * 0.1;
 
   if (p === "ridi") {
-    /**
-     * [종합 인기 - 리디] 
-     * 누적 평가수(0.6)를 메인으로, 오늘 순위(0.15)는 참고만 합니다.
-     */
-    return (
-      rs * 0.15 +           // 오늘 순위 비중 축소
-      commentRatio * 0.6 +  // 🚀 누적 평가수(체급) 비중 극대화
-      deltaRatio * 0.05 +   // 오늘 기세는 거의 무시
-      (pw * 0.1 + ratingBonus * 1.0) 
-    );
-  }
+  return (
+    rs * 0.45 +
+    commentRatio * 0.15 +
+    deltaRatio * 0.15 +
+    ratingBonus * 0.15 +
+    pw * 0.10
+  );
+}
 
   /**
    * [종합 인기 - 네이버/카카오]
@@ -148,7 +145,7 @@ export function computeTrendScore(
   const commentRatio = maxC > 0 ? n.commentCount / maxC : 0;
 
   if (p === "ridi") {
-    return rs * 0.4 + deltaRatio * 0.35 + commentRatio * 0.25;
+    return rs * 0.4 + deltaRatio * 0.4 + commentRatio * 0.15;
   }
 
   return (
