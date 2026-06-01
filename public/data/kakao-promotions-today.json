@@ -1,25 +1,24 @@
 {
-  "date": "2026-05-31",
+  "date": "2026-06-01",
   "platform": "kakao",
   "items": [
     {
-      "title": "그녀에겐 뭔가 특별한 것이 있다",
+      "title": "주작 가문의 작은 아기뱀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월 초신작 오픈런",
-            "subtitle": "전원 캐시 선물 받기 >"
-          },
-          {
-            "title": "그녀에겐 뭔가 특별한…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -28,6 +27,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "백◼️헌 파일",
+            "subtitle": "복구 대기 중"
+          },
           {
             "title": "인물 티저",
             "subtitle": "김◼️음 사원"
@@ -53,17 +56,42 @@
       }
     },
     {
-      "title": "주작 가문의 작은 아기뱀",
+      "title": "우검쟁패",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
+            "title": "초신작 오픈런",
+            "subtitle": "모두에게 캐시 선물"
           },
           {
-            "title": "주작 가문의 작은 아…",
+            "title": "우검쟁패",
             "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "그녀에겐 뭔가 특별한 것이 있다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월 초신작 오픈런",
+            "subtitle": "전원 캐시 선물 받기 >"
+          },
+          {
+            "title": "그녀에겐 뭔가 특별한…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -92,33 +120,8 @@
             "subtitle": "2부 론칭 기념 이벤트!"
           },
           {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "우검쟁패",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
-          },
-          {
-            "title": "우검쟁패",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -130,7 +133,41 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "흑화한 SSS급 서포터의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "흑백무제",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
@@ -140,14 +177,60 @@
     {
       "title": "의원, 다시 살다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
           {
             "title": "의원, 다시 살다",
             "subtitle": "3억 뷰 기념 이벤트!"
-          },
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "신마대제",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
           {
-            "title": "5월의 스탬프 투어!",
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "죽었어야 할 남편이 돌아왔다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "국정원 요원 천재배우로 환생",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
@@ -168,30 +251,15 @@
       }
     },
     {
-      "title": "데뷔 못 하면 죽는 병 걸림",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "편집자의 생존수칙",
+      "title": "천마등선",
       "promotion": {
         "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "적룡무제",
-      "promotion": {
-        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
         "notices": []
       }
     },
@@ -203,76 +271,6 @@
           {
             "title": "복수하는 김에 재벌도…",
             "subtitle": "500화 기념 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천마등선",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "흑화한 SSS급 서포터의 회귀",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "국정원 요원 천재배우로 환생",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "5월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "OTT 씹어먹는 천재 디렉터",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작",
-            "subtitle": "정주행 캐시 선물"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "우리 호텔 정상 영업합니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "시한부 상속녀로 살아남기",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "시한부 상속녀로 살아…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []

@@ -1,64 +1,20 @@
 {
-  "date": "2026-05-31",
+  "date": "2026-06-01",
   "platform": "naver",
   "items": [
     {
+      "title": "회귀자의 통장에 돈이 너무 많음 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "화산귀환 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 85,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 155,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "드블리와 힐링합니다.",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "크리티컬 플러팅 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 4,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "혈마는 평화롭게 살고 싶다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
@@ -69,11 +25,77 @@
       }
     },
     {
-      "title": "즉사기 들고 무림에 떨어지다",
+      "title": "고인물은 종말이 너무 쉽다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
+        "freeEpisodes": 100,
+        "daysLeft": 5,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "절대회귀 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 154,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "신입사원 강 회장 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
+        "daysLeft": 18,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무한 각성 헌터가 되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 77,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "드블리와 힐링합니다.",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
         "daysLeft": 3,
         "eventBanners": [],
         "notices": []
@@ -91,12 +113,23 @@
       }
     },
     {
-      "title": "천하제일 당소예 [독점]",
+      "title": "즉사기 들고 무림에 떨어지다",
       "promotion": {
-        "timeFreeType": "pass",
-        "tag": "프리패스 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 1,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 2,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "금옥만당",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 20,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -107,73 +140,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 53,
+        "daysLeft": 52,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "금옥만당",
+      "title": "천하제일 당소예 [독점]",
       "promotion": {
         "timeFreeType": "pass",
-        "tag": "프리패스",
-        "freeEpisodes": 20,
-        "daysLeft": 1,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "신입사원 강 회장 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 19,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "하남자의 탑 공략법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "미친 용병단장이 연예계로 출근함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "당신의 남편은 오늘도 회식 중이죠? [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "만렙 무당의 신빨이 폭발함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -184,29 +162,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 53,
+        "daysLeft": 52,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "주식 천재는 투자가 너무 쉽다",
+      "title": "사천당가의 장녀는 가문을 지킨다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 98,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "크리티컬 플러팅 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 4,
+        "daysLeft": 76,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "호주 깡촌에서 워홀 중 인세가 쏟아짐",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전능의 뇌를 얻었다",
+      "title": "쇼팽 콘체르토",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 81,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -216,8 +216,8 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": null,
+        "freeEpisodes": 25,
+        "daysLeft": 26,
         "eventBanners": [],
         "notices": []
       }
