@@ -91,7 +91,15 @@ function toUnifiedGenre(platform: Platform, rawGenre: string): Genre {
   if (upper.includes("BL")) return "BL";
   if (raw.includes("로맨스") && raw.includes("현대물")) return "로맨스";
   if (raw.includes("서양풍") && raw.includes("로판")) return "로판";
-  if (raw.includes("로판")) return "로판";
+
+  if (
+    raw.includes("로판") ||
+    raw.includes("로맨스판타지") ||
+    raw.includes("로맨스 판타지")
+  ) {
+    return "로판";
+  }
+
   if (raw.includes("로맨스")) return "로맨스";
   if (raw.includes("현대 판타지") || raw.includes("현판")) return "현판";
   if (raw.includes("퓨전 판타지") || raw.includes("판타지")) return "판타지";
