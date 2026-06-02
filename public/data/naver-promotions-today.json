@@ -3,10 +3,10 @@
   "platform": "naver",
   "items": [
     {
-      "title": "회귀자의 통장에 돈이 너무 많음 [독점]",
+      "title": "화산귀환 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
+        "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
         "daysLeft": 83,
         "eventBanners": [],
@@ -14,12 +14,12 @@
       }
     },
     {
-      "title": "화산귀환 [독점]",
+      "title": "판초우의의 마법사",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 83,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -58,12 +58,12 @@
       }
     },
     {
-      "title": "무한 각성 헌터가 되었다",
+      "title": "회귀자의 통장에 돈이 너무 많음 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -75,6 +75,17 @@
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
         "daysLeft": 76,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "고인물의 무한 회귀 [독점]",
+      "promotion": {
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -102,6 +113,50 @@
       }
     },
     {
+      "title": "월스트리트 천재의 시한부 투자법 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "오늘만 사는 기사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 51,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무한 각성 헌터가 되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "모든걸 기억하는 천재무사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 26,
+        "daysLeft": 51,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "무기의 여왕 [독점]",
       "promotion": {
         "timeFreeType": "none",
@@ -124,67 +179,23 @@
       }
     },
     {
+      "title": "그린 스킨",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 179,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
       "title": "금옥만당",
       "promotion": {
         "timeFreeType": "none",
         "tag": "프로모션",
         "freeEpisodes": 20,
         "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "오늘만 사는 기사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 51,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "천하제일 당소예 [독점]",
-      "promotion": {
-        "timeFreeType": "pass",
-        "tag": "시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": null,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "모든걸 기억하는 천재무사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 26,
-        "daysLeft": 51,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "사천당가의 장녀는 가문을 지킨다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 97,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "크리티컬 플러팅 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 4,
-        "daysLeft": 75,
         "eventBanners": [],
         "notices": []
       }
@@ -201,23 +212,12 @@
       }
     },
     {
-      "title": "쇼팽 콘체르토",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "마탑의 문제아들 [독점]",
+      "title": "사천당가의 장녀는 가문을 지킨다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 25,
+        "freeEpisodes": 5,
+        "daysLeft": 97,
         "eventBanners": [],
         "notices": []
       }
