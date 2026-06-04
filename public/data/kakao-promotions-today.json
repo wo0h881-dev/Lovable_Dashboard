@@ -1,15 +1,36 @@
 {
-  "date": "2026-06-02",
+  "date": "2026-06-04",
   "platform": "kakao",
   "items": [
     {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "title": "잊혀진 들판",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "웹툰 론칭 기념!",
-            "subtitle": "전원 캐시 선물 보기 >"
+            "title": "잊혀진 들판",
+            "subtitle": "기다리고 기다린 컴백!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "몰락한 재벌가 3세의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "몰락한 재벌가 3세의…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -21,6 +42,18 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
+            "title": "친구야, 같이보자!",
+            "subtitle": "친구 초대하면 캐시선물!"
+          },
+          {
+            "title": "박◼️성 파일 오염",
+            "subtitle": "꺼내줘서 고마워."
+          },
+          {
+            "title": "온니",
+            "subtitle": "좋은 향기 나요"
+          },
+          {
             "title": "고◼️은 파일 발견",
             "subtitle": "해제하시겠습니까?"
           },
@@ -29,24 +62,61 @@
             "subtitle": "복구 대기 중"
           },
           {
-            "title": "인물 티저",
-            "subtitle": "김◼️음 사원"
+            "title": "김◼️음 사원",
+            "subtitle": "파일을 해제하십시오."
           },
           {
             "title": "TIMETABLE 공개",
             "subtitle": "지금 확인하기"
           },
           {
-            "title": "총 5.6억 뷰!",
-            "subtitle": "열람하고 캐시 받자!"
-          },
-          {
-            "title": "웹툰 론칭 티저",
-            "subtitle": "지금 확인하세요!"
+            "title": "2D에 적응할",
+            "subtitle": "준비 되셨나요?"
           },
           {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "육아물 여주인공의 새언니",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "친구야, 같이보자!",
+            "subtitle": "친구 초대하면 캐시선물!"
+          },
+          {
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "마탑주 전남친과 공무수행 중",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "마탑주 전남친과 공무…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -74,13 +144,13 @@
       }
     },
     {
-      "title": "잊혀진 들판",
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "웹툰 론칭 기념!",
+            "subtitle": "전원 캐시 선물 보기 >"
           }
         ],
         "notices": []
@@ -100,64 +170,39 @@
       }
     },
     {
-      "title": "그녀에겐 뭔가 특별한 것이 있다",
+      "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
-          },
-          {
-            "title": "그녀에겐 뭔가 특별한…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "이번 생의 히트곡은 복수입니다",
+      "title": "검술 고인물의 게임방송",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "이번 생의 히트곡은…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "주작 가문의 작은 아기뱀",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "주작 가문의 작은 아…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "6월 이달의 신작",
+            "subtitle": "지금 보면 바로 캐시 선물"
           }
         ],
         "notices": []
@@ -184,66 +229,20 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "흑화한 SSS급 서포터의 회귀",
+      "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "계약 남편이 이혼을 요구한다",
+      "title": "주작 가문의 작은 아기뱀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "계약 남편이 이혼을…",
+            "title": "주작 가문의 작은 아…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "죽었어야 할 남편이 돌아왔다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "군림천하",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "군림천하",
-            "subtitle": "1000화 돌파 기념!"
           }
         ],
         "notices": []
@@ -263,20 +262,47 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "복수하는 김에 재벌도 되겠습니다",
+      "title": "군림천하",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "복수하는 김에 재벌도…",
-            "subtitle": "500화 기념 캐시 선물!"
+            "title": "군림천하",
+            "subtitle": "1000화 돌파 기념!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "초월급 금손 대장장이의 귀환",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "초월급 금손 대장장이…",
+            "subtitle": "500화 돌파 기념 이벤트"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "그녀에겐 뭔가 특별한 것이 있다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
+          },
+          {
+            "title": "그녀에겐 뭔가 특별한…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
