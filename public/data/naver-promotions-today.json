@@ -1,14 +1,36 @@
 {
-  "date": "2026-06-04",
+  "date": "2026-06-05",
   "platform": "naver",
   "items": [
+    {
+      "title": "로제타 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 150,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
     {
       "title": "화산귀환 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 81,
+        "daysLeft": 80,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천마신교 속 마법사로 살아가는 법 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +41,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 82,
+        "daysLeft": 81,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 151,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위험한 본능 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 3,
-        "daysLeft": 149,
+        "daysLeft": 150,
         "eventBanners": [],
         "notices": []
       }
@@ -52,62 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 3,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "고인물은 종말이 너무 쉽다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 100,
         "daysLeft": 2,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "신입사원 강 회장 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 15,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "비자발적 종신 독재자",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 74,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "공작님의 아이만 필요합니다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 44,
         "eventBanners": [],
         "notices": []
       }
@@ -118,7 +74,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 49,
+        "daysLeft": 48,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "신입사원 강 회장 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 14,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 73,
         "eventBanners": [],
         "notices": []
       }
@@ -129,7 +107,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 49,
+        "daysLeft": 48,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "고인물은 종말이 너무 쉽다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 100,
+        "daysLeft": 1,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 43,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "비자발적 종신 독재자",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
         "eventBanners": [],
         "notices": []
       }
@@ -140,18 +151,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 95,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "드블리와 힐링합니다.",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 1,
+        "daysLeft": 94,
         "eventBanners": [],
         "notices": []
       }
@@ -168,34 +168,34 @@
       }
     },
     {
-      "title": "금쪽같은 마왕님 [독점]",
+      "title": "위험한 본능 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 49,
+        "freeEpisodes": 3,
+        "daysLeft": 148,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "즉사기 들고 무림에 떨어지다",
+      "title": "드블리와 힐링합니다.",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 투수인데 벤클을 더 잘함",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 47,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "자본주의 천재 무당",
-      "promotion": {
-        "timeFreeType": "none",
-        "tag": "프로모션",
-        "freeEpisodes": 25,
-        "daysLeft": null,
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -206,17 +206,17 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 77,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무기의 여왕 [독점]",
+      "title": "자본주의 천재 무당",
       "promotion": {
         "timeFreeType": "none",
         "tag": "프로모션",
-        "freeEpisodes": 5,
+        "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [],
         "notices": []
