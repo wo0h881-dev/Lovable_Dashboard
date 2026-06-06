@@ -1,42 +1,24 @@
 {
-  "date": "2026-06-05",
+  "date": "2026-06-06",
   "platform": "kakao",
   "items": [
-    {
-      "title": "몰락한 재벌가 3세의 회귀",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "몰락한 재벌가 3세의…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "잊혀진 들판",
-            "subtitle": "기다리고 기다린 컴백!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
     {
       "title": "괴담에 떨어져도 출근을 해야 하는구나",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "오픈런 한정 굿즈 선물",
+            "subtitle": "이벤트 신청하기 먼저 클릭"
+          },
+          {
+            "title": "(주)백일몽 합격 안내",
+            "subtitle": "사원증을 수령하세요."
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
           {
             "title": "친구야, 같이보자!",
             "subtitle": "친구 초대하면 캐시선물!"
@@ -78,6 +60,19 @@
       }
     },
     {
+      "title": "나의 하이틴 너드 라이벌",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "나의 하이틴 너드 라…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -99,19 +94,16 @@
       }
     },
     {
-      "title": "육아물 여주인공의 새언니",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀 후 소꿉친구한테 청혼했더니",
+      "title": "나만 회귀를 못 했다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "회귀 후 소꿉친구한테…",
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "나만 회귀를 못 했다",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -119,13 +111,13 @@
       }
     },
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "몰락한 재벌가 3세의 회귀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "몰락한 재벌가 3세의…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -145,7 +137,7 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -154,6 +146,26 @@
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "신마대제",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "육아물 여주인공의 새언니",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -179,13 +191,17 @@
       }
     },
     {
-      "title": "신마대제",
+      "title": "잊혀진 들판",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "잊혀진 들판",
+            "subtitle": "기다리고 기다린 컴백!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -195,33 +211,6 @@
       "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "키워 먹는 S급들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "키워 먹는 S급들",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "시어머니지만 고부 갈등은 싫습니다[외전 독점]",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -239,10 +228,53 @@
       }
     },
     {
+      "title": "회귀 후 소꿉친구한테 청혼했더니",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "회귀 후 소꿉친구한테…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "키워 먹는 S급들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "키워 먹는 S급들",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "검술 고인물의 게임방송",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
           {
             "title": "6월 이달의 신작",
             "subtitle": "지금 보면 바로 캐시 선물"
@@ -252,35 +284,33 @@
       }
     },
     {
-      "title": "전설급 영웅은 아카데미 우등생",
+      "title": "죽었어야 할 남편이 돌아왔다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "천마등선",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "데뷔 못 하면 죽는 병 걸림",
+      "title": "흑화한 SSS급 서포터의 회귀",
       "promotion": {
         "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "마탑주 전남친과 공무수행 중",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "마탑주 전남친과 공무…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
         "notices": []
       }
     }
