@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-06",
+  "date": "2026-06-07",
   "platform": "kakao",
   "items": [
     {
@@ -7,10 +7,6 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
-          {
-            "title": "오픈런 한정 굿즈 선물",
-            "subtitle": "이벤트 신청하기 먼저 클릭"
-          },
           {
             "title": "(주)백일몽 합격 안내",
             "subtitle": "사원증을 수령하세요."
@@ -24,49 +20,12 @@
             "subtitle": "친구 초대하면 캐시선물!"
           },
           {
-            "title": "박◼️성 파일 오염",
-            "subtitle": "꺼내줘서 고마워."
-          },
-          {
-            "title": "온니",
-            "subtitle": "좋은 향기 나요"
-          },
-          {
-            "title": "고◼️은 파일 발견",
-            "subtitle": "해제하시겠습니까?"
-          },
-          {
-            "title": "백◼️헌 파일",
-            "subtitle": "복구 대기 중"
-          },
-          {
-            "title": "김◼️음 사원",
-            "subtitle": "파일을 해제하십시오."
-          },
-          {
             "title": "TIMETABLE 공개",
             "subtitle": "지금 확인하기"
           },
           {
-            "title": "2D에 적응할",
-            "subtitle": "준비 되셨나요?"
-          },
-          {
             "title": "카카오페이지 초신작",
             "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "나의 하이틴 너드 라이벌",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "나의 하이틴 너드 라…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -94,17 +53,13 @@
       }
     },
     {
-      "title": "나만 회귀를 못 했다",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
-            "title": "나만 회귀를 못 했다",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -137,26 +92,34 @@
       }
     },
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "마법헌터소녀는 던전을 꾸며!",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "마법헌터소녀는 던전을…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "신마대제",
+      "title": "나만 회귀를 못 했다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "나만 회귀를 못 했다",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -208,6 +171,19 @@
       }
     },
     {
+      "title": "신마대제",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -228,19 +204,6 @@
       }
     },
     {
-      "title": "회귀 후 소꿉친구한테 청혼했더니",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "회귀 후 소꿉친구한테…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -248,19 +211,6 @@
           {
             "title": "여의주 하드모드 이벤트",
             "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "키워 먹는 S급들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "키워 먹는 S급들",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -284,9 +234,32 @@
       }
     },
     {
-      "title": "죽었어야 할 남편이 돌아왔다",
+      "title": "전설급 영웅은 아카데미 우등생",
       "promotion": {
         "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "나의 하이틴 너드 라이벌",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "나의 하이틴 너드 라…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": []
       }
     },
@@ -308,9 +281,22 @@
       }
     },
     {
-      "title": "흑화한 SSS급 서포터의 회귀",
+      "title": "죽었어야 할 남편이 돌아왔다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀 후 소꿉친구한테 청혼했더니",
       "promotion": {
         "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "회귀 후 소꿉친구한테…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": []
       }
     }
