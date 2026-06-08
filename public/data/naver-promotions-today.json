@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-07",
+  "date": "2026-06-08",
   "platform": "naver",
   "items": [
     {
@@ -8,62 +8,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 148,
+        "daysLeft": 147,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "화산귀환 [독점]",
+      "title": "방구석 나가면 죽음 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "이혼하고 미국 갔더니 유물의 가격이 보여",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "신입사원 강 회장 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "판초우의의 마법사",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 79,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 148,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -74,7 +30,62 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 51,
-        "daysLeft": 5,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "화산귀환 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 77,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "신입사원 강 회장 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "판초우의의 마법사",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 78,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "절대회귀 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 147,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "이혼하고 미국 갔더니 유물의 가격이 보여",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -85,73 +96,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 71,
+        "daysLeft": 70,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "텍사스 낡은 증류소를 인수했더니 돈벼락이 쏟아짐",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "공작님의 아이만 필요합니다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 41,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "월스트리트 천재의 시한부 투자법 [독점]",
+      "title": "사라진 천재 투수가 돌아왔다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": null,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "천마신교 속 마법사로 살아가는 법 [독점]",
+      "title": "어린 아내와 나쁜 짓 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 82,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "사천당가의 장녀는 가문을 지킨다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 92,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "위험한 본능 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 3,
-        "daysLeft": 146,
+        "freeEpisodes": 6,
+        "daysLeft": 149,
         "eventBanners": [],
         "notices": []
       }
@@ -162,29 +129,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 46,
+        "daysLeft": 45,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "내 마당에는 재벌이 산다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 4,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "전쟁으로 돈 버는 게 너무 쉬움",
+      "title": "텍사스 낡은 증류소를 인수했더니 돈벼락이 쏟아짐",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -201,23 +157,67 @@
       }
     },
     {
-      "title": "천재 투수인데 벤클을 더 잘함",
+      "title": "사천당가의 장녀는 가문을 지킨다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 3,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 91,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "악녀의 애착 새가 되었다 [독점]",
+      "title": "월스트리트 천재의 시한부 투자법 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 24,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 127,
+        "daysLeft": 40,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "그린 스킨",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 15,
+        "daysLeft": 173,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "위험한 본능 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 3,
+        "daysLeft": 145,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전쟁으로 돈 버는 게 너무 쉬움",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
