@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-12",
+  "date": "2026-06-13",
   "platform": "kakao",
   "items": [
     {
@@ -36,42 +36,45 @@
       }
     },
     {
-      "title": "잊혀진 들판",
+      "title": "황자의 보모, 특기는 암살입니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "최강이 될 가문에서 총애받는 중!",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
           },
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "최강이 될 가문에서…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "주말엔",
+            "subtitle": "전원 캐시백!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "빙의수저 셰프님이 제국을 먹여살림",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
-            "title": "빙의수저 셰프님이 제…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -95,34 +98,13 @@
       }
     },
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "잊혀진 들판",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "고립된 후작 영애는…",
-            "subtitle": "2부 절찬리 연재 중!"
-          },
           {
             "title": "랜덤 플레이 리스트",
             "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
           },
           {
             "title": "카카오페이지 초신작",
@@ -154,39 +136,25 @@
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
+            "title": "고립된 후작 영애는…",
+            "subtitle": "2부 절찬리 연재 중!"
+          },
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -213,6 +181,13 @@
       "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
         "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -246,14 +221,51 @@
       }
     },
     {
-      "title": "우리 호텔 정상 영업합니다",
+      "title": "데뷔 못 하면 죽는 병 걸림",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "취미글주의 작가전",
-            "subtitle": "캐시와 이용권까지 증정!"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "빙의수저 셰프님이 제국을 먹여살림",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "주말엔",
+            "subtitle": "전원 캐시백!"
           },
+          {
+            "title": "빙의수저 셰프님이 제…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사원이 퇴마를 잘함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
           {
             "title": "랜덤 플레이 리스트",
             "subtitle": "인생작 만나고 지원금까지!"
@@ -263,9 +275,28 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "이번 생은 우주대스타",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "무당진경",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "무당진경",
+            "subtitle": "완결 기념 캐시 이벤트!"
+          }
+        ],
         "notices": []
       }
     },
@@ -287,37 +318,17 @@
       }
     },
     {
-      "title": "전설급 영웅은 아카데미 우등생",
+      "title": "우리 호텔 정상 영업합니다",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "취미글주의 작가전",
+            "subtitle": "캐시와 이용권까지 증정!"
           },
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "육아물 여주인공의 새언니",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "환생한 암살자는 검술 천재",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "총 5.7억 뷰!",
-            "subtitle": "열람하고 캐시 받자!"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
           }
         ],
         "notices": []
