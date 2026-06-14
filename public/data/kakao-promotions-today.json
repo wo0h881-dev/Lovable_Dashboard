@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-13",
+  "date": "2026-06-14",
   "platform": "kakao",
   "items": [
     {
@@ -36,13 +36,6 @@
       }
     },
     {
-      "title": "황자의 보모, 특기는 암살입니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
       "title": "최강이 될 가문에서 총애받는 중!",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -62,6 +55,51 @@
           {
             "title": "하트를 받으시겠습니까?",
             "subtitle": "최대 1만 캐시 증정❤️‍"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "황자의 보모, 특기는 암살입니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "임신한 아내가 도망쳤다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "임신한 아내가 도망쳤다",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "하트를 받으시겠습니까?",
+            "subtitle": "최대 1만 캐시 증정❤️‍"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "사채업자가 배우로 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "사채업자가 배우로 살…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -98,44 +136,6 @@
       }
     },
     {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "응급의학의 최선우",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "응급의학의 최선우",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -161,6 +161,30 @@
       }
     },
     {
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
       "title": "신마대제",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -178,9 +202,15 @@
       }
     },
     {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "title": "의원, 다시 살다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     },
@@ -188,6 +218,65 @@
       "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "검술 고인물의 게임방송",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "검술 고인물의 게임방송",
+            "subtitle": "외전 론칭 기념 이벤트!"
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "보스들의 보스가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "보스들의 보스가 되었다",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "주말엔",
+            "subtitle": "전원 캐시백!"
+          },
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "응급의학의 최선우",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "주말엔",
+            "subtitle": "전원 캐시백!"
+          },
+          {
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "응급의학의 최선우",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
         "notices": []
       }
     },
@@ -221,56 +310,9 @@
       }
     },
     {
-      "title": "데뷔 못 하면 죽는 병 걸림",
+      "title": "죽지 않는 천재 창잡이",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "빙의수저 셰프님이 제국을 먹여살림",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "빙의수저 셰프님이 제…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사원이 퇴마를 잘함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          }
-        ],
+        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -288,47 +330,21 @@
       }
     },
     {
-      "title": "무당진경",
+      "title": "아빠를 교체하는 법",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "무당진경",
-            "subtitle": "완결 기념 캐시 이벤트!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "검술 고인물의 게임방송",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "검술 고인물의 게임방송",
-            "subtitle": "외전 론칭 기념 이벤트!"
-          },
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "우리 호텔 정상 영업합니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "취미글주의 작가전",
-            "subtitle": "캐시와 이용권까지 증정!"
+            "title": "아빠를 교체하는 법",
+            "subtitle": "추가 연재 기념 이벤트!"
           },
           {
             "title": "랜덤 플레이 리스트",
             "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
