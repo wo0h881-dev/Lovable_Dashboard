@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-14",
+  "date": "2026-06-15",
   "platform": "kakao",
   "items": [
     {
@@ -10,10 +10,6 @@
           {
             "title": "어둠으로 온 탐사자에게",
             "subtitle": "???가 남긴 쪽지 발견!"
-          },
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
           },
           {
             "title": "(주)백일몽 합격 안내",
@@ -36,25 +32,17 @@
       }
     },
     {
-      "title": "최강이 될 가문에서 총애받는 중!",
+      "title": "사채업자가 배우로 살아남는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "최강이 될 가문에서…",
+            "title": "사채업자가 배우로 살…",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
+            "title": "돌발 퀘스트 발생!",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -68,37 +56,12 @@
       }
     },
     {
-      "title": "임신한 아내가 도망쳤다",
+      "title": "이혼 예정 남편이 미쳐서 돌아왔다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "임신한 아내가 도망쳤다",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "하트를 받으시겠습니까?",
-            "subtitle": "최대 1만 캐시 증정❤️‍"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "사채업자가 배우로 살아남는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "사채업자가 배우로 살…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
+            "title": "이혼 예정 남편이 미…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -124,12 +87,25 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
             "title": "돌발 퀘스트 발생!",
             "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -161,23 +137,6 @@
       }
     },
     {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -185,17 +144,59 @@
       }
     },
     {
-      "title": "신마대제",
+      "title": "최강이 될 가문에서 총애받는 중!",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "최강이 될 가문에서…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "임신한 아내가 도망쳤다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "임신한 아내가 도망쳤다",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -222,6 +223,13 @@
       }
     },
     {
+      "title": "죽지 않는 천재 창잡이",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
       "title": "검술 고인물의 게임방송",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -230,97 +238,6 @@
             "title": "검술 고인물의 게임방송",
             "subtitle": "외전 론칭 기념 이벤트!"
           },
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "보스들의 보스가 되었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "보스들의 보스가 되었다",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "응급의학의 최선우",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "응급의학의 최선우",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "우검쟁패",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "주말엔",
-            "subtitle": "전원 캐시백!"
-          },
-          {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "죽지 않는 천재 창잡이",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
           {
             "title": "여의주 하드모드 이벤트",
             "subtitle": "레벨 업 하면 캐시 선물!"
@@ -345,6 +262,19 @@
           {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사원이 퇴마를 잘함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
           }
         ],
         "notices": []
