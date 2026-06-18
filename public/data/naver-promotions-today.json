@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-17",
+  "date": "2026-06-18",
   "platform": "naver",
   "items": [
     {
@@ -8,29 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "계속 써도 돈이 쌓임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "환생했더니 대공의 셋째 아들",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
-        "freeEpisodes": 100,
-        "daysLeft": 3,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +19,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 68,
+        "daysLeft": 67,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생했더니 대공의 셋째 아들",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜 시리즈 에디션",
+        "freeEpisodes": 100,
+        "daysLeft": 2,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "계속 써도 돈이 쌓임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
         "eventBanners": [],
         "notices": []
       }
@@ -52,29 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 138,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "초월급 헌터인 줄 모르고 국가에 버림받음",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "모든걸 기억하는 천재무사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 26,
-        "daysLeft": 36,
+        "daysLeft": 137,
         "eventBanners": [],
         "notices": []
       }
@@ -85,18 +63,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 20,
-        "daysLeft": 31,
+        "daysLeft": 30,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "약혼녀가 소천마였다 [독점]",
+      "title": "모든걸 기억하는 천재무사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 26,
+        "daysLeft": 35,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "초월급 헌터인 줄 모르고 국가에 버림받음",
       "promotion": {
         "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
+        "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 4,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
@@ -107,7 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 36,
+        "daysLeft": 35,
         "eventBanners": [],
         "notices": []
       }
@@ -118,18 +107,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 61,
+        "daysLeft": 60,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "미국 시골의 총기 수리공",
+      "title": "서번트 증후군 천재가 되었다",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "단종 구하러 4군6진",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -140,40 +140,62 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 78,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "그림천재 삼촌이 돌아왔다 [독점]",
+      "title": "약혼녀가 소천마였다 [독점]",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "미국 시골의 총기 수리공",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "화산귀환 특별 외전 [독점]",
+      "promotion": {
+        "timeFreeType": "none",
+        "tag": "프로모션",
+        "freeEpisodes": 5,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "로제타 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "freeEpisodes": 5,
+        "daysLeft": 137,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "무협에서 작가로 살아남는 법 [독점]",
+      "title": "무신급 점소이가 되었다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "신입사원 강 회장 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 75,
         "eventBanners": [],
         "notices": []
       }
@@ -190,34 +212,12 @@
       }
     },
     {
-      "title": "무신급 점소이가 되었다 [독점]",
+      "title": "신입사원 강 회장 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 76,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "로제타 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 138,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "무림맹 고문기술자는 경찰이 너무 쉽다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 76,
+        "freeEpisodes": 50,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
