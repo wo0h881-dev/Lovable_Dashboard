@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-18",
+  "date": "2026-06-19",
   "platform": "kakao",
   "items": [
     {
@@ -7,6 +7,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "이 라디오, 괴담이다.",
+            "subtitle": "전원을 켜볼까?"
+          },
           {
             "title": "어둠으로 온 탐사자에게",
             "subtitle": "???가 남긴 쪽지 발견!"
@@ -66,6 +70,43 @@
       }
     },
     {
+      "title": "황자의 보모, 특기는 암살입니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "대학원생이 최종보스라니요",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "대학원생이 최종보스라…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -79,20 +120,13 @@
       }
     },
     {
-      "title": "황자의 보모, 특기는 암살입니다",
+      "title": "부서진 랭커가 신화를 씹어먹음",
       "promotion": {
         "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "몰락한 재벌가 3세의 회귀",
-      "promotion": {
-        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -112,13 +146,17 @@
       }
     },
     {
-      "title": "부서진 랭커가 신화를 씹어먹음",
+      "title": "재벌 멱살 잡는 투자 천재",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5천캐시 선물!"
+          },
+          {
+            "title": "재벌 멱살 잡는 투자…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -159,39 +197,6 @@
       }
     },
     {
-      "title": "육아물 여주인공의 새언니",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "YES or YES",
-            "subtitle": "웹툰 원작 보고 캐시 받기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "친구의 동생은 여자가 아니라면서요?",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "친구의 동생은 여자가…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
       "title": "회사원이 퇴마를 잘함",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -218,16 +223,36 @@
       }
     },
     {
-      "title": "재벌 멱살 잡는 투자 천재",
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "변경백 서자는 황제였다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "몰락한 재벌가 3세의 회귀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5천캐시 선물!"
-          },
-          {
-            "title": "재벌 멱살 잡는 투자…",
+            "title": "돌발 퀘스트 발생!",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -235,24 +260,7 @@
       }
     },
     {
-      "title": "우리 호텔 정상 영업합니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "취미글주의 작가전",
-            "subtitle": "캐시와 이용권까지 증정!"
-          },
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
+      "title": "초심 잃은 아이돌을 위한 회귀 백서",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -265,25 +273,42 @@
       }
     },
     {
-      "title": "우검쟁패",
+      "title": "아빠를 교체하는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "아빠를 교체하는 법",
+            "subtitle": "추가 연재 기념 이벤트!"
           },
           {
             "title": "랜덤 플레이 리스트",
             "subtitle": "인생작 만나고 지원금까지!"
           },
           {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "흑백무제",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "총 4.4억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
           },
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
