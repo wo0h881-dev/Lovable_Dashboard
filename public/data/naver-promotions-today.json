@@ -1,14 +1,25 @@
 {
-  "date": "2026-06-19",
+  "date": "2026-06-20",
   "platform": "naver",
   "items": [
     {
-      "title": "시한부 천재가 살아남는 법",
+      "title": "재벌가에 전능의 아이가 입양되었다",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 101,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "귀환한 삼촌이 국가에게 버림받음",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
@@ -19,29 +30,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 81,
+        "daysLeft": 80,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "최애를 위한 2회차 매니저 [독점]",
+      "title": "시한부 천재가 살아남는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 유물 감정사로 착각 당했다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "daysLeft": 100,
         "eventBanners": [],
         "notices": []
       }
@@ -52,7 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 66,
+        "daysLeft": 65,
         "eventBanners": [],
         "notices": []
       }
@@ -63,29 +63,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 136,
+        "daysLeft": 135,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "건물주라 대충 회사 다니려는데, 톱스타들이 집착함",
+      "title": "최애를 위한 2회차 매니저 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "환생했더니 대공의 셋째 아들",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
-        "freeEpisodes": 100,
-        "daysLeft": 1,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -96,29 +85,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 83,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "회귀 후 다니던 회사를 사버림",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 20,
-        "daysLeft": 29,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "계속 써도 돈이 쌓임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 13,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생했더니 대공의 셋째 아들",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜 시리즈 에디션",
+        "freeEpisodes": 100,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -129,7 +118,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 34,
+        "daysLeft": 33,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 유물 감정사로 착각 당했다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -140,7 +140,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 34,
+        "daysLeft": 33,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 20,
+        "daysLeft": 28,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "건물주라 대충 회사 다니려는데, 톱스타들이 집착함",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -151,73 +173,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 59,
+        "daysLeft": 58,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "약혼녀가 소천마였다 [독점]",
+      "title": "반로환동한 천마의 마경방송 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 2,
+        "daysLeft": 61,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "단종 구하러 4군6진",
+      "title": "계속 써도 돈이 쌓임",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전능의 뇌를 얻었다",
+      "title": "크리티컬 플러팅 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 62,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 4,
+        "daysLeft": 57,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "신입이라 후계 1순위를 들키면 안 됨",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 76,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "미국 시골의 총기 수리공",
+      "title": "아포칼립스를 왕복하는 상태창 각성자가 되었다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 7,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "꿈에서 국정원 요원이었음 현실은 재벌 3세인데",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
+        "daysLeft": 13,
         "eventBanners": [],
         "notices": []
       }
