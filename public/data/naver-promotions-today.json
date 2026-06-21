@@ -1,14 +1,25 @@
 {
-  "date": "2026-06-20",
+  "date": "2026-06-21",
   "platform": "naver",
   "items": [
+    {
+      "title": "회귀 안 한 헌터만 세상을 구함 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
     {
       "title": "재벌가에 전능의 아이가 입양되었다",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -19,18 +30,18 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "시간 정지 능력으로 탑 등반",
+      "title": "나 혼자 차원이동으로 초월급 헌터",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 80,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +52,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 100,
+        "daysLeft": 99,
         "eventBanners": [],
         "notices": []
       }
@@ -52,29 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 65,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 135,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "최애를 위한 2회차 매니저 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
+        "daysLeft": 64,
         "eventBanners": [],
         "notices": []
       }
@@ -85,7 +74,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 82,
+        "daysLeft": 81,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시간 정지 능력으로 탑 등반",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 79,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "절대회귀 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 134,
         "eventBanners": [],
         "notices": []
       }
@@ -96,7 +107,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
         "eventBanners": [],
         "notices": []
       }
@@ -104,9 +115,9 @@
     {
       "title": "환생했더니 대공의 셋째 아들",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
-        "freeEpisodes": 100,
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 25,
         "daysLeft": null,
         "eventBanners": [],
         "notices": []
@@ -118,29 +129,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 33,
+        "daysLeft": 32,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "천재 유물 감정사로 착각 당했다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "오늘만 사는 기사 [독점]",
+      "title": "눈떠보니 의료재벌 침술명의가 되었다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 33,
+        "daysLeft": 19,
         "eventBanners": [],
         "notices": []
       }
@@ -151,18 +151,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 20,
-        "daysLeft": 28,
+        "daysLeft": 27,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "건물주라 대충 회사 다니려는데, 톱스타들이 집착함",
+      "title": "최애를 위한 2회차 매니저 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
@@ -173,39 +173,6 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 58,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "반로환동한 천마의 마경방송 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 61,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "계속 써도 돈이 쌓임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 1,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "크리티컬 플러팅 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 4,
         "daysLeft": 57,
         "eventBanners": [],
         "notices": []
@@ -217,7 +184,40 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 13,
+        "daysLeft": 12,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "오늘만 사는 기사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 32,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "계속 써도 돈이 쌓임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "반로환동한 천마의 마경방송 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 60,
         "eventBanners": [],
         "notices": []
       }

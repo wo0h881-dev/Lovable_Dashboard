@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-20",
+  "date": "2026-06-21",
   "platform": "kakao",
   "items": [
     {
@@ -10,10 +10,6 @@
           {
             "title": "이 라디오, 괴담이다.",
             "subtitle": "전원을 켜볼까?"
-          },
-          {
-            "title": "어둠으로 온 탐사자에게",
-            "subtitle": "???가 남긴 쪽지 발견!"
           },
           {
             "title": "(주)백일몽 합격 안내",
@@ -34,7 +30,7 @@
     {
       "title": "회사원이 퇴마를 잘함",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "랜덤 플레이 리스트",
@@ -45,20 +41,38 @@
       }
     },
     {
-      "title": "황자의 보모, 특기는 암살입니다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀자가 헌터를 잘함",
+      "title": "사채업자가 배우로 살아남는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "회귀자가 헌터를 잘함",
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          },
+          {
+            "title": "사채업자가 배우로 살…",
             "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "각성 후 즉사기로 지옥상점 VIP가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "각성 후 즉사기로 지…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
           }
         ],
         "notices": []
@@ -78,16 +92,36 @@
       }
     },
     {
-      "title": "사채업자가 배우로 살아남는 법",
+      "title": "회귀자가 헌터를 잘함",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "사채업자가 배우로 살…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
           },
           {
-            "title": "돌발 퀘스트 발생!",
+            "title": "회귀자가 헌터를 잘함",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "황자의 보모, 특기는 암살입니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "왜 내 남편이 흑막 계략남인 건데요!",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "왜 내 남편이 흑막…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -112,30 +146,13 @@
       }
     },
     {
-      "title": "재벌 멱살 잡는 투자 천재",
+      "title": "몰락한 재벌가 3세의 회귀",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "재벌 멱살 잡는 투자…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "대학원생이 최종보스라니요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "대학원생이 최종보스라…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
           }
         ],
         "notices": []
@@ -176,22 +193,16 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "악당 두목의 의뢰를 받았다",
       "promotion": {
         "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "의원, 다시 살다",
+      "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
         "notices": []
       }
     },
@@ -214,8 +225,8 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
           },
           {
             "title": "랜덤 플레이 리스트",
@@ -234,13 +245,30 @@
       }
     },
     {
-      "title": "몰락한 재벌가 3세의 회귀",
+      "title": "의원, 다시 살다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "돌발 퀘스트 발생!",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "변경백 서자는 황제였다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -254,36 +282,6 @@
           {
             "title": "YES or YES",
             "subtitle": "웹툰 원작 보고 캐시 받기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "신마대제",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
