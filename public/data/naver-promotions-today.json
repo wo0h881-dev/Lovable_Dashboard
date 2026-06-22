@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-21",
+  "date": "2026-06-23",
   "platform": "naver",
   "items": [
     {
@@ -8,29 +8,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 84,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "재벌가에 전능의 아이가 입양되었다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "귀환한 삼촌이 국가에게 버림받음",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 82,
         "eventBanners": [],
         "notices": []
       }
@@ -41,7 +19,40 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "검성의 제자가 되었다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "재벌가에 전능의 아이가 입양되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "귀환한 삼촌이 국가에게 버림받음",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -52,7 +63,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 99,
+        "daysLeft": 97,
         "eventBanners": [],
         "notices": []
       }
@@ -63,24 +74,13 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 64,
+        "daysLeft": 62,
         "eventBanners": [],
         "notices": []
       }
     },
     {
       "title": "서번트 증후군 천재가 되었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 81,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "시간 정지 능력으로 탑 등반",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
@@ -96,29 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 134,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀 후 다니던 회사를 사버림",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "환생했더니 대공의 셋째 아들",
-      "promotion": {
-        "timeFreeType": "pass",
-        "tag": "시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": null,
+        "daysLeft": 132,
         "eventBanners": [],
         "notices": []
       }
@@ -129,18 +107,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 32,
+        "daysLeft": 30,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "눈떠보니 의료재벌 침술명의가 되었다 [독점]",
+      "title": "계속 써도 돈이 쌓임",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 19,
+        "daysLeft": 172,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀 후 다니던 회사를 사버림",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시간 정지 능력으로 탑 등반",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
@@ -151,29 +151,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 20,
-        "daysLeft": 27,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "최애를 위한 2회차 매니저 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 82,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "게임 속 바바리안으로 살아남기 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 57,
+        "daysLeft": 25,
         "eventBanners": [],
         "notices": []
       }
@@ -184,7 +162,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -195,18 +173,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 32,
+        "daysLeft": 30,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "계속 써도 돈이 쌓임",
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 50,
+        "freeEpisodes": 25,
+        "daysLeft": 55,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 25,
         "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "삼국지, 원가의 후계자가 되었다.",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 79,
         "eventBanners": [],
         "notices": []
       }
@@ -217,7 +217,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 60,
+        "daysLeft": 58,
         "eventBanners": [],
         "notices": []
       }
