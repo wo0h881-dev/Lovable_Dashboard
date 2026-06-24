@@ -1,9 +1,20 @@
 {
-  "date": "2026-06-23",
+  "date": "2026-06-24",
   "platform": "naver",
   "items": [
     {
-      "title": "별을 품은 천재가 살아가는 법",
+      "title": "시한부 천재가 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 96,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "애 키우기가 제일 쉬웠어요 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
@@ -14,67 +25,12 @@
       }
     },
     {
-      "title": "시한부 천재가 살아남는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 97,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "검성의 제자가 되었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 83,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "계속 써도 돈이 쌓임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 172,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "화산귀환 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 62,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "서번트 증후군 천재가 되었다",
+      "title": "별을 품은 천재가 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 79,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "나 혼자 차원이동으로 초월급 헌터",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -85,29 +41,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 132,
+        "daysLeft": 131,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "귀환한 삼촌이 국가에게 버림받음",
+      "title": "화산귀환 [독점]",
       "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 10,
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 61,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "재벌가에 전능의 아이가 입양되었다",
+      "title": "밀착 강의 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 4,
+        "daysLeft": 150,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "서번트 증후군 천재가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 78,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "나 혼자 차원이동으로 초월급 헌터",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 10,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
@@ -118,7 +96,18 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜 시리즈 에디션",
         "freeEpisodes": 50,
-        "daysLeft": 5,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "계속 써도 돈이 쌓임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 171,
         "eventBanners": [],
         "notices": []
       }
@@ -129,18 +118,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 30,
+        "daysLeft": 29,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "회귀 안 한 헌터만 세상을 구함 [독점]",
+      "title": "귀환한 삼촌이 국가에게 버림받음",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 82,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
@@ -151,7 +140,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 30,
+        "daysLeft": 29,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "재벌가에 전능의 아이가 입양되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 9,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 24,
         "eventBanners": [],
         "notices": []
       }
@@ -162,18 +173,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 55,
+        "daysLeft": 54,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "회귀 안 한 헌터만 세상을 구함 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 20,
-        "daysLeft": 25,
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 81,
         "eventBanners": [],
         "notices": []
       }
@@ -184,29 +195,18 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 10,
+        "daysLeft": 9,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "시간 정지 능력으로 탑 등반",
+      "title": "전능의 뇌를 얻었다",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 77,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "사짜 무당이 죽을 날을 알려줌",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 57,
         "eventBanners": [],
         "notices": []
       }
