@@ -1,31 +1,9 @@
 {
-  "date": "2026-06-24",
+  "date": "2026-06-25",
   "platform": "naver",
   "items": [
     {
-      "title": "시한부 천재가 살아남는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 96,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
       "title": "애 키우기가 제일 쉬웠어요 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 84,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "별을 품은 천재가 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
@@ -36,23 +14,45 @@
       }
     },
     {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 131,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
       "title": "화산귀환 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 61,
+        "daysLeft": 60,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "별을 품은 천재가 살아가는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 82,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "절대회귀 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 130,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시한부 천재가 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 95,
         "eventBanners": [],
         "notices": []
       }
@@ -63,18 +63,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 4,
-        "daysLeft": 150,
+        "daysLeft": 149,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "서번트 증후군 천재가 되었다",
+      "title": "나만 포인트로 능력을 쓴다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 78,
+        "freeEpisodes": 50,
+        "daysLeft": 46,
         "eventBanners": [],
         "notices": []
       }
@@ -85,29 +85,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 9,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "도시낭인 리로드 [독점]",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
-        "freeEpisodes": 50,
-        "daysLeft": 4,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "계속 써도 돈이 쌓임",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 171,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
@@ -118,40 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 29,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "귀환한 삼촌이 국가에게 버림받음",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "오늘만 사는 기사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 29,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "재벌가에 전능의 아이가 입양되었다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 28,
         "eventBanners": [],
         "notices": []
       }
@@ -162,7 +107,84 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 24,
+        "daysLeft": 23,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "미국에서 작곡했더니 저작권료가 쏟아짐",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "서번트 증후군 천재가 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 77,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "도시낭인 리로드 [독점]",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "계속 써도 돈이 쌓임",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 170,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "오늘만 사는 기사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 28,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "재벌가에 전능의 아이가 입양되었다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "최애를 위한 2회차 매니저 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 78,
         "eventBanners": [],
         "notices": []
       }
@@ -173,29 +195,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 54,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀 안 한 헌터만 세상을 구함 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 81,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀 후 다니던 회사를 사버림",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 9,
+        "daysLeft": 53,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +206,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 57,
+        "daysLeft": 56,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "하남자의 탑 공략법",
+      "title": "귀환한 삼촌이 국가에게 버림받음",
       "promotion": {
-        "timeFreeType": "pass",
-        "tag": "시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": null,
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 8,
         "eventBanners": [],
         "notices": []
       }
