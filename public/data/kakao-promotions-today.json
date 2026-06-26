@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-25",
+  "date": "2026-06-26",
   "platform": "kakao",
   "items": [
     {
@@ -58,13 +58,21 @@
       }
     },
     {
-      "title": "내 착각계는 생존이다",
+      "title": "환생한 검사의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "내 착각계는 생존이다",
+            "title": "환생한 검사의 스트리밍",
             "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          },
+          {
+            "title": "✨페이지 루키즈✨",
+            "subtitle": "데뷔 작가를 만나 보세요!"
           }
         ],
         "notices": []
@@ -91,23 +99,6 @@
       }
     },
     {
-      "title": "각성 후 즉사기로 지옥상점 VIP가 되었다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "각성 후 즉사기로 지…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -115,19 +106,6 @@
           {
             "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "괴물 공작님의 가짜 진정제인 줄 알았는데",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "괴물 공작님의 가짜…",
-            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -143,6 +121,39 @@
             "subtitle": "최신 회차까지 정주행!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "선 넘는 가짜 애인",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "선 넘는 가짜 애인",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -168,20 +179,13 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "몰락한 재벌가 3세의 회귀",
+      "title": "내 착각계는 생존이다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
+            "title": "내 착각계는 생존이다",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -201,56 +205,6 @@
       }
     },
     {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "부서진 랭커가 신화를 씹어먹음",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "괴이 회사에 사람 새끼가 없다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "괴이 회사에 사람…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "북부 대공",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "컴백 기념",
-            "subtitle": "모두에게 캐시 선물!"
-          },
-          {
-            "title": "북부 대공",
-            "subtitle": "외전 론칭 기념 이벤트!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "회귀자 멱살 잡고 데뷔합니다",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -264,6 +218,46 @@
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "몰락한 재벌가 3세의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "여의주 좀 주워주세용",
+            "subtitle": "인기작 보면 캐시 드려용!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생한 암살자는 검술 천재",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     }
