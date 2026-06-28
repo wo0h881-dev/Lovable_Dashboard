@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-27",
+  "date": "2026-06-28",
   "platform": "kakao",
   "items": [
     {
@@ -28,13 +28,17 @@
       }
     },
     {
-      "title": "황자의 보모, 특기는 암살입니다",
+      "title": "천하제일 시골 무관",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "복귀 즉시 1위!",
-            "subtitle": "노블코믹 원작 보면 캐시!"
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "천하제일 시골 무관",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -54,17 +58,20 @@
       }
     },
     {
-      "title": "신수들의 한의사가 되었다",
+      "title": "어느 날 남주가 우리 집에 떨어졌다",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "황자의 보모, 특기는 암살입니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "신수들의 한의사가 되…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "복귀 즉시 1위!",
+            "subtitle": "노블코믹 원작 보면 캐시!"
           }
         ],
         "notices": []
@@ -78,36 +85,6 @@
           {
             "title": "랜덤 플레이 리스트",
             "subtitle": "인생작 만나고 지원금까지!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천하제일 시골 무관",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "천하제일 시골 무관",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -131,21 +108,30 @@
       }
     },
     {
-      "title": "환생한 검사의 스트리밍",
+      "title": "전생 아이돌이 인디밴드를 하드캐리",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "환생한 검사의 스트리밍",
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "전생 아이돌이 인디밴드",
             "subtitle": "열람하면 최대 3천 캐시!"
-          },
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "궁녀 삼천",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          },
-          {
-            "title": "✨페이지 루키즈✨",
-            "subtitle": "데뷔 작가를 만나 보세요!"
+            "title": "궁녀 삼천",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -190,29 +176,30 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "도굴왕",
       "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "사채업자가 배우로 살아남는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
+            "title": "<도굴왕: 엔드라인>",
+            "subtitle": "유물 상시 ※도굴※ 가능"
+          },
+          {
+            "title": "<도굴왕: 엔드라인>",
+            "subtitle": "이벤트 모아보기"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "천재 궁수의 스트리밍",
+      "title": "의원, 다시 살다",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
             "title": "6월의 스탬프 투어!",
@@ -223,17 +210,48 @@
       }
     },
     {
-      "title": "각성 후 즉사기로 지옥상점 VIP가 되었다",
+      "title": "마론 후작",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "신수들의 한의사가 되었다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "각성 후 즉사기로 지…",
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "신수들의 한의사가 되…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생한 검사의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "환생한 검사의 스트리밍",
             "subtitle": "열람하면 최대 3천 캐시!"
           },
           {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
+            "title": "✨페이지 루키즈✨",
+            "subtitle": "데뷔 작가를 만나 보세요!"
           }
         ],
         "notices": []
@@ -253,38 +271,17 @@
       }
     },
     {
-      "title": "마론 후작",
+      "title": "사채업자가 배우로 살아남는 법",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "몰락한 재벌가 3세의 회귀",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
-          {
-            "title": "여의주 좀 주워주세용",
-            "subtitle": "인기작 보면 캐시 드려용!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "변경백 서자는 황제였다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "총 1.7억 뷰!",
-            "subtitle": "열람하고 캐시 받자!"
-          },
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
           {
             "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
