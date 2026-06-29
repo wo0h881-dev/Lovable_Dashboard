@@ -1,14 +1,25 @@
 {
-  "date": "2026-06-28",
+  "date": "2026-06-29",
   "platform": "naver",
   "items": [
+    {
+      "title": "애호받는 천살성이 됐다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 84,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
     {
       "title": "회귀한 명장이 20세기 EPL을 정복하는 법 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 100,
-        "daysLeft": 5,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -19,7 +30,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
@@ -30,18 +41,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "절대회귀 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 127,
+        "daysLeft": 11,
         "eventBanners": [],
         "notices": []
       }
@@ -52,51 +52,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 57,
+        "daysLeft": 56,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전지적 독자 시점",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 27,
-        "daysLeft": 134,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "대기업 남대리, 퇴사 준비 중인데 후임이 회장 외손녀?",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "별을 품은 천재가 살아가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 79,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "시한부 천재가 살아남는 법",
+      "title": "절대회귀 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 92,
+        "daysLeft": 126,
         "eventBanners": [],
         "notices": []
       }
@@ -107,29 +74,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 81,
+        "daysLeft": 80,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "공작님의 아이만 필요합니다 [독점]",
+      "title": "전지적 독자 시점",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 20,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "내 노르웨이 산에 세계수가 자람",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 12,
+        "freeEpisodes": 27,
+        "daysLeft": 133,
         "eventBanners": [],
         "notices": []
       }
@@ -140,49 +96,16 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 25,
+        "daysLeft": 24,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "관상 보는 변호사 한태주 [독점]",
+      "title": "별을 품은 천재가 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 13,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "임시보호가 위험한 이유 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 6,
-        "daysLeft": 127,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "오늘만 사는 기사 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 25,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "검성의 제자가 되었다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
         "daysLeft": 78,
         "eventBanners": [],
@@ -190,12 +113,34 @@
       }
     },
     {
-      "title": "도시낭인 리로드 [독점]",
+      "title": "대기업 남대리, 퇴사 준비 중인데 후임이 회장 외손녀?",
       "promotion": {
         "timeFreeType": "threeHour",
-        "tag": "타임딜 시리즈 에디션",
+        "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": null,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시한부 천재가 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 91,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "공작님의 아이만 필요합니다 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 19,
         "eventBanners": [],
         "notices": []
       }
@@ -206,18 +151,73 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 6,
-        "daysLeft": 96,
+        "daysLeft": 95,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "영결 받기 직전에 구단이 방출함",
+      "title": "오늘만 사는 기사 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 24,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "내 노르웨이 산에 세계수가 자람",
       "promotion": {
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 12,
+        "daysLeft": 11,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "하남자의 탑 공략법",
+      "promotion": {
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "게임 속 바바리안으로 살아남기 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 49,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "로제타 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 5,
+        "daysLeft": 126,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "도시낭인 리로드 [독점]",
+      "promotion": {
+        "timeFreeType": "pass",
+        "tag": "시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }

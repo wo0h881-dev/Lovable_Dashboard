@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-28",
+  "date": "2026-06-29",
   "platform": "kakao",
   "items": [
     {
@@ -28,39 +28,23 @@
       }
     },
     {
-      "title": "천하제일 시골 무관",
+      "title": "아카데미 신입 경비원이 심상치 않음",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
+            "title": "초신작 오픈런",
+            "subtitle": "모두에게 캐시 선물"
           },
           {
-            "title": "천하제일 시골 무관",
+            "title": "아카데미 신입 경비원…",
             "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "마법학교 마법사로 살아가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
+          },
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "어느 날 남주가 우리 집에 떨어졌다",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "notices": []
       }
     },
@@ -78,30 +62,26 @@
       }
     },
     {
-      "title": "회사원이 퇴마를 잘함",
+      "title": "천하제일 시골 무관",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
+            "title": "천하제일 시골 무관",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "복귀 즉시 1위!",
-            "subtitle": "노블코믹 원작 보면 캐시!"
-          },
-          {
-            "title": "황제와 비밀 연애 중…",
-            "subtitle": "최신 회차까지 정주행!"
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -125,51 +105,17 @@
       }
     },
     {
-      "title": "궁녀 삼천",
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "궁녀 삼천",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
+            "title": "복귀 즉시 1위!",
+            "subtitle": "노블코믹 원작 보면 캐시!"
           },
           {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "황제와 비밀 연애 중…",
+            "subtitle": "최신 회차까지 정주행!"
           }
         ],
         "notices": []
@@ -210,9 +156,45 @@
       }
     },
     {
-      "title": "마론 후작",
+      "title": "회사원이 퇴마를 잘함",
       "promotion": {
         "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
         "notices": []
       }
     },
@@ -224,64 +206,63 @@
       }
     },
     {
-      "title": "신수들의 한의사가 되었다",
+      "title": "고립된 후작 영애는 먹고살고 싶어서",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
           },
           {
-            "title": "신수들의 한의사가 되…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "환생한 검사의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "환생한 검사의 스트리밍",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 받을 수 있어요!"
           },
           {
-            "title": "✨페이지 루키즈✨",
-            "subtitle": "데뷔 작가를 만나 보세요!"
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "내 착각계는 생존이다",
+      "title": "마론 후작",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "데뷔 못 하면 죽는 병 걸림",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "어느 날 남주가 우리 집에 떨어졌다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀자 멱살 잡고 데뷔합니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "내 착각계는 생존이다",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "사채업자가 배우로 살아남는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
+            "title": "회귀자 멱살 잡고 데…",
+            "subtitle": "외전 론칭 기념 이벤트!"
+          },
           {
             "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
