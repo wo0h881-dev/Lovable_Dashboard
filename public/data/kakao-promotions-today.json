@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-29",
+  "date": "2026-06-30",
   "platform": "kakao",
   "items": [
     {
@@ -49,6 +49,23 @@
       }
     },
     {
+      "title": "각성자 특별학교 서열 0위",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "각성자 특별학교 서열…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "황자의 보모, 특기는 암살입니다",
       "promotion": {
         "timeFreeType": "threeHour",
@@ -62,114 +79,7 @@
       }
     },
     {
-      "title": "천하제일 시골 무관",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "천하제일 시골 무관",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
       "title": "마법학교 마법사로 살아가는 법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "전생 아이돌이 인디밴드를 하드캐리",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
-          },
-          {
-            "title": "전생 아이돌이 인디밴드",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "복귀 즉시 1위!",
-            "subtitle": "노블코믹 원작 보면 캐시!"
-          },
-          {
-            "title": "황제와 비밀 연애 중…",
-            "subtitle": "최신 회차까지 정주행!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "도굴왕",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "<도굴왕: 엔드라인>",
-            "subtitle": "유물 상시 ※도굴※ 가능"
-          },
-          {
-            "title": "<도굴왕: 엔드라인>",
-            "subtitle": "이벤트 모아보기"
-          },
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사원이 퇴마를 잘함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
@@ -199,9 +109,111 @@
       }
     },
     {
+      "title": "천하제일 시골 무관",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "천하제일 시골 무관",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "전생 아이돌이 인디밴드를 하드캐리",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "전생 아이돌이 인디밴드",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "복귀 즉시 1위!",
+            "subtitle": "노블코믹 원작 보면 캐시!"
+          },
+          {
+            "title": "황제와 비밀 연애 중…",
+            "subtitle": "최신 회차까지 정주행!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사원이 퇴마를 잘함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "의원, 다시 살다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "은해상단 막내아들",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "이번 생은 우주대스타",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
         "notices": []
       }
     },
@@ -227,47 +239,47 @@
       }
     },
     {
-      "title": "마론 후작",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "데뷔 못 하면 죽는 병 걸림",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "어느 날 남주가 우리 집에 떨어졌다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀자 멱살 잡고 데뷔합니다",
+      "title": "도굴왕",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "회귀자 멱살 잡고 데…",
-            "subtitle": "외전 론칭 기념 이벤트!"
+            "title": "<도굴왕: 엔드라인>",
+            "subtitle": "유물 상시 ※도굴※ 가능"
+          },
+          {
+            "title": "<도굴왕: 엔드라인>",
+            "subtitle": "이벤트 모아보기"
           },
           {
             "title": "6월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
+        "notices": []
+      }
+    },
+    {
+      "title": "신마대제",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "6월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "몰락한 재벌가 3세의 회귀",
+      "promotion": {
+        "timeFreeType": "waitFree",
         "notices": []
       }
     }
