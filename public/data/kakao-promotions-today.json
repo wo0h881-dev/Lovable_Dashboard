@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-30",
+  "date": "2026-07-02",
   "platform": "kakao",
   "items": [
     {
@@ -8,12 +8,12 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "이 라디오, 괴담이다.",
-            "subtitle": "전원을 켜볼까?"
+            "title": "3부 기밀 문서 유출",
+            "subtitle": "⚠️지금 열어보세요⚠️"
           },
           {
-            "title": "(주)백일몽 합격 안내",
-            "subtitle": "사원증을 수령하세요."
+            "title": "이 라디오, 괴담이다.",
+            "subtitle": "전원을 켜볼까?"
           },
           {
             "title": "TIMETABLE 공개",
@@ -33,8 +33,12 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 오픈런",
-            "subtitle": "모두에게 캐시 선물"
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 지원금 받기!"
+          },
+          {
+            "title": "[7월 월초팩]",
+            "subtitle": "최대 혜택 OPEN!"
           },
           {
             "title": "아카데미 신입 경비원…",
@@ -49,17 +53,43 @@
       }
     },
     {
-      "title": "각성자 특별학교 서열 0위",
+      "title": "마법학교 마법사로 살아가는 법",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           },
           {
-            "title": "각성자 특별학교 서열…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "잊혀진 들판",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "은해상단 막내아들",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
@@ -79,30 +109,34 @@
       }
     },
     {
-      "title": "마법학교 마법사로 살아가는 법",
+      "title": "아포칼립스엔 고인물이 필요해요",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월 이달의 신작",
+            "subtitle": "지금 보면 바로 캐시 선물"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "잊혀진 들판",
+      "title": "의원, 다시 살다",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
           },
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "총 9.5억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -113,6 +147,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "[7월 월초팩]",
+            "subtitle": "최대 혜택 OPEN!"
+          },
           {
             "title": "천하제일 시골 무관",
             "subtitle": "열람하면 최대 3천 캐시!"
@@ -127,7 +165,7 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
+            "title": "7월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
@@ -135,72 +173,15 @@
       }
     },
     {
-      "title": "전생 아이돌이 인디밴드를 하드캐리",
+      "title": "감금했지만, 악의는 없습니다",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "전생 아이돌이 인디밴드",
+            "title": "감금했지만, 악의는…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "황제와 비밀 연애 중인데 나는 그걸 몰라",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "복귀 즉시 1위!",
-            "subtitle": "노블코믹 원작 보면 캐시!"
-          },
-          {
-            "title": "황제와 비밀 연애 중…",
-            "subtitle": "최신 회차까지 정주행!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사원이 퇴마를 잘함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "의원, 다시 살다",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "은해상단 막내아들",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
         "notices": []
       }
     },
@@ -210,8 +191,12 @@
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "6월의 스탬프 투어!",
+            "title": "7월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "총 9.5억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
           }
         ],
         "notices": []
@@ -223,16 +208,28 @@
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
-          },
-          {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 받을 수 있어요!"
-          },
-          {
             "title": "카카오페이지 초신작",
             "subtitle": "초신작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사원이 퇴마를 잘함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "사채업자가 배우로 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "[7월 월초팩]",
+            "subtitle": "최대 혜택 OPEN!"
           }
         ],
         "notices": []
@@ -244,42 +241,57 @@
         "timeFreeType": "threeHour",
         "eventBanners": [
           {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "총 9.5억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          },
+          {
             "title": "<도굴왕: 엔드라인>",
             "subtitle": "유물 상시 ※도굴※ 가능"
           },
           {
             "title": "<도굴왕: 엔드라인>",
             "subtitle": "이벤트 모아보기"
-          },
-          {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "신마대제",
+      "title": "각성자 특별학교 서열 0위",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "랜덤 플레이 리스트",
-            "subtitle": "인생작 만나고 지원금까지!"
+            "title": "[7월 월초팩]",
+            "subtitle": "최대 혜택 OPEN!"
           },
           {
-            "title": "6월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
+            "title": "각성자 특별학교 서열…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
       }
     },
     {
-      "title": "몰락한 재벌가 3세의 회귀",
+      "title": "이번 생은 우주대스타",
       "promotion": {
         "timeFreeType": "waitFree",
+        "notices": []
+      }
+    },
+    {
+      "title": "저택은 봄을 기다린다",
+      "promotion": {
+        "timeFreeType": "threeHour",
         "notices": []
       }
     }
