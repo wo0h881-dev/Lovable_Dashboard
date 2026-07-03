@@ -1,25 +1,14 @@
 {
-  "date": "2026-07-02",
+  "date": "2026-07-03",
   "platform": "naver",
   "items": [
-    {
-      "title": "전지적 독자 시점",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 27,
-        "daysLeft": 130,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
     {
       "title": "회장님, 신점 보시려면 줄부터 서세요",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 82,
+        "daysLeft": 81,
         "eventBanners": [],
         "notices": []
       }
@@ -30,7 +19,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 100,
-        "daysLeft": 5,
+        "daysLeft": 4,
         "eventBanners": [],
         "notices": []
       }
@@ -41,18 +30,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 100,
-        "daysLeft": 1,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "화산귀환 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 53,
+        "daysLeft": null,
         "eventBanners": [],
         "notices": []
       }
@@ -63,7 +41,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 100,
-        "daysLeft": 6,
+        "daysLeft": 5,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "우리는 사랑이 아닌 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 3,
+        "daysLeft": 150,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "화산귀환 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 52,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무림맹 고문기술자는 경찰이 너무 쉽다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -74,7 +85,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 5,
-        "daysLeft": 123,
+        "daysLeft": 122,
         "eventBanners": [],
         "notices": []
       }
@@ -85,18 +96,7 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 26,
-        "daysLeft": 21,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "미국에서 작곡했더니 저작권료가 쏟아짐",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 77,
+        "daysLeft": 20,
         "eventBanners": [],
         "notices": []
       }
@@ -107,62 +107,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 21,
+        "daysLeft": 20,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전술천재는 탑 공략이 너무 쉽다 [독점]",
+      "title": "건물주 되어서 취미 생활하는데, 돈이 미침",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 78,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "무인도인데 우리 집이 풀옵션임",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
+        "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 8,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "전능의 뇌를 얻었다",
+      "title": "미국에서 작곡했더니 저작권료가 쏟아짐",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 49,
+        "daysLeft": 76,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "시한부 천재가 살아남는 법",
+      "title": "판초우의의 마법사",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 88,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "공작님의 아이만 필요합니다 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 16,
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -173,7 +151,29 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 46,
+        "daysLeft": 45,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시한부 천재가 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 87,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "방구석 나가면 죽음 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
@@ -184,40 +184,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 84,
+        "daysLeft": 83,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "대공가의 새아가는 조금 사나워요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 6,
-        "daysLeft": 92,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "미궁에서 나 혼자 드워프 쉘터 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 80,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "애호받는 천살성이 됐다 [독점]",
+      "title": "계속 써도 돈이 쌓임",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 81,
+        "daysLeft": 162,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "전능의 뇌를 얻었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 25,
+        "daysLeft": 48,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "무인도인데 우리 집이 풀옵션임",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 7,
         "eventBanners": [],
         "notices": []
       }

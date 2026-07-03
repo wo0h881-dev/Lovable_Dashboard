@@ -1,5 +1,5 @@
 {
-  "date": "2026-07-02",
+  "date": "2026-07-03",
   "platform": "kakao",
   "items": [
     {
@@ -28,25 +28,13 @@
       }
     },
     {
-      "title": "아카데미 신입 경비원이 심상치 않음",
+      "title": "잊혀진 들판",
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 지원금 받기!"
-          },
-          {
-            "title": "[7월 월초팩]",
-            "subtitle": "최대 혜택 OPEN!"
-          },
-          {
-            "title": "아카데미 신입 경비원…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
             "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
+            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -64,19 +52,6 @@
           {
             "title": "7월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
           }
         ],
         "notices": []
@@ -109,17 +84,30 @@
       }
     },
     {
-      "title": "아포칼립스엔 고인물이 필요해요",
+      "title": "천재 궁수의 스트리밍",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "도파민 중독",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
           },
           {
-            "title": "7월 이달의 신작",
-            "subtitle": "지금 보면 바로 캐시 선물"
+            "title": "도파민 중독",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -143,6 +131,97 @@
       }
     },
     {
+      "title": "제암진천경",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "지금 오픈런 중!",
+            "subtitle": "3다무 + 캐시선물"
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "밀리언 소설 공모전",
+            "subtitle": "수상작 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "아포칼립스엔 고인물이 필요해요",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월 이달의 신작",
+            "subtitle": "지금 보면 바로 캐시 선물"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀한 재벌 손자는 용서가 어렵다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "스페셜 오픈런",
+            "subtitle": "최대 5,000캐시 선물"
+          },
+          {
+            "title": "회귀한 재벌 손자는…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사원이 퇴마를 잘함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "notices": []
+      }
+    },
+    {
+      "title": "아카데미 신입 경비원이 심상치 않음",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "초신작 보면 캐시선물",
+            "subtitle": "바로 지원금 받기!"
+          },
+          {
+            "title": "[7월 월초팩]",
+            "subtitle": "최대 혜택 OPEN!"
+          },
+          {
+            "title": "아카데미 신입 경비원…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
       "title": "천하제일 시골 무관",
       "promotion": {
         "timeFreeType": "waitFree",
@@ -153,32 +232,6 @@
           },
           {
             "title": "천하제일 시골 무관",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "천재 궁수의 스트리밍",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "7월의 스탬프 투어!",
-            "subtitle": "명작 감상하고 캐시 받자!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "감금했지만, 악의는 없습니다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "감금했지만, 악의는…",
             "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
@@ -216,20 +269,24 @@
       }
     },
     {
-      "title": "회사원이 퇴마를 잘함",
+      "title": "이번 생은 우주대스타",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "notices": []
       }
     },
     {
-      "title": "사채업자가 배우로 살아남는 법",
+      "title": "광마전기",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "[7월 월초팩]",
-            "subtitle": "최대 혜택 OPEN!"
+            "title": "현임 작가전",
+            "subtitle": "열람하면 최대 1천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -261,37 +318,6 @@
             "subtitle": "이벤트 모아보기"
           }
         ],
-        "notices": []
-      }
-    },
-    {
-      "title": "각성자 특별학교 서열 0위",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "[7월 월초팩]",
-            "subtitle": "최대 혜택 OPEN!"
-          },
-          {
-            "title": "각성자 특별학교 서열…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "이번 생은 우주대스타",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "저택은 봄을 기다린다",
-      "promotion": {
-        "timeFreeType": "threeHour",
         "notices": []
       }
     }
