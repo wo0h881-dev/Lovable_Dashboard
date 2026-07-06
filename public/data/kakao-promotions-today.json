@@ -1,5 +1,5 @@
 {
-  "date": "2026-07-05",
+  "date": "2026-07-06",
   "platform": "kakao",
   "items": [
     {
@@ -7,6 +7,10 @@
       "promotion": {
         "timeFreeType": "waitFree",
         "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
           {
             "title": "3부 기밀 문서 유출",
             "subtitle": "⚠️지금 열어보세요⚠️"
@@ -28,17 +32,17 @@
       }
     },
     {
-      "title": "남주와 날치기 결혼을 해 버렸다",
+      "title": "은해상단 막내아들",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "스페셜 오픈런",
-            "subtitle": "최대 5,000캐시 선물"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
           },
           {
-            "title": "남주와 날치기 결혼을…",
-            "subtitle": "열람하면 최대 3천 캐시!"
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
           }
         ],
         "notices": []
@@ -65,10 +69,6 @@
           {
             "title": "도굴왕: 엔드라인",
             "subtitle": "30시간만 캐시 선물!"
-          },
-          {
-            "title": "도굴왕: 엔드라인",
-            "subtitle": "오픈런 하고 전원캐시 받자"
           },
           {
             "title": "<도굴왕: 엔드라인>",
@@ -100,13 +100,26 @@
       }
     },
     {
-      "title": "은해상단 막내아들",
+      "title": "남주와 날치기 결혼을 해 버렸다",
       "promotion": {
-        "timeFreeType": "threeHour",
+        "timeFreeType": "waitFree",
         "eventBanners": [
           {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
+            "title": "남주와 날치기 결혼을…",
+            "subtitle": "열람하면 최대 3천 캐시!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "사기 결혼을 위한 표준 계약 지침",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "사기 결혼을 위한 표…",
+            "subtitle": "열람하면 최대 3천 캐시!"
           }
         ],
         "notices": []
@@ -116,6 +129,12 @@
       "title": "황자의 보모, 특기는 암살입니다",
       "promotion": {
         "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          }
+        ],
         "notices": []
       }
     },
@@ -137,13 +156,25 @@
       }
     },
     {
-      "title": "고립된 후작 영애는 먹고살고 싶어서",
+      "title": "제암진천경",
       "promotion": {
-        "timeFreeType": "waitFree",
+        "timeFreeType": "threeHour",
         "eventBanners": [
           {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "밀리언 소설 공모전",
+            "subtitle": "수상작 모아보기"
           }
         ],
         "notices": []
@@ -159,8 +190,8 @@
             "subtitle": "30시간만 캐시 선물!"
           },
           {
-            "title": "도굴왕: 엔드라인",
-            "subtitle": "오픈런 하고 전원캐시 받자"
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
           },
           {
             "title": "여의주 하드모드 이벤트",
@@ -187,92 +218,13 @@
       }
     },
     {
-      "title": "제암진천경",
+      "title": "신마대제",
       "promotion": {
         "timeFreeType": "threeHour",
         "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
           {
             "title": "7월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
-          },
-          {
-            "title": "밀리언 소설 공모전",
-            "subtitle": "수상작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "잊혀진 들판",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "초신작 모아보기"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "회사원이 퇴마를 잘함",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "notices": []
-      }
-    },
-    {
-      "title": "남편은 분명 성기사였는데",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "남편은 분명 성기사였…",
-            "subtitle": "외전 론칭 기념 이벤트!"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "아포칼립스엔 고인물이 필요해요",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "eventBanners": [
-          {
-            "title": "여의주 하드모드 이벤트",
-            "subtitle": "레벨 업 하면 캐시 선물!"
-          },
-          {
-            "title": "7월 이달의 신작",
-            "subtitle": "지금 보면 바로 캐시 선물"
-          }
-        ],
-        "notices": []
-      }
-    },
-    {
-      "title": "아카데미 신입 경비원이 심상치 않음",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "eventBanners": [
-          {
-            "title": "초신작 보면 캐시선물",
-            "subtitle": "바로 지원금 받기!"
-          },
-          {
-            "title": "아카데미 신입 경비원…",
-            "subtitle": "열람하면 최대 3천 캐시!"
-          },
-          {
-            "title": "카카오페이지 초신작",
-            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
@@ -290,6 +242,104 @@
           {
             "title": "7월의 스탬프 투어!",
             "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "천재 궁수의 스트리밍",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "eventBanners": [
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "아포칼립스엔 고인물이 필요해요",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          },
+          {
+            "title": "여의주 하드모드 이벤트",
+            "subtitle": "레벨 업 하면 캐시 선물!"
+          },
+          {
+            "title": "7월 이달의 신작",
+            "subtitle": "지금 보면 바로 캐시 선물"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "회귀자 멱살 잡고 데뷔합니다",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "회귀자 멱살 잡고 데…",
+            "subtitle": "외전 론칭 기념 이벤트!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "환생한 암살자는 검술 천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "랜덤 플레이 리스트",
+            "subtitle": "인생작 만나고 지원금까지!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "1년차 만렙 매니저",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "7월의 스탬프 투어!",
+            "subtitle": "명작 감상하고 캐시 받자!"
+          },
+          {
+            "title": "총 9.5억 뷰!",
+            "subtitle": "열람하고 캐시 받자!"
+          }
+        ],
+        "notices": []
+      }
+    },
+    {
+      "title": "광마전기",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "eventBanners": [
+          {
+            "title": "현임 작가전",
+            "subtitle": "열람하면 최대 1천 캐시!"
+          },
+          {
+            "title": "카카오페이지 초신작",
+            "subtitle": "판/현/무 모아보기"
           }
         ],
         "notices": []
