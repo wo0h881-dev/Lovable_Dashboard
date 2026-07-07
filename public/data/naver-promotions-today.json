@@ -1,14 +1,14 @@
 {
-  "date": "2026-07-06",
+  "date": "2026-07-07",
   "platform": "naver",
   "items": [
     {
-      "title": "용사의 인벤토리를 물려받았다 [독점]",
+      "title": "사천당가의 CIA 비밀 요원",
       "promotion": {
         "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
+        "tag": "매일10시무료",
         "freeEpisodes": 25,
-        "daysLeft": 83,
+        "daysLeft": 84,
         "eventBanners": [],
         "notices": []
       }
@@ -19,18 +19,7 @@
         "timeFreeType": "threeHour",
         "tag": "타임딜",
         "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회장님, 신점 보시려면 줄부터 서세요",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 25,
-        "daysLeft": 78,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -41,51 +30,18 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 100,
-        "daysLeft": 2,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "별 그리는 그림 천재",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "금쪽같은 마왕님 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 100,
         "daysLeft": 1,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "회사에서 건물주인 걸 안 숨김",
+      "title": "회장님, 신점 보시려면 줄부터 서세요",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "골렘군단으로 딸깍함",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
+        "freeEpisodes": 25,
+        "daysLeft": 77,
         "eventBanners": [],
         "notices": []
       }
@@ -96,18 +52,62 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 49,
+        "daysLeft": 48,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "모든걸 기억하는 천재무사 [독점]",
+      "title": "용사의 인벤토리를 물려받았다 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 26,
-        "daysLeft": 17,
+        "freeEpisodes": 25,
+        "daysLeft": 82,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "회사에서 건물주인 걸 안 숨김",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 4,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "별 그리는 그림 천재",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "금쪽같은 마왕님 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 100,
+        "daysLeft": null,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "골렘군단으로 딸깍함",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
         "eventBanners": [],
         "notices": []
       }
@@ -118,18 +118,40 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 17,
+        "daysLeft": 16,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "로제타 [독점]",
+      "title": "모든걸 기억하는 천재무사 [독점]",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 5,
-        "daysLeft": 119,
+        "freeEpisodes": 26,
+        "daysLeft": 16,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "우리는 사랑이 아닌 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 3,
+        "daysLeft": 146,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "종말의 뱀이 되었다",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 50,
+        "daysLeft": 3,
         "eventBanners": [],
         "notices": []
       }
@@ -140,61 +162,6 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료",
         "freeEpisodes": 50,
-        "daysLeft": 2,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "회귀한 아기는 육아를 거절합니다",
-      "promotion": {
-        "timeFreeType": "pass",
-        "tag": "프리패스",
-        "freeEpisodes": 5,
-        "daysLeft": 5,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "퇴사하고 알래스카 땅을 상속받았더니 백악관에서 연락 옴",
-      "promotion": {
-        "timeFreeType": "threeHour",
-        "tag": "타임딜",
-        "freeEpisodes": 50,
-        "daysLeft": 11,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "하남자의 탑 공략법",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 25,
-        "daysLeft": 80,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "무림맹 고문기술자는 경찰이 너무 쉽다",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 50,
-        "daysLeft": 2,
-        "eventBanners": [],
-        "notices": []
-      }
-    },
-    {
-      "title": "로열 메이커: 교활한 시녀가 내 편일 때 [독점]",
-      "promotion": {
-        "timeFreeType": "waitFree",
-        "tag": "매일10시무료",
-        "freeEpisodes": 6,
         "daysLeft": 1,
         "eventBanners": [],
         "notices": []
@@ -206,18 +173,51 @@
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
         "freeEpisodes": 25,
-        "daysLeft": 42,
+        "daysLeft": 41,
         "eventBanners": [],
         "notices": []
       }
     },
     {
-      "title": "우리는 사랑이 아닌 [독점]",
+      "title": "하남자의 탑 공략법",
       "promotion": {
         "timeFreeType": "waitFree",
         "tag": "매일10시무료 시리즈 에디션",
-        "freeEpisodes": 3,
-        "daysLeft": 147,
+        "freeEpisodes": 25,
+        "daysLeft": 79,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "퇴사하고 알래스카 땅을 상속받았더니 백악관에서 연락 옴",
+      "promotion": {
+        "timeFreeType": "threeHour",
+        "tag": "타임딜",
+        "freeEpisodes": 50,
+        "daysLeft": 10,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "시한부 천재가 살아남는 법",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료 시리즈 에디션",
+        "freeEpisodes": 25,
+        "daysLeft": 83,
+        "eventBanners": [],
+        "notices": []
+      }
+    },
+    {
+      "title": "재벌집 맏며느리 [독점]",
+      "promotion": {
+        "timeFreeType": "waitFree",
+        "tag": "매일10시무료",
+        "freeEpisodes": 50,
+        "daysLeft": 5,
         "eventBanners": [],
         "notices": []
       }
